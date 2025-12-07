@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a16e02b8c37b3f43ac55682dba29a26, type: 3}
+  m_Name: SolemnPriest
+  m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
+  unitName: Solemn Priest
+  maxHP: 40
+  attack: 0
+  Cooldown: 6
+  unitSprite: {fileID: -229438338720254273, guid: 4598991ace278a14e8495039b165a9e2, type: 3}
+  cost: 2
+  region: Aurelia

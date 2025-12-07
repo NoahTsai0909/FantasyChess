@@ -1,0 +1,191 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class UnitInstance : MonoBehaviour
+{
+
+    [SerializeField] private UnitDefinition definition;
+
+    private int currentHP;
+    public int GetCurrentHP() => currentHP;
+    protected float cooldownTimer;
+    public string unitName;
+
+    public bool isPlayer;   // Keep this — it affects sprite direction
+
+    public int row;
+    public int col;
+
+    private SpriteRenderer sr;
+    private Coroutine flashCoroutine;
+    private Color originalSpriteColor;
+    private GridManager myGrid;  // The grid this unit belongs to
+    private TargetingSystem targetingSystem;
+
+    [SerializeField] private GameObject healthBarPrefab;
+    private Image healthBarFill;
+    private GameObject healthBarInstance;
+
+    [SerializeField] private GameObject cooldownBarPrefab;
+    private Image cooldownBarFill;
+    private GameObject cooldownBarInstance;
+    private BattleUIManager uiManager;
+
+    protected virtual void Awake()
+    {
+        // HP and cooldown from definition
+        currentHP = definition.maxHP;
+        cooldownTimer = definition.Cooldown;
+        unitName = definition.unitName;
+
+        // Sprite setup
+        sr = GetComponent<SpriteRenderer>();
+
+        uiManager = FindFirstObjectByType<BattleUIManager>();
+    }
+
+    private void Start()
+    {
+        sr.sprite = definition.unitSprite;
+        originalSpriteColor = sr.color;
+        sr.flipX = !isPlayer;
+    }
+
+    private void Update()
+    {
+
+        UpdateCooldownBar();
+        if (cooldownTimer > 0)
+        {
+            cooldownTimer -= Time.deltaTime;
+        }    
+        else if (definition != null)
+        {
+            UseAbility();
+            cooldownTimer = definition.Cooldown;
+        }
+    }
+
+    protected virtual void UseAbility()
+    {
+        //Base implementation, children should override this
+    }
+
+    public void Initialize(GridManager grid, int targetRow, int targetCol)
+    {
+        myGrid = grid;
+        row = targetRow;
+        col = targetCol;
+
+        gameManager gm = FindFirstObjectByType<gameManager>();
+        if (gm != null)
+        {
+            targetingSystem = new TargetingSystem(
+                isPlayer ? gm.playerGrid : gm.enemyGrid,
+                isPlayer ? gm.enemyGrid : gm.playerGrid,
+                isPlayer
+            );
+        }
+        // Tell GridManager to position this unit
+        myGrid.PlaceUnit(this, row, col);
+
+        if (uiManager != null)
+        {
+            uiManager.CreateUnitUI(this, transform.position);
+            UpdateHealthBar();
+        }
+
+    }
+
+    public virtual void TakeDamage(int dmg)
+    {
+        currentHP -= dmg;
+        currentHP = Mathf.Max(0, currentHP);
+
+        UpdateHealthBar();
+
+        if (flashCoroutine != null)
+        {
+            sr.color = originalSpriteColor;
+        }
+
+        flashCoroutine = StartCoroutine(FlashDamage());
+
+        if (currentHP <= 0)
+        {
+            Die();
+        }
+    }
+
+    public virtual void HealDamage(int dmg)
+    {
+        currentHP += dmg;
+        currentHP = Mathf.Min(currentHP, definition.maxHP);
+
+        UpdateHealthBar();
+    }
+
+    private void UpdateCooldownBar() { 
+    
+        if (uiManager != null)
+        {
+            float fillAmount = (float)cooldownTimer / definition.Cooldown;
+            uiManager.UpdateCooldownBar(this, fillAmount);
+        }
+    }
+
+    private void UpdateHealthBar()
+    {
+        if (uiManager != null)
+        {
+            float fillAmount = (float)currentHP / definition.maxHP;
+            Debug.Log($"{unitName} health: {currentHP}/{definition.maxHP} = {fillAmount}");
+            uiManager.UpdateHealthBar(this, fillAmount);
+        }
+    }
+
+    private System.Collections.IEnumerator FlashDamage()
+    {
+        if (sr == null) yield break;
+
+        Color originalColor = sr.color;
+        sr.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        sr.color = originalColor;
+
+        flashCoroutine = null;
+    }
+
+    public virtual void Die()
+    {
+        Debug.Log($"{definition.unitName} died");
+
+        if (uiManager != null)
+        {
+            uiManager.RemoveUnitUI(this);
+        }
+        Destroy(gameObject);
+    }
+
+    protected UnitInstance FindNearestEnemy()
+    {
+        if (targetingSystem == null) return null;
+        var criteria = new TargetingSystem.TargetCriteria(
+            TargetingSystem.TargetTeam.Enemy,
+            TargetingSystem.SortMethod.Nearest
+        );
+        return targetingSystem.FindUnit(criteria, transform.position);
+    }
+
+    protected UnitInstance FindLowestHealthAlly()
+    {
+        if (targetingSystem == null) return null;
+        var criteria = new TargetingSystem.TargetCriteria(
+            TargetingSystem.TargetTeam.Ally,
+            TargetingSystem.SortMethod.LowestHealth
+        );
+        return targetingSystem.FindUnit(criteria, transform.position);
+    }
+}
