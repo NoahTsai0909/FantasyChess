@@ -10,6 +10,7 @@ public class RunManager : MonoBehaviour
     public int currentNodeIndex = 0;
 
     public List<UnitPlacement> playerTeamPlacements = new List<UnitPlacement>();
+    public List<UnitPlacement> playerBenchPlacements= new List<UnitPlacement>();
 
     [System.Serializable]
     public class UnitPlacement
@@ -19,10 +20,8 @@ public class RunManager : MonoBehaviour
         public int col;
     }
 
-    [Header("UI Manager")]
-    [SerializeField] private UnitInstance defaultUnitPrefab;
-    [SerializeField] private int defaultUnitRow;
-    [SerializeField] private int defaultUnitCol;
+    [Header("Default Unit")]
+    [SerializeField] private List<UnitPlacement> defaultUnits;
 
     private void Awake()
     {
@@ -45,12 +44,15 @@ public class RunManager : MonoBehaviour
 
     void InitializeDefaultTeam()
     {
-        playerTeamPlacements.Add(new UnitPlacement
+        /*playerTeamPlacements.Add(new UnitPlacement
         {
             unitPrefab = defaultUnitPrefab,
             row = defaultUnitRow,
             col = defaultUnitCol
-        });
+        });*/
+        playerTeamPlacements = defaultUnits;
+
+
     }
 
     public TeamDefinition GetTeamForCombat()
@@ -71,5 +73,22 @@ public class RunManager : MonoBehaviour
         }
 
         return combatTeam;
+    }
+
+    public TeamDefinition GetTeamForBench()
+    {
+        TeamDefinition benchTeam = ScriptableObject.CreateInstance<TeamDefinition>();
+        benchTeam.teamName = "Player Bench";
+        
+        foreach ( var placement in playerBenchPlacements)
+        {
+            benchTeam.units.Add(new TeamDefinition.UnitPlacement
+            {
+                unitPrefab = placement.unitPrefab,
+                row = placement.row,
+                col = placement.col
+            });
+        }
+        return benchTeam;
     }
 }

@@ -6,8 +6,14 @@ public class UnitDefinition : ScriptableObject
     [Header("Basic Stats")]
     public string unitName;
     public int maxHP;
+
+    [Header("Combat Values")]
     public int attack;
+    public int healValue;
+
+    [Header("Cooldown")]
     public float Cooldown;
+    public bool isPassive;
 
     [Header("Visuals")]
     public Sprite unitSprite;

@@ -83,13 +83,105 @@ public class GridManager : MonoBehaviour
         {
             for (int c = 0; c < cols; c++)
             {
-                if (gridUnits[r, c] != null)
+                if (gridUnits[r, c] != null && gridUnits[r, c].gameObject != null)
                 {
                     units.Add(gridUnits[r, c]);
+                }
+                else
+                {
+                    // Clean up null references
+                    gridUnits[r, c] = null;
                 }
             }
         }
 
         return units;
+    }
+    public Vector2Int GetNearestGridPosition(Vector3 worldPosition)
+    {
+        Vector2Int nearest = new Vector2Int(-1, -1);
+        float closestDist = float.MaxValue;
+
+        for (int r = 0; r < rows; r++)
+        {
+            for (int c = 0; c < cols; c++)
+            {
+                float dist = Vector2.Distance(worldPosition, worldPositions[r, c]);
+                if (dist < closestDist)
+                {
+                    closestDist = dist;
+                    nearest = new Vector2Int(r, c);
+                }
+            }
+        }
+
+        return nearest;
+    }
+
+    public void RemoveUnit(int r, int c)
+    {
+        if (InBounds(r, c))
+        {
+            gridUnits[r, c] = null;
+        }
+    }
+
+    public Vector2Int GetUnitPosition(UnitInstance unit)
+    {
+        for (int r = 0; r < rows; r++)
+        {
+            for (int c = 0; c < cols; c++)
+            {
+                if (gridUnits[r, c] == unit)
+                {
+                    return new Vector2Int(r, c);
+                }
+            }
+        }
+        return new Vector2Int(-1, -1);
+    }
+
+    public Vector2 GetWorldPosition(int row, int col)
+    {
+        if (InBounds(row, col))
+            return worldPositions[row, col];
+        return transform.position;
+    }
+
+    public bool IsCellEmpty(int r, int c)
+    {
+        return InBounds(r, c) && gridUnits[r, c] == null;
+    }
+
+    public float DistanceToNearestEmptyCell(Vector3 worldPosition)
+    {
+        float minDistance = float.MaxValue;
+
+        for (int r = 0; r < rows; r++)
+        {
+            for (int c = 0; c < cols; c++)
+            {
+                if (IsCellEmpty(r, c)) // Only consider empty cells
+                {
+                    float dist = Vector2.Distance(worldPosition, GetWorldPosition(r, c));
+                    if (dist < minDistance)
+                        minDistance = dist;
+                }
+            }
+        }
+
+        return minDistance;
+    }
+
+    public void ClearAllUnits()
+    {
+        gridUnits = new UnitInstance[rows, cols];
+    }
+
+    public UnitInstance GetUnitAtPosition(int row, int col)
+    {
+        if (InBounds(row, col))
+            return gridUnits[row, col];
+        return null;
     }
 }

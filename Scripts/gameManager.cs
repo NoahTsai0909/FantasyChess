@@ -12,11 +12,12 @@ public class gameManager : MonoBehaviour
     [SerializeField] private BattleUIManager battleUIManager;
 
     [Header("Current Battle")]
-    [SerializeField] private TeamDefinition playerTeam;
+    //[SerializeField] private TeamDefinition playerTeam;
     [SerializeField] private EncounterDefinition currentEncounter;
 
     void Start()
     {
+        TeamDefinition playerTeam = RunManager.Instance.GetTeamForCombat();
         if (playerTeam != null && currentEncounter != null)
         {
             InitializeBattlefield(playerTeam, currentEncounter);

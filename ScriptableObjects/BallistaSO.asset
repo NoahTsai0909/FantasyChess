@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a16e02b8c37b3f43ac55682dba29a26, type: 3}
-  m_Name: SolemnPriest
+  m_Name: BallistaSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
-  unitName: Solemn Priest
-  maxHP: 40
+  unitName: Ballistsa
+  maxHP: 20
   attack: 0
-  healValue: 8
-  Cooldown: 6
-  isPassive: 0
-  unitSprite: {fileID: -229438338720254273, guid: 4598991ace278a14e8495039b165a9e2, type: 3}
-  cost: 2
-  region: Aurelia
+  healValue: 0
+  Cooldown: 0
+  isPassive: 1
+  unitSprite: {fileID: -299750393070573542, guid: 3f8e15b6aebaf1a4da07b00226686402, type: 3}
+  cost: 0
+  region: 

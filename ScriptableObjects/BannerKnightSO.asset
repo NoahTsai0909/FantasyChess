@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Banner Knight
   maxHP: 60
-  attack: 5
+  attack: 10
+  healValue: 0
   Cooldown: 5
+  isPassive: 0
   unitSprite: {fileID: 5737945898732384636, guid: eb4626525a435e04183b2f18378d970d, type: 3}
   cost: 2
   region: Aurelia

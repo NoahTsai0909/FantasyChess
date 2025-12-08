@@ -11,6 +11,9 @@ public class UnitInstance : MonoBehaviour
     private int currentHP;
     public int GetCurrentHP() => currentHP;
     protected float cooldownTimer;
+    private int attackValue;
+    private int healValue;
+    private bool isPassive;
     public string unitName;
 
     public bool isPlayer;   // Keep this — it affects sprite direction
@@ -32,6 +35,8 @@ public class UnitInstance : MonoBehaviour
     private Image cooldownBarFill;
     private GameObject cooldownBarInstance;
     private BattleUIManager uiManager;
+    private UnitInstance sourcePrefab;
+    public UnitInstance SourcePrefab => sourcePrefab;
 
     protected virtual void Awake()
     {
@@ -39,6 +44,9 @@ public class UnitInstance : MonoBehaviour
         currentHP = definition.maxHP;
         cooldownTimer = definition.Cooldown;
         unitName = definition.unitName;
+        attackValue = definition.attack;
+        healValue = definition.healValue;
+        isPassive = definition.isPassive;
 
         // Sprite setup
         sr = GetComponent<SpriteRenderer>();
@@ -55,16 +63,18 @@ public class UnitInstance : MonoBehaviour
 
     private void Update()
     {
-
-        UpdateCooldownBar();
-        if (cooldownTimer > 0)
+        if (ShouldUpdateCombat())
         {
-            cooldownTimer -= Time.deltaTime;
-        }    
-        else if (definition != null)
-        {
-            UseAbility();
-            cooldownTimer = definition.Cooldown;
+            UpdateCooldownBar();
+            if (cooldownTimer > 0)
+            {
+                cooldownTimer -= Time.deltaTime;
+            }
+            else if (definition != null)
+            {
+                UseAbility();
+                cooldownTimer = definition.Cooldown;
+            }
         }
     }
 
@@ -169,6 +179,11 @@ public class UnitInstance : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public void SetSourcePrefab(UnitInstance prefab)
+    {
+        sourcePrefab = prefab;
+    }
+
     protected UnitInstance FindNearestEnemy()
     {
         if (targetingSystem == null) return null;
@@ -187,5 +202,13 @@ public class UnitInstance : MonoBehaviour
             TargetingSystem.SortMethod.LowestHealth
         );
         return targetingSystem.FindUnit(criteria, transform.position);
+    }
+
+    private bool ShouldUpdateCombat()
+    {
+        string sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        if (sceneName != "CombatScene")
+            return false;
+        return true;
     }
 }
