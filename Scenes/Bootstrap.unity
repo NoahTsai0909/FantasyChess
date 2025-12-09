@@ -163,6 +163,9 @@ MonoBehaviour:
   - unitPrefab: {fileID: 2845720871495510524, guid: 28a543add01a33940997e84070def3d6, type: 3}
     row: 0
     col: 1
+  - unitPrefab: {fileID: 5953980494205079508, guid: 036cd17fe768c7348bde23869ab1d19b, type: 3}
+    row: 2
+    col: 1
 --- !u!4 &221976165
 Transform:
   m_ObjectHideFlags: 0

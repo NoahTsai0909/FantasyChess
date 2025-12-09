@@ -133,6 +133,41 @@ public class UnitInstance : MonoBehaviour
 
     }
 
+    public void TakeDisasterDamage(int damage)
+    {
+        currentHP -= damage;
+        currentHP = Mathf.Max(0, currentHP);
+
+        // Update health bar but NO event publishing
+        UpdateHealthBar();
+
+        // Optional: Different visual feedback (purple flash instead of red)
+        if (flashCoroutine != null)
+        {
+            sr.color = originalSpriteColor;
+        }
+        flashCoroutine = StartCoroutine(FlashDisasterDamage());
+
+        if (currentHP <= 0)
+        {
+            // Still publish death event, but with special handling if needed
+            CombatEventBus.Publish(CombatEventType.UnitDied, null, this);
+            Die();
+        }
+    }
+
+    private System.Collections.IEnumerator FlashDisasterDamage()
+    {
+        if (sr == null) yield break;
+
+        Color originalColor = sr.color;
+        sr.color = new Color(0.5f, 0f, 0.5f); // Purple flash
+        yield return new WaitForSeconds(0.1f);
+        sr.color = originalColor;
+
+        flashCoroutine = null;
+    }
+
     public virtual void HealDamage(int dmg)
     {
         currentHP += dmg;
@@ -176,6 +211,11 @@ public class UnitInstance : MonoBehaviour
     {
         Debug.Log($"{definition.unitName} died");
 
+        if (myGrid != null)
+        {
+            Vector2Int pos = myGrid.GetUnitPosition(this);
+            myGrid.RemoveUnit(pos.x, pos.y);
+        }
         if (uiManager != null)
         {
             uiManager.RemoveUnitUI(this);

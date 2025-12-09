@@ -1,5 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using static SceneLoader;
 
 public class gameManager : MonoBehaviour
 {
@@ -15,6 +18,15 @@ public class gameManager : MonoBehaviour
     //[SerializeField] private TeamDefinition playerTeam;
     [SerializeField] private EncounterDefinition currentEncounter;
 
+    [Header("Combat Settings")]
+    [SerializeField] private float endCombatDelay = 1.5f;
+
+    [Header("Disaster System")]
+    [SerializeField] private DisasterManager disasterManager;
+
+    private bool combatActive = true;
+    public bool isCombatActive() => combatActive;
+
     void Start()
     {
         TeamDefinition playerTeam = RunManager.Instance.GetTeamForCombat();
@@ -25,6 +37,96 @@ public class gameManager : MonoBehaviour
         if (battleUIManager != null)
         {
             battleUIManager.Initialize(playerGrid, enemyGrid);
+        }
+        CombatEventBus.OnCombatEvent += OnCombatEvent;
+    }
+
+    private void OnDestroy()
+    {
+        CombatEventBus.OnCombatEvent -= OnCombatEvent;
+    }
+
+    private void OnCombatEvent(CombatEventBus.CombatEventType type, UnitInstance source, UnitInstance target)
+    {
+        if (type == CombatEventBus.CombatEventType.UnitDied && combatActive)
+        {
+            // Check combat state when a unit dies
+            StartCoroutine(CheckCombatEndDelayed(0.1f)); // Small delay to let grid update
+        }
+    }
+
+    private IEnumerator CheckCombatEndDelayed(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        CheckCombatEnd();
+    }
+
+    private void CheckCombatEnd()
+    {
+        if (!combatActive) return;
+
+        bool playerHasUnits = HasLivingUnits(playerGrid);
+        bool enemyHasUnits = HasLivingUnits(enemyGrid);
+
+        if (!playerHasUnits && !enemyHasUnits)
+        {
+            // Draw - both teams dead
+            EndCombat(false, false);
+        }
+        else if (!playerHasUnits)
+        {
+            // Player lost
+            EndCombat(false, true);
+        }
+        else if (!enemyHasUnits)
+        {
+            // Player won
+            EndCombat(true, false);
+        }
+    }
+
+    private bool HasLivingUnits(GridManager grid)
+    {
+        // Check if grid has any non-null units (alive)
+        List<UnitInstance> units = grid.GetAllUnits();
+        return units.Count > 0;
+    }
+
+    private void EndCombat(bool playerWon, bool isDraw)
+    {
+        combatActive = false;
+
+        if (disasterManager != null)
+            disasterManager.StopDisaster();
+
+        Time.timeScale = 0.5f;
+
+        Debug.Log($"Combat ended. Player won: {playerWon}, Draw: {isDraw}");
+
+        // You can add rewards/score saving logic here
+        if (playerWon)
+        {
+            // Give gold rewards, etc.
+            RunManager.Instance.currentGold += 50; // Example reward
+        }
+
+        // Start coroutine to transition scene
+        StartCoroutine(TransitionAfterDelay(playerWon));
+    }
+
+    private IEnumerator TransitionAfterDelay(bool playerWon)
+    {
+        yield return new WaitForSeconds(endCombatDelay);
+
+        if (playerWon)
+        {
+            // Go to map scene to continue run
+            SceneLoader.Instance.LoadScene(GameScene.MapScene);
+        }
+        else
+        {
+            // Player lost - go to main menu or run summary
+            SceneLoader.Instance.LoadScene(GameScene.MainMenuScene);
         }
     }
 
@@ -65,4 +167,5 @@ public class gameManager : MonoBehaviour
 
         return unit;
     }
+
 }

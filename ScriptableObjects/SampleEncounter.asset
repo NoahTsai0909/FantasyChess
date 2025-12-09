@@ -14,12 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EncounterDefinition
   encounterName: Sample Encounter
   enemyUnits:
-  - unitPrefab: {fileID: 1807140018485177481, guid: d6addf1dd09d0b7448504bd34098bdc6, type: 3}
+  - unitPrefab: {fileID: 5953980494205079508, guid: 036cd17fe768c7348bde23869ab1d19b, type: 3}
     row: 0
     col: 0
-  - unitPrefab: {fileID: 3176379809111270148, guid: 888f4831d27eba143a6a76502332a5b4, type: 3}
-    row: 1
-    col: 0
-  - unitPrefab: {fileID: 5953980494205079508, guid: 036cd17fe768c7348bde23869ab1d19b, type: 3}
-    row: 1
-    col: 1
