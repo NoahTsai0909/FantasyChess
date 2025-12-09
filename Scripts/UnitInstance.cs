@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static CombatEventBus;
 
 public class UnitInstance : MonoBehaviour
 {
@@ -11,9 +12,9 @@ public class UnitInstance : MonoBehaviour
     private int currentHP;
     public int GetCurrentHP() => currentHP;
     protected float cooldownTimer;
-    private int attackValue;
-    private int healValue;
-    private bool isPassive;
+    protected int attackValue;
+    protected int healValue;
+    protected bool isPassive;
     public string unitName;
 
     public bool isPlayer;   // Keep this — it affects sprite direction
@@ -63,7 +64,7 @@ public class UnitInstance : MonoBehaviour
 
     private void Update()
     {
-        if (ShouldUpdateCombat())
+        if (ShouldUpdateCombat() && !isPassive)
         {
             UpdateCooldownBar();
             if (cooldownTimer > 0)
@@ -81,6 +82,7 @@ public class UnitInstance : MonoBehaviour
     protected virtual void UseAbility()
     {
         //Base implementation, children should override this
+        CombatEventBus.Publish(CombatEventBus.CombatEventType.AbilityUsed, this, null);
     }
 
     public void Initialize(GridManager grid, int targetRow, int targetCol)
@@ -122,18 +124,20 @@ public class UnitInstance : MonoBehaviour
         }
 
         flashCoroutine = StartCoroutine(FlashDamage());
+        CombatEventBus.Publish(CombatEventType.DamageTaken, this, this);
 
         if (currentHP <= 0)
         {
             Die();
         }
+
     }
 
     public virtual void HealDamage(int dmg)
     {
         currentHP += dmg;
         currentHP = Mathf.Min(currentHP, definition.maxHP);
-
+        CombatEventBus.Publish(CombatEventType.Healed, this, this);
         UpdateHealthBar();
     }
 
@@ -176,6 +180,7 @@ public class UnitInstance : MonoBehaviour
         {
             uiManager.RemoveUnitUI(this);
         }
+        CombatEventBus.Publish(CombatEventType.UnitDied, this, this);
         Destroy(gameObject);
     }
 
@@ -190,6 +195,16 @@ public class UnitInstance : MonoBehaviour
         var criteria = new TargetingSystem.TargetCriteria(
             TargetingSystem.TargetTeam.Enemy,
             TargetingSystem.SortMethod.Nearest
+        );
+        return targetingSystem.FindUnit(criteria, transform.position);
+    }
+
+    protected UnitInstance FindFarthestEnemy()
+    {
+        if (targetingSystem == null) return null;
+        var criteria = new TargetingSystem.TargetCriteria(
+            TargetingSystem.TargetTeam.Enemy,
+            TargetingSystem.SortMethod.Farthest
         );
         return targetingSystem.FindUnit(criteria, transform.position);
     }
@@ -210,5 +225,9 @@ public class UnitInstance : MonoBehaviour
         if (sceneName != "CombatScene")
             return false;
         return true;
+    }
+
+    protected virtual void HandleCombatEvent(CombatEventType type, UnitInstance source, UnitInstance target)
+    {
     }
 }

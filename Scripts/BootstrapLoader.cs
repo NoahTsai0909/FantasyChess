@@ -9,6 +9,6 @@ public class BootstrapLoader : MonoBehaviour
         // SceneLoader and RunManager are now ready
 
         // Load first real scene
-        SceneLoader.Instance.LoadScene(GameScene.MapScene);
+        SceneLoader.Instance.LoadScene(GameScene.MainMenuScene);
     }
 }

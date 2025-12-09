@@ -10,6 +10,7 @@ public class SceneLoader : MonoBehaviour
         MapScene,
         CombatScene,
         PrepScene,
+        MainMenuScene
     }
 
     public static SceneLoader Instance { get; private set; }

@@ -1,25 +1,22 @@
 using UnityEngine;
 
-public class BannerKnight : UnitInstance
+public class DeadEye : UnitInstance
 {
     protected override void Awake()
     {
         base.Awake();
-        Debug.Log("Banner Knight deployed");
+        Debug.Log("Deadeye deployed");
     }
-
 
     protected override void UseAbility()
     {
         Debug.Log($"{unitName} uses ability!");
-
-        // Use parent's FindNearestEnemy() method
-        UnitInstance target = FindNearestEnemy();
+        UnitInstance target = FindFarthestEnemy();
 
         if (target != null)
         {
             target.TakeDamage(attackValue);
-            Debug.Log($"{unitName} attacks {target.unitName} for 10 damage!");
+            Debug.Log($"{unitName} attacks {target.unitName} for {attackValue}!");
 
         }
         else
@@ -28,6 +25,4 @@ public class BannerKnight : UnitInstance
         }
         base.UseAbility();
     }
-
-    
 }

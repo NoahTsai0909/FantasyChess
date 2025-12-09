@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a16e02b8c37b3f43ac55682dba29a26, type: 3}
-  m_Name: BallistaSO
+  m_Name: DeadeyeSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
-  unitName: Ballistsa
-  maxHP: 20
-  attack: 10
+  unitName: Deadeye
+  maxHP: 40
+  attack: 15
   healValue: 0
-  Cooldown: 0
-  isPassive: 1
-  unitSprite: {fileID: -299750393070573542, guid: 3f8e15b6aebaf1a4da07b00226686402, type: 3}
+  Cooldown: 6
+  isPassive: 0
+  unitSprite: {fileID: 6701330883876791855, guid: 95d84e434ca9236419b0c59a7146b5e1, type: 3}
   cost: 2
   region: Aurelia

@@ -17,7 +17,7 @@ public class SolemnPriest : UnitInstance
 
         if (target != null)
         {
-            target.HealDamage(8);
+            target.HealDamage(healValue);
             Debug.Log($"{unitName} heals {target.unitName} for 8 damage!");
 
         }
