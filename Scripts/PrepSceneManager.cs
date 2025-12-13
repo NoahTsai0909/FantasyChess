@@ -120,23 +120,23 @@ public class PrepSceneManager : MonoBehaviour
             RunManager.Instance.playerTeamPlacements = battleTeam;
 
             // Save bench team
-            List<RunManager.UnitPlacement> benchTeam = new List<RunManager.UnitPlacement>();
+            for (int i = 0; i < RunManager.Instance.playerBenchPlacements.Count; i++)
+            {
+                RunManager.Instance.playerBenchPlacements[i].unitPrefab = null;
+            }
+
+            // Now fill only the slots that have units on bench
+            int benchIndex = 0;
             foreach (UnitInstance unit in benchGrid.GetAllUnits())
             {
-                Vector2Int pos = benchGrid.GetUnitPosition(unit);
-                if (pos.x >= 0 && unit.SourcePrefab != null)
+                if (unit.SourcePrefab != null && benchIndex < RunManager.Instance.playerBenchPlacements.Count)
                 {
-                    benchTeam.Add(new RunManager.UnitPlacement
-                    {
-                        unitPrefab = unit.SourcePrefab,
-                        row = pos.x,
-                        col = pos.y
-                    });
+                    RunManager.Instance.playerBenchPlacements[benchIndex].unitPrefab = unit.SourcePrefab;
+                    benchIndex++;
                 }
             }
-            RunManager.Instance.playerBenchPlacements = benchTeam;
 
-            Debug.Log($"Saved: {battleTeam.Count} battle units, {benchTeam.Count} bench units");
+            Debug.Log($"Saved: {battleTeam.Count} battle units, {benchIndex} bench units");
         }
     }
 

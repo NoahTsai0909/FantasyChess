@@ -151,7 +151,6 @@ MonoBehaviour:
   battleGrid: {fileID: 1829933803}
   benchGrid: {fileID: 1460119201}
   ReturnButton: {fileID: 1456133030}
-  dragManager: {fileID: 1444282849}
 --- !u!4 &508103237
 Transform:
   m_ObjectHideFlags: 0
@@ -788,7 +787,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridManager
   rows: 3
-  cols: 3
+  cols: 4
   cellSize: 2
   tilePrefab: {fileID: 7939534437322562976, guid: 48e77782e79490a40904c9e3f9eb703a, type: 3}
 --- !u!4 &1829933804

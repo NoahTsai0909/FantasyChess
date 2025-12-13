@@ -1,0 +1,33 @@
+using UnityEngine;
+using static SceneLoader;
+
+[CreateAssetMenu(fileName = "CombatEvent", menuName = "Events/Combat Event")]
+public class CombatEventSO : BaseEventSO
+{
+    [Header("Combat Settings")]
+    public EncounterDefinition encounter;
+
+    public override void OnSelected()
+    {
+        // Store the encounter BEFORE calling base
+        RunManager.Instance.currentEncounter = encounter;
+        Debug.Log($"Combat event selected: {eventName}, Encounter: {encounter?.encounterName}");
+
+        // Make sure targetScene is CombatScene
+        targetScene = GameScene.CombatScene; // Force it to be combat scene
+
+        // Now call base - this will set selectedEvent and load scene
+        base.OnSelected();
+    }
+
+    protected override void ApplyRandomReward()
+    {
+        // Only give rewards if player actually won (this should be called from gameManager)
+        Debug.Log("Combat rewards applied (should be after actual combat)");
+
+        // Don't give rewards here - gameManager should handle this after actual combat
+        // Base class will handle basic rewards if configured
+        base.ApplyRandomReward();
+    }
+
+}

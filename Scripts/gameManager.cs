@@ -14,10 +14,6 @@ public class gameManager : MonoBehaviour
     [Header("UI Manager")]
     [SerializeField] private BattleUIManager battleUIManager;
 
-    [Header("Current Battle")]
-    //[SerializeField] private TeamDefinition playerTeam;
-    [SerializeField] private EncounterDefinition currentEncounter;
-
     [Header("Combat Settings")]
     [SerializeField] private float endCombatDelay = 1.5f;
 
@@ -30,9 +26,14 @@ public class gameManager : MonoBehaviour
     void Start()
     {
         TeamDefinition playerTeam = RunManager.Instance.GetTeamForCombat();
+        EncounterDefinition currentEncounter = RunManager.Instance.currentEncounter;
         if (playerTeam != null && currentEncounter != null)
         {
             InitializeBattlefield(playerTeam, currentEncounter);
+        }
+        if (!HasLivingUnits(playerGrid))
+        {
+            CheckCombatEnd();
         }
         if (battleUIManager != null)
         {
@@ -71,7 +72,7 @@ public class gameManager : MonoBehaviour
         if (!playerHasUnits && !enemyHasUnits)
         {
             // Draw - both teams dead
-            EndCombat(false, false);
+            EndCombat(true, false);
         }
         else if (!playerHasUnits)
         {
@@ -101,13 +102,29 @@ public class gameManager : MonoBehaviour
 
         Time.timeScale = 0.5f;
 
-        Debug.Log($"Combat ended. Player won: {playerWon}, Draw: {isDraw}");
+        Debug.Log($"Combat ended. Player won: {playerWon}");
 
-        // You can add rewards/score saving logic here
-        if (playerWon)
+        // Apply rewards only if player won
+        if (playerWon && RunManager.Instance.selectedEvent != null)
         {
-            // Give gold rewards, etc.
-            RunManager.Instance.currentGold += 50; // Example reward
+            // Get the combat event that started this battle
+            var combatEvent = RunManager.Instance.selectedEvent as CombatEventSO;
+            if (combatEvent != null)
+            {
+                // Apply combat-specific rewards
+                int baseGold = 30 + (RunManager.Instance.reputation * 5);
+                RunManager.Instance.currentGold += baseGold;
+                RunManager.Instance.reputation += 1;
+            }
+
+            // Mark the event as completed
+            RunManager.Instance.selectedEvent.CompleteEvent();
+        }
+        else if (!playerWon)
+        {
+            // Player lost - still mark event as completed but no rewards
+            if (RunManager.Instance.selectedEvent != null)
+                RunManager.Instance.selectedEvent.CompleteEvent();
         }
 
         // Start coroutine to transition scene
@@ -127,6 +144,7 @@ public class gameManager : MonoBehaviour
         {
             // Player lost - go to main menu or run summary
             SceneLoader.Instance.LoadScene(GameScene.MainMenuScene);
+            RunManager.Instance.ResetRun();
         }
     }
 

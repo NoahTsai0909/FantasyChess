@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0353c830dbf0d9458985e164589fd1e, type: 3}
+  m_Name: TestRandomUnitEvent
+  m_EditorClassIdentifier: Assembly-CSharp::RandomUnitEventSO
+  eventName: Mysterious stranger
+  description: A companion decides to join your squad...
+  eventIcon: {fileID: 8630833029534501343, guid: cef6df5bb482442408ce0a7adf781304, type: 3}
+  minReputationRequired: 1
+  maxReputationAllowed: 10
+  selectionWeight: 1
+  targetScene: 1
+  possibleRewards: []
+  backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+  flavorText: 
+  minRarity: 0
+  maxRarity: 0
+  preferredTags: 0

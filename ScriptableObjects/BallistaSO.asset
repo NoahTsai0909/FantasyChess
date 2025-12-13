@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a16e02b8c37b3f43ac55682dba29a26, type: 3}
   m_Name: BallistaSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
-  unitName: Ballistsa
+  unitName: Ballista
   maxHP: 20
   attack: 10
   healValue: 0
@@ -21,3 +21,8 @@ MonoBehaviour:
   unitSprite: {fileID: -299750393070573542, guid: 3f8e15b6aebaf1a4da07b00226686402, type: 3}
   cost: 2
   region: Aurelia
+  rarity: 0
+  tags: []
+  reputationUnlockLevel: 0
+  unitPrefab: {fileID: 2845720871495510524, guid: 28a543add01a33940997e84070def3d6, type: 3}
+  tagFlags: 0

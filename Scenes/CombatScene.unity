@@ -321,7 +321,6 @@ MonoBehaviour:
   playerGrid: {fileID: 1148643570}
   enemyGrid: {fileID: 792499638}
   battleUIManager: {fileID: 1545069895}
-  currentEncounter: {fileID: 11400000, guid: 0ab0dfa65ba37b142b08480b4a44484a, type: 2}
   endCombatDelay: 1.5
   disasterManager: {fileID: 1995609290}
 --- !u!4 &535575539
@@ -468,7 +467,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridManager
   rows: 3
-  cols: 3
+  cols: 4
   cellSize: 2
   tilePrefab: {fileID: 7939534437322562976, guid: 48e77782e79490a40904c9e3f9eb703a, type: 3}
 --- !u!1 &1148643568
@@ -516,7 +515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridManager
   rows: 3
-  cols: 3
+  cols: 4
   cellSize: 2
   tilePrefab: {fileID: 7939534437322562976, guid: 48e77782e79490a40904c9e3f9eb703a, type: 3}
 --- !u!1 &1377996625

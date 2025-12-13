@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "UnitDefinition", menuName = "Units/Unit Definition")]
@@ -21,4 +22,15 @@ public class UnitDefinition : ScriptableObject
     [Header("Meta")]
     public int cost;
     public string region;   // Aurelia / Nethervale / Everborn / Axiom
+    public Rarity rarity;
+    public List<string> tags; // ["weaponry", "ranged", "support", "tank"]
+    public int reputationUnlockLevel;
+
+    [Header("Prefab Reference")]
+    public UnitInstance unitPrefab;
+
+    [Header("Tags")]
+    public UnitTagFlags tagFlags;
 }
+
+public enum Rarity { Common, Rare, Epic, Legendary }
