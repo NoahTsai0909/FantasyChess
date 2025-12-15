@@ -33,7 +33,7 @@ public class Ballista : UnitInstance
         if (enemy != null)
         {
             Debug.Log($"{unitName} fires due to ally {source.unitName}!");
-            enemy.TakeDamage(attackValue);
+            enemy.TakeDamage(stats.Attack);
         }
     }
 }

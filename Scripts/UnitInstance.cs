@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
 using static CombatEventBus;
@@ -12,12 +13,12 @@ public class UnitInstance : MonoBehaviour
     private int currentHP;
     public int GetCurrentHP() => currentHP;
     protected float cooldownTimer;
-    protected int attackValue;
-    protected int healValue;
     protected bool isPassive;
     public string unitName;
-
     public bool isPlayer;   // Keep this — it affects sprite direction
+    protected TemporaryStats temporaryStats;
+    protected PermanentStats permanentStats;
+    protected StatBlock stats;
 
     public int row;
     public int col;
@@ -38,25 +39,20 @@ public class UnitInstance : MonoBehaviour
     private BattleUIManager uiManager;
     private UnitInstance sourcePrefab;
     public UnitInstance SourcePrefab => sourcePrefab;
-
     protected virtual void Awake()
     {
-        // HP and cooldown from definition
-        currentHP = definition.maxHP;
-        cooldownTimer = definition.Cooldown;
-        unitName = definition.unitName;
-        attackValue = definition.attack;
-        healValue = definition.healValue;
-        isPassive = definition.isPassive;
+        temporaryStats = new TemporaryStats();
 
         // Sprite setup
         sr = GetComponent<SpriteRenderer>();
-
-        uiManager = FindFirstObjectByType<BattleUIManager>();
     }
 
     private void Start()
     {
+        if (stats == null)
+        {
+            Debug.LogWarning($"{name} started without Initialize()");
+        }
         sr.sprite = definition.unitSprite;
         originalSpriteColor = sr.color;
         sr.flipX = !isPlayer;
@@ -74,7 +70,7 @@ public class UnitInstance : MonoBehaviour
             else if (definition != null)
             {
                 UseAbility();
-                cooldownTimer = definition.Cooldown;
+                cooldownTimer = stats.Cooldown;
             }
         }
     }
@@ -85,12 +81,21 @@ public class UnitInstance : MonoBehaviour
         CombatEventBus.Publish(CombatEventBus.CombatEventType.AbilityUsed, this, null);
     }
 
-    public void Initialize(GridManager grid, int targetRow, int targetCol)
+    public void Initialize(GridManager grid, int targetRow, int targetCol, UnitInstance source)
     {
+        sourcePrefab = source;
         myGrid = grid;
         row = targetRow;
         col = targetCol;
 
+        // Tell GridManager to position this unit
+        permanentStats = RunManager.Instance.GetPermanentStatsForUnit(sourcePrefab);
+        stats = new StatBlock(definition, permanentStats, temporaryStats);
+        currentHP = stats.MaxHP;
+        cooldownTimer = stats.Cooldown;
+        unitName = definition.unitName;
+        isPassive = definition.isPassive;
+        myGrid.PlaceUnit(this, row, col);
         gameManager gm = FindFirstObjectByType<gameManager>();
         if (gm != null)
         {
@@ -100,9 +105,7 @@ public class UnitInstance : MonoBehaviour
                 isPlayer
             );
         }
-        // Tell GridManager to position this unit
-        myGrid.PlaceUnit(this, row, col);
-
+        uiManager = FindFirstObjectByType<BattleUIManager>();
         if (uiManager != null)
         {
             uiManager.CreateUnitUI(this, transform.position);
@@ -171,7 +174,7 @@ public class UnitInstance : MonoBehaviour
     public virtual void HealDamage(int dmg)
     {
         currentHP += dmg;
-        currentHP = Mathf.Min(currentHP, definition.maxHP);
+        currentHP = Mathf.Min(currentHP, stats.MaxHP);
         CombatEventBus.Publish(CombatEventType.Healed, this, this);
         UpdateHealthBar();
     }
@@ -180,7 +183,7 @@ public class UnitInstance : MonoBehaviour
     
         if (uiManager != null)
         {
-            float fillAmount = (float)cooldownTimer / definition.Cooldown;
+            float fillAmount = (float)cooldownTimer / stats.Cooldown;
             uiManager.UpdateCooldownBar(this, fillAmount);
         }
     }
@@ -189,8 +192,7 @@ public class UnitInstance : MonoBehaviour
     {
         if (uiManager != null)
         {
-            float fillAmount = (float)currentHP / definition.maxHP;
-            Debug.Log($"{unitName} health: {currentHP}/{definition.maxHP} = {fillAmount}");
+            float fillAmount = (float)currentHP / stats.MaxHP;
             uiManager.UpdateHealthBar(this, fillAmount);
         }
     }

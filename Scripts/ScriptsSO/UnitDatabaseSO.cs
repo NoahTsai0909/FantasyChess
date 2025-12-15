@@ -33,7 +33,7 @@ public class UnitDatabase : ScriptableObject
     }
 
     // Get units by region
-    public List<UnitDefinition> GetUnitsByRegion(string region)
+    public List<UnitDefinition> GetUnitsByRegion(Region region)
     {
         return allUnits.Where(unit => unit.region == region).ToList();
     }
@@ -46,7 +46,7 @@ public class UnitDatabase : ScriptableObject
     }
 
     // Get random unit by region
-    public UnitDefinition GetRandomUnitByRegion(string region)
+    public UnitDefinition GetRandomUnitByRegion(Region region)
     {
         var regionalUnits = GetUnitsByRegion(region);
         if (regionalUnits.Count == 0) return GetRandomUnit();

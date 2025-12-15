@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a16e02b8c37b3f43ac55682dba29a26, type: 3}
-  m_Name: DeadeyeSO
+  m_Name: MinotaurSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
-  unitName: Deadeye
-  maxHP: 40
-  attack: 15
+  unitName: Oathbound Minotaur
+  maxHP: 60
+  attack: 5
   healValue: 0
-  Cooldown: 6
+  Cooldown: 4
   isPassive: 0
-  unitSprite: {fileID: 6255187896223928103, guid: 0bd84aeb11eb06f4eba6fb4e010d60be, type: 3}
+  unitSprite: {fileID: 8083504613746027167, guid: 235b2e13070ace54dacf9819ae8b0dfe, type: 3}
   cost: 2
   region: 0
   rarity: 0
   reputationUnlockLevel: 0
-  unitPrefab: {fileID: 5953980494205079508, guid: 036cd17fe768c7348bde23869ab1d19b, type: 3}
-  tagFlags: 0
+  unitPrefab: {fileID: 6828884537991765889, guid: 997ea82383869fb459f3382f7d61e482, type: 3}
+  tagFlags: 144

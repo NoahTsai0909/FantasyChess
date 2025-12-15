@@ -37,6 +37,9 @@ public class RunManager : MonoBehaviour
     public bool eventInProgress = false;
     public const int TOTAL_DAYS = 7;
 
+    private Dictionary<UnitInstance, PermanentStats> permanentStatsMap
+    = new Dictionary<UnitInstance, PermanentStats>();
+
     private void Awake()
     {
         // Singleton pattern
@@ -276,6 +279,15 @@ public class RunManager : MonoBehaviour
             }
         }
     }
+    public PermanentStats GetPermanentStatsForUnit(UnitInstance unitKey)
+    {
+        if (!permanentStatsMap.TryGetValue(unitKey, out var stats))
+        {
+            stats = new PermanentStats();
+            permanentStatsMap[unitKey] = stats;
+        }
+        return stats;
+    }
 
     public void ResetRun()
     {
@@ -294,6 +306,7 @@ public class RunManager : MonoBehaviour
         currentEncounter = null;
         eventInProgress = false;
 
+        permanentStatsMap.Clear();
         // Reset team to default
         playerTeamPlacements.Clear();
         InitializeDefaultTeam();
@@ -301,6 +314,7 @@ public class RunManager : MonoBehaviour
         // Reset bench
         playerBenchPlacements.Clear();
         InitializeBench();
+
 
         // Clear any other run-specific data
         Debug.Log("Run reset complete!");

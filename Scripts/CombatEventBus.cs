@@ -1,3 +1,5 @@
+using System;
+
 public static class CombatEventBus
 {
     public enum CombatEventType
@@ -15,5 +17,12 @@ public static class CombatEventBus
     public static void Publish(CombatEventType type, UnitInstance source, UnitInstance target)
     {
         OnCombatEvent?.Invoke(type, source, target);
+    }
+
+    public static event Action OnCombatEnd;
+
+    public static void PublishCombatEnd()
+    {
+        OnCombatEnd?.Invoke();
     }
 }

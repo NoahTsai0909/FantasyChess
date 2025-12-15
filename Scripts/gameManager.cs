@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static CombatEventBus;
 using static SceneLoader;
 
 public class gameManager : MonoBehaviour
@@ -95,6 +96,7 @@ public class gameManager : MonoBehaviour
 
     private void EndCombat(bool playerWon, bool isDraw)
     {
+        CombatEventBus.PublishCombatEnd();
         combatActive = false;
 
         if (disasterManager != null)
@@ -177,11 +179,12 @@ public class gameManager : MonoBehaviour
         // 1. Instantiate the SPECIFIC prefab (BannerKnight, SolemnPriest, etc.)
         UnitInstance unit = Instantiate(unitPrefab);
 
+        unit.SetSourcePrefab(unitPrefab);
         // 2. Set team
         unit.isPlayer = isPlayer;
 
         // 3. Initialize with UI prefabs
-        unit.Initialize(grid, row, col);
+        unit.Initialize(grid, row, col, unitPrefab);
 
         return unit;
     }

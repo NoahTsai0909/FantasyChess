@@ -54,7 +54,12 @@ public class BattleUIManager : MonoBehaviour
         unitUIElements[unit] = (healthBar, healthFill, cooldownBar, cooldownFill);
 
         // Initialize
-        if (healthFill != null) healthFill.fillAmount = 1f;
+        if (healthFill != null)
+        {
+            healthFill.fillAmount = 1f;
+            healthFill.color = Color.green;
+            Debug.Log("Color of health is green");
+        }
         if (cooldownFill != null) cooldownFill.fillAmount = 0f;
     }
 

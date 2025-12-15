@@ -1,3 +1,4 @@
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class BannerKnight : UnitInstance
@@ -18,7 +19,7 @@ public class BannerKnight : UnitInstance
 
         if (target != null)
         {
-            target.TakeDamage(attackValue);
+            target.TakeDamage(stats.Attack);
             Debug.Log($"{unitName} attacks {target.unitName} for 10 damage!");
 
         }

@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0409c08c9b8e8eb4bb00b3ad36e1d726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RunManager
-  currentGold: 100
+  currentGold: 10
   currentNodeIndex: 0
   playerTeamPlacements: []
   playerBenchPlacements: []
@@ -158,13 +158,12 @@ MonoBehaviour:
     row: 1
     col: 1
   currentDay: 1
-  eventsCompletedToday: 0
+  regularEventsCompleted: 0
   isBattleDay: 0
   reputation: 1
   currentDailyEvents: []
   selectedEvent: {fileID: 0}
   currentEncounter: {fileID: 0}
-  eventsUntilBattle: 2
   eventInProgress: 0
 --- !u!4 &221976165
 Transform:

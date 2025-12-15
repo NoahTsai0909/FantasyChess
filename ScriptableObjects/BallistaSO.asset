@@ -20,9 +20,8 @@ MonoBehaviour:
   isPassive: 1
   unitSprite: {fileID: -299750393070573542, guid: 3f8e15b6aebaf1a4da07b00226686402, type: 3}
   cost: 2
-  region: Aurelia
+  region: 0
   rarity: 0
-  tags: []
   reputationUnlockLevel: 0
   unitPrefab: {fileID: 2845720871495510524, guid: 28a543add01a33940997e84070def3d6, type: 3}
   tagFlags: 0

@@ -21,9 +21,8 @@ public class UnitDefinition : ScriptableObject
 
     [Header("Meta")]
     public int cost;
-    public string region;   // Aurelia / Nethervale / Everborn / Axiom
+    public Region region;   // Aurelia / Nethervale / Everborn / Axiom
     public Rarity rarity;
-    public List<string> tags; // ["weaponry", "ranged", "support", "tank"]
     public int reputationUnlockLevel;
 
     [Header("Prefab Reference")]
@@ -34,3 +33,4 @@ public class UnitDefinition : ScriptableObject
 }
 
 public enum Rarity { Common, Rare, Epic, Legendary }
+public enum Region { Aurelia, Nethervale, Everborn, Axiom}

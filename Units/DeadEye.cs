@@ -15,8 +15,8 @@ public class DeadEye : UnitInstance
 
         if (target != null)
         {
-            target.TakeDamage(attackValue);
-            Debug.Log($"{unitName} attacks {target.unitName} for {attackValue}!");
+            target.TakeDamage(stats.Attack);
+            Debug.Log($"{unitName} attacks {target.unitName} for {stats.Attack}!");
 
         }
         else

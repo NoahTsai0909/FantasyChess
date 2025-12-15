@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a16e02b8c37b3f43ac55682dba29a26, type: 3}
-  m_Name: DeadeyeSO
+  m_Name: FarmerSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
-  unitName: Deadeye
-  maxHP: 40
-  attack: 15
+  unitName: Farmer
+  maxHP: 30
+  attack: 5
   healValue: 0
-  Cooldown: 6
+  Cooldown: 5
   isPassive: 0
-  unitSprite: {fileID: 6255187896223928103, guid: 0bd84aeb11eb06f4eba6fb4e010d60be, type: 3}
+  unitSprite: {fileID: -284627385986098231, guid: 0685d299f0bdf6c4d992a3159cdd64ad, type: 3}
   cost: 2
   region: 0
   rarity: 0
   reputationUnlockLevel: 0
-  unitPrefab: {fileID: 5953980494205079508, guid: 036cd17fe768c7348bde23869ab1d19b, type: 3}
-  tagFlags: 0
+  unitPrefab: {fileID: 2576259255534838855, guid: 186e76a3dba96124cabb4905964506ca, type: 3}
+  tagFlags: 16

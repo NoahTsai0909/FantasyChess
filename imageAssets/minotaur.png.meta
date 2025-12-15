@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 0bd84aeb11eb06f4eba6fb4e010d60be
+guid: 235b2e13070ace54dacf9819ae8b0dfe
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6255187896223928103
-    second: Deadeye 1_0
+      213: 8083504613746027167
+    second: minotaur_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Deadeye 1_0
+      name: minotaur_0
       rect:
         serializedVersion: 2
-        x: 19
-        y: 19
-        width: 612
-        height: 572
+        x: 79
+        y: 9
+        width: 522
+        height: 631
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 72f00cd0044eec650800000000000000
-      internalID: 6255187896223928103
+      spriteID: f9a20923e906e2070800000000000000
+      internalID: 8083504613746027167
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Deadeye 1_0: 6255187896223928103
+      minotaur_0: 8083504613746027167
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
