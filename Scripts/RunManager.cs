@@ -289,6 +289,13 @@ public class RunManager : MonoBehaviour
         return stats;
     }
 
+    public StatBlock GetPreviewStats(UnitDefinition definition)
+    {
+        PermanentStats permStats = GetPermanentStatsForUnit(definition.unitPrefab);
+        TemporaryStats tempStats = new TemporaryStats(); // or new TemporaryStats()
+        return new StatBlock(definition, permStats, tempStats);
+    }
+
     public void ResetRun()
     {
         Debug.Log("=== RESETTING RUN ===");

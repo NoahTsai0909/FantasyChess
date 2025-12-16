@@ -17,8 +17,6 @@ public abstract class BaseEventSO : ScriptableObject
     [Header("Scene Management")]
     public GameScene targetScene; // Which scene loads for this event
 
-    [Header("Rewards")]
-    public Reward[] possibleRewards;
 
     [Header("Visuals")]
     public Color backgroundColor = Color.white;
@@ -60,9 +58,6 @@ public abstract class BaseEventSO : ScriptableObject
         RunManager.Instance.eventInProgress = false;
         RunManager.Instance.selectedEvent = null;
 
-        // Apply rewards
-        ApplyRandomReward();
-
         bool isCombat = (this is CombatEventSO);
 
         if (isCombat)
@@ -86,69 +81,16 @@ public abstract class BaseEventSO : ScriptableObject
         }
     }
 
-    protected virtual void ApplyRandomReward()
-    {
-        if (possibleRewards != null && possibleRewards.Length > 0)
-        {
-            Reward reward = possibleRewards[Random.Range(0, possibleRewards.Length)];
-            reward.Apply();
-        }
-    }
-
     public virtual bool IsAvailable()
     {
         int rep = RunManager.Instance.reputation;
         return rep >= minReputationRequired && rep <= maxReputationAllowed;
     }
-}
 
-[System.Serializable]
-public class Reward
-{
-    public RewardType type;
-    public int value;
-    public UnitDefinition unitReward; // For unit rewards
-    public string customEffect; // For special effects
-
-    public void Apply()
+    public virtual UnitDefinition ReturnRandomUnit()
     {
-        switch (type)
-        {
-            case RewardType.Gold:
-                RunManager.Instance.currentGold += value;
-                Debug.Log($"Reward: Gained {value} gold");
-                break;
-            case RewardType.Reputation:
-                RunManager.Instance.reputation += value;
-                Debug.Log($"Reward: Gained {value} reputation");
-                break;
-            case RewardType.RandomUnit:
-                // Actually give a random unit
-                if (UnitDatabase.Instance != null)
-                {
-                    UnitDefinition randomUnit = UnitDatabase.Instance.GetRandomUnit();
-                    if (randomUnit != null)
-                    {
-                        RunManager.Instance.AddUnitToBench(randomUnit);
-                        Debug.Log($"Reward: Gained random unit {randomUnit.unitName}");
-                    }
-                }
-                break;
-            case RewardType.SpecificUnit:
-                if (unitReward != null)
-                {
-                    RunManager.Instance.AddUnitToBench(unitReward);
-                    Debug.Log($"Reward: Gained specific unit {unitReward.unitName}");
-                }
-                break;
-        }
+        return null;
     }
 }
 
-public enum RewardType
-{
-    Gold,
-    Reputation,
-    RandomUnit,
-    SpecificUnit
-}
+

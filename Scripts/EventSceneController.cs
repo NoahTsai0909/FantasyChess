@@ -9,8 +9,10 @@ public class EventSceneController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI descriptionText;
     //[SerializeField] private Image eventIcon;
     [SerializeField] private Button continueButton;
-    [SerializeField] private Transform rewardContainer;
-    [SerializeField] private GameObject rewardPrefab;
+    [SerializeField] private Transform rewardAnchor;
+    [SerializeField] private Button takeUnitButton;
+
+    private UnitInstance previewUnit;
 
     void Start()
     {
@@ -23,9 +25,20 @@ public class EventSceneController : MonoBehaviour
             descriptionText.text = eventSO.description;
             //eventIcon.sprite = eventSO.eventIcon;
 
-            // Apply rewards immediately
-            ApplyEventRewards(eventSO);
+            if (eventSO is RandomUnitEventSO)
+            {
+                UnitDefinition randomUnit = eventSO.ReturnRandomUnit();
+                ShowUnitPreview(randomUnit);
 
+                takeUnitButton.gameObject.SetActive(true);
+                takeUnitButton.onClick.AddListener(() =>
+                {
+                    RunManager.Instance.AddUnitToBench(randomUnit);
+                    Debug.Log($"Recruited unit: {randomUnit.unitName}");
+                    takeUnitButton.interactable = false;
+                    CompleteEventAndReturn(eventSO);
+                });
+            }
             // Continue button returns to map
             continueButton.onClick.AddListener(() =>
             {
@@ -40,23 +53,12 @@ public class EventSceneController : MonoBehaviour
         }
     }
 
-    private void ApplyEventRewards(BaseEventSO eventSO)
+    private void ShowUnitPreview(UnitDefinition unitDef)
     {
-        // Apply the event's rewards
-        if (eventSO.possibleRewards != null && eventSO.possibleRewards.Length > 0)
-        {
-            foreach (var reward in eventSO.possibleRewards)
-            {
-                reward.Apply();
+        previewUnit = Instantiate(unitDef.unitPrefab, rewardAnchor);
 
-                // Display reward visually
-                if (rewardPrefab != null && rewardContainer != null)
-                {
-                    GameObject rewardObj = Instantiate(rewardPrefab, rewardContainer);
-                    // Setup reward display...
-                }
-            }
-        }
+        previewUnit.enabled = false; // disables combat logic
+        previewUnit.transform.localPosition = Vector3.zero;
     }
 
     private void CompleteEventAndReturn(BaseEventSO eventSO)

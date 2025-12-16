@@ -20,14 +20,4 @@ public class CombatEventSO : BaseEventSO
         base.OnSelected();
     }
 
-    protected override void ApplyRandomReward()
-    {
-        // Only give rewards if player actually won (this should be called from gameManager)
-        Debug.Log("Combat rewards applied (should be after actual combat)");
-
-        // Don't give rewards here - gameManager should handle this after actual combat
-        // Base class will handle basic rewards if configured
-        base.ApplyRandomReward();
-    }
-
 }

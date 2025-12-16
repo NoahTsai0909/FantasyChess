@@ -8,7 +8,7 @@ public class RandomUnitEventSO : BaseEventSO
     public Rarity maxRarity = Rarity.Common;
     public UnitTagFlags preferredTags = UnitTagFlags.None;
 
-    protected override void ApplyRandomReward()
+    private void ApplyRandomReward()
     {
         // Get random unit based on reputation and settings
         UnitDefinition randomUnit = GetRandomUnitByReputation();
@@ -23,6 +23,12 @@ public class RandomUnitEventSO : BaseEventSO
         {
             Debug.LogWarning("No suitable unit found for reward!");
         }
+    }
+
+    public override UnitDefinition ReturnRandomUnit()
+    {
+        UnitDefinition randomUnit = GetRandomUnitByReputation();
+        return randomUnit;
     }
 
     private UnitDefinition GetRandomUnitByReputation()
