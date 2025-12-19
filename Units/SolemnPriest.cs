@@ -18,12 +18,18 @@ public class SolemnPriest : UnitInstance
         if (target != null)
         {
             target.HealDamage(stats.Heal);
-            Debug.Log($"{unitName} heals {target.unitName} for 8 damage!");
+            Debug.Log($"{unitName} heals {target.unitName} for {stats.Heal} damage!");
 
         }
         else
         {
             Debug.Log("No target found to heal!");
         }
+    }
+
+    public override string GetAbilityDescription()
+    {
+        stats = RunManager.Instance.GetPreviewStats(Definition);
+        return ($"Heal the lowest health ally for {stats.Heal} health.");
     }
 }

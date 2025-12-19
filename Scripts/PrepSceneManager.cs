@@ -31,7 +31,7 @@ public class PrepSceneManager : MonoBehaviour
 
         LoadBenchGridFromRunManager();
 
-        AddCollidersToUnits();
+        //AddCollidersToUnits();
     }
 
     public void ReturnToMapScene()
@@ -39,7 +39,7 @@ public class PrepSceneManager : MonoBehaviour
         // Set the encounter (you'll need to assign this somehow)
         // RunManager.Instance.currentEncounter = someEncounter;
         SaveCurrentTeamToRunManager();
-        SceneLoader.Instance.LoadScene(GameScene.MapScene);
+        SceneLoader.Instance.LoadScene(SceneLoader.Instance.lastScene);
     }
 
     private void LoadBattleGridFromRunManager()

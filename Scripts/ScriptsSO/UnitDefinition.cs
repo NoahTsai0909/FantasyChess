@@ -10,7 +10,7 @@ public class UnitDefinition : ScriptableObject
 
     [Header("Combat Values")]
     public int attack;
-    public int healValue;
+    public int heal;
 
     [Header("Cooldown")]
     public float Cooldown;
@@ -23,7 +23,7 @@ public class UnitDefinition : ScriptableObject
     public int cost;
     public Region region;   // Aurelia / Nethervale / Everborn / Axiom
     public Rarity rarity;
-    public int reputationUnlockLevel;
+    public Rarity startingRarity;
 
     [Header("Prefab Reference")]
     public UnitInstance unitPrefab;

@@ -12,6 +12,7 @@ public class UnitInstance : MonoBehaviour
 
     private int currentHP;
     public int GetCurrentHP() => currentHP;
+    public UnitDefinition Definition => definition;
     protected float cooldownTimer;
     protected bool isPassive;
     public string unitName;
@@ -225,6 +226,11 @@ public class UnitInstance : MonoBehaviour
         CombatEventBus.Publish(CombatEventType.UnitDied, this, this);
         Destroy(gameObject);
     }
+    public virtual string GetAbilityDescription()
+    {
+        return "";
+    }
+
 
     public void SetSourcePrefab(UnitInstance prefab)
     {

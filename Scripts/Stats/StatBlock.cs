@@ -19,7 +19,7 @@ public class StatBlock
         + temporary.attackBonus;
 
     public int Heal =>
-        definition.healValue
+        definition.heal
         + permanent.bonusHeal
         + temporary.healBonus;
 

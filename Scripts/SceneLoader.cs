@@ -17,6 +17,8 @@ public class SceneLoader : MonoBehaviour
 
     public static SceneLoader Instance { get; private set; }
 
+    public GameScene lastScene;
+
     private void Awake()
     {
         if (Instance == null)
@@ -32,6 +34,8 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadScene(GameScene scene)
     {
+        int currentIndex = SceneManager.GetActiveScene().buildIndex;
+        lastScene = (GameScene)currentIndex;
         SceneManager.LoadScene((int)scene);
     }
 

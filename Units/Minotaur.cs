@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Minotaur : UnitInstance
 {
+    private int bonusMaxHPstat = 2;
     protected override void Awake()
     {
         base.Awake();
@@ -27,6 +28,12 @@ public class Minotaur : UnitInstance
         }
     }
 
+    public override string GetAbilityDescription()
+    {
+        stats = RunManager.Instance.GetPreviewStats(Definition);
+        return ($"Attack the nearest enemy for {stats.Attack} damage.\nPassive: When this unit survives combat, gain {bonusMaxHPstat} max hp.");
+    }
+
     private void OnEnable()
     {
         CombatEventBus.OnCombatEnd += HandleCombatEnd;
@@ -39,6 +46,6 @@ public class Minotaur : UnitInstance
 
     private void HandleCombatEnd()
     {
-        RunManager.Instance.GetPermanentStatsForUnit(SourcePrefab).bonusMaxHP += 2;
+        RunManager.Instance.GetPermanentStatsForUnit(SourcePrefab).bonusMaxHP += bonusMaxHPstat;
     }
 }

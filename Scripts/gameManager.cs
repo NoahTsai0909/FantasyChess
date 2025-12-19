@@ -140,11 +140,13 @@ public class gameManager : MonoBehaviour
         if (playerWon)
         {
             // Go to map scene to continue run
+            Time.timeScale = 1f;
             SceneLoader.Instance.LoadScene(GameScene.MapScene);
         }
         else
         {
             // Player lost - go to main menu or run summary
+            Time.timeScale = 1f;
             SceneLoader.Instance.LoadScene(GameScene.MainMenuScene);
             RunManager.Instance.ResetRun();
         }

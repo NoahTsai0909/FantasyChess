@@ -22,6 +22,13 @@ public class RunManager : MonoBehaviour
         public int row;
         public int col;
     }
+    public class ShopState
+    {
+        public List<UnitDefinition> offeredUnits; // 6 total
+        public HashSet<UnitDefinition> purchasedUnits = new();
+        public int currentPage;
+        public bool hasRefreshed;
+    }
 
     [Header("Default Unit")]
     [SerializeField] private List<UnitPlacement> defaultUnits;
@@ -36,6 +43,7 @@ public class RunManager : MonoBehaviour
     public EncounterDefinition currentEncounter;
     public bool eventInProgress = false;
     public const int TOTAL_DAYS = 7;
+    public ShopState shopState;
 
     private Dictionary<UnitInstance, PermanentStats> permanentStatsMap
     = new Dictionary<UnitInstance, PermanentStats>();
@@ -68,8 +76,6 @@ public class RunManager : MonoBehaviour
     void InitializeDefaultTeam()
     {
         playerTeamPlacements = defaultUnits;
-
-
     }
 
     private void InitializeBench()
@@ -294,6 +300,23 @@ public class RunManager : MonoBehaviour
         PermanentStats permStats = GetPermanentStatsForUnit(definition.unitPrefab);
         TemporaryStats tempStats = new TemporaryStats(); // or new TemporaryStats()
         return new StatBlock(definition, permStats, tempStats);
+    }
+
+    public void InitializeShop(int count, Region region, UnitTagFlags unitTags)
+    {
+        if (shopState != null) return;
+
+        shopState = new ShopState
+        {
+            offeredUnits = UnitDatabase.Instance.GetRandomUnits(
+                count,
+                region,
+                unitTags
+            ),
+            purchasedUnits = new(),
+            currentPage = 0,
+            hasRefreshed = false
+        };
     }
 
     public void ResetRun()

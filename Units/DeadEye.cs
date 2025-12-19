@@ -25,4 +25,10 @@ public class DeadEye : UnitInstance
         }
         base.UseAbility();
     }
+
+    public override string GetAbilityDescription()
+    {
+        stats = RunManager.Instance.GetPreviewStats(Definition);
+        return ($"Attack the farthest enemy for {stats.Attack} damage.");
+    }
 }

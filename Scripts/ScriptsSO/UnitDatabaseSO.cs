@@ -53,7 +53,62 @@ public class UnitDatabase : ScriptableObject
         return regionalUnits[Random.Range(0, regionalUnits.Count)];
     }
 
-    // We'll add rarity/tag filtering later
+    private List<UnitDefinition> GetRandomFromList(
+    List<UnitDefinition> source,
+    int count)
+    {
+        if (source == null || source.Count == 0)
+            return new List<UnitDefinition>();
+
+        // Fisher–Yates shuffle
+        for (int i = source.Count - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            (source[i], source[j]) = (source[j], source[i]);
+        }
+
+        int take = Mathf.Min(count, source.Count);
+        return source.GetRange(0, take);
+    }
+
+    public List<UnitDefinition> GetRandomUnits(int count)
+    {
+        return GetRandomFromList(new List<UnitDefinition>(allUnits), count);
+    }
+
+    public List<UnitDefinition> GetRandomUnitsByRegion(
+    Region region,
+    int count)
+    {
+        var regionalUnits = GetUnitsByRegion(region);
+        return GetRandomFromList(regionalUnits, count);
+    }
+
+    public List<UnitDefinition> GetRandomUnitsWithTags(
+    UnitTagFlags requiredTags,
+    int count)
+    {
+        var taggedUnits = GetUnitsWithTags(requiredTags);
+        return GetRandomFromList(taggedUnits, count);
+    }
+
+    public List<UnitDefinition> GetRandomUnits(
+    int count,
+    Region? region,
+    UnitTagFlags requiredTags = UnitTagFlags.None)
+    {
+        List<UnitDefinition> pool = allUnits;
+
+        if (region.HasValue)
+            pool = pool.Where(u => u.region == region.Value).ToList();
+
+        if (requiredTags != UnitTagFlags.None)
+            pool = pool.Where(u =>
+                (u.tagFlags & requiredTags) == requiredTags).ToList();
+
+        return GetRandomFromList(pool, count);
+    }
+
 }
 
 // Update UnitDefinition to include tags:

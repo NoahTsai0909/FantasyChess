@@ -27,6 +27,12 @@ public class Farmer : UnitInstance
         }
     }
 
+    public override string GetAbilityDescription()
+    {
+        stats = RunManager.Instance.GetPreviewStats(Definition);
+        return ($"Attack the nearest enemy for {stats.Attack} damage.\nPassive: When this unit survives combat, +1 gold.");
+    }
+
     private void OnEnable()
     {
         CombatEventBus.OnCombatEnd += HandleCombatEnd;
@@ -42,5 +48,6 @@ public class Farmer : UnitInstance
         RunManager.Instance.currentGold+=1;
         Debug.Log("Farmer just farmed 1 gold!");
     }
+
 
 }

@@ -30,5 +30,10 @@ public class BannerKnight : UnitInstance
         base.UseAbility();
     }
 
-    
+    public override string GetAbilityDescription()
+    {
+        stats = RunManager.Instance.GetPreviewStats(Definition);
+        return ($"Attack the nearest enemy for {stats.Attack} damage.");
+    }
+
 }

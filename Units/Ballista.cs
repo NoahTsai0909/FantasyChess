@@ -36,4 +36,10 @@ public class Ballista : UnitInstance
             enemy.TakeDamage(stats.Attack);
         }
     }
+
+    public override string GetAbilityDescription()
+    {
+        stats = RunManager.Instance.GetPreviewStats(Definition);
+        return ($"Passive: When the ally in front of this unit uses an ability, this unit attacks the nearest enemy for {stats.Attack} damage.");
+    }
 }

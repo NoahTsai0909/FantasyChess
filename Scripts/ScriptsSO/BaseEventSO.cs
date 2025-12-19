@@ -36,6 +36,10 @@ public abstract class BaseEventSO : ScriptableObject
             Debug.Log($"Stored encounter: {combatEvent.encounter?.encounterName}");
             targetScene = GameScene.CombatScene; // Combat events go to combat
         }
+        else if (this is ShopEventSO shopEvent)
+        {
+            targetScene = GameScene.ShopScene;
+        }
         else
         {
             targetScene = GameScene.EventScene; // Regular events go to event scene
