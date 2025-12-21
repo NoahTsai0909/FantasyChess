@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static RunManager;
 
 public class GridManager : MonoBehaviour
 {
@@ -10,12 +11,14 @@ public class GridManager : MonoBehaviour
     public GameObject tilePrefab;   // <-- you create this (a simple colored square tile)
 
     private Vector2[,] worldPositions;
-    private UnitInstance[,] gridUnits;
+    private RunManager.UnitPlacement[,] gridPlacements;
+    private UnitInstance[,] unitInstances;
 
     void Awake()
     {
         worldPositions = new Vector2[rows, cols];
-        gridUnits = new UnitInstance[rows, cols];
+        gridPlacements = new RunManager.UnitPlacement[rows, cols];
+        unitInstances = new UnitInstance[rows, cols];
 
         GenerateGrid();
         CreateVisualTiles();
@@ -25,7 +28,6 @@ public class GridManager : MonoBehaviour
     {
         float halfW = (cols - 1) * cellSize * 0.5f;
         float halfH = (rows - 1) * cellSize * 0.5f;
-
         Vector2 center = transform.position;
 
         for (int r = 0; r < rows; r++)
@@ -34,21 +36,17 @@ public class GridManager : MonoBehaviour
             {
                 float x = center.x + (c * cellSize) - halfW;
                 float y = center.y - (r * cellSize) + halfH;
-
                 worldPositions[r, c] = new Vector2(x, y);
             }
         }
     }
 
+
     void CreateVisualTiles()
     {
-        Debug.Log($"CreateVisualTiles called on {gameObject.name} | tilePrefab = {tilePrefab}");
-
-        // Destroy old children (if reloading)
         foreach (Transform t in transform)
             DestroyImmediate(t.gameObject);
 
-        // Create tiles
         for (int r = 0; r < rows; r++)
         {
             for (int c = 0; c < cols; c++)
@@ -60,14 +58,80 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    public bool PlaceUnit(UnitInstance unit, int r, int c)
+
+    // ------------------- UNIT PLACEMENTS -------------------
+
+    public bool PlaceUnit(UnitPlacement placement, int r, int c, UnitInstance instance = null)
     {
         if (!InBounds(r, c)) return false;
-        if (gridUnits[r, c] != null) return false; // cell occupied
 
-        gridUnits[r, c] = unit;
-        unit.transform.position = worldPositions[r, c];
+        // Only destroy old unit if instance == null (i.e., we are spawning new)
+        if (instance == null && unitInstances[r, c] != null)
+            Destroy(unitInstances[r, c].gameObject);
+
+        gridPlacements[r, c] = placement;
+
+        if (instance == null)
+        {
+            UnitInstance prefab = placement.unitData.definition.unitPrefab;
+            instance = Instantiate(prefab, GetCellWorldPosition(r, c), Quaternion.identity);
+            instance.InitializeRoster(placement.unitData.definition, placement.unitData.rarity);
+        }
+
+        // Set visual position & link to placement
+        instance.transform.position = GetCellWorldPosition(r, c);
+        instance.myPlacement = placement;
+        unitInstances[r, c] = instance;
+
         return true;
+    }
+
+
+
+
+
+    public void RemoveUnit(int r, int c, bool destroyVisual = true)
+    {
+        if (!InBounds(r, c)) return;
+
+        gridPlacements[r, c] = null;
+
+        if (unitInstances[r, c] != null)
+        {
+            if (destroyVisual)
+                Destroy(unitInstances[r, c].gameObject);
+
+            unitInstances[r, c] = null;
+        }
+    }
+
+    public void ClearUnitReference(UnitPlacement placement)
+    {
+        for (int r = 0; r < rows; r++)
+        {
+            for (int c = 0; c < cols; c++)
+            {
+                if (gridPlacements[r, c] == placement)
+                {
+                    gridPlacements[r, c] = null;
+                    unitInstances[r, c] = null;
+                    return;
+                }
+            }
+        }
+    }
+
+
+    public RunManager.UnitPlacement GetUnitPlacement(int r, int c)
+    {
+        if (!InBounds(r, c)) return null;
+        return gridPlacements[r, c];
+    }
+
+    public UnitInstance GetUnitAtPosition(int r, int c)
+    {
+        if (!InBounds(r, c)) return null;
+        return unitInstances[r, c];
     }
 
     public bool InBounds(int r, int c)
@@ -75,28 +139,36 @@ public class GridManager : MonoBehaviour
         return r >= 0 && r < rows && c >= 0 && c < cols;
     }
 
-    public List<UnitInstance> GetAllUnits()
+    public Vector2Int GetUnitPosition(UnitInstance unit)
     {
-        List<UnitInstance> units = new List<UnitInstance>();
-
         for (int r = 0; r < rows; r++)
         {
             for (int c = 0; c < cols; c++)
             {
-                if (gridUnits[r, c] != null && gridUnits[r, c].gameObject != null)
-                {
-                    units.Add(gridUnits[r, c]);
-                }
-                else
-                {
-                    // Clean up null references
-                    gridUnits[r, c] = null;
-                }
+                if (unitInstances[r, c] == unit)
+                    return new Vector2Int(r, c);
             }
         }
+        return new Vector2Int(-1, -1);
+    }
 
+    public List<UnitInstance> GetAllUnits()
+    {
+        List<UnitInstance> units = new List<UnitInstance>();
+        for (int r = 0; r < rows; r++)
+            for (int c = 0; c < cols; c++)
+                if (unitInstances[r, c] != null)
+                    units.Add(unitInstances[r, c]);
         return units;
     }
+
+    public void ClearAllUnits()
+    {
+        for (int r = 0; r < rows; r++)
+            for (int c = 0; c < cols; c++)
+                RemoveUnit(r, c);
+    }
+
     public Vector2Int GetNearestGridPosition(Vector3 worldPosition)
     {
         Vector2Int nearest = new Vector2Int(-1, -1);
@@ -118,27 +190,19 @@ public class GridManager : MonoBehaviour
         return nearest;
     }
 
-    public void RemoveUnit(int r, int c)
+    public bool IsCellEmpty(int r, int c)
     {
-        if (InBounds(r, c))
-        {
-            gridUnits[r, c] = null;
-        }
+        return InBounds(r, c) && gridPlacements[r, c] == null;
     }
 
-    public Vector2Int GetUnitPosition(UnitInstance unit)
+    public float DistanceToNearestEmptyCell(Vector3 worldPos)
     {
+        float minDist = float.MaxValue;
         for (int r = 0; r < rows; r++)
-        {
             for (int c = 0; c < cols; c++)
-            {
-                if (gridUnits[r, c] == unit)
-                {
-                    return new Vector2Int(r, c);
-                }
-            }
-        }
-        return new Vector2Int(-1, -1);
+                if (IsCellEmpty(r, c))
+                    minDist = Mathf.Min(minDist, Vector2.Distance(worldPos, worldPositions[r, c]));
+        return minDist;
     }
 
     public Vector2 GetWorldPosition(int row, int col)
@@ -148,40 +212,17 @@ public class GridManager : MonoBehaviour
         return transform.position;
     }
 
-    public bool IsCellEmpty(int r, int c)
+    public Vector2 GetCellWorldPosition(int r, int c)
     {
-        return InBounds(r, c) && gridUnits[r, c] == null;
+        if (!InBounds(r, c)) return transform.position;
+        return worldPositions[r, c];
     }
 
-    public float DistanceToNearestEmptyCell(Vector3 worldPosition)
+    /*private UnitInstance SpawnUnitInstance(RunManager.UnitPlacement placement)
     {
-        float minDistance = float.MaxValue;
-
-        for (int r = 0; r < rows; r++)
-        {
-            for (int c = 0; c < cols; c++)
-            {
-                if (IsCellEmpty(r, c)) // Only consider empty cells
-                {
-                    float dist = Vector2.Distance(worldPosition, GetWorldPosition(r, c));
-                    if (dist < minDistance)
-                        minDistance = dist;
-                }
-            }
-        }
-
-        return minDistance;
-    }
-
-    public void ClearAllUnits()
-    {
-        gridUnits = new UnitInstance[rows, cols];
-    }
-
-    public UnitInstance GetUnitAtPosition(int row, int col)
-    {
-        if (InBounds(row, col))
-            return gridUnits[row, col];
-        return null;
-    }
+        UnitInstance prefab = placement.unitData.definition.unitPrefab; // Type is UnitInstance
+        UnitInstance instance = Instantiate(prefab, GetCellWorldPosition(r, c), Quaternion.identity);
+        instance.InitializeRoster(placement.unitData.definition, placement.unitData.rarity);
+        return instance;
+    }*/
 }

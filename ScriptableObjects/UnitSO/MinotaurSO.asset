@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a16e02b8c37b3f43ac55682dba29a26, type: 3}
-  m_Name: BannerKnightSO
+  m_Name: MinotaurSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
-  unitName: Banner Knight
+  unitName: Oathbound Minotaur
   maxHP: 60
-  attack: 10
-  healValue: 0
-  Cooldown: 5
+  attack: 5
+  heal: 0
+  cooldown: 4
   isPassive: 0
-  unitSprite: {fileID: 5737945898732384636, guid: eb4626525a435e04183b2f18378d970d, type: 3}
+  unitSprite: {fileID: 8083504613746027167, guid: 235b2e13070ace54dacf9819ae8b0dfe, type: 3}
   cost: 2
-  region: Aurelia
+  region: 0
   rarity: 0
-  tags: []
-  reputationUnlockLevel: 0
-  unitPrefab: {fileID: 1807140018485177481, guid: d6addf1dd09d0b7448504bd34098bdc6, type: 3}
+  startingRarity: 0
+  unitPrefab: {fileID: 6828884537991765889, guid: 997ea82383869fb459f3382f7d61e482, type: 3}
+  tagFlags: 144

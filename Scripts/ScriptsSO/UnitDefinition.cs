@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "UnitDefinition", menuName = "Units/Unit Definition")]
-public class UnitDefinition : ScriptableObject
+public class UnitDefinition : ScriptableObject, IStatSource
 {
     [Header("Basic Stats")]
     public string unitName;
@@ -13,7 +13,7 @@ public class UnitDefinition : ScriptableObject
     public int heal;
 
     [Header("Cooldown")]
-    public float Cooldown;
+    public float cooldown;
     public bool isPassive;
 
     [Header("Visuals")]
@@ -30,7 +30,13 @@ public class UnitDefinition : ScriptableObject
 
     [Header("Tags")]
     public UnitTagFlags tagFlags;
+
+    public int Attack => attack;
+    public int Heal => heal;
+    public int MaxHP => maxHP;
+
+    public float Cooldown => cooldown;
 }
 
-public enum Rarity { Common, Rare, Epic, Legendary }
+public enum Rarity { Common, Uncommon, Rare, Epic }
 public enum Region { Aurelia, Nethervale, Everborn, Axiom}

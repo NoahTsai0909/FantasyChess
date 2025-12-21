@@ -10,19 +10,7 @@ public class RandomUnitEventSO : BaseEventSO
 
     private void ApplyRandomReward()
     {
-        // Get random unit based on reputation and settings
-        UnitDefinition randomUnit = GetRandomUnitByReputation();
-
-        if (randomUnit != null)
-        {
-            // Add to bench
-            RunManager.Instance.AddUnitToBench(randomUnit);
-            Debug.Log($"Event Reward: Gained {randomUnit.unitName} (Rarity: {randomUnit.rarity})");
-        }
-        else
-        {
-            Debug.LogWarning("No suitable unit found for reward!");
-        }
+        return;
     }
 
     public override UnitDefinition ReturnRandomUnit()
@@ -33,8 +21,6 @@ public class RandomUnitEventSO : BaseEventSO
 
     private UnitDefinition GetRandomUnitByReputation()
     {
-        // Simple implementation for now - just get random unit
-        // Later: Filter by reputation, rarity weights, etc.
         if (UnitDatabase.Instance == null || UnitDatabase.Instance.allUnits.Count == 0)
             return null;
 

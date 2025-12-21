@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static CombatEventBus;
@@ -154,39 +155,47 @@ public class gameManager : MonoBehaviour
 
     public void InitializeBattlefield(TeamDefinition playerTeam, EncounterDefinition encounter)
     {
-        // Spawn player team
-        foreach (var unitPlacement in playerTeam.units)
+        // Player team
+        foreach (var placement in playerTeam.units)
         {
-            if (unitPlacement.unitPrefab != null)
-            {
-                SpawnUnit(unitPlacement.unitPrefab, playerGrid,
-                         unitPlacement.row, unitPlacement.col, true);
-            }
+            if (placement.unitData == null)
+                continue;
+
+            SpawnPlayerUnit(placement, playerGrid);
         }
 
-        // Spawn enemies
-        foreach (var unitPlacement in encounter.enemyUnits)
+        // Enemies (still definition-based)
+        foreach (var enemyPlacement in encounter.enemyUnits)
         {
-            if (unitPlacement.unitPrefab != null)
-            {
-                SpawnUnit(unitPlacement.unitPrefab, enemyGrid,
-                         unitPlacement.row, unitPlacement.col, false);
-            }
+            SpawnEnemyUnit(enemyPlacement, enemyGrid);
         }
     }
 
-    private UnitInstance SpawnUnit(UnitInstance unitPrefab, GridManager grid,
-                                   int row, int col, bool isPlayer)
+
+    private UnitInstance SpawnPlayerUnit(RunManager.UnitPlacement placement, GridManager grid)
     {
-        // 1. Instantiate the SPECIFIC prefab (BannerKnight, SolemnPriest, etc.)
-        UnitInstance unit = Instantiate(unitPrefab);
+        // Spawn visual from prefab
+        UnitInstance unit = Instantiate(placement.unitData.definition.unitPrefab);
 
-        unit.SetSourcePrefab(unitPrefab);
-        // 2. Set team
-        unit.isPlayer = isPlayer;
+        unit.isPlayer = true;
 
-        // 3. Initialize with UI prefabs
-        unit.Initialize(grid, row, col, unitPrefab);
+        // Initialize stats from the saved data
+        unit.InitializeRoster(placement.unitData.definition, placement.unitData.rarity);
+
+        // Set placement reference and enter combat
+        unit.EnterCombat(grid, placement);
+
+        return unit;
+    }
+
+    private UnitInstance SpawnEnemyUnit(RunManager.UnitPlacement placement, GridManager grid)
+    {
+        UnitInstance unit = Instantiate(placement.unitData.definition.unitPrefab);
+
+        unit.isPlayer = false;
+        unit.InitializeRoster(placement.unitData.definition, placement.unitData.rarity);
+
+        unit.EnterCombat(grid, placement);
 
         return unit;
     }

@@ -9,133 +9,214 @@ public class UnitInstance : MonoBehaviour
 {
 
     [SerializeField] private UnitDefinition definition;
+    public UnitDefinition Definition => definition;
+
+    public Rarity CurrentRarity { get; private set; }
+
+    protected PermanentStats permanentStats;
+    protected TemporaryStats temporaryStats;
+    protected StatBlock stats;
+
+    public StatBlock Stats => stats;
+
+    public string unitName;
+    protected bool isPassive;
+
+    /* =========================
+     * Combat state
+     * ========================= */
+
+    private bool inCombat = false;
 
     private int currentHP;
     public int GetCurrentHP() => currentHP;
-    public UnitDefinition Definition => definition;
+
     protected float cooldownTimer;
-    protected bool isPassive;
-    public string unitName;
-    public bool isPlayer;   // Keep this — it affects sprite direction
-    protected TemporaryStats temporaryStats;
-    protected PermanentStats permanentStats;
-    protected StatBlock stats;
 
     public int row;
     public int col;
-
-    private SpriteRenderer sr;
-    private Coroutine flashCoroutine;
-    private Color originalSpriteColor;
-    private GridManager myGrid;  // The grid this unit belongs to
+    public bool isPlayer;
+    private GridManager myGrid;
+    public RunManager.UnitPlacement myPlacement;
     private TargetingSystem targetingSystem;
 
-    [SerializeField] private GameObject healthBarPrefab;
-    private Image healthBarFill;
-    private GameObject healthBarInstance;
+    /* =========================
+     * Visuals / UI
+     * ========================= */
 
-    [SerializeField] private GameObject cooldownBarPrefab;
-    private Image cooldownBarFill;
-    private GameObject cooldownBarInstance;
+    private SpriteRenderer sr;
+    private Color originalSpriteColor;
+    private Coroutine flashCoroutine;
+
     private BattleUIManager uiManager;
-    private UnitInstance sourcePrefab;
-    public UnitInstance SourcePrefab => sourcePrefab;
+
+    /* =========================
+     * Unity lifecycle
+     * ========================= */
+
     protected virtual void Awake()
     {
         temporaryStats = new TemporaryStats();
-
-        // Sprite setup
         sr = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
     {
-        if (stats == null)
+        if (definition != null)
         {
-            Debug.LogWarning($"{name} started without Initialize()");
+            sr.sprite = definition.unitSprite;
+            unitName = definition.unitName;
+            isPassive = definition.isPassive;
         }
-        sr.sprite = definition.unitSprite;
+
         originalSpriteColor = sr.color;
         sr.flipX = !isPlayer;
     }
 
     private void Update()
     {
-        if (ShouldUpdateCombat() && !isPassive)
+        if (!inCombat || isPassive)
+            return;
+
+        UpdateCooldownBar();
+
+        if (cooldownTimer > 0)
         {
-            UpdateCooldownBar();
-            if (cooldownTimer > 0)
-            {
-                cooldownTimer -= Time.deltaTime;
-            }
-            else if (definition != null)
-            {
-                UseAbility();
-                cooldownTimer = stats.Cooldown;
-            }
+            cooldownTimer -= Time.deltaTime;
+        }
+        else
+        {
+            UseAbility();
+            cooldownTimer = stats.Cooldown;
         }
     }
+
+    public void InitializeRoster(UnitDefinition def, Rarity rarity)
+    {
+        definition = def;
+        CurrentRarity = rarity;
+
+        permanentStats = RunManager.Instance.GetPermanentStatsForUnit(def);
+        temporaryStats = new TemporaryStats();
+
+        RecalculateStats();
+    }
+
+    public void RecalculateStats()
+    {
+        stats = new StatBlock(
+            GetRarityAdjustedDefinition(),
+            permanentStats,
+            temporaryStats
+        );
+    }
+
+    public void EnterCombat(GridManager grid, RunManager.UnitPlacement placement)
+    {
+        myPlacement = placement;
+        row = placement.row;
+        col = placement.col;
+
+        // Place in grid
+        grid.PlaceUnit(placement, row, col, this);
+
+        InitializeCombatState();
+        SetupTargeting();
+        SetupCombatUI();
+        inCombat = true;
+    }
+
+    public void InitializeCombatState()
+    {
+        currentHP = stats.MaxHP;
+        cooldownTimer = stats.Cooldown;
+    }
+
+    private void SetupTargeting()
+    {
+        gameManager gm = FindFirstObjectByType<gameManager>();
+        if (gm == null) return;
+
+        targetingSystem = new TargetingSystem(
+            isPlayer ? gm.playerGrid : gm.enemyGrid,
+            isPlayer ? gm.enemyGrid : gm.playerGrid,
+            isPlayer
+        );
+    }
+
+    private void SetupCombatUI()
+    {
+        uiManager = FindFirstObjectByType<BattleUIManager>();
+        if (uiManager == null) return;
+
+        uiManager.CreateUnitUI(this, transform.position);
+        UpdateHealthBar();
+    }
+
+    /* =========================
+     * TIER / MERGE LOGIC
+     * ========================= */
+
+    public bool CanUpgradeTier()
+    {
+        return CurrentRarity != Rarity.Epic;
+    }
+
+    public void UpgradeTier()
+    {
+        if (!CanUpgradeTier())
+            return;
+
+        Rarity old = CurrentRarity;
+        CurrentRarity = RarityScaling.GetNextRarity(CurrentRarity);
+
+        RecalculateStats();
+
+        Debug.Log($"{definition.unitName} upgraded {old} to {CurrentRarity}");
+    }
+
+    /* =========================
+     * COMBAT ACTIONS
+     * ========================= */
 
     protected virtual void UseAbility()
     {
-        //Base implementation, children should override this
         CombatEventBus.Publish(CombatEventBus.CombatEventType.AbilityUsed, this, null);
-    }
-
-    public void Initialize(GridManager grid, int targetRow, int targetCol, UnitInstance source)
-    {
-        sourcePrefab = source;
-        myGrid = grid;
-        row = targetRow;
-        col = targetCol;
-
-        // Tell GridManager to position this unit
-        permanentStats = RunManager.Instance.GetPermanentStatsForUnit(sourcePrefab);
-        stats = new StatBlock(definition, permanentStats, temporaryStats);
-        currentHP = stats.MaxHP;
-        cooldownTimer = stats.Cooldown;
-        unitName = definition.unitName;
-        isPassive = definition.isPassive;
-        myGrid.PlaceUnit(this, row, col);
-        gameManager gm = FindFirstObjectByType<gameManager>();
-        if (gm != null)
-        {
-            targetingSystem = new TargetingSystem(
-                isPlayer ? gm.playerGrid : gm.enemyGrid,
-                isPlayer ? gm.enemyGrid : gm.playerGrid,
-                isPlayer
-            );
-        }
-        uiManager = FindFirstObjectByType<BattleUIManager>();
-        if (uiManager != null)
-        {
-            uiManager.CreateUnitUI(this, transform.position);
-            UpdateHealthBar();
-        }
-
     }
 
     public virtual void TakeDamage(int dmg)
     {
-        currentHP -= dmg;
-        currentHP = Mathf.Max(0, currentHP);
-
+        currentHP = Mathf.Max(0, currentHP - dmg);
         UpdateHealthBar();
 
-        if (flashCoroutine != null)
-        {
-            sr.color = originalSpriteColor;
-        }
-
-        flashCoroutine = StartCoroutine(FlashDamage());
+        Flash(Color.red);
         CombatEventBus.Publish(CombatEventType.DamageTaken, this, this);
 
         if (currentHP <= 0)
-        {
             Die();
+    }
+
+    public virtual void HealDamage(int dmg)
+    {
+        currentHP = Mathf.Min(stats.MaxHP, currentHP + dmg);
+        UpdateHealthBar();
+    }
+
+    public virtual void Die()
+    {
+        if (myGrid != null)
+        {
+            Vector2Int pos = myGrid.GetUnitPosition(this);
+            myGrid.RemoveUnit(pos.x, pos.y);
         }
 
+        if (uiManager != null)
+            uiManager.RemoveUnitUI(this);
+
+        CombatEventBus.Publish(CombatEventType.UnitDied, this, this);
+        Destroy(gameObject);
     }
+
 
     public void TakeDisasterDamage(int damage)
     {
@@ -154,7 +235,6 @@ public class UnitInstance : MonoBehaviour
 
         if (currentHP <= 0)
         {
-            // Still publish death event, but with special handling if needed
             CombatEventBus.Publish(CombatEventType.UnitDied, null, this);
             Die();
         }
@@ -172,59 +252,36 @@ public class UnitInstance : MonoBehaviour
         flashCoroutine = null;
     }
 
-    public virtual void HealDamage(int dmg)
-    {
-        currentHP += dmg;
-        currentHP = Mathf.Min(currentHP, stats.MaxHP);
-        CombatEventBus.Publish(CombatEventType.Healed, this, this);
-        UpdateHealthBar();
-    }
-
-    private void UpdateCooldownBar() { 
-    
-        if (uiManager != null)
-        {
-            float fillAmount = (float)cooldownTimer / stats.Cooldown;
-            uiManager.UpdateCooldownBar(this, fillAmount);
-        }
-    }
+    /* =========================
+    * Helpers
+    * ========================= */
 
     private void UpdateHealthBar()
     {
-        if (uiManager != null)
-        {
-            float fillAmount = (float)currentHP / stats.MaxHP;
-            uiManager.UpdateHealthBar(this, fillAmount);
-        }
+        if (uiManager == null) return;
+        uiManager.UpdateHealthBar(this, (float)currentHP / stats.MaxHP);
     }
 
-    private System.Collections.IEnumerator FlashDamage()
+    private void UpdateCooldownBar()
     {
-        if (sr == null) yield break;
+        if (uiManager == null) return;
+        uiManager.UpdateCooldownBar(this, cooldownTimer / stats.Cooldown);
+    }
 
-        Color originalColor = sr.color;
-        sr.color = Color.red;
+    private void Flash(Color color)
+    {
+        if (flashCoroutine != null)
+            StopCoroutine(flashCoroutine);
+
+        flashCoroutine = StartCoroutine(FlashRoutine(color));
+    }
+
+    private System.Collections.IEnumerator FlashRoutine(Color color)
+    {
+        sr.color = color;
         yield return new WaitForSeconds(0.1f);
-        sr.color = originalColor;
-
+        sr.color = originalSpriteColor;
         flashCoroutine = null;
-    }
-
-    public virtual void Die()
-    {
-        Debug.Log($"{definition.unitName} died");
-
-        if (myGrid != null)
-        {
-            Vector2Int pos = myGrid.GetUnitPosition(this);
-            myGrid.RemoveUnit(pos.x, pos.y);
-        }
-        if (uiManager != null)
-        {
-            uiManager.RemoveUnitUI(this);
-        }
-        CombatEventBus.Publish(CombatEventType.UnitDied, this, this);
-        Destroy(gameObject);
     }
     public virtual string GetAbilityDescription()
     {
@@ -232,10 +289,22 @@ public class UnitInstance : MonoBehaviour
     }
 
 
-    public void SetSourcePrefab(UnitInstance prefab)
+    IStatSource GetRarityAdjustedDefinition()
     {
-        sourcePrefab = prefab;
+        int delta = CurrentRarity - Definition.startingRarity;
+        float multiplier = RarityScaling.GetMultiplier(delta);
+
+        return new UnitDefinitionView(
+            Mathf.RoundToInt(Definition.attack * multiplier),
+            Mathf.RoundToInt(Definition.heal * multiplier),
+            Mathf.RoundToInt(Definition.maxHP * multiplier),
+            Definition.cooldown
+        );
     }
+
+    /* =========================
+     * Targeting helpers
+     * ========================= */
 
     protected UnitInstance FindNearestEnemy()
     {
@@ -265,14 +334,6 @@ public class UnitInstance : MonoBehaviour
             TargetingSystem.SortMethod.LowestHealth
         );
         return targetingSystem.FindUnit(criteria, transform.position);
-    }
-
-    private bool ShouldUpdateCombat()
-    {
-        string sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-        if (sceneName != "CombatScene")
-            return false;
-        return true;
     }
 
     protected virtual void HandleCombatEvent(CombatEventType type, UnitInstance source, UnitInstance target)

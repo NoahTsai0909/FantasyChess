@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 9023021984765453083}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 491.0001, y: 151.6982, z: 0}
+  m_LocalPosition: {x: -7, y: -3, z: 0}
   m_LocalScale: {x: 0.30106175, y: 0.3328536, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -106,11 +106,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Ballista
   definition: {fileID: 11400000, guid: defba5472dfab994683d340274c29d67, type: 2}
   unitName: Ballista
-  isPlayer: 0
   row: 0
   col: 0
-  healthBarPrefab: {fileID: 0}
-  cooldownBarPrefab: {fileID: 0}
+  isPlayer: 0
+  myPlacement:
+    unitData:
+      definition: {fileID: 11400000, guid: defba5472dfab994683d340274c29d67, type: 2}
+      rarity: 0
+      row: -1
+      col: -1
+    row: 0
+    col: 0
 --- !u!61 &7073752968241063285
 BoxCollider2D:
   m_ObjectHideFlags: 0

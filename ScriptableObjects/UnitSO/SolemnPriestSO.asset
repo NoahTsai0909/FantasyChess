@@ -16,7 +16,7 @@ MonoBehaviour:
   maxHP: 40
   attack: 0
   heal: 8
-  Cooldown: 6
+  cooldown: 6
   isPassive: 0
   unitSprite: {fileID: -229438338720254273, guid: 4598991ace278a14e8495039b165a9e2, type: 3}
   cost: 2

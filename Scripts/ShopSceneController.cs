@@ -84,6 +84,7 @@ public class ShopSceneController : MonoBehaviour
     {
         // Spawn unit preview
         UnitInstance unit = Instantiate(unitDef.unitPrefab, unitAnchor);
+        unit.InitializeRoster(unitDef, unitDef.rarity);
         unit.transform.localPosition = new Vector3(xPos, 0f, 0f);
 
         spawnedUnits.Add(unit);
@@ -116,7 +117,7 @@ public class ShopSceneController : MonoBehaviour
             }
 
             RunManager.Instance.currentGold -= def.cost;
-            RunManager.Instance.AddUnitToBench(def);
+            PlayerUnitManager.Instance.TryAcquireUnit(def, def.rarity);
             goldText.text = $"Gold: {RunManager.Instance.currentGold}";
             shopState.purchasedUnits.Add(def);
 

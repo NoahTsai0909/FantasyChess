@@ -2,37 +2,32 @@ using UnityEngine;
 [System.Serializable]
 public class StatBlock
 {
-    private UnitDefinition definition;
+    private IStatSource baseStats;
     private PermanentStats permanent;
     private TemporaryStats temporary;
 
-    public StatBlock(UnitDefinition def, PermanentStats perm, TemporaryStats temp)
+    public StatBlock(IStatSource baseStats, PermanentStats perm, TemporaryStats temp)
     {
-        definition = def;
+        this.baseStats = baseStats;
         permanent = perm;
         temporary = temp;
     }
 
     public int Attack =>
-        definition.attack
-        + permanent.bonusAttack
-        + temporary.attackBonus;
+        baseStats.Attack + permanent.bonusAttack + temporary.attackBonus;
 
     public int Heal =>
-        definition.heal
-        + permanent.bonusHeal
-        + temporary.healBonus;
+        baseStats.Heal + permanent.bonusHeal + temporary.healBonus;
 
     public int MaxHP =>
-        definition.maxHP
-        + permanent.bonusMaxHP
-        + temporary.maxHPBonus;
+        baseStats.MaxHP + permanent.bonusMaxHP + temporary.maxHPBonus;
 
     public float Cooldown =>
         Mathf.Max(0.5f,
-            definition.Cooldown
+            baseStats.Cooldown
             - permanent.cooldownReduction
             - temporary.cooldownDelta
         );
 }
+
 

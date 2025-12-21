@@ -10,15 +10,14 @@ public class RunManager : MonoBehaviour
 
     // Run Data
     public int currentGold = 100;
-    public int currentNodeIndex = 0;
 
-    public List<UnitPlacement> playerTeamPlacements = new List<UnitPlacement>();
-    public List<UnitPlacement> playerBenchPlacements= new List<UnitPlacement>();
+    public List<UnitPlacement> playerTeamPlacements = new();
+    public List<UnitPlacement> playerBenchPlacements = new();
 
     [System.Serializable]
     public class UnitPlacement
     {
-        public UnitInstance unitPrefab;
+        public UnitSaveData unitData;
         public int row;
         public int col;
     }
@@ -31,41 +30,40 @@ public class RunManager : MonoBehaviour
     }
 
     [Header("Default Unit")]
-    [SerializeField] private List<UnitPlacement> defaultUnits;
+    [SerializeField] private List<UnitSaveData> defaultUnits;
+    [SerializeField] private int benchSize = 8;
 
     public int currentDay = 1;
     public int regularEventsCompleted = 0;
     public const int REGULAR_EVENTS_BEFORE_BATTLE = 3;
     public bool isBattleDay = false;
     public int reputation = 1;
-    public List<BaseEventSO> currentDailyEvents = new List<BaseEventSO>();
+    public List<BaseEventSO> currentDailyEvents = new();
     public BaseEventSO selectedEvent;
     public EncounterDefinition currentEncounter;
     public bool eventInProgress = false;
     public const int TOTAL_DAYS = 7;
     public ShopState shopState;
 
-    private Dictionary<UnitInstance, PermanentStats> permanentStatsMap
-    = new Dictionary<UnitInstance, PermanentStats>();
+    private Dictionary<UnitDefinition, PermanentStats> permanentStatsMap = new();
+
+    [SerializeField] public RarityDistributionTable rarityDistributionTable;
 
     private void Awake()
     {
-        // Singleton pattern
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
             if (playerTeamPlacements.Count == 0)
-            {
                 InitializeDefaultTeam();
-            }
 
             InitializeBench();
+            SanitizeBench();
 
-            // Initialize progression tracking
-            regularEventsCompleted = 0; // Ensure it starts at 0
-            isBattleDay = false; // Start with regular events
+            regularEventsCompleted = 0;
+            isBattleDay = false;
         }
         else
         {
@@ -75,62 +73,101 @@ public class RunManager : MonoBehaviour
 
     void InitializeDefaultTeam()
     {
-        playerTeamPlacements = defaultUnits;
+        playerTeamPlacements.Clear();
+
+        foreach (var data in defaultUnits)
+        {
+            if (data == null || data.definition == null)
+            {
+                Debug.LogError("Default unit has null definition!");
+                continue;
+            }
+
+            playerTeamPlacements.Add(new UnitPlacement
+            {
+                unitData = new UnitSaveData
+                {
+                    definition = data.definition,
+                    rarity = data.rarity
+                },
+                row = data.row,
+                col = data.col
+            });
+        }
     }
 
-    private void InitializeBench()
+
+    void InitializeBench()
     {
-        // If bench is empty, create 8 empty slots (typical autobattler bench size)
-        if (playerBenchPlacements.Count == 0)
+        playerBenchPlacements.Clear();
+
+        if (playerBenchPlacements == null || playerBenchPlacements.Count != benchSize)
         {
-            for (int i = 0; i < 8; i++) // 8 bench slots
+            playerBenchPlacements = new List<UnitPlacement>(benchSize);
+            for (int i = 0; i < benchSize; i++)
             {
-                playerBenchPlacements.Add(new UnitPlacement
-                {
-                    unitPrefab = null,  // Empty slot
-                    row = 0,            // Bench doesn't use grid positioning
-                    col = i             // Index as column for organization
-                });
+                playerBenchPlacements.Add(new UnitPlacement());
             }
-            Debug.Log("Initialized empty bench with 8 slots");
+        }
+    }
+
+    public void SanitizeBench()
+    {
+        for (int i = 0; i < playerBenchPlacements.Count; i++)
+        {
+            var placement = playerBenchPlacements[i];
+
+            if (placement.unitData != null &&
+                placement.unitData.definition == null)
+            {
+                Debug.LogWarning($"Sanitizing invalid bench slot {i}");
+                placement.unitData = null;
+            }
         }
     }
 
 
     public TeamDefinition GetTeamForCombat()
     {
-        // Create a temporary TeamDefinition ScriptableObject
-        TeamDefinition combatTeam = ScriptableObject.CreateInstance<TeamDefinition>();
-        combatTeam.teamName = "Player Team";
+        TeamDefinition team = ScriptableObject.CreateInstance<TeamDefinition>();
+        team.teamName = "Player Team";
 
-        // Copy placements
         foreach (var placement in playerTeamPlacements)
         {
-            combatTeam.units.Add(new TeamDefinition.UnitPlacement
+            if (placement.unitData == null) continue;
+
+            team.units.Add(new UnitPlacement
             {
-                unitPrefab = placement.unitPrefab,
+                unitData = placement.unitData,
                 row = placement.row,
                 col = placement.col
             });
         }
 
-        return combatTeam;
+        return team;
     }
 
     public TeamDefinition GetTeamForBench()
     {
         TeamDefinition benchTeam = ScriptableObject.CreateInstance<TeamDefinition>();
         benchTeam.teamName = "Player Bench";
-        
-        foreach ( var placement in playerBenchPlacements)
+
+        if (benchTeam.units == null)
+            benchTeam.units = new List<UnitPlacement>();
+
+        foreach (var placement in playerBenchPlacements)
         {
-            benchTeam.units.Add(new TeamDefinition.UnitPlacement
+            if (placement.unitData == null)
+                continue;
+
+            benchTeam.units.Add(new UnitPlacement
             {
-                unitPrefab = placement.unitPrefab,
-                row = placement.row,
-                col = placement.col
+                unitData = placement.unitData,
+                row = -1,
+                col = -1
             });
         }
+
         return benchTeam;
     }
 
@@ -232,75 +269,43 @@ public class RunManager : MonoBehaviour
         Debug.Log($"=== GenerateDailyEvents END: Generated {currentDailyEvents.Count} events ===");
     }
 
-    public void AddUnitToBench(UnitDefinition unitDefinition)
+    public PermanentStats GetPermanentStatsForUnit(UnitDefinition definition)
     {
-        if (unitDefinition == null || unitDefinition.unitPrefab == null)
+        if (definition == null)
         {
-            Debug.LogError("Cannot add null unit or unit without prefab to bench!");
-            return;
+            Debug.LogError("GetPermanentStatsForUnit called with null UnitDefinition");
+            return new PermanentStats(); // fail-safe
         }
 
-        // Find an empty bench spot
-        for (int i = 0; i < playerBenchPlacements.Count; i++)
-        {
-            if (playerBenchPlacements[i].unitPrefab == null)
-            {
-                playerBenchPlacements[i].unitPrefab = unitDefinition.unitPrefab;
-                Debug.Log($"Added {unitDefinition.unitName} to bench slot {i}");
-
-                // Optional: Log bench status
-                LogBenchStatus();
-                return;
-            }
-        }
-
-        Debug.LogWarning($"No space on bench for {unitDefinition.unitName}! Bench is full.");
-        LogBenchStatus();
-    }
-
-    private void LogBenchStatus()
-    {
-        int emptySlots = 0;
-        int filledSlots = 0;
-
-        foreach (var slot in playerBenchPlacements)
-        {
-            if (slot.unitPrefab == null)
-                emptySlots++;
-            else
-                filledSlots++;
-        }
-
-        Debug.Log($"Bench: {filledSlots} filled, {emptySlots} empty slots");
-    }
-
-    public void AddRandomUnitToBench()
-    {
-        if (UnitDatabase.Instance != null)
-        {
-            UnitDefinition randomUnit = UnitDatabase.Instance.GetRandomUnit();
-            if (randomUnit != null)
-            {
-                AddUnitToBench(randomUnit);
-            }
-        }
-    }
-    public PermanentStats GetPermanentStatsForUnit(UnitInstance unitKey)
-    {
-        if (!permanentStatsMap.TryGetValue(unitKey, out var stats))
+        if (!permanentStatsMap.TryGetValue(definition, out var stats))
         {
             stats = new PermanentStats();
-            permanentStatsMap[unitKey] = stats;
+            permanentStatsMap[definition] = stats;
         }
+
         return stats;
     }
 
-    public StatBlock GetPreviewStats(UnitDefinition definition)
+
+
+    public StatBlock GetPreviewStats(UnitDefinition definition, Rarity rarity)
     {
-        PermanentStats permStats = GetPermanentStatsForUnit(definition.unitPrefab);
-        TemporaryStats tempStats = new TemporaryStats(); // or new TemporaryStats()
-        return new StatBlock(definition, permStats, tempStats);
+        int delta = rarity - definition.startingRarity;
+        float multiplier = RarityScaling.GetMultiplier(delta);
+
+        IStatSource rarityAdjusted = new UnitDefinitionView(
+            Mathf.RoundToInt(definition.attack * multiplier),
+            Mathf.RoundToInt(definition.heal * multiplier),
+            Mathf.RoundToInt(definition.maxHP * multiplier),
+            definition.cooldown
+        );
+
+        PermanentStats permStats = new PermanentStats(); // no persistence for previews
+        TemporaryStats tempStats = new TemporaryStats();
+
+        return new StatBlock(rarityAdjusted, permStats, tempStats);
     }
+
 
     public void InitializeShop(int count, Region region, UnitTagFlags unitTags)
     {

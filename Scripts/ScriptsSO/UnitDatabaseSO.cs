@@ -25,6 +25,27 @@ public class UnitDatabase : ScriptableObject
         }
     }
 
+    public UnitDefinition GetRandomUnit(Rarity rolledRarity, Region? region = null, UnitTagFlags requiredTags = UnitTagFlags.None)
+    {
+        IEnumerable<UnitDefinition> pool = allUnits;
+
+        // IMPORTANT: rarity eligibility rule
+        pool = pool.Where(u => u.startingRarity <= rolledRarity);
+
+        if (region.HasValue)
+            pool = pool.Where(u => u.region == region.Value);
+
+        if (requiredTags != UnitTagFlags.None)
+            pool = pool.Where(u =>
+                (u.tagFlags & requiredTags) == requiredTags);
+
+        var list = pool.ToList();
+        if (list.Count == 0)
+            return null;
+
+        return list[Random.Range(0, list.Count)];
+    }
+
     // Get units by tag (you'll need to add tags to UnitDefinition)
     public List<UnitDefinition> GetUnitsWithTags(UnitTagFlags requiredTags)
     {

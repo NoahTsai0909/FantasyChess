@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static SceneLoader;
@@ -9,29 +10,24 @@ public class PrepSceneManager : MonoBehaviour
     [SerializeField] private GridManager benchGrid;  // 1x8
     [SerializeField] private Button ReturnButton;
 
-    public class UnitPlacement
-    {
-        public UnitInstance unitPrefab;
-        public int row;
-        public int col;
-    }
-
     private List<UnitInstance> spawnedUnits = new List<UnitInstance>();
 
     void Start()
     {
+
+        if (RunManager.Instance != null)
+        {
+            RunManager.Instance.SanitizeBench();
+        }
+
         ReturnButton.onClick.AddListener(() => {
             ReturnToMapScene();
         });
         DragAndDropManager dragManager = FindFirstObjectByType<DragAndDropManager>();
 
-        ClearAllUnits();
-
         LoadBattleGridFromRunManager();
 
         LoadBenchGridFromRunManager();
-
-        //AddCollidersToUnits();
     }
 
     public void ReturnToMapScene()
@@ -44,116 +40,128 @@ public class PrepSceneManager : MonoBehaviour
 
     private void LoadBattleGridFromRunManager()
     {
-        if (RunManager.Instance != null)
+        if (RunManager.Instance == null) return;
+
+        TeamDefinition playerTeam = RunManager.Instance.GetTeamForCombat();
+        if (playerTeam == null) return;
+
+        foreach (var placement in playerTeam.units)
         {
-            TeamDefinition playerTeam = RunManager.Instance.GetTeamForCombat();
-            if (playerTeam != null)
+            if (placement.unitData == null)
             {
-                foreach (var unitPlacement in playerTeam.units)
-                {
-                    if (unitPlacement.unitPrefab != null)
-                    {
-                        UnitInstance unit = SpawnUnit(unitPlacement.unitPrefab, battleGrid,
-                                 unitPlacement.row, unitPlacement.col, true);
-                        spawnedUnits.Add(unit);
-                    }
-                }
+                Debug.LogWarning("Skipping placement with null UnitSaveData");
+                continue;
             }
+
+            if (placement.unitData.definition == null || placement.unitData.definition.unitPrefab == null)
+            {
+                Debug.LogWarning($"Skipping placement: missing prefab or definition for {placement.unitData.definition?.name ?? "NULL"}");
+                continue;
+            }
+
+            // Place unit, GridManager spawns the visual
+            battleGrid.PlaceUnit(placement, placement.row, placement.col);
+
+            // Reference to runtime UnitInstance
+            UnitInstance spawned = battleGrid.GetUnitAtPosition(placement.row, placement.col);
+            if (spawned == null)
+            {
+                Debug.LogError($"Failed to get UnitInstance at {placement.row},{placement.col} after PlaceUnit");
+                continue;
+            }
+
+            spawned.isPlayer = true;
+            spawned.myPlacement = placement;
+
+            spawnedUnits.Add(spawned);
         }
     }
+
+
 
     private void LoadBenchGridFromRunManager()
     {
-        if (RunManager.Instance != null)
+        if (RunManager.Instance == null) return;
+
+        TeamDefinition benchTeam = RunManager.Instance.GetTeamForBench();
+        if (benchTeam == null || benchTeam.units == null) return;
+
+        int col = 0;
+        foreach (var placement in benchTeam.units)
         {
-            TeamDefinition playerBench = RunManager.Instance.GetTeamForBench();
-            if (playerBench != null)
+            if (placement.unitData == null || placement.unitData.definition == null || placement.unitData.definition.unitPrefab == null)
             {
-                foreach (var unitPlacement in playerBench.units)
-                {
-                    if (unitPlacement.unitPrefab != null)
-                    {
-                        UnitInstance unit = SpawnUnit(unitPlacement.unitPrefab, benchGrid,
-                                 unitPlacement.row, unitPlacement.col, true);
-                        spawnedUnits.Add(unit);
-                    }
-                }
+                Debug.LogWarning($"Skipping bench placement with missing prefab/definition");
+                continue;
             }
+
+            benchGrid.PlaceUnit(placement, 0, col);
+
+            UnitInstance spawned = benchGrid.GetUnitAtPosition(0, col);
+            if (spawned == null)
+            {
+                Debug.LogError($"Failed to get UnitInstance at bench column {col}");
+                continue;
+            }
+
+            spawned.myPlacement = placement;
+            spawnedUnits.Add(spawned);
+            col++;
         }
-    }
-
-    private UnitInstance SpawnUnit(UnitInstance unitPrefab, GridManager grid,
-                                   int row, int col, bool isPlayer)
-    {
-        // 1. Instantiate the SPECIFIC prefab (BannerKnight, SolemnPriest, etc.)
-        UnitInstance unit = Instantiate(unitPrefab);
-
-        unit.SetSourcePrefab(unitPrefab);
-        // 2. Set team
-        unit.isPlayer = isPlayer;
-
-        // 3. Initialize with UI prefabs
-        grid.PlaceUnit(unit, row, col);
-
-        return unit;
     }
 
     private void SaveCurrentTeamToRunManager()
     {
-        if (RunManager.Instance != null)
+        if (RunManager.Instance == null) return;
+
+        // ------------------ Save Battle Grid Units ------------------
+        List<RunManager.UnitPlacement> battleTeam = new List<RunManager.UnitPlacement>();
+
+        foreach (UnitInstance unit in battleGrid.GetAllUnits())
         {
-            // Save battle team
-            List<RunManager.UnitPlacement> battleTeam = new List<RunManager.UnitPlacement>();
-            foreach (UnitInstance unit in battleGrid.GetAllUnits())
+            if (unit.myPlacement == null)
             {
-                Vector2Int pos = battleGrid.GetUnitPosition(unit);
-                if (pos.x >= 0 && unit.SourcePrefab != null)
-                {
-                    battleTeam.Add(new RunManager.UnitPlacement
-                    {
-                        unitPrefab = unit.SourcePrefab,
-                        row = pos.x,
-                        col = pos.y
-                    });
-                }
-            }
-            RunManager.Instance.playerTeamPlacements = battleTeam;
-
-            // Save bench team
-            for (int i = 0; i < RunManager.Instance.playerBenchPlacements.Count; i++)
-            {
-                RunManager.Instance.playerBenchPlacements[i].unitPrefab = null;
+                Debug.LogWarning($"Unit {unit.name} has null myPlacement!");
+                continue;
             }
 
-            // Now fill only the slots that have units on bench
-            int benchIndex = 0;
-            foreach (UnitInstance unit in benchGrid.GetAllUnits())
-            {
-                if (unit.SourcePrefab != null && benchIndex < RunManager.Instance.playerBenchPlacements.Count)
-                {
-                    RunManager.Instance.playerBenchPlacements[benchIndex].unitPrefab = unit.SourcePrefab;
-                    benchIndex++;
-                }
-            }
+            // Update placement row/col
+            unit.myPlacement.row = battleGrid.GetUnitPosition(unit).x;
+            unit.myPlacement.col = battleGrid.GetUnitPosition(unit).y;
 
-            Debug.Log($"Saved: {battleTeam.Count} battle units, {benchIndex} bench units");
+            battleTeam.Add(unit.myPlacement);
+
+            Debug.Log($"Saving {unit.Definition.name} at row={unit.myPlacement.row}, col={unit.myPlacement.col}");
         }
+
+        RunManager.Instance.playerTeamPlacements = battleTeam;
+
+        // ------------------ Save Bench Units ------------------
+        List<UnitInstance> benchUnits = benchGrid.GetAllUnits();
+
+        for (int i = 0; i < RunManager.Instance.playerBenchPlacements.Count; i++)
+        {
+            if (i < benchUnits.Count)
+            {
+                UnitInstance unit = benchUnits[i];
+                RunManager.Instance.playerBenchPlacements[i].unitData = unit.myPlacement.unitData;
+
+                // Indicate bench by row/col = -1
+                RunManager.Instance.playerBenchPlacements[i].row = -1;
+                RunManager.Instance.playerBenchPlacements[i].col = -1;
+            }
+            else
+            {
+                // Empty slot
+                RunManager.Instance.playerBenchPlacements[i].unitData = null;
+                RunManager.Instance.playerBenchPlacements[i].row = -1;
+                RunManager.Instance.playerBenchPlacements[i].col = -1;
+            }
+        }
+
+        Debug.Log("Saved battle grid and bench units to RunManager");
     }
 
-    void ClearAllUnits()
-    {
-        // Destroy all previously spawned units
-        foreach (UnitInstance unit in spawnedUnits)
-        {
-            if (unit != null)
-                Destroy(unit.gameObject);
-        }
-        spawnedUnits.Clear();
-
-        // Clear grid references
-        ClearGrid(battleGrid);
-        ClearGrid(benchGrid);
-    }
 
     void ClearGrid(GridManager grid)
     {
@@ -173,21 +181,6 @@ public class PrepSceneManager : MonoBehaviour
                 Debug.Log($"Destroying stray unit: {unit.name}");
                 Destroy(unit.gameObject);
             }
-        }
-    }
-
-
-    void AddCollidersToUnits()
-    {
-        foreach (UnitInstance unit in battleGrid.GetAllUnits())
-        {
-            if (unit.GetComponent<BoxCollider2D>() == null)
-                unit.gameObject.AddComponent<BoxCollider2D>();
-        }
-        foreach (UnitInstance unit in benchGrid.GetAllUnits())
-        {
-            if (unit.GetComponent<BoxCollider2D>() == null)
-                unit.gameObject.AddComponent<BoxCollider2D>();
         }
     }
 

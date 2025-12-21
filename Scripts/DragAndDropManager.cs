@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static RunManager;
 
 public class DragAndDropManager : MonoBehaviour
 {
@@ -7,19 +8,19 @@ public class DragAndDropManager : MonoBehaviour
     [SerializeField] private GridManager benchGrid;
 
     private UnitInstance draggedUnit;
+    private RunManager.UnitPlacement draggedPlacement;
     private GridManager sourceGrid;
-    private Vector2Int sourcePosition;
-    private Camera mainCamera;
+    private Vector2Int sourcePos;
 
+    private Camera mainCamera;
     private Mouse mouse;
-    private bool isMouseDown = false;
     private bool wasMouseDown = false;
 
     void Start()
     {
         mainCamera = Camera.main;
         mouse = Mouse.current;
-        // Safety check
+
         if (battleGrid == null || benchGrid == null)
             Debug.LogError("DragAndDropManager: Grid references not set!");
     }
@@ -27,16 +28,15 @@ public class DragAndDropManager : MonoBehaviour
     void Update()
     {
         if (mouse == null) return;
-        isMouseDown = mouse.leftButton.isPressed;
+
+        bool isMouseDown = mouse.leftButton.isPressed;
 
         if (isMouseDown && !wasMouseDown)
             TryStartDrag();
 
-        // Mouse button released
         if (!isMouseDown && wasMouseDown && draggedUnit != null)
             StopDrag();
 
-        // Update dragged unit position
         if (draggedUnit != null && isMouseDown)
             draggedUnit.transform.position = GetMouseWorldPosition();
 
@@ -45,87 +45,99 @@ public class DragAndDropManager : MonoBehaviour
 
     void TryStartDrag()
     {
-        Vector3 mousePos = GetMouseWorldPosition();
-        Collider2D hit = Physics2D.OverlapPoint(mousePos);
+        Vector3 worldPos = GetMouseWorldPosition();
+        Collider2D hit = Physics2D.OverlapPoint(worldPos);
 
-        if (hit != null)
-        {
-            UnitInstance unit = hit.GetComponent<UnitInstance>();
-            if (unit != null)
-            {
-                GridManager sourceGrid = FindUnitGrid(unit);
-                if (sourceGrid != null)
-                    StartDrag(unit, sourceGrid);
-            }
-        }
+        if (hit == null) return;
+
+        UnitInstance unit = hit.GetComponent<UnitInstance>();
+        if (unit == null || unit.myPlacement == null) return;
+
+        GridManager grid = GetUnitGrid(unit);
+        if (grid == null) return;
+
+        StartDrag(unit, grid);
     }
 
     GridManager FindUnitGrid(UnitInstance unit)
     {
-        // Check battle grid
-        if (battleGrid.GetUnitPosition(unit).x >= 0)
+        if (battleGrid.GetUnitPosition(unit) != new Vector2Int(-1, -1))
             return battleGrid;
-
-        // Check bench grid
-        if (benchGrid.GetUnitPosition(unit).x >= 0)
+        if (benchGrid.GetUnitPosition(unit) != new Vector2Int(-1, -1))
             return benchGrid;
-
         return null;
     }
 
-    void StartDrag(UnitInstance unit, GridManager foundGrid)
+    GridManager GetUnitGrid(UnitInstance unit)
+    {
+        if (battleGrid.GetUnitPosition(unit) != new Vector2Int(-1, -1))
+            return battleGrid;
+        if (benchGrid.GetUnitPosition(unit) != new Vector2Int(-1, -1))
+            return benchGrid;
+        return null;
+    }
+
+    void StartDrag(UnitInstance unit, GridManager grid)
     {
         draggedUnit = unit;
-        sourceGrid = foundGrid; // Store the source grid
-        sourcePosition = sourceGrid.GetUnitPosition(unit);
+        draggedPlacement = unit.myPlacement;
+        sourceGrid = grid;
+        sourcePos = grid.GetUnitPosition(unit);
 
-        // CRITICAL: Remove unit from source grid while dragging
-        sourceGrid.RemoveUnit(sourcePosition.x, sourcePosition.y);
+        // Remove unit from source grid, but don't destroy visual
+        sourceGrid.RemoveUnit(sourcePos.x, sourcePos.y, destroyVisual: false);
 
-        // Visual feedback
         SetUnitDragVisuals(unit, true);
-
-        Debug.Log($"Started dragging {unit.unitName} from {sourceGrid.name} at ({sourcePosition.x}, {sourcePosition.y})");
     }
 
     void StopDrag()
     {
-        if (draggedUnit == null || sourceGrid == null) return;
-
         Vector3 dropPos = GetMouseWorldPosition();
-        GridManager targetGrid = ChooseTargetGridByCellDistance(dropPos);
+        GridManager targetGrid = GetClosestGrid(dropPos);
         Vector2Int targetPos = targetGrid.GetNearestGridPosition(dropPos);
 
-        // Skip if dropping in same spot
-        if (targetGrid == sourceGrid && targetPos == sourcePosition)
+        // Get target unit if any
+        UnitInstance targetUnit = targetGrid.GetUnitAtPosition(targetPos.x, targetPos.y);
+        RunManager.UnitPlacement targetPlacement = targetUnit != null ? targetUnit.myPlacement : null;
+
+        // Case 1: target cell occupied = swap
+        if (targetUnit != null)
         {
-            sourceGrid.PlaceUnit(draggedUnit, sourcePosition.x, sourcePosition.y);
+            // Put target unit into source cell
+            sourceGrid.PlaceUnit(targetPlacement, sourcePos.x, sourcePos.y, targetUnit);
+            targetPlacement.row = sourcePos.x;
+            targetPlacement.col = sourcePos.y;
         }
-        else
-        {
-            // Get unit at target position (if any)
-            UnitInstance targetUnit = targetGrid.GetUnitAtPosition(targetPos.x, targetPos.y);
 
-            // Remove dragged unit from source
-            sourceGrid.RemoveUnit(sourcePosition.x, sourcePosition.y);
+        // Update dragged unit placement
+        draggedPlacement.row = targetPos.x;
+        draggedPlacement.col = targetPos.y;
 
-            if (targetUnit != null)
-            {
-                // Remove target unit from target grid
-                targetGrid.RemoveUnit(targetPos.x, targetPos.y);
+        // Case 2: moving between grids or within same grid
+        // Remove dragged unit from source grid reference (visual already gone in StartDrag)
+        sourceGrid.ClearUnitReference(draggedPlacement);
 
-                // Place target unit in source position
-                sourceGrid.PlaceUnit(targetUnit, sourcePosition.x, sourcePosition.y);
-            }
-
-            // Place dragged unit in target position
-            targetGrid.PlaceUnit(draggedUnit, targetPos.x, targetPos.y);
-        }
+        // Place dragged unit in target grid
+        targetGrid.PlaceUnit(draggedPlacement, targetPos.x, targetPos.y, draggedUnit);
 
         SetUnitDragVisuals(draggedUnit, false);
+
+        // Clear drag state
         draggedUnit = null;
+        draggedPlacement = null;
         sourceGrid = null;
     }
+
+
+
+
+    GridManager GetClosestGrid(Vector3 worldPos)
+    {
+        float distBattle = battleGrid.DistanceToNearestEmptyCell(worldPos);
+        float distBench = benchGrid.DistanceToNearestEmptyCell(worldPos);
+        return (distBattle < distBench) ? battleGrid : benchGrid;
+    }
+
 
     GridManager ChooseTargetGrid(Vector3 dropPosition)
     {
@@ -138,11 +150,9 @@ public class DragAndDropManager : MonoBehaviour
 
     Vector3 GetMouseWorldPosition()
     {
-        if (mouse == null) return Vector3.zero;
-
-        Vector3 mousePos = mouse.position.ReadValue();
-        mousePos.z = -mainCamera.transform.position.z;
-        return mainCamera.ScreenToWorldPoint(mousePos);
+        Vector3 pos = mouse.position.ReadValue();
+        pos.z = -mainCamera.transform.position.z;
+        return mainCamera.ScreenToWorldPoint(pos);
     }
 
     void SetUnitDragVisuals(UnitInstance unit, bool isDragging)
@@ -150,15 +160,14 @@ public class DragAndDropManager : MonoBehaviour
         SpriteRenderer sr = unit.GetComponent<SpriteRenderer>();
         if (sr != null)
         {
-            Color color = sr.color;
-            color.a = isDragging ? 0.6f : 1f;
-            sr.color = color;
+            Color c = sr.color;
+            c.a = isDragging ? 0.6f : 1f;
+            sr.color = c;
         }
     }
 
     GridManager ChooseTargetGridByCellDistance(Vector3 dropPosition)
     {
-        // Calculate distance to nearest empty cell in EACH grid
         float distToBattle = battleGrid.DistanceToNearestEmptyCell(dropPosition);
         float distToBench = benchGrid.DistanceToNearestEmptyCell(dropPosition);
 

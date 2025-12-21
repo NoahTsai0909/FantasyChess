@@ -26,29 +26,27 @@ public class UnitHoverUI : MonoBehaviour
 
     public void Show(UnitInstance unit)
     {
-        UnitDefinition def = unit.Definition; // expose this property
-        if (def == null) return;
+        if (unit == null || unit.Definition == null)
+            return;
 
         gameObject.SetActive(true);
 
-        nameText.text = def.unitName;
+        nameText.text = unit.Definition.unitName;
 
-        StatBlock stats = RunManager.Instance.GetPreviewStats(def);
+        StatBlock stats = unit.Stats;
 
         statsText.text = $"HP: {stats.MaxHP}\n";
-        if (stats == null) return;
+
         if (stats.Attack > 0)
-        {
             statsText.text += $"ATK: {stats.Attack}\n";
-        }
+
         if (stats.Heal > 0)
-        {
             statsText.text += $"Heal: {stats.Heal}\n";
-        }
-        if (!def.isPassive)
-        {
-            statsText.text += $"CD: {stats.Cooldown}s";
-        }
+
+        if (!unit.Definition.isPassive)
+            statsText.text += $"CD: {stats.Cooldown}s\n";
+
+        statsText.text += $"Rarity: {unit.CurrentRarity}";
         abilityText.text = unit.GetAbilityDescription();
     }
 

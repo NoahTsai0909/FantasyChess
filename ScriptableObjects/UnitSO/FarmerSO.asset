@@ -15,13 +15,13 @@ MonoBehaviour:
   unitName: Farmer
   maxHP: 30
   attack: 5
-  healValue: 0
-  Cooldown: 5
+  heal: 0
+  cooldown: 4
   isPassive: 0
   unitSprite: {fileID: -284627385986098231, guid: 0685d299f0bdf6c4d992a3159cdd64ad, type: 3}
   cost: 2
   region: 0
   rarity: 0
-  reputationUnlockLevel: 0
+  startingRarity: 0
   unitPrefab: {fileID: 2576259255534838855, guid: 186e76a3dba96124cabb4905964506ca, type: 3}
   tagFlags: 16

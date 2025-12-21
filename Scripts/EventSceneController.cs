@@ -13,6 +13,7 @@ public class EventSceneController : MonoBehaviour
     [SerializeField] private Button takeUnitButton;
 
     private UnitInstance previewUnit;
+    private Rarity previewUnitRarity;
 
     void Start()
     {
@@ -33,10 +34,16 @@ public class EventSceneController : MonoBehaviour
                 takeUnitButton.gameObject.SetActive(true);
                 takeUnitButton.onClick.AddListener(() =>
                 {
-                    RunManager.Instance.AddUnitToBench(randomUnit);
-                    Debug.Log($"Recruited unit: {randomUnit.unitName}");
-                    takeUnitButton.interactable = false;
-                    CompleteEventAndReturn(eventSO);
+                    //RunManager.Instance.AddUnitToBench(randomUnit);
+                    if (PlayerUnitManager.Instance.TryAcquireUnit(randomUnit, previewUnitRarity))
+                    {
+                        takeUnitButton.interactable = false;
+                        CompleteEventAndReturn(eventSO);
+                    }
+                    else
+                    {
+                        Debug.Log("Error encountered when acquiring unit");
+                    }
                 });
             }
             // Continue button returns to map
@@ -56,7 +63,8 @@ public class EventSceneController : MonoBehaviour
     private void ShowUnitPreview(UnitDefinition unitDef)
     {
         previewUnit = Instantiate(unitDef.unitPrefab, rewardAnchor);
-
+        previewUnit.InitializeRoster(unitDef, unitDef.rarity);
+        previewUnitRarity = unitDef.rarity;
         previewUnit.enabled = false; // disables combat logic
         previewUnit.transform.localPosition = Vector3.zero;
     }

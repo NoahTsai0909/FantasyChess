@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 221976165}
   - component: {fileID: 221976164}
   - component: {fileID: 221976166}
+  - component: {fileID: 221976167}
   m_Layer: 0
   m_Name: RuntimeSystems
   m_TagString: Untagged
@@ -150,13 +151,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RunManager
   currentGold: 10
-  currentNodeIndex: 0
   playerTeamPlacements: []
   playerBenchPlacements: []
   defaultUnits:
-  - unitPrefab: {fileID: 1807140018485177481, guid: d6addf1dd09d0b7448504bd34098bdc6, type: 3}
+  - definition: {fileID: 11400000, guid: 88642c22682ab104a9c47221284759e5, type: 2}
+    rarity: 0
     row: 1
     col: 1
+  benchSize: 8
   currentDay: 1
   regularEventsCompleted: 0
   isBattleDay: 0
@@ -165,6 +167,7 @@ MonoBehaviour:
   selectedEvent: {fileID: 0}
   currentEncounter: {fileID: 0}
   eventInProgress: 0
+  rarityDistributionTable: {fileID: 11400000, guid: 4761c31200eefbd48a888347da7c49bf, type: 2}
 --- !u!4 &221976165
 Transform:
   m_ObjectHideFlags: 0
@@ -193,6 +196,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
   lastScene: 0
+--- !u!114 &221976167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221976163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef13a459b919dc4b8f61b3f4573128d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerUnitManager
 --- !u!1 &342187704
 GameObject:
   m_ObjectHideFlags: 0

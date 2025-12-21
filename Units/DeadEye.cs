@@ -28,7 +28,7 @@ public class DeadEye : UnitInstance
 
     public override string GetAbilityDescription()
     {
-        stats = RunManager.Instance.GetPreviewStats(Definition);
+        stats = RunManager.Instance.GetPreviewStats(Definition, CurrentRarity);
         return ($"Attack the farthest enemy for {stats.Attack} damage.");
     }
 }

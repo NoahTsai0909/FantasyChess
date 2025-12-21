@@ -14,9 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EncounterDefinition
   encounterName: Dynamic Duo
   enemyUnits:
-  - unitPrefab: {fileID: 1807140018485177481, guid: d6addf1dd09d0b7448504bd34098bdc6, type: 3}
+  - unitData:
+      definition: {fileID: 11400000, guid: 88642c22682ab104a9c47221284759e5, type: 2}
+      rarity: 0
+      row: 1
+      col: 1
     row: 0
     col: 0
-  - unitPrefab: {fileID: 5953980494205079508, guid: 036cd17fe768c7348bde23869ab1d19b, type: 3}
+  - unitData:
+      definition: {fileID: 11400000, guid: 8f005606f4a1e4847a4aa1978ce45a79, type: 2}
+      rarity: 0
+      row: 1
+      col: 2
     row: 1
     col: 0
