@@ -129,6 +129,18 @@ public class UnitDatabase : ScriptableObject
 
         return GetRandomFromList(pool, count);
     }
+    public List<UnitDefinition> GetUnits(Region region,UnitTagFlags requiredTags)
+    {
+        IEnumerable<UnitDefinition> pool = allUnits;
+
+        pool = pool.Where(u => u.region == region);
+
+        if (requiredTags != UnitTagFlags.None)
+            pool = pool.Where(u =>(u.tagFlags & requiredTags) == requiredTags);
+        return pool.ToList();
+    }
+
+
 
 }
 

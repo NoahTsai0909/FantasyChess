@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static RunManager;
@@ -6,6 +7,8 @@ public class DragAndDropManager : MonoBehaviour
 {
     [SerializeField] private GridManager battleGrid;
     [SerializeField] private GridManager benchGrid;
+    [SerializeField] private RectTransform sellZoneRect;
+    [SerializeField] private SellZone sellZoneScript; // Reference to the SellZone script for highlighting
 
     private UnitInstance draggedUnit;
     private RunManager.UnitPlacement draggedPlacement;
@@ -30,6 +33,23 @@ public class DragAndDropManager : MonoBehaviour
         if (mouse == null) return;
 
         bool isMouseDown = mouse.leftButton.isPressed;
+
+        // Update sell zone highlight based on mouse position
+        if (draggedUnit != null)
+        {
+            Vector2 mouseScreenPos = mouse.position.ReadValue();
+            bool overSellZone = IsInSellZone(mouseScreenPos);
+
+            if (sellZoneScript != null)
+                sellZoneScript.Highlight(overSellZone);
+
+            // Change unit color when over sell zone
+            SpriteRenderer sr = draggedUnit.GetComponent<SpriteRenderer>();
+            if (sr != null)
+            {
+                sr.color = overSellZone ? Color.red : Color.white;
+            }
+        }
 
         if (isMouseDown && !wasMouseDown)
             TryStartDrag();
@@ -59,15 +79,6 @@ public class DragAndDropManager : MonoBehaviour
         StartDrag(unit, grid);
     }
 
-    GridManager FindUnitGrid(UnitInstance unit)
-    {
-        if (battleGrid.GetUnitPosition(unit) != new Vector2Int(-1, -1))
-            return battleGrid;
-        if (benchGrid.GetUnitPosition(unit) != new Vector2Int(-1, -1))
-            return benchGrid;
-        return null;
-    }
-
     GridManager GetUnitGrid(UnitInstance unit)
     {
         if (battleGrid.GetUnitPosition(unit) != new Vector2Int(-1, -1))
@@ -88,39 +99,71 @@ public class DragAndDropManager : MonoBehaviour
         sourceGrid.RemoveUnit(sourcePos.x, sourcePos.y, destroyVisual: false);
 
         SetUnitDragVisuals(unit, true);
+
+        // Bring unit to front when dragging
+        SpriteRenderer sr = unit.GetComponent<SpriteRenderer>();
+        if (sr != null)
+        {
+            sr.sortingOrder = 100; // High number to bring to front
+        }
     }
 
     void StopDrag()
     {
-        Vector3 dropPos = GetMouseWorldPosition();
-        GridManager targetGrid = GetClosestGrid(dropPos);
-        Vector2Int targetPos = targetGrid.GetNearestGridPosition(dropPos);
+        // Get mouse position in screen space for sell zone check
+        Vector2 mouseScreenPos = mouse.position.ReadValue();
 
-        // Get target unit if any
-        UnitInstance targetUnit = targetGrid.GetUnitAtPosition(targetPos.x, targetPos.y);
-        RunManager.UnitPlacement targetPlacement = targetUnit != null ? targetUnit.myPlacement : null;
-
-        // Case 1: target cell occupied = swap
-        if (targetUnit != null)
+        if (IsInSellZone(mouseScreenPos))
         {
-            // Put target unit into source cell
-            sourceGrid.PlaceUnit(targetPlacement, sourcePos.x, sourcePos.y, targetUnit);
-            targetPlacement.row = sourcePos.x;
-            targetPlacement.col = sourcePos.y;
+            SellUnit();
+        }
+        else
+        {
+            // Use world position for grid placement
+            Vector3 dropPos = GetMouseWorldPosition();
+            GridManager targetGrid = GetClosestGrid(dropPos);
+            Vector2Int targetPos = targetGrid.GetNearestGridPosition(dropPos);
+
+            // Get target unit if any
+            UnitInstance targetUnit = targetGrid.GetUnitAtPosition(targetPos.x, targetPos.y);
+            RunManager.UnitPlacement targetPlacement = targetUnit != null ? targetUnit.myPlacement : null;
+
+            // Case 1: target cell occupied = swap
+            if (targetUnit != null)
+            {
+                // Put target unit into source cell
+                sourceGrid.PlaceUnit(targetPlacement, sourcePos.x, sourcePos.y, targetUnit);
+                targetPlacement.row = sourcePos.x;
+                targetPlacement.col = sourcePos.y;
+            }
+
+            // Update dragged unit placement
+            draggedPlacement.row = targetPos.x;
+            draggedPlacement.col = targetPos.y;
+
+            // Case 2: moving between grids or within same grid
+            // Remove dragged unit from source grid reference (visual already gone in StartDrag)
+            sourceGrid.ClearUnitReference(draggedPlacement);
+
+            // Place dragged unit in target grid
+            targetGrid.PlaceUnit(draggedPlacement, targetPos.x, targetPos.y, draggedUnit);
         }
 
-        // Update dragged unit placement
-        draggedPlacement.row = targetPos.x;
-        draggedPlacement.col = targetPos.y;
-
-        // Case 2: moving between grids or within same grid
-        // Remove dragged unit from source grid reference (visual already gone in StartDrag)
-        sourceGrid.ClearUnitReference(draggedPlacement);
-
-        // Place dragged unit in target grid
-        targetGrid.PlaceUnit(draggedPlacement, targetPos.x, targetPos.y, draggedUnit);
-
         SetUnitDragVisuals(draggedUnit, false);
+
+        // Reset sorting order
+        if (draggedUnit != null)
+        {
+            SpriteRenderer sr = draggedUnit.GetComponent<SpriteRenderer>();
+            if (sr != null)
+            {
+                sr.sortingOrder = 0; // Reset to default
+            }
+        }
+
+        // Reset sell zone highlight
+        if (sellZoneScript != null)
+            sellZoneScript.Highlight(false);
 
         // Clear drag state
         draggedUnit = null;
@@ -128,24 +171,11 @@ public class DragAndDropManager : MonoBehaviour
         sourceGrid = null;
     }
 
-
-
-
     GridManager GetClosestGrid(Vector3 worldPos)
     {
         float distBattle = battleGrid.DistanceToNearestEmptyCell(worldPos);
         float distBench = benchGrid.DistanceToNearestEmptyCell(worldPos);
         return (distBattle < distBench) ? battleGrid : benchGrid;
-    }
-
-
-    GridManager ChooseTargetGrid(Vector3 dropPosition)
-    {
-        // Simple: choose closest grid center
-        float distToBattle = Vector2.Distance(dropPosition, battleGrid.transform.position);
-        float distToBench = Vector2.Distance(dropPosition, benchGrid.transform.position);
-
-        return (distToBattle < distToBench) ? battleGrid : benchGrid;
     }
 
     Vector3 GetMouseWorldPosition()
@@ -166,41 +196,77 @@ public class DragAndDropManager : MonoBehaviour
         }
     }
 
-    GridManager ChooseTargetGridByCellDistance(Vector3 dropPosition)
+    bool IsInSellZone(Vector2 screenPos)
     {
-        float distToBattle = battleGrid.DistanceToNearestEmptyCell(dropPosition);
-        float distToBench = benchGrid.DistanceToNearestEmptyCell(dropPosition);
+        if (sellZoneRect == null) return false;
 
-        return (distToBattle < distToBench) ? battleGrid : benchGrid;
+        // Convert screen position (mouse position is already in screen space)
+        return RectTransformUtility.RectangleContainsScreenPoint(
+            sellZoneRect,
+            screenPos,
+            null // No camera needed for Screen Space - Overlay
+        );
     }
 
-    Vector2Int FindNearestEmptyCell(GridManager grid, Vector3 position)
+    void SellUnit()
     {
-        Vector2Int nearest = new Vector2Int(-1, -1);
-        float closestDist = float.MaxValue;
+        if (draggedUnit == null || draggedPlacement == null) return;
 
-        for (int r = 0; r < grid.rows; r++)
+        Debug.Log($"Selling unit: {draggedUnit.unitName}");
+
+        // Calculate sell price
+        int sellPrice = draggedUnit.Definition.cost;
+
+        // Add gold to player
+        RunManager.Instance.currentGold += sellPrice;
+        Debug.Log($"Gained {sellPrice} gold. Total: {RunManager.Instance.currentGold}");
+
+        // Remove from source grid
+        if (sourceGrid != null)
         {
-            for (int c = 0; c < grid.cols; c++)
+            sourceGrid.RemoveUnit(sourcePos.x, sourcePos.y, destroyVisual: true);
+        }
+
+        // Remove from RunManager's data
+        RemoveFromRunManager(draggedUnit, draggedPlacement);
+
+        // Destroy the unit GameObject
+        Destroy(draggedUnit.gameObject);
+
+        // Update gold display in PrepScene
+        PrepSceneManager prepManager = FindObjectOfType<PrepSceneManager>();
+        if (prepManager != null && prepManager.TryGetComponent<TextMeshProUGUI>(out var goldText))
+        {
+            goldText.text = $"Gold: {RunManager.Instance.currentGold}";
+        }
+    }
+
+    void RemoveFromRunManager(UnitInstance unit, UnitPlacement placement)
+    {
+        if (RunManager.Instance == null) return;
+
+        // Check if unit is in battle grid or bench
+        bool isInBattleGrid = sourceGrid == battleGrid;
+
+        if (isInBattleGrid)
+        {
+            // Remove from playerTeamPlacements
+            RunManager.Instance.playerTeamPlacements.RemoveAll(p =>
+                p.unitData == placement.unitData);
+        }
+        else
+        {
+            // Remove from playerBenchPlacements
+            foreach (var benchPlacement in RunManager.Instance.playerBenchPlacements)
             {
-                if (grid.IsCellEmpty(r, c))
+                if (benchPlacement.unitData == placement.unitData)
                 {
-                    Vector2 cellPos = grid.GetWorldPosition(r, c);
-                    float dist = Vector2.Distance(position, cellPos);
-                    if (dist < closestDist)
-                    {
-                        closestDist = dist;
-                        nearest = new Vector2Int(r, c);
-                    }
+                    benchPlacement.unitData = null;
+                    benchPlacement.row = -1;
+                    benchPlacement.col = -1;
+                    break;
                 }
             }
         }
-
-        return nearest;
-    }
-
-    Vector2Int FindUnitPosition(UnitInstance unit, GridManager grid)
-    {
-        return grid.GetUnitPosition(unit);
     }
 }

@@ -9,7 +9,7 @@ public class RunManager : MonoBehaviour
     public static RunManager Instance { get; private set; }
 
     // Run Data
-    public int currentGold = 100;
+    public int currentGold = 10;
 
     public List<UnitPlacement> playerTeamPlacements = new();
     public List<UnitPlacement> playerBenchPlacements = new();
@@ -23,11 +23,12 @@ public class RunManager : MonoBehaviour
     }
     public class ShopState
     {
-        public List<UnitDefinition> offeredUnits; // 6 total
+        public List<UnitSaveData> offeredUnits; 
         public HashSet<UnitDefinition> purchasedUnits = new();
         public int currentPage;
         public bool hasRefreshed;
     }
+
 
     [Header("Default Unit")]
     [SerializeField] private List<UnitSaveData> defaultUnits;
@@ -313,16 +314,80 @@ public class RunManager : MonoBehaviour
 
         shopState = new ShopState
         {
-            offeredUnits = UnitDatabase.Instance.GetRandomUnits(
-                count,
-                region,
-                unitTags
-            ),
+            offeredUnits = GenerateShopUnits(count, region, unitTags), // NEW: Generate with rarities
             purchasedUnits = new(),
             currentPage = 0,
             hasRefreshed = false
         };
     }
+
+    private List<UnitSaveData> GenerateShopUnits(int count, Region region, UnitTagFlags unitTags)
+    {
+        var result = new List<UnitSaveData>();
+
+        // Keep track of used definitions to avoid duplicates
+        var usedDefinitions = new HashSet<UnitDefinition>();
+
+        for (int i = 0; i < count; i++)
+        {
+            // Roll rarity first
+            var rarity = RollRarityForDay(currentDay);
+
+            // Get a random unit that respects rarity, region, tags, AND hasn't been used
+            UnitDefinition def = null;
+            int attempts = 0;
+
+            while (def == null && attempts < 100)
+            {
+                attempts++;
+
+                // Try to get a random unit with the rolled rarity
+                var candidate = UnitDatabase.Instance.GetRandomUnit(rarity, region, unitTags);
+
+                if (candidate != null && !usedDefinitions.Contains(candidate))
+                {
+                    def = candidate;
+                }
+            }
+
+            if (def != null)
+            {
+                usedDefinitions.Add(def);
+                result.Add(new UnitSaveData
+                {
+                    definition = def,
+                    rarity = rarity
+                });
+
+                Debug.Log($"Generated: {def.unitName} as {rarity}");
+            }
+            else
+            {
+                Debug.LogWarning($"Could not find unique unit for rarity {rarity}");
+            }
+        }
+
+        return result;
+    }
+
+    private Rarity RollRarityForDay(int day)
+    {
+        if (rarityDistributionTable == null)
+        {
+            Debug.LogError("RarityDistributionTable not assigned!");
+            return Rarity.Common; // fallback
+        }
+
+        var dist = rarityDistributionTable.GetForDay(day);
+        if (dist == null)
+        {
+            Debug.LogError($"No rarity distribution for day {day}");
+            return Rarity.Common;
+        }
+
+        return RarityDistributionTable.RollRarity(dist);
+    }
+
 
     public void ResetRun()
     {

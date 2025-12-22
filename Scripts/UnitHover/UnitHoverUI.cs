@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 
 public class UnitHoverUI : MonoBehaviour
@@ -12,11 +13,13 @@ public class UnitHoverUI : MonoBehaviour
 
     private Canvas canvas;
     private RectTransform rect;
+    private Image image;
 
     void Awake()
     {
         canvas = GetComponentInParent<Canvas>();
         rect = GetComponent<RectTransform>();
+        image = GetComponent<Image>();
     }
 
     void Update()
@@ -45,8 +48,7 @@ public class UnitHoverUI : MonoBehaviour
 
         if (!unit.Definition.isPassive)
             statsText.text += $"CD: {stats.Cooldown}s\n";
-
-        statsText.text += $"Rarity: {unit.CurrentRarity}";
+        setRarityColor(unit.CurrentRarity);
         abilityText.text = unit.GetAbilityDescription();
     }
 
@@ -80,6 +82,32 @@ public class UnitHoverUI : MonoBehaviour
         rect.pivot = pivot;
         rect.position = mousePos + padding;
 
+    }
+
+    private void setRarityColor(Rarity rarity)
+    {
+        switch (rarity)
+        {
+            case Rarity.Common:
+                image.color = new Color32(37, 37, 37, 255);
+                break;
+
+            case Rarity.Uncommon:
+                image.color = new Color32(3, 58, 17, 255);
+                break;
+
+            case Rarity.Rare:
+                image.color = new Color32(0, 39, 91, 255);
+                break;
+
+            case Rarity.Epic:
+                image.color = new Color32(48, 0, 81, 255);
+                break;
+
+            default:
+                image.color = new Color32(154, 28, 2, 255);
+                break;
+        }
     }
 }
 

@@ -28,14 +28,15 @@ public class EventSceneController : MonoBehaviour
 
             if (eventSO is RandomUnitEventSO)
             {
-                UnitDefinition randomUnit = eventSO.ReturnRandomUnit();
-                ShowUnitPreview(randomUnit);
+                //UnitDefinition randomUnit = eventSO.ReturnRandomUnit();
+                UnitSaveData randomUnit = UnitGenerationService.GenerateUnit();
+                ShowUnitPreview(randomUnit.definition, randomUnit.rarity);
 
                 takeUnitButton.gameObject.SetActive(true);
                 takeUnitButton.onClick.AddListener(() =>
                 {
                     //RunManager.Instance.AddUnitToBench(randomUnit);
-                    if (PlayerUnitManager.Instance.TryAcquireUnit(randomUnit, previewUnitRarity))
+                    if (PlayerUnitManager.Instance.TryAcquireUnit(randomUnit.definition, previewUnitRarity))
                     {
                         takeUnitButton.interactable = false;
                         CompleteEventAndReturn(eventSO);
@@ -60,11 +61,11 @@ public class EventSceneController : MonoBehaviour
         }
     }
 
-    private void ShowUnitPreview(UnitDefinition unitDef)
+    private void ShowUnitPreview(UnitDefinition unitDef, Rarity rarity)
     {
         previewUnit = Instantiate(unitDef.unitPrefab, rewardAnchor);
-        previewUnit.InitializeRoster(unitDef, unitDef.rarity);
-        previewUnitRarity = unitDef.rarity;
+        previewUnit.InitializeRoster(unitDef, rarity);
+        previewUnitRarity = rarity;
         previewUnit.enabled = false; // disables combat logic
         previewUnit.transform.localPosition = Vector3.zero;
     }
