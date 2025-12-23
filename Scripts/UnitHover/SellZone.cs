@@ -1,26 +1,26 @@
+// Update your SellZone.cs back to using SpriteRenderer
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SellZone : MonoBehaviour
 {
     [SerializeField] private Color highlightColor = Color.red;
     private Color originalColor;
-    private Image image; // Changed from SpriteRenderer to Image
+    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
-        image = GetComponent<Image>();
-        if (image != null)
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
         {
-            originalColor = image.color;
+            originalColor = spriteRenderer.color;
         }
     }
 
     public void Highlight(bool highlight)
     {
-        if (image != null)
+        if (spriteRenderer != null)
         {
-            image.color = highlight ? highlightColor : originalColor;
+            spriteRenderer.color = highlight ? highlightColor : originalColor;
         }
     }
 }

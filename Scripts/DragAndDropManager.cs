@@ -7,8 +7,7 @@ public class DragAndDropManager : MonoBehaviour
 {
     [SerializeField] private GridManager battleGrid;
     [SerializeField] private GridManager benchGrid;
-    [SerializeField] private RectTransform sellZoneRect;
-    [SerializeField] private SellZone sellZoneScript; // Reference to the SellZone script for highlighting
+    [SerializeField] private SellZone sellZone;
 
     private UnitInstance draggedUnit;
     private RunManager.UnitPlacement draggedPlacement;
@@ -37,11 +36,12 @@ public class DragAndDropManager : MonoBehaviour
         // Update sell zone highlight based on mouse position
         if (draggedUnit != null)
         {
-            Vector2 mouseScreenPos = mouse.position.ReadValue();
-            bool overSellZone = IsInSellZone(mouseScreenPos);
+            Vector3 worldPos = GetMouseWorldPosition();
+            bool overSellZone = IsInSellZone(worldPos);
 
-            if (sellZoneScript != null)
-                sellZoneScript.Highlight(overSellZone);
+            // Highlight the sell zone visual
+            if (sellZone != null)
+                sellZone.Highlight(overSellZone);
 
             // Change unit color when over sell zone
             SpriteRenderer sr = draggedUnit.GetComponent<SpriteRenderer>();
@@ -110,17 +110,14 @@ public class DragAndDropManager : MonoBehaviour
 
     void StopDrag()
     {
-        // Get mouse position in screen space for sell zone check
-        Vector2 mouseScreenPos = mouse.position.ReadValue();
+        Vector3 dropPos = GetMouseWorldPosition();
 
-        if (IsInSellZone(mouseScreenPos))
+        if (IsInSellZone(dropPos))
         {
             SellUnit();
         }
         else
         {
-            // Use world position for grid placement
-            Vector3 dropPos = GetMouseWorldPosition();
             GridManager targetGrid = GetClosestGrid(dropPos);
             Vector2Int targetPos = targetGrid.GetNearestGridPosition(dropPos);
 
@@ -162,8 +159,8 @@ public class DragAndDropManager : MonoBehaviour
         }
 
         // Reset sell zone highlight
-        if (sellZoneScript != null)
-            sellZoneScript.Highlight(false);
+        if (sellZone != null)
+            sellZone.Highlight(false);
 
         // Clear drag state
         draggedUnit = null;
@@ -196,16 +193,14 @@ public class DragAndDropManager : MonoBehaviour
         }
     }
 
-    bool IsInSellZone(Vector2 screenPos)
+    bool IsInSellZone(Vector3 worldPos)
     {
-        if (sellZoneRect == null) return false;
+        if (sellZone == null) return false;
 
-        // Convert screen position (mouse position is already in screen space)
-        return RectTransformUtility.RectangleContainsScreenPoint(
-            sellZoneRect,
-            screenPos,
-            null // No camera needed for Screen Space - Overlay
-        );
+        Collider2D sellCollider = sellZone.GetComponent<Collider2D>();
+        if (sellCollider == null) return false;
+
+        return sellCollider.OverlapPoint(worldPos);
     }
 
     void SellUnit()
@@ -233,12 +228,7 @@ public class DragAndDropManager : MonoBehaviour
         // Destroy the unit GameObject
         Destroy(draggedUnit.gameObject);
 
-        // Update gold display in PrepScene
-        PrepSceneManager prepManager = FindObjectOfType<PrepSceneManager>();
-        if (prepManager != null && prepManager.TryGetComponent<TextMeshProUGUI>(out var goldText))
-        {
-            goldText.text = $"Gold: {RunManager.Instance.currentGold}";
-        }
+        RunManager.Instance.currentGold += sellPrice;
     }
 
     void RemoveFromRunManager(UnitInstance unit, UnitPlacement placement)
