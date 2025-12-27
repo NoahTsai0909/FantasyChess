@@ -67,6 +67,7 @@ public class EventSceneController : MonoBehaviour
         previewUnit.InitializeRoster(unitDef, rarity);
         previewUnitRarity = rarity;
         previewUnit.enabled = false; // disables combat logic
+        previewUnit.isPlayer = true;
         previewUnit.transform.localPosition = Vector3.zero;
     }
 

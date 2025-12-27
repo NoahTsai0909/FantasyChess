@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using static CombatEventBus;
 using static SceneLoader;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class gameManager : MonoBehaviour
 {
@@ -177,13 +178,11 @@ public class gameManager : MonoBehaviour
         // Spawn visual from prefab
         UnitInstance unit = Instantiate(placement.unitData.definition.unitPrefab);
 
-        unit.isPlayer = true;
-
         // Initialize stats from the saved data
         unit.InitializeRoster(placement.unitData.definition, placement.unitData.rarity);
 
         // Set placement reference and enter combat
-        unit.EnterCombat(grid, placement);
+        unit.EnterCombat(grid, placement, true);
 
         return unit;
     }
@@ -192,10 +191,10 @@ public class gameManager : MonoBehaviour
     {
         UnitInstance unit = Instantiate(placement.unitData.definition.unitPrefab);
 
-        unit.isPlayer = false;
+
         unit.InitializeRoster(placement.unitData.definition, placement.unitData.rarity);
 
-        unit.EnterCombat(grid, placement);
+        unit.EnterCombat(grid, placement, false);
 
         return unit;
     }

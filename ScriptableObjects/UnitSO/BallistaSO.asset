@@ -15,13 +15,14 @@ MonoBehaviour:
   unitName: Ballista
   maxHP: 20
   attack: 10
-  healValue: 0
-  Cooldown: 0
+  heal: 0
+  cooldown: 0
   isPassive: 1
   unitSprite: {fileID: -299750393070573542, guid: 3f8e15b6aebaf1a4da07b00226686402, type: 3}
   cost: 2
   region: 0
   rarity: 0
-  reputationUnlockLevel: 0
+  startingRarity: 0
+  provisionCost: 1
   unitPrefab: {fileID: 2845720871495510524, guid: 28a543add01a33940997e84070def3d6, type: 3}
   tagFlags: 0

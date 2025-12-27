@@ -23,5 +23,6 @@ MonoBehaviour:
   region: 0
   rarity: 0
   startingRarity: 0
+  provisionCost: 1
   unitPrefab: {fileID: 5953980494205079508, guid: 036cd17fe768c7348bde23869ab1d19b, type: 3}
   tagFlags: 0

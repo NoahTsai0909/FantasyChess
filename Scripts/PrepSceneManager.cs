@@ -9,6 +9,7 @@ public class PrepSceneManager : MonoBehaviour
     [SerializeField] private GridManager battleGrid; // 3x3
     [SerializeField] private GridManager benchGrid;  // 1x8
     [SerializeField] private Button ReturnButton;
+    [SerializeField] private ProvisionManager provisionManager;
 
     private List<UnitInstance> spawnedUnits = new List<UnitInstance>();
 
@@ -34,6 +35,12 @@ public class PrepSceneManager : MonoBehaviour
     {
         // Set the encounter (you'll need to assign this somehow)
         // RunManager.Instance.currentEncounter = someEncounter;
+        if (!provisionManager.IsProvisionValid())
+        {
+            Debug.LogWarning("Provision cap exceeded! Cannot leave prep scene.");
+            // Optionally: Show a warning popup
+            return;
+        }
         SaveCurrentTeamToRunManager();
         SceneLoader.Instance.LoadScene(SceneLoader.Instance.lastScene);
     }
@@ -59,8 +66,8 @@ public class PrepSceneManager : MonoBehaviour
                 continue;
             }
 
-            // Place unit, GridManager spawns the visual
-            battleGrid.PlaceUnit(placement, placement.row, placement.col);
+            // Place unit with isPlayer = true
+            battleGrid.PlaceUnit(placement, placement.row, placement.col, null, true);
 
             // Reference to runtime UnitInstance
             UnitInstance spawned = battleGrid.GetUnitAtPosition(placement.row, placement.col);
@@ -76,8 +83,6 @@ public class PrepSceneManager : MonoBehaviour
             spawnedUnits.Add(spawned);
         }
     }
-
-
 
     private void LoadBenchGridFromRunManager()
     {
@@ -95,7 +100,8 @@ public class PrepSceneManager : MonoBehaviour
                 continue;
             }
 
-            benchGrid.PlaceUnit(placement, 0, col);
+            // Place bench unit with isPlayer = true
+            benchGrid.PlaceUnit(placement, 0, col, null, true);
 
             UnitInstance spawned = benchGrid.GetUnitAtPosition(0, col);
             if (spawned == null)

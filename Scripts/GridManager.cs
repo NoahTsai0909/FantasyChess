@@ -63,6 +63,12 @@ public class GridManager : MonoBehaviour
 
     public bool PlaceUnit(UnitPlacement placement, int r, int c, UnitInstance instance = null)
     {
+        return PlaceUnit(placement, r, c, instance, true); // Default to player side
+    }
+
+    // New overload with isPlayer parameter
+    public bool PlaceUnit(UnitPlacement placement, int r, int c, UnitInstance instance = null, bool isPlayer = true)
+    {
         if (!InBounds(r, c)) return false;
 
         // Only destroy old unit if instance == null (i.e., we are spawning new)
@@ -81,6 +87,10 @@ public class GridManager : MonoBehaviour
         // Set visual position & link to placement
         instance.transform.position = GetCellWorldPosition(r, c);
         instance.myPlacement = placement;
+
+        // Set player side
+        instance.SetPlayerSide(isPlayer);
+
         unitInstances[r, c] = instance;
 
         return true;

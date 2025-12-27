@@ -70,7 +70,7 @@ public class UnitInstance : MonoBehaviour
         }
 
         originalSpriteColor = sr.color;
-        sr.flipX = !isPlayer;
+        UpdateSpriteDirection();
     }
 
     private void Update()
@@ -111,14 +111,26 @@ public class UnitInstance : MonoBehaviour
         );
     }
 
-    public void EnterCombat(GridManager grid, RunManager.UnitPlacement placement)
+    public void SetPlayerSide(bool isPlayerSide)
+    {
+        isPlayer = isPlayerSide;
+        UpdateSpriteDirection();
+    }
+
+    private void UpdateSpriteDirection()
+    {
+        if (sr != null)
+            sr.flipX = !isPlayer;
+    }
+
+    public void EnterCombat(GridManager grid, RunManager.UnitPlacement placement, bool isPlayer)
     {
         myPlacement = placement;
         row = placement.row;
         col = placement.col;
 
         // Place in grid
-        grid.PlaceUnit(placement, row, col, this);
+        grid.PlaceUnit(placement, row, col, this, isPlayer);
 
         InitializeCombatState();
         SetupTargeting();

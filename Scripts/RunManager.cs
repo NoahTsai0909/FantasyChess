@@ -45,6 +45,7 @@ public class RunManager : MonoBehaviour
     public bool eventInProgress = false;
     public const int TOTAL_DAYS = 7;
     public ShopState shopState;
+    public int provisionCap = 4;
 
     private Dictionary<UnitDefinition, PermanentStats> permanentStatsMap = new();
 

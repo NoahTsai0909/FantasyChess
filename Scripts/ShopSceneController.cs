@@ -87,7 +87,7 @@ public class ShopSceneController : MonoBehaviour
         UnitInstance unit = Instantiate(unitData.definition.unitPrefab, unitAnchor);
         unit.InitializeRoster(unitData.definition, unitData.rarity); // Pass the rolled rarity!
         unit.transform.localPosition = new Vector3(xPos, 0f, 0f);
-
+        unit.isPlayer = true;
         spawnedUnits.Add(unit);
 
         // Spawn purchase button
@@ -100,22 +100,23 @@ public class ShopSceneController : MonoBehaviour
         Vector3 screenPos = Camera.main.WorldToScreenPoint(unit.transform.position);
         button.transform.position = screenPos + new Vector3(0f, -100f, 0f);
 
+        int unitCost = GetPurchasePrice(unitData);
         // Update button text
         var text = button.GetComponentInChildren<TMPro.TextMeshProUGUI>();
         if (text != null)
-            text.text = $"Buy ({unitData.definition.cost}g)";
+            text.text = $"Buy ({unitCost}g)";
 
         // Hook up click logic
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() =>
         {
-            if (RunManager.Instance.currentGold < unitData.definition.cost)
+            if (RunManager.Instance.currentGold < unitCost)
             {
                 Debug.Log("Not enough gold");
                 return;
             }
 
-            RunManager.Instance.currentGold -= unitData.definition.cost;
+            RunManager.Instance.currentGold -= unitCost;
             PlayerUnitManager.Instance.TryAcquireUnit(unitData.definition, unitData.rarity); // Pass rarity!
             goldText.text = $"Gold: {RunManager.Instance.currentGold}";
             shopState.purchasedUnits.Add(unitData.definition);
@@ -130,6 +131,10 @@ public class ShopSceneController : MonoBehaviour
         spawnedButtons.Add(button);
     }
 
+    int GetPurchasePrice(UnitSaveData unit)
+    {
+        return unit.EffectiveValue * 2;
+    }
 
     void DisplayCurrentPage()
     {

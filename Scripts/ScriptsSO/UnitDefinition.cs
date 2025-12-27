@@ -24,6 +24,7 @@ public class UnitDefinition : ScriptableObject, IStatSource
     public Region region;   // Aurelia / Nethervale / Everborn / Axiom
     public Rarity rarity;
     public Rarity startingRarity;
+    public int provisionCost;
 
     [Header("Prefab Reference")]
     public UnitInstance unitPrefab;

@@ -8,6 +8,7 @@ public class DragAndDropManager : MonoBehaviour
     [SerializeField] private GridManager battleGrid;
     [SerializeField] private GridManager benchGrid;
     [SerializeField] private SellZone sellZone;
+    [SerializeField] private ProvisionManager provisionManager;
 
     private UnitInstance draggedUnit;
     private RunManager.UnitPlacement draggedPlacement;
@@ -25,6 +26,8 @@ public class DragAndDropManager : MonoBehaviour
 
         if (battleGrid == null || benchGrid == null)
             Debug.LogError("DragAndDropManager: Grid references not set!");
+        if (provisionManager == null)
+            provisionManager = FindFirstObjectByType<ProvisionManager>();
     }
 
     void Update()
@@ -99,13 +102,6 @@ public class DragAndDropManager : MonoBehaviour
         sourceGrid.RemoveUnit(sourcePos.x, sourcePos.y, destroyVisual: false);
 
         SetUnitDragVisuals(unit, true);
-
-        // Bring unit to front when dragging
-        SpriteRenderer sr = unit.GetComponent<SpriteRenderer>();
-        if (sr != null)
-        {
-            sr.sortingOrder = 100; // High number to bring to front
-        }
     }
 
     void StopDrag()
@@ -123,6 +119,57 @@ public class DragAndDropManager : MonoBehaviour
 
             // Get target unit if any
             UnitInstance targetUnit = targetGrid.GetUnitAtPosition(targetPos.x, targetPos.y);
+
+            // CASE 1: Moving to empty cell
+            if (targetUnit == null)
+            {
+                // Only check provision if moving TO battle grid FROM bench
+                if (targetGrid == battleGrid && sourceGrid == benchGrid)
+                {
+                    if (provisionManager != null && !provisionManager.CanAddUnitToBattleGrid(draggedUnit))
+                    {
+                        RevertDrag();
+                        return;
+                    }
+                }
+                // If moving within same grid or from battle to bench, no provision check needed
+            }
+            // CASE 2: Swapping units
+            else
+            {
+                // Determine the grid relationship
+                bool sameGrid = sourceGrid == targetGrid;
+                bool movingToBattle = targetGrid == battleGrid;
+                bool movingToBench = targetGrid == benchGrid;
+                bool fromBattle = sourceGrid == battleGrid;
+                bool fromBench = sourceGrid == benchGrid;
+
+                // Different provision scenarios:
+                if (sameGrid)
+                {
+                    // Swapping within same grid - no provision change needed
+                    // (Total provision stays the same)
+                }
+                else if (movingToBattle && fromBench)
+                {
+                    // Swapping bench unit for battle unit
+                    if (provisionManager != null && !provisionManager.CanSwapUnits(targetUnit, draggedUnit))
+                    {
+                        RevertDrag();
+                        return;
+                    }
+                }
+                else if (movingToBench && fromBattle)
+                {
+                    // Swapping battle unit for bench unit
+                    if (provisionManager != null && !provisionManager.CanSwapUnits(draggedUnit, targetUnit))
+                    {
+                        RevertDrag();
+                        return;
+                    }
+                }
+            }
+
             RunManager.UnitPlacement targetPlacement = targetUnit != null ? targetUnit.myPlacement : null;
 
             // Case 1: target cell occupied = swap
@@ -148,16 +195,6 @@ public class DragAndDropManager : MonoBehaviour
 
         SetUnitDragVisuals(draggedUnit, false);
 
-        // Reset sorting order
-        if (draggedUnit != null)
-        {
-            SpriteRenderer sr = draggedUnit.GetComponent<SpriteRenderer>();
-            if (sr != null)
-            {
-                sr.sortingOrder = 0; // Reset to default
-            }
-        }
-
         // Reset sell zone highlight
         if (sellZone != null)
             sellZone.Highlight(false);
@@ -166,13 +203,66 @@ public class DragAndDropManager : MonoBehaviour
         draggedUnit = null;
         draggedPlacement = null;
         sourceGrid = null;
+
+        if (provisionManager != null)
+            provisionManager.CalculateCurrentProvision();
+    }
+
+    void RevertDrag()
+    {
+        // Return unit to source position
+        sourceGrid.PlaceUnit(draggedPlacement, sourcePos.x, sourcePos.y, draggedUnit);
+        draggedPlacement.row = sourcePos.x;
+        draggedPlacement.col = sourcePos.y;
+
+        // Reset visuals
+        SetUnitDragVisuals(draggedUnit, false);
+
+        SpriteRenderer sr = draggedUnit.GetComponent<SpriteRenderer>();
+        if (sr != null)
+        {
+            sr.sortingOrder = 0;
+        }
+
+        // Show feedback
+        StartCoroutine(ShowProvisionWarning());
+
+        // Clear drag state
+        draggedUnit = null;
+        draggedPlacement = null;
+        sourceGrid = null;
+    }
+
+    System.Collections.IEnumerator ShowProvisionWarning()
+    {
+        var provisionText = provisionManager.provisionText;
+        if (provisionText != null)
+        {
+            Color originalColor = provisionText.color;
+            provisionText.color = provisionManager.exceededColor;
+            yield return new WaitForSeconds(0.5f);
+            provisionText.color = originalColor;
+        }
     }
 
     GridManager GetClosestGrid(Vector3 worldPos)
     {
-        float distBattle = battleGrid.DistanceToNearestEmptyCell(worldPos);
-        float distBench = benchGrid.DistanceToNearestEmptyCell(worldPos);
-        return (distBattle < distBench) ? battleGrid : benchGrid;
+        // Calculate distance to grid centers instead of nearest empty cell
+        float distToBattle = Vector2.Distance(worldPos, battleGrid.transform.position);
+        float distToBench = Vector2.Distance(worldPos, benchGrid.transform.position);
+
+        // Or use a weighted distance that considers grid bounds
+        float battleDist = Mathf.Min(
+            distToBattle,
+            battleGrid.DistanceToNearestEmptyCell(worldPos)
+        );
+
+        float benchDist = Mathf.Min(
+            distToBench,
+            benchGrid.DistanceToNearestEmptyCell(worldPos)
+        );
+
+        return (battleDist < benchDist) ? battleGrid : benchGrid;
     }
 
     Vector3 GetMouseWorldPosition()
