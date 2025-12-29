@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -47,7 +48,7 @@ public class RunManager : MonoBehaviour
     public ShopState shopState;
     public int provisionCap = 4;
 
-    private Dictionary<UnitDefinition, PermanentStats> permanentStatsMap = new();
+    private Dictionary<Guid, PermanentStats> permanentStatsMap = new();
 
     [SerializeField] public RarityDistributionTable rarityDistributionTable;
 
@@ -271,18 +272,18 @@ public class RunManager : MonoBehaviour
         Debug.Log($"=== GenerateDailyEvents END: Generated {currentDailyEvents.Count} events ===");
     }
 
-    public PermanentStats GetPermanentStatsForUnit(UnitDefinition definition)
+    public PermanentStats GetPermanentStatsForUnit(Guid guid)
     {
-        if (definition == null)
+        if (guid == null)
         {
-            Debug.LogError("GetPermanentStatsForUnit called with null UnitDefinition");
+            Debug.LogError("GetPermanentStatsForUnit called with null guid");
             return new PermanentStats(); // fail-safe
         }
 
-        if (!permanentStatsMap.TryGetValue(definition, out var stats))
+        if (!permanentStatsMap.TryGetValue(guid, out var stats))
         {
             stats = new PermanentStats();
-            permanentStatsMap[definition] = stats;
+            permanentStatsMap[guid] = stats;
         }
 
         return stats;

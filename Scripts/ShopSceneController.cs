@@ -85,7 +85,7 @@ public class ShopSceneController : MonoBehaviour
     {
         // Spawn unit preview
         UnitInstance unit = Instantiate(unitData.definition.unitPrefab, unitAnchor);
-        unit.InitializeRoster(unitData.definition, unitData.rarity); // Pass the rolled rarity!
+        unit.InitializeFromSaveData(unitData);
         unit.transform.localPosition = new Vector3(xPos, 0f, 0f);
         unit.isPlayer = true;
         spawnedUnits.Add(unit);

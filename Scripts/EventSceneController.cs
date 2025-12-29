@@ -30,7 +30,7 @@ public class EventSceneController : MonoBehaviour
             {
                 //UnitDefinition randomUnit = eventSO.ReturnRandomUnit();
                 UnitSaveData randomUnit = UnitGenerationService.GenerateUnit();
-                ShowUnitPreview(randomUnit.definition, randomUnit.rarity);
+                ShowUnitPreview(randomUnit);
 
                 takeUnitButton.gameObject.SetActive(true);
                 takeUnitButton.onClick.AddListener(() =>
@@ -61,11 +61,11 @@ public class EventSceneController : MonoBehaviour
         }
     }
 
-    private void ShowUnitPreview(UnitDefinition unitDef, Rarity rarity)
+    private void ShowUnitPreview(UnitSaveData unit)
     {
-        previewUnit = Instantiate(unitDef.unitPrefab, rewardAnchor);
-        previewUnit.InitializeRoster(unitDef, rarity);
-        previewUnitRarity = rarity;
+        previewUnit = Instantiate(unit.definition.unitPrefab, rewardAnchor);
+        previewUnit.InitializeFromSaveData(unit);
+        previewUnitRarity = unit.rarity;
         previewUnit.enabled = false; // disables combat logic
         previewUnit.isPlayer = true;
         previewUnit.transform.localPosition = Vector3.zero;

@@ -179,10 +179,10 @@ public class gameManager : MonoBehaviour
         UnitInstance unit = Instantiate(placement.unitData.definition.unitPrefab);
 
         // Initialize stats from the saved data
-        unit.InitializeRoster(placement.unitData.definition, placement.unitData.rarity);
+        unit.InitializeFromSaveData(placement.unitData);
 
         // Set placement reference and enter combat
-        unit.EnterCombat(grid, placement, true);
+        unit.EnterCombat(grid, placement.row, placement.col, true);
 
         return unit;
     }
@@ -192,9 +192,9 @@ public class gameManager : MonoBehaviour
         UnitInstance unit = Instantiate(placement.unitData.definition.unitPrefab);
 
 
-        unit.InitializeRoster(placement.unitData.definition, placement.unitData.rarity);
+        unit.InitializeEnemy(placement.unitData.definition, placement.unitData.rarity);
 
-        unit.EnterCombat(grid, placement, false);
+        unit.EnterCombat(grid, placement.row, placement.col, false);
 
         return unit;
     }

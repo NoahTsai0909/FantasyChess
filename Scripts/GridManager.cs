@@ -81,7 +81,14 @@ public class GridManager : MonoBehaviour
         {
             UnitInstance prefab = placement.unitData.definition.unitPrefab;
             instance = Instantiate(prefab, GetCellWorldPosition(r, c), Quaternion.identity);
-            instance.InitializeRoster(placement.unitData.definition, placement.unitData.rarity);
+            if (isPlayer)
+            {
+                instance.InitializeFromSaveData(placement.unitData);
+            }
+            else
+            {
+                instance.InitializeEnemy(placement.unitData.definition, placement.unitData.rarity);
+            }
         }
 
         // Set visual position & link to placement
@@ -89,6 +96,18 @@ public class GridManager : MonoBehaviour
         instance.myPlacement = placement;
 
         // Set player side
+        instance.SetPlayerSide(isPlayer);
+
+        unitInstances[r, c] = instance;
+
+        return true;
+    }
+
+    public bool PlaceUnit(int r, int c, UnitInstance instance, bool isPlayer)
+    {
+        if (!InBounds(r, c)) return false;
+
+        instance.transform.position = GetCellWorldPosition(r, c);
         instance.SetPlayerSide(isPlayer);
 
         unitInstances[r, c] = instance;

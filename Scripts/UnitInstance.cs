@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
@@ -33,6 +34,7 @@ public class UnitInstance : MonoBehaviour
 
     protected float cooldownTimer;
 
+    public Guid id;
     public int row;
     public int col;
     public bool isPlayer;
@@ -91,12 +93,34 @@ public class UnitInstance : MonoBehaviour
         }
     }
 
-    public void InitializeRoster(UnitDefinition def, Rarity rarity)
+    public void InitializeEnemy(UnitDefinition def, Rarity rarity)
     {
         definition = def;
         CurrentRarity = rarity;
 
-        permanentStats = RunManager.Instance.GetPermanentStatsForUnit(def);
+        permanentStats = null;
+        temporaryStats = new TemporaryStats();
+
+        RecalculateStats();
+    }
+
+    public void InitializeFromSaveData(UnitSaveData data)
+    {
+        if (data == null)
+        {
+            Debug.LogError("InitializeFromSaveData called with null UnitSaveData");
+            return;
+        }
+
+        // Core identity
+        definition = data.definition;
+        CurrentRarity = data.rarity;
+        id = data.id;
+
+        // Permanent progression (keyed by GUID, not definition long-term)
+        permanentStats = RunManager.Instance.GetPermanentStatsForUnit(id);
+
+        // Fresh combat-only modifiers
         temporaryStats = new TemporaryStats();
 
         RecalculateStats();
@@ -123,18 +147,18 @@ public class UnitInstance : MonoBehaviour
             sr.flipX = !isPlayer;
     }
 
-    public void EnterCombat(GridManager grid, RunManager.UnitPlacement placement, bool isPlayer)
+    public void EnterCombat(GridManager grid, int row, int col, bool isPlayer)
     {
-        myPlacement = placement;
-        row = placement.row;
-        col = placement.col;
+        this.row = row;
+        this.col = col;
 
-        // Place in grid
-        grid.PlaceUnit(placement, row, col, this, isPlayer);
+        grid.PlaceUnit(row, col, this, isPlayer);
 
+        SetPlayerSide(isPlayer);
         InitializeCombatState();
         SetupTargeting();
         SetupCombatUI();
+
         inCombat = true;
     }
 

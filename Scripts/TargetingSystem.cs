@@ -109,12 +109,12 @@ public class TargetingSystem
     private UnitInstance FindLowestHealth(List<UnitInstance> candidates)
     {
         UnitInstance lowest = null;
-        float lowestHealth = float.MaxValue;
+        float lowestHealth = 1;
 
         foreach (var unit in candidates)
         {
             // You'll need to expose currentHP via a property
-            float health = unit.GetCurrentHP(); // Need to add this method
+            float health = unit.GetCurrentHP()/unit.Stats.MaxHP; // Need to add this method
             if (health < lowestHealth)
             {
                 lowestHealth = health;

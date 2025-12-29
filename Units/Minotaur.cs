@@ -46,6 +46,6 @@ public class Minotaur : UnitInstance
 
     private void HandleCombatEnd()
     {
-        RunManager.Instance.GetPermanentStatsForUnit(Definition).bonusMaxHP += bonusMaxHPstat;
+        RunManager.Instance.GetPermanentStatsForUnit(id).bonusMaxHP += bonusMaxHPstat;
     }
 }

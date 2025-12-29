@@ -13,19 +13,31 @@ public class StatBlock
         temporary = temp;
     }
 
+    private int PermAttack => permanent?.bonusAttack ?? 0;
+    private int PermHeal => permanent?.bonusHeal ?? 0;
+    private int PermMaxHP => permanent?.bonusMaxHP ?? 0;
+    private float PermCooldownReduction => permanent?.cooldownReduction ?? 0f;
+
     public int Attack =>
-        baseStats.Attack + permanent.bonusAttack + temporary.attackBonus;
+        baseStats.Attack
+        + PermAttack
+        + temporary.attackBonus;
 
     public int Heal =>
-        baseStats.Heal + permanent.bonusHeal + temporary.healBonus;
+        baseStats.Heal
+        + PermHeal
+        + temporary.healBonus;
 
     public int MaxHP =>
-        baseStats.MaxHP + permanent.bonusMaxHP + temporary.maxHPBonus;
+        baseStats.MaxHP
+        + PermMaxHP
+        + temporary.maxHPBonus;
 
     public float Cooldown =>
-        Mathf.Max(0.5f,
+        Mathf.Max(
+            0.5f,
             baseStats.Cooldown
-            - permanent.cooldownReduction
+            - PermCooldownReduction
             - temporary.cooldownDelta
         );
 }

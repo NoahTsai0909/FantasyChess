@@ -1,8 +1,10 @@
 using UnityEngine;
+using System;
 
 [System.Serializable]
 public class UnitSaveData
 {
+    public Guid id;
     public UnitDefinition definition;
     public Rarity rarity;
     public int row;
@@ -16,6 +18,11 @@ public class UnitSaveData
 
     public int BaseValue => RarityToMultiplier(rarity) * EffectiveProvision;
     public int EffectiveValue => Mathf.Max(0, BaseValue + valueModifier);
+
+    public UnitSaveData()
+    {
+        id = Guid.NewGuid();
+    }
 
     public static int RarityToMultiplier(Rarity rarity)
     {
