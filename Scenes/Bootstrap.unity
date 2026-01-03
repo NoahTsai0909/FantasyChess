@@ -154,8 +154,12 @@ MonoBehaviour:
   playerTeamPlacements: []
   playerBenchPlacements: []
   defaultUnits:
-  - definition: {fileID: 11400000, guid: 88642c22682ab104a9c47221284759e5, type: 2}
-    rarity: 0
+  - unitData:
+      definition: {fileID: 11400000, guid: 88642c22682ab104a9c47221284759e5, type: 2}
+      rarity: 0
+      provisionCost: 1
+      provisionModifier: 0
+      valueModifier: 0
     row: 1
     col: 1
   benchSize: 8
@@ -167,6 +171,7 @@ MonoBehaviour:
   selectedEvent: {fileID: 0}
   currentEncounter: {fileID: 0}
   eventInProgress: 0
+  provisionCap: 4
   rarityDistributionTable: {fileID: 11400000, guid: 4761c31200eefbd48a888347da7c49bf, type: 2}
 --- !u!4 &221976165
 Transform:

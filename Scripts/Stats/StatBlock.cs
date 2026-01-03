@@ -9,8 +9,8 @@ public class StatBlock
     public StatBlock(IStatSource baseStats, PermanentStats perm, TemporaryStats temp)
     {
         this.baseStats = baseStats;
-        permanent = perm;
-        temporary = temp;
+        permanent = perm ?? new PermanentStats();
+        temporary = temp ?? new TemporaryStats();
     }
 
     private int PermAttack => permanent?.bonusAttack ?? 0;

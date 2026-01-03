@@ -7,8 +7,6 @@ public class UnitSaveData
     public Guid id;
     public UnitDefinition definition;
     public Rarity rarity;
-    public int row;
-    public int col;
     public int provisionCost;
 
     public int provisionModifier;

@@ -14,9 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EncounterDefinition
   encounterName: Knight and Priest
   enemyUnits:
-  - unitPrefab: {fileID: 3176379809111270148, guid: 888f4831d27eba143a6a76502332a5b4, type: 3}
-    row: 0
-    col: 0
-  - unitPrefab: {fileID: 1807140018485177481, guid: d6addf1dd09d0b7448504bd34098bdc6, type: 3}
+  - unitData:
+      definition: {fileID: 11400000, guid: 88642c22682ab104a9c47221284759e5, type: 2}
+      rarity: 0
+      provisionCost: 1
+      provisionModifier: 0
+      valueModifier: 0
     row: 1
-    col: 0
+    col: 1
+  - unitData:
+      definition: {fileID: 11400000, guid: 8f005606f4a1e4847a4aa1978ce45a79, type: 2}
+      rarity: 0
+      provisionCost: 1
+      provisionModifier: 0
+      valueModifier: 0
+    row: 1
+    col: 2

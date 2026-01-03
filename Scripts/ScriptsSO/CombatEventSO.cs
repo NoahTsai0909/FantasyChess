@@ -6,6 +6,8 @@ public class CombatEventSO : BaseEventSO
 {
     [Header("Combat Settings")]
     public EncounterDefinition encounter;
+    public int goldReward;
+    public int reputationReward;
 
     public override void OnSelected()
     {

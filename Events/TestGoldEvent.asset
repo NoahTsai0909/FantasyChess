@@ -9,18 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8920a2a2659eb4f45baf49db4d32ce91, type: 3}
-  m_Name: EnemyBattalion
-  m_EditorClassIdentifier: Assembly-CSharp::CombatEventSO
-  eventName: Enemy Battalion
-  description: A wandering battalion of soldiers
-  eventIcon: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 8d6b9aaa0adb5bd43bc57adb7cc52034, type: 3}
+  m_Name: TestGoldEvent
+  m_EditorClassIdentifier: Assembly-CSharp::GoldEventSO
+  eventName: Abandoned Stash
+  description: 'You encounter an abandoned stash of gold on the roadside. '
+  eventIcon: {fileID: 8630833029534501343, guid: cef6df5bb482442408ce0a7adf781304, type: 3}
   minReputationRequired: 1
   maxReputationAllowed: 10
   selectionWeight: 1
-  targetScene: 2
+  targetScene: 5
   backgroundColor: {r: 1, g: 1, b: 1, a: 1}
   flavorText: 
-  encounter: {fileID: 11400000, guid: 351bdef2bce433b41856f84ac1105b9c, type: 2}
-  goldReward: 3
-  reputationReward: 4
+  goldAmount: 5

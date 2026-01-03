@@ -19,7 +19,8 @@ MonoBehaviour:
   maxReputationAllowed: 10
   selectionWeight: 1
   targetScene: 2
-  possibleRewards: []
   backgroundColor: {r: 1, g: 1, b: 1, a: 1}
   flavorText: 
   encounter: {fileID: 11400000, guid: 0ab0dfa65ba37b142b08480b4a44484a, type: 2}
+  goldReward: 2
+  reputationReward: 3

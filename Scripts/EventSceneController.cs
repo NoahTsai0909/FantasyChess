@@ -11,6 +11,7 @@ public class EventSceneController : MonoBehaviour
     [SerializeField] private Button continueButton;
     [SerializeField] private Transform rewardAnchor;
     [SerializeField] private Button takeUnitButton;
+    [SerializeField] private TextMeshProUGUI takeUnitButtonText;
 
     private UnitInstance previewUnit;
     private Rarity previewUnitRarity;
@@ -46,6 +47,20 @@ public class EventSceneController : MonoBehaviour
                         Debug.Log("Error encountered when acquiring unit");
                     }
                 });
+            }
+            if (eventSO is GoldEventSO)
+            {
+                int goldAmount = eventSO.getGoldAmount();
+                takeUnitButtonText.text = $"Gain {goldAmount} gold.";
+                takeUnitButton.gameObject.SetActive(true);
+                takeUnitButton.onClick.AddListener(() =>
+                {
+                    RunManager.Instance.currentGold += goldAmount;
+                    Debug.Log($"Acquired {goldAmount} gold");
+                    takeUnitButton.interactable = false;
+                    CompleteEventAndReturn(eventSO);
+                });
+
             }
             // Continue button returns to map
             continueButton.onClick.AddListener(() =>

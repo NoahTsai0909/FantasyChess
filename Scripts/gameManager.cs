@@ -116,11 +116,9 @@ public class gameManager : MonoBehaviour
             if (combatEvent != null)
             {
                 // Apply combat-specific rewards
-                int baseGold = 30 + (RunManager.Instance.reputation * 5);
-                RunManager.Instance.currentGold += baseGold;
-                RunManager.Instance.reputation += 1;
+                RunManager.Instance.currentGold += combatEvent.goldReward;
+                RunManager.Instance.reputation += combatEvent.reputationReward;
             }
-
             // Mark the event as completed
             RunManager.Instance.selectedEvent.CompleteEvent();
         }

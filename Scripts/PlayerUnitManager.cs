@@ -87,9 +87,7 @@ public class PlayerUnitManager : MonoBehaviour
                     placement.unitData = new UnitSaveData
                 {
                     definition = def,
-                    rarity = rarity,
-                    row = -1,
-                    col = -1
+                    rarity = rarity
                 };
                 return true;
             }

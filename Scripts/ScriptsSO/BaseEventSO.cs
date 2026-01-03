@@ -95,6 +95,11 @@ public abstract class BaseEventSO : ScriptableObject
     {
         return null;
     }
+
+    public virtual int getGoldAmount()
+    {
+        return 0;
+    }
 }
 
 

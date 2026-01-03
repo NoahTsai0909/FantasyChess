@@ -32,6 +32,8 @@ public class UnitHoverUI : MonoBehaviour
         if (unit == null || unit.Definition == null)
             return;
 
+        unit.RecalculateStats();
+
         gameObject.SetActive(true);
 
         nameText.text = unit.Definition.unitName;

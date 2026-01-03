@@ -32,7 +32,7 @@ public class RunManager : MonoBehaviour
 
 
     [Header("Default Unit")]
-    [SerializeField] private List<UnitSaveData> defaultUnits;
+    [SerializeField] private List<UnitPlacement> defaultUnits;
     [SerializeField] private int benchSize = 8;
 
     public int currentDay = 1;
@@ -78,23 +78,25 @@ public class RunManager : MonoBehaviour
     {
         playerTeamPlacements.Clear();
 
-        foreach (var data in defaultUnits)
+        foreach (var placement in defaultUnits)
         {
-            if (data == null || data.definition == null)
+            if (placement == null || placement.unitData == null || placement.unitData.definition == null)
             {
-                Debug.LogError("Default unit has null definition!");
+                Debug.LogError("Default unit placement is invalid!");
                 continue;
             }
 
+            // Clone placement so runtime changes don't mutate the asset
             playerTeamPlacements.Add(new UnitPlacement
             {
                 unitData = new UnitSaveData
                 {
-                    definition = data.definition,
-                    rarity = data.rarity
+                    definition = placement.unitData.definition,
+                    rarity = placement.unitData.rarity,
+                    // GUID is generated automatically in constructor / factory
                 },
-                row = data.row,
-                col = data.col
+                row = placement.row,
+                col = placement.col
             });
         }
     }
@@ -289,6 +291,12 @@ public class RunManager : MonoBehaviour
         return stats;
     }
 
+    public PermanentStats CreatePermanentStatsForUnit(Guid id)
+    {
+        var stats = new PermanentStats();
+        permanentStatsMap[id] = stats;
+        return stats;
+    }
 
 
     public StatBlock GetPreviewStats(UnitDefinition definition, Rarity rarity)

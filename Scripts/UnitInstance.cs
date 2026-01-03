@@ -118,13 +118,14 @@ public class UnitInstance : MonoBehaviour
         id = data.id;
 
         // Permanent progression (keyed by GUID, not definition long-term)
-        permanentStats = RunManager.Instance.GetPermanentStatsForUnit(id);
+        permanentStats = RunManager.Instance.GetPermanentStatsForUnit(id)?? RunManager.Instance.CreatePermanentStatsForUnit(id);
 
         // Fresh combat-only modifiers
         temporaryStats = new TemporaryStats();
 
         RecalculateStats();
     }
+
 
     public void RecalculateStats()
     {
