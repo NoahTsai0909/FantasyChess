@@ -3,12 +3,15 @@ using static CombatEventBus;
 
 public class Ballista : UnitInstance
 {
-    protected override void Awake()
+
+    public override void EnterCombat(GridManager grid, int row, int col, bool isPlayer)
     {
-        base.Awake();
-        Debug.Log("Ballista deployed");
+        base.EnterCombat(grid, row, col, isPlayer);
+
         if (isPassive)
+        {
             CombatEventBus.OnCombatEvent += HandleCombatEvent;
+        }
     }
 
     private void OnDestroy()
@@ -20,7 +23,6 @@ public class Ballista : UnitInstance
     {
         // Only care about ability use events
         if (type != CombatEventType.AbilityUsed) return;
-
         // Must be ally
         if (source.isPlayer != this.isPlayer) return;
 
@@ -33,7 +35,16 @@ public class Ballista : UnitInstance
         if (enemy != null)
         {
             Debug.Log($"{unitName} fires due to ally {source.unitName}!");
-            enemy.TakeDamage(stats.Attack);
+            CombatManager.Instance.ExecuteAction(
+                new CombatAction
+                {
+                    type = CombatActionType.Damage,
+                    source = this,
+                    target = enemy,
+                    amount = stats.Attack,
+                    reason = "Ballista Passive"
+                }
+            );
         }
     }
 

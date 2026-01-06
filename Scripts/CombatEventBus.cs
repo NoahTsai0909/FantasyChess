@@ -8,6 +8,7 @@ public static class CombatEventBus
         DamageTaken,
         Healed,
         UnitDied,
+        ActionResolved
     }
 
     public delegate void CombatEventHandler(CombatEventType type, UnitInstance source, UnitInstance target);

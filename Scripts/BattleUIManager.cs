@@ -57,8 +57,8 @@ public class BattleUIManager : MonoBehaviour
         if (healthFill != null)
         {
             healthFill.fillAmount = 1f;
-            healthFill.color = Color.green;
-            Debug.Log("Color of health is green");
+            /*healthFill.color = Color.green;
+            Debug.Log("Color of health is green");*/
         }
         if (cooldownFill != null) cooldownFill.fillAmount = 0f;
     }
@@ -80,12 +80,12 @@ public class BattleUIManager : MonoBehaviour
             uiElements.healthFill.fillAmount = fillAmount;
 
             // Update color based on health
-            if (fillAmount > 0.6f)
+            /*if (fillAmount > 0.6f)
                 uiElements.healthFill.color = Color.green;
             else if (fillAmount > 0.3f)
                 uiElements.healthFill.color = Color.yellow;
             else
-                uiElements.healthFill.color = Color.red;
+                uiElements.healthFill.color = Color.red;*/
         }
     }
 

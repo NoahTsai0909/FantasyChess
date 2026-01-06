@@ -116,6 +116,7 @@ public class UnitInstance : MonoBehaviour
         definition = data.definition;
         CurrentRarity = data.rarity;
         id = data.id;
+        isPassive = definition.isPassive;
 
         // Permanent progression (keyed by GUID, not definition long-term)
         permanentStats = RunManager.Instance.GetPermanentStatsForUnit(id)?? RunManager.Instance.CreatePermanentStatsForUnit(id);
@@ -148,7 +149,7 @@ public class UnitInstance : MonoBehaviour
             sr.flipX = !isPlayer;
     }
 
-    public void EnterCombat(GridManager grid, int row, int col, bool isPlayer)
+    public virtual void EnterCombat(GridManager grid, int row, int col, bool isPlayer)
     {
         this.row = row;
         this.col = col;

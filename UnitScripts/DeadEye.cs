@@ -10,12 +10,20 @@ public class DeadEye : UnitInstance
 
     protected override void UseAbility()
     {
-        Debug.Log($"{unitName} uses ability!");
         UnitInstance target = FindFarthestEnemy();
 
         if (target != null)
         {
-            target.TakeDamage(stats.Attack);
+            CombatManager.Instance.ExecuteAction(
+                new CombatAction
+                {
+                    type = CombatActionType.Damage,
+                    source = this,
+                    target = target,
+                    amount = stats.Attack,
+                    reason = "Deadeye attack"
+                }
+            );
             Debug.Log($"{unitName} attacks {target.unitName} for {stats.Attack}!");
 
         }

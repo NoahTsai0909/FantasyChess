@@ -2,22 +2,31 @@ using UnityEngine;
 
 public class Farmer : UnitInstance
 {
-    protected override void Awake()
+    public override void EnterCombat(GridManager grid, int row, int col, bool isPlayer)
     {
-        base.Awake();
-        Debug.Log($"{unitName} deployed!");
+        base.EnterCombat(grid, row, col, isPlayer);
+
+        CombatEventBus.OnCombatEnd += HandleCombatEnd;
     }
 
     protected override void UseAbility()
     {
-        Debug.Log($"{unitName} uses ability!");
 
         // Use parent's FindNearestEnemy() method
         UnitInstance target = FindNearestEnemy();
 
         if (target != null)
         {
-            target.TakeDamage(stats.Attack);
+            CombatManager.Instance.ExecuteAction(
+                new CombatAction
+                {
+                    type = CombatActionType.Damage,
+                    source = this,
+                    target = target,
+                    amount = stats.Attack,
+                    reason = "Farmer Attack"
+                }
+            );
             Debug.Log($"{unitName} attacks {target.unitName} for {stats.Attack} damage!");
 
         }
@@ -25,6 +34,7 @@ public class Farmer : UnitInstance
         {
             Debug.Log("No target found to attack!");
         }
+        base.UseAbility();
     }
 
     public override string GetAbilityDescription()
@@ -33,14 +43,9 @@ public class Farmer : UnitInstance
         return ($"Attack the nearest enemy for {stats.Attack} damage.\nPassive: When this unit survives combat, +1 gold.");
     }
 
-    private void OnEnable()
+    private void OnDestroy()
     {
-        CombatEventBus.OnCombatEnd += HandleCombatEnd;
-    }
-
-    private void OnDisable()
-    {
-        CombatEventBus.OnCombatEnd -= HandleCombatEnd;
+        CombatEventBus.OnCombatEvent -= HandleCombatEvent;
     }
 
     private void HandleCombatEnd()

@@ -3,22 +3,33 @@ using UnityEngine;
 public class Minotaur : UnitInstance
 {
     private int bonusMaxHPstat = 2;
-    protected override void Awake()
+
+
+    public override void EnterCombat(GridManager grid, int row, int col, bool isPlayer)
     {
-        base.Awake();
-        Debug.Log($"{unitName} deployed!");
+        base.EnterCombat(grid, row, col, isPlayer);
+
+        CombatEventBus.OnCombatEnd += HandleCombatEnd;
     }
 
     protected override void UseAbility()
     {
-        Debug.Log($"{unitName} uses ability! Max HP: {stats.MaxHP}");
 
         // Use parent's FindNearestEnemy() method
         UnitInstance target = FindNearestEnemy();
 
         if (target != null)
         {
-            target.TakeDamage(stats.Attack);
+            CombatManager.Instance.ExecuteAction(
+                new CombatAction
+                {
+                    type = CombatActionType.Damage,
+                    source = this,
+                    target = target,
+                    amount = stats.Attack,
+                    reason = "Minotaur attack"
+                }
+            );
             Debug.Log($"{unitName} attacks {target.unitName} for {stats.Attack} damage!");
 
         }
@@ -26,6 +37,7 @@ public class Minotaur : UnitInstance
         {
             Debug.Log("No target found to attack!");
         }
+        base.UseAbility();
     }
 
     public override string GetAbilityDescription()
@@ -34,18 +46,13 @@ public class Minotaur : UnitInstance
         return ($"Attack the nearest enemy for {stats.Attack} damage.\nPassive: When this unit survives combat, gain {bonusMaxHPstat} max hp.");
     }
 
-    private void OnEnable()
-    {
-        CombatEventBus.OnCombatEnd += HandleCombatEnd;
-    }
-
-    private void OnDisable()
-    {
+    private void OnDestroy() { 
         CombatEventBus.OnCombatEnd -= HandleCombatEnd;
     }
 
     private void HandleCombatEnd()
     {
         RunManager.Instance.GetPermanentStatsForUnit(id).bonusMaxHP += bonusMaxHPstat;
+        Debug.Log($"{unitName} uses ability! Max HP: {stats.MaxHP}");
     }
 }

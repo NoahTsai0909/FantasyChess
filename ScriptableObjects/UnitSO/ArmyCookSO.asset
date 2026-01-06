@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a16e02b8c37b3f43ac55682dba29a26, type: 3}
-  m_Name: SolemnPriestSO
+  m_Name: ArmyCookSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
-  unitName: Solemn Priest
-  maxHP: 40
-  attack: 0
-  heal: 10
-  cooldown: 6
+  unitName: Army Cook
+  maxHP: 50
+  attack: 5
+  heal: 5
+  cooldown: 5
   isPassive: 0
-  unitSprite: {fileID: -229438338720254273, guid: 4598991ace278a14e8495039b165a9e2, type: 3}
-  cost: 2
+  unitSprite: {fileID: 5743560152425189528, guid: 9d3b7c008d31231498b10dbfccb6364e, type: 3}
+  cost: 0
   region: 0
   rarity: 0
   startingRarity: 0
   provisionCost: 1
-  unitPrefab: {fileID: 3176379809111270148, guid: 888f4831d27eba143a6a76502332a5b4, type: 3}
-  tagFlags: 4
+  unitPrefab: {fileID: 7444902799985365738, guid: 9ad412e63820e3841bdef9a8a59256df, type: 3}
+  tagFlags: 0
