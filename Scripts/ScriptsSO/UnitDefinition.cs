@@ -11,6 +11,8 @@ public class UnitDefinition : ScriptableObject, IStatSource
     [Header("Combat Values")]
     public int attack;
     public int heal;
+    public int shield;
+    public int burn;
 
     [Header("Cooldown")]
     public float cooldown;
@@ -40,4 +42,4 @@ public class UnitDefinition : ScriptableObject, IStatSource
 }
 
 public enum Rarity { Common, Uncommon, Rare, Epic }
-public enum Region { Aurelia, Nethervale, Everborn, Axiom}
+public enum Region { Solmire, Nethervale, Everborn, Axiom}

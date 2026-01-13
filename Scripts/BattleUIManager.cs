@@ -40,7 +40,7 @@ public class BattleUIManager : MonoBehaviour
         // Create health bar at unit's world position with offset
         GameObject healthBar = Instantiate(healthBarPrefab, battleCanvas.transform);
         healthBar.transform.position = uiPosition + GetHealthBarOffset(unit.isPlayer);
-        healthBar.transform.localScale = Vector3.one * 0.2f;
+        /*healthBar.transform.localScale = Vector3.one * 0.2f;*/
 
         // Create cooldown bar
         GameObject cooldownBar = Instantiate(cooldownBarPrefab, battleCanvas.transform);
@@ -113,12 +113,12 @@ public class BattleUIManager : MonoBehaviour
     private Vector3 GetHealthBarOffset(bool isPlayer)
     {
         // Adjust Y offset based on sprite height - try larger values
-        return new Vector3(0, -1f, 0); // Changed from -0.5f to -1f
+        return new Vector3(0, -2.5f, 0); // Changed from -0.5f to -1f
     }
 
     private Vector3 GetCooldownBarOffset(bool isPlayer)
     {
-        return new Vector3(-0.8f, -1f, 0); // Changed to be more visible
+        return new Vector3(-1f, -2.5f, 0); // Changed to be more visible
     }
 
     private Image FindHealthBarImage(GameObject healthBar)

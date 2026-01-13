@@ -8,7 +8,7 @@ public class ShopEventSO : BaseEventSO
     public int totalUnitsGenerated = 6;
     public int unitsPerPage = 3;
     public UnitTagFlags allowedTags = UnitTagFlags.None;
-    public Region region = Region.Aurelia;
+    public Region region = Region.Solmire;
 
     public override void OnCompleted()
     {

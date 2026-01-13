@@ -6,13 +6,15 @@ public class GridManager : MonoBehaviour
 {
     public int rows = 3;
     public int cols = 3;
-    public float cellSize = 2f;
+    public float cellSize = 4f;
 
     public GameObject tilePrefab;   // <-- you create this (a simple colored square tile)
 
     private Vector2[,] worldPositions;
     private RunManager.UnitPlacement[,] gridPlacements;
     private UnitInstance[,] unitInstances;
+    private Vector2 unitVisualOffset = new Vector2(0f, 1f);
+
 
     void Awake()
     {
@@ -53,7 +55,7 @@ public class GridManager : MonoBehaviour
             {
                 GameObject tile = Instantiate(tilePrefab, transform);
                 tile.transform.position = worldPositions[r, c];
-                tile.transform.localScale = Vector3.one * (cellSize * 0.95f);
+                /*tile.transform.localScale = Vector3.one * (cellSize * 0.95f);*/
             }
         }
     }
@@ -80,7 +82,7 @@ public class GridManager : MonoBehaviour
         if (instance == null)
         {
             UnitInstance prefab = placement.unitData.definition.unitPrefab;
-            instance = Instantiate(prefab, GetCellWorldPosition(r, c), Quaternion.identity);
+            instance = Instantiate(prefab, GetUnitWorldPosition(r, c), Quaternion.identity);
             if (isPlayer)
             {
                 instance.InitializeFromSaveData(placement.unitData);
@@ -92,7 +94,8 @@ public class GridManager : MonoBehaviour
         }
 
         // Set visual position & link to placement
-        instance.transform.position = GetCellWorldPosition(r, c);
+        instance.transform.position = GetUnitWorldPosition(r, c);
+
         instance.myPlacement = placement;
 
         // Set player side
@@ -107,7 +110,8 @@ public class GridManager : MonoBehaviour
     {
         if (!InBounds(r, c)) return false;
 
-        instance.transform.position = GetCellWorldPosition(r, c);
+        instance.transform.position = GetUnitWorldPosition(r, c);
+
         instance.SetPlayerSide(isPlayer);
 
         unitInstances[r, c] = instance;
@@ -247,11 +251,9 @@ public class GridManager : MonoBehaviour
         return worldPositions[r, c];
     }
 
-    /*private UnitInstance SpawnUnitInstance(RunManager.UnitPlacement placement)
+    public Vector2 GetUnitWorldPosition(int r, int c)
     {
-        UnitInstance prefab = placement.unitData.definition.unitPrefab; // Type is UnitInstance
-        UnitInstance instance = Instantiate(prefab, GetCellWorldPosition(r, c), Quaternion.identity);
-        instance.InitializeRoster(placement.unitData.definition, placement.unitData.rarity);
-        return instance;
-    }*/
+        if (!InBounds(r, c)) return transform.position;
+        return worldPositions[r, c] + unitVisualOffset;
+    }
 }

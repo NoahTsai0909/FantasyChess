@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93d05120626649d408c3b3e8e9f572dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArmyCook
-  definition: {fileID: 0}
+  definition: {fileID: 11400000, guid: 487a69148b82df540a6732a01ab09c8e, type: 2}
   unitName: Army Cook
   row: 0
   col: 0
