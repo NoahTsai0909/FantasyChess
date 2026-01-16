@@ -5,6 +5,13 @@ public enum CombatActionType
 {
     Damage,
     Heal,
+    Shield,
+    Burn,
+    Poison,
+    Haste,
+    Slow,
+    Charge,
+    Freeze,
     Buff,
     Debuff
 }
@@ -43,6 +50,9 @@ public class CombatManager : MonoBehaviour
 
             case CombatActionType.Heal:
                 action.target.HealDamage(action.amount);
+                break;
+            case CombatActionType.Shield:
+                action.target.ShieldDamage(action.amount);
                 break;
         }
 

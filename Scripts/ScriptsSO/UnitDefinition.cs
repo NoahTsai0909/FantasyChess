@@ -13,6 +13,7 @@ public class UnitDefinition : ScriptableObject, IStatSource
     public int heal;
     public int shield;
     public int burn;
+    public int poison;
 
     [Header("Cooldown")]
     public float cooldown;
@@ -39,6 +40,10 @@ public class UnitDefinition : ScriptableObject, IStatSource
     public int MaxHP => maxHP;
 
     public float Cooldown => cooldown;
+
+    public int Shield => shield;
+    public int Burn => burn;
+    public int Poison => poison;
 }
 
 public enum Rarity { Common, Uncommon, Rare, Epic }

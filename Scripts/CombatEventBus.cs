@@ -8,6 +8,7 @@ public static class CombatEventBus
         DamageTaken,
         Healed,
         UnitDied,
+        ShieldDamaged,
         ActionResolved
     }
 

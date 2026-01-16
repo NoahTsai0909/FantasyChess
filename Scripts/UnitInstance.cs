@@ -30,6 +30,7 @@ public class UnitInstance : MonoBehaviour
     private bool inCombat = false;
 
     private int currentHP;
+    private int currentShield;
     public int GetCurrentHP() => currentHP;
 
     protected float cooldownTimer;
@@ -224,20 +225,53 @@ public class UnitInstance : MonoBehaviour
 
     public virtual void TakeDamage(int dmg)
     {
-        currentHP = Mathf.Max(0, currentHP - dmg);
-        UpdateHealthBar();
+        if (dmg <= 0)
+            return;
 
-        Flash(Color.red);
-        CombatEventBus.Publish(CombatEventType.DamageTaken, this, this);
+        int remainingDamage = dmg;
 
-        if (currentHP <= 0)
-            Die();
+        if (currentShield > 0)
+        {
+            int absorbed = Mathf.Min(currentShield, remainingDamage);
+            currentShield -= absorbed;
+            remainingDamage -= absorbed;
+
+            UpdateShieldBar();
+            CombatEventBus.Publish(
+                CombatEventType.ShieldDamaged,
+                this,
+                this
+            );
+        }
+
+        if (remainingDamage > 0)
+        {
+            currentHP = Mathf.Max(0, currentHP - remainingDamage);
+
+            Flash(Color.red);
+            UpdateHealthBar();
+
+            CombatEventBus.Publish(
+                CombatEventType.DamageTaken,
+                this,
+                this
+            );
+
+            if (currentHP <= 0)
+                Die();
+        }
     }
 
     public virtual void HealDamage(int dmg)
     {
         currentHP = Mathf.Min(stats.MaxHP, currentHP + dmg);
         UpdateHealthBar();
+    }
+
+    public virtual void ShieldDamage(int dmg)
+    {
+        currentShield = currentShield + dmg;
+        UpdateShieldBar();
     }
 
     public virtual void Die()
@@ -300,6 +334,11 @@ public class UnitInstance : MonoBehaviour
         uiManager.UpdateHealthBar(this, (float)currentHP / stats.MaxHP);
     }
 
+    private void UpdateShieldBar()
+    {
+        if (uiManager == null) return;
+        uiManager.UpdateShieldBar(this, (float)currentShield / stats.MaxHP);
+    }
     private void UpdateCooldownBar()
     {
         if (uiManager == null) return;
@@ -336,7 +375,10 @@ public class UnitInstance : MonoBehaviour
             Mathf.RoundToInt(Definition.attack * multiplier),
             Mathf.RoundToInt(Definition.heal * multiplier),
             Mathf.RoundToInt(Definition.maxHP * multiplier),
-            Definition.cooldown
+            Definition.cooldown,
+            Mathf.RoundToInt(Definition.shield * multiplier),
+            Mathf.RoundToInt(Definition.burn * multiplier),
+            Mathf.RoundToInt(Definition.poison * multiplier)
         );
     }
 

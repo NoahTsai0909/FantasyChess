@@ -7,9 +7,10 @@ public class BattleUIManager : MonoBehaviour
     [SerializeField] private GameObject healthBarPrefab;
     [SerializeField] private GameObject cooldownBarPrefab;
     [SerializeField] private Canvas battleCanvas; // Reference to your battle UI Canvas
+    [SerializeField] private FloatingCombatText floatingTextPrefab;
 
-    private Dictionary<UnitInstance, (GameObject healthBar, Image healthFill, GameObject cooldownBar, Image cooldownFill)>
-    unitUIElements = new Dictionary<UnitInstance, (GameObject, Image, GameObject, Image)>();
+    private Dictionary<UnitInstance, (GameObject healthBar, Image healthFill, Image shieldFill, GameObject cooldownBar, Image cooldownFill)>
+    unitUIElements = new Dictionary<UnitInstance, (GameObject, Image, Image, GameObject, Image)>();
 
 
     private GridManager playerGrid;
@@ -49,18 +50,18 @@ public class BattleUIManager : MonoBehaviour
 
         Image healthFill = FindHealthBarImage(healthBar);
         Image cooldownFill = FindCooldownBarImage(cooldownBar);
+        Image shieldFill = FindShieldBarImage(healthBar);
 
         // Store references
-        unitUIElements[unit] = (healthBar, healthFill, cooldownBar, cooldownFill);
+        unitUIElements[unit] = (healthBar, healthFill, shieldFill, cooldownBar, cooldownFill);
 
         // Initialize
         if (healthFill != null)
         {
             healthFill.fillAmount = 1f;
-            /*healthFill.color = Color.green;
-            Debug.Log("Color of health is green");*/
         }
         if (cooldownFill != null) cooldownFill.fillAmount = 0f;
+        if (shieldFill != null) shieldFill.fillAmount = 0f;
     }
 
     public void UpdateUnitUI(UnitInstance unit, Vector3 worldPosition)
@@ -78,14 +79,14 @@ public class BattleUIManager : MonoBehaviour
         if (unitUIElements.TryGetValue(unit, out var uiElements) && uiElements.healthFill != null)
         {
             uiElements.healthFill.fillAmount = fillAmount;
+        }
+    }
 
-            // Update color based on health
-            /*if (fillAmount > 0.6f)
-                uiElements.healthFill.color = Color.green;
-            else if (fillAmount > 0.3f)
-                uiElements.healthFill.color = Color.yellow;
-            else
-                uiElements.healthFill.color = Color.red;*/
+    public void UpdateShieldBar(UnitInstance unit, float fillAmount)
+    {
+        if (unitUIElements.TryGetValue(unit, out var uiElements) && uiElements.shieldFill != null)
+        {
+            uiElements.shieldFill.fillAmount = Mathf.Min(fillAmount, 1f);
         }
     }
 
@@ -160,4 +161,26 @@ public class BattleUIManager : MonoBehaviour
             return cooldownBar.GetComponentInChildren<Image>();
         }
     }
+
+    private Image FindShieldBarImage(GameObject healthBar)
+    {
+        // Look for Canvas/Bar first (your prefab structure)
+        Transform barTransform = healthBar.transform.Find("Canvas/ShieldBar");
+        if (barTransform == null)
+        {
+            // Alternative search
+            barTransform = healthBar.transform.Find("ShieldBar");
+        }
+
+        if (barTransform != null)
+        {
+            return barTransform.GetComponent<Image>();
+        }
+        else
+        {
+            // Fallback
+            return healthBar.GetComponentInChildren<Image>();
+        }
+    }
+
 }

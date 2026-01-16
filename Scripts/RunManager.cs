@@ -308,7 +308,10 @@ public class RunManager : MonoBehaviour
             Mathf.RoundToInt(definition.attack * multiplier),
             Mathf.RoundToInt(definition.heal * multiplier),
             Mathf.RoundToInt(definition.maxHP * multiplier),
-            definition.cooldown
+            definition.cooldown,
+            Mathf.RoundToInt(definition.shield * multiplier),
+            Mathf.RoundToInt(definition.burn * multiplier),
+            Mathf.RoundToInt(definition.poison * multiplier)
         );
 
         PermanentStats permStats = new PermanentStats(); // no persistence for previews

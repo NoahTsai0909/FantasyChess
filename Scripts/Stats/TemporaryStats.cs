@@ -5,6 +5,9 @@ public class TemporaryStats
     public int healBonus;
     public int maxHPBonus;
     public float cooldownDelta;
+    public int shieldBonus;
+    public int burnBonus;
+    public int poisonBonus;
 
     public void Clear()
     {
@@ -12,5 +15,8 @@ public class TemporaryStats
         healBonus = 0;
         maxHPBonus = 0;
         cooldownDelta = 0f;
+        shieldBonus = 0;
+        burnBonus = 0;
+        poisonBonus = 0;
     }
 }
