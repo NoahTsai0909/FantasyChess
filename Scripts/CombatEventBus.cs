@@ -9,16 +9,22 @@ public static class CombatEventBus
         Healed,
         UnitDied,
         ShieldDamaged,
-        ActionResolved
     }
 
-    public delegate void CombatEventHandler(CombatEventType type, UnitInstance source, UnitInstance target);
+    public static event Action<CombatAction> OnActionResolved;
+
+    public static void PublishActionResolved(CombatAction action)
+    {
+        OnActionResolved?.Invoke(action);
+    }
+
+    public delegate void CombatEventHandler(CombatEventType type, UnitInstance source, UnitInstance target, int amount);
 
     public static event CombatEventHandler OnCombatEvent;
 
-    public static void Publish(CombatEventType type, UnitInstance source, UnitInstance target)
+    public static void Publish(CombatEventType type, UnitInstance source, UnitInstance target, int amount)
     {
-        OnCombatEvent?.Invoke(type, source, target);
+        OnCombatEvent?.Invoke(type, source, target, amount);
     }
 
     public static event Action OnCombatEnd;

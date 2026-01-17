@@ -35,6 +35,8 @@ public class UnitInstance : MonoBehaviour
 
     protected float cooldownTimer;
 
+    public int burnStacks = 0;
+
     public Guid id;
     public int row;
     public int col;
@@ -220,7 +222,7 @@ public class UnitInstance : MonoBehaviour
 
     protected virtual void UseAbility()
     {
-        CombatEventBus.Publish(CombatEventBus.CombatEventType.AbilityUsed, this, null);
+        CombatEventBus.Publish(CombatEventBus.CombatEventType.AbilityUsed, this, null, 0);
     }
 
     public virtual void TakeDamage(int dmg)
@@ -240,7 +242,8 @@ public class UnitInstance : MonoBehaviour
             CombatEventBus.Publish(
                 CombatEventType.ShieldDamaged,
                 this,
-                this
+                this,
+                0
             );
         }
 
@@ -254,7 +257,8 @@ public class UnitInstance : MonoBehaviour
             CombatEventBus.Publish(
                 CombatEventType.DamageTaken,
                 this,
-                this
+                this,
+                0
             );
 
             if (currentHP <= 0)
@@ -285,7 +289,7 @@ public class UnitInstance : MonoBehaviour
         if (uiManager != null)
             uiManager.RemoveUnitUI(this);
 
-        CombatEventBus.Publish(CombatEventType.UnitDied, this, this);
+        CombatEventBus.Publish(CombatEventType.UnitDied, this, this, 0);
         Destroy(gameObject);
     }
 
@@ -307,9 +311,14 @@ public class UnitInstance : MonoBehaviour
 
         if (currentHP <= 0)
         {
-            CombatEventBus.Publish(CombatEventType.UnitDied, null, this);
+            CombatEventBus.Publish(CombatEventType.UnitDied, null, this, 0);
             Die();
         }
+    }
+
+    public void ApplyBurn(int stacks)
+    {
+        burnStacks = stacks;
     }
 
     private System.Collections.IEnumerator FlashDisasterDamage()
@@ -416,7 +425,7 @@ public class UnitInstance : MonoBehaviour
         return targetingSystem.FindUnit(criteria, transform.position);
     }
 
-    protected virtual void HandleCombatEvent(CombatEventType type, UnitInstance source, UnitInstance target)
+    protected virtual void HandleCombatEvent(CombatEventType type, UnitInstance source, UnitInstance target, int amount)
     {
     }
 }

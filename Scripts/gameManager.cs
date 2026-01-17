@@ -50,7 +50,7 @@ public class gameManager : MonoBehaviour
         CombatEventBus.OnCombatEvent -= OnCombatEvent;
     }
 
-    private void OnCombatEvent(CombatEventBus.CombatEventType type, UnitInstance source, UnitInstance target)
+    private void OnCombatEvent(CombatEventBus.CombatEventType type, UnitInstance source, UnitInstance target, int amount)
     {
         if (type == CombatEventBus.CombatEventType.UnitDied && combatActive)
         {

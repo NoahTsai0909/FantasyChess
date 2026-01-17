@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a16e02b8c37b3f43ac55682dba29a26, type: 3}
+  m_Name: HatchlingSO
+  m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
+  unitName: Hatchling
+  maxHP: 50
+  attack: 0
+  heal: 0
+  shield: 0
+  burn: 3
+  poison: 0
+  cooldown: 4
+  isPassive: 0
+  unitSprite: {fileID: 21300000, guid: cd1bff3b09d875f4f9b9a2bcc9178e04, type: 3}
+  cost: 0
+  region: 0
+  rarity: 0
+  startingRarity: 0
+  provisionCost: 1
+  unitPrefab: {fileID: 549727382163613588, guid: 95c7151027906d048a5b8726465d5a0c, type: 3}
+  tagFlags: 0

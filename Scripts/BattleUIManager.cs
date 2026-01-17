@@ -183,4 +183,50 @@ public class BattleUIManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        CombatEventBus.OnActionResolved += HandleActionResolved;
+    }
+
+    private void OnDisable()
+    {
+        CombatEventBus.OnActionResolved -= HandleActionResolved;
+    }
+
+    private void HandleActionResolved(CombatAction action)
+    {
+        if (action.target == null)
+            return;
+
+        Vector3 worldPos = action.target.transform.position;
+
+        switch (action.type)
+        {
+            case CombatActionType.Damage:
+                SpawnFloatingText(worldPos, $"-{action.amount}", Color.red);
+                break;
+
+            case CombatActionType.Heal:
+                SpawnFloatingText(worldPos, $"+{action.amount}", Color.green);
+                break;
+
+            case CombatActionType.Shield:
+                SpawnFloatingText(worldPos, $"+{action.amount}", Color.gold);
+                break;
+            case CombatActionType.BurnTick:
+                SpawnFloatingText(worldPos, $"-{action.amount}", Color.orange);
+                break;
+        }
+    }
+
+    private void SpawnFloatingText(Vector3 worldPos, string text, Color color)
+    {
+        var instance = Instantiate(
+            floatingTextPrefab,
+            worldPos + Vector3.up * 0.5f + Vector3.right,
+            Quaternion.identity
+        );
+
+        instance.Initialize(text, color);
+    }
 }

@@ -152,7 +152,7 @@ public class DisasterManager : MonoBehaviour
         CombatEventBus.OnCombatEvent -= HandleCombatEvent;
     }
 
-    private void HandleCombatEvent(CombatEventBus.CombatEventType type, UnitInstance source, UnitInstance target)
+    private void HandleCombatEvent(CombatEventBus.CombatEventType type, UnitInstance source, UnitInstance target, int amount)
     {
         if (type == CombatEventBus.CombatEventType.UnitDied)
         {

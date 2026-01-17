@@ -242,6 +242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f12ea4314ca8f44d86765f6929d41c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombatManager
+  playerGrid: {fileID: 1148643570}
+  enemyGrid: {fileID: 792499638}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,6 +768,7 @@ MonoBehaviour:
   healthBarPrefab: {fileID: 996402361849535547, guid: 882aa9fa6b5929141a335d3929c10642, type: 3}
   cooldownBarPrefab: {fileID: 4750065992612106831, guid: 66b688aa4f9a85f43a9765cb27d8ca9e, type: 3}
   battleCanvas: {fileID: 1377996628}
+  floatingTextPrefab: {fileID: 3537387338118011346, guid: a76e576ff72d07741aefe579d865c419, type: 3}
 --- !u!4 &1545069896
 Transform:
   m_ObjectHideFlags: 0

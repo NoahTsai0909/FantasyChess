@@ -19,7 +19,7 @@ public class Ballista : UnitInstance
         CombatEventBus.OnCombatEvent -= HandleCombatEvent;
     }
 
-    protected override void HandleCombatEvent(CombatEventType type, UnitInstance source, UnitInstance target)
+    protected override void HandleCombatEvent(CombatEventType type, UnitInstance source, UnitInstance target, int amount)
     {
         // Only care about ability use events
         if (type != CombatEventType.AbilityUsed) return;
