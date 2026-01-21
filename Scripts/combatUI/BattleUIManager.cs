@@ -8,9 +8,9 @@ public class BattleUIManager : MonoBehaviour
     [SerializeField] private GameObject cooldownBarPrefab;
     [SerializeField] private Canvas battleCanvas; // Reference to your battle UI Canvas
     [SerializeField] private FloatingCombatText floatingTextPrefab;
+    [SerializeField] private GameObject statusEffectBarPrefab;
 
-    private Dictionary<UnitInstance, (GameObject healthBar, Image healthFill, Image shieldFill, GameObject cooldownBar, Image cooldownFill)>
-    unitUIElements = new Dictionary<UnitInstance, (GameObject, Image, Image, GameObject, Image)>();
+    private Dictionary<UnitInstance, (GameObject healthBar, Image healthFill, Image shieldFill, GameObject cooldownBar, Image cooldownFill, StatusEffectBar statusBar)> unitUIElements = new();
 
 
     private GridManager playerGrid;
@@ -52,8 +52,16 @@ public class BattleUIManager : MonoBehaviour
         Image cooldownFill = FindCooldownBarImage(cooldownBar);
         Image shieldFill = FindShieldBarImage(healthBar);
 
+        /*GameObject statusBar = Instantiate(statusEffectBarPrefab, battleCanvas.transform);
+        statusBar.transform.position = uiPosition + GetStatusBarOffset(unit.isPlayer);*/
+
+        GameObject statusBarGO = Instantiate(statusEffectBarPrefab, battleCanvas.transform);
+        statusBarGO.transform.position = uiPosition + GetStatusBarOffset(unit.isPlayer);
+
+        StatusEffectBar statusBar = statusBarGO.GetComponent<StatusEffectBar>();
+
         // Store references
-        unitUIElements[unit] = (healthBar, healthFill, shieldFill, cooldownBar, cooldownFill);
+        unitUIElements[unit] = (healthBar, healthFill, shieldFill, cooldownBar, cooldownFill, statusBar);
 
         // Initialize
         if (healthFill != null)
@@ -71,6 +79,7 @@ public class BattleUIManager : MonoBehaviour
             Vector3 uiPosition = worldPosition;
             uiElements.healthBar.transform.position = uiPosition + GetHealthBarOffset(unit.isPlayer);
             uiElements.cooldownBar.transform.position = uiPosition + GetCooldownBarOffset(unit.isPlayer);
+            uiElements.statusBar.transform.position = uiPosition + GetStatusBarOffset(unit.isPlayer);
         }
     }
 
@@ -106,6 +115,8 @@ public class BattleUIManager : MonoBehaviour
                 Destroy(uiElements.healthBar);
             if (uiElements.cooldownBar != null)
                 Destroy(uiElements.cooldownBar);
+            if (uiElements.statusBar != null)
+                Destroy(uiElements.statusBar.gameObject);
 
             unitUIElements.Remove(unit);
         }
@@ -120,6 +131,11 @@ public class BattleUIManager : MonoBehaviour
     private Vector3 GetCooldownBarOffset(bool isPlayer)
     {
         return new Vector3(-1f, -2.5f, 0); // Changed to be more visible
+    }
+
+    private Vector3 GetStatusBarOffset(bool isPlayer)
+    {
+        return new Vector3(0, -2f, 0);
     }
 
     private Image FindHealthBarImage(GameObject healthBar)
@@ -186,11 +202,13 @@ public class BattleUIManager : MonoBehaviour
     private void OnEnable()
     {
         CombatEventBus.OnActionResolved += HandleActionResolved;
+        CombatEventBus.OnStatusChanged += HandleStatusChanged;
     }
 
     private void OnDisable()
     {
         CombatEventBus.OnActionResolved -= HandleActionResolved;
+        CombatEventBus.OnStatusChanged -= HandleStatusChanged;
     }
 
     private void HandleActionResolved(CombatAction action)
@@ -228,5 +246,13 @@ public class BattleUIManager : MonoBehaviour
         );
 
         instance.Initialize(text, color);
+    }
+
+    private void HandleStatusChanged(UnitInstance unit, StatusEffectType type, int stacks)
+    {
+        if (!unitUIElements.TryGetValue(unit, out var ui))
+            return;
+
+        ui.statusBar.SetStatus(type, stacks);
     }
 }

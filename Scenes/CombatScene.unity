@@ -244,6 +244,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CombatManager
   playerGrid: {fileID: 1148643570}
   enemyGrid: {fileID: 792499638}
+--- !u!1 &297485662
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 297485664}
+  - component: {fileID: 297485663}
+  m_Layer: 0
+  m_Name: combatVFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &297485663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297485662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f91540552010694f8ccf8559d1763dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatVFXManager
+  defaultProjectilePrefab: {fileID: 9171238828374351539, guid: 97df4fa614484344dbaf567dc3fb7b2d, type: 3}
+  projectileTravelTime: 0.25
+--- !u!4 &297485664
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297485662}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -712,7 +758,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: -1055675751
   m_SortingOrder: 0
@@ -769,6 +815,7 @@ MonoBehaviour:
   cooldownBarPrefab: {fileID: 4750065992612106831, guid: 66b688aa4f9a85f43a9765cb27d8ca9e, type: 3}
   battleCanvas: {fileID: 1377996628}
   floatingTextPrefab: {fileID: 3537387338118011346, guid: a76e576ff72d07741aefe579d865c419, type: 3}
+  statusEffectBarPrefab: {fileID: 6057011907863085947, guid: 53c66b1c980e74a49b4f8127af2aa421, type: 3}
 --- !u!4 &1545069896
 Transform:
   m_ObjectHideFlags: 0
@@ -1315,3 +1362,4 @@ SceneRoots:
   - {fileID: 1995609291}
   - {fileID: 153618514}
   - {fileID: 242179334}
+  - {fileID: 297485664}

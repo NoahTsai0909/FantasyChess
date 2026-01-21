@@ -16,9 +16,13 @@ MonoBehaviour:
   maxHP: 60
   attack: 5
   heal: 0
+  shield: 0
+  burn: 0
+  poison: 0
   cooldown: 4
   isPassive: 0
   unitSprite: {fileID: 8083504613746027167, guid: 235b2e13070ace54dacf9819ae8b0dfe, type: 3}
+  defaultProjectile: {fileID: 21300000, guid: 623b6c7b473dd8445bbbc7b36d31e17f, type: 3}
   cost: 2
   region: 0
   rarity: 0

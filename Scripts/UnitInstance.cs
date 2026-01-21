@@ -318,7 +318,13 @@ public class UnitInstance : MonoBehaviour
 
     public void ApplyBurn(int stacks)
     {
-        burnStacks = stacks;
+        burnStacks += stacks;
+
+        CombatEventBus.PublishStatusChanged(
+        this,
+        StatusEffectType.Burn,
+        burnStacks
+    );
     }
 
     private System.Collections.IEnumerator FlashDisasterDamage()
@@ -354,7 +360,7 @@ public class UnitInstance : MonoBehaviour
         uiManager.UpdateCooldownBar(this, cooldownTimer / stats.Cooldown);
     }
 
-    private void Flash(Color color)
+    public void Flash(Color color)
     {
         if (flashCoroutine != null)
             StopCoroutine(flashCoroutine);

@@ -21,6 +21,7 @@ public class UnitDefinition : ScriptableObject, IStatSource
 
     [Header("Visuals")]
     public Sprite unitSprite;
+    public Sprite defaultProjectile;
 
     [Header("Meta")]
     public int cost;

@@ -47,7 +47,14 @@ public class CombatManager : MonoBehaviour
         // Target redirection hook
         action.target = ResolveTargetRedirects(action);
 
-        // Execute
+        CombatVFXManager.Instance.PlayActionVFX(
+        action,
+        () => ResolveAction(action)
+        );
+    }
+
+    public void ResolveAction(CombatAction action)
+    {
         switch (action.type)
         {
             case CombatActionType.Damage:
@@ -87,24 +94,30 @@ public class CombatManager : MonoBehaviour
     {
         foreach (var unit in GetAllUnitsInCombat())
         {
-            if (unit.burnStacks == 0)
-                continue;
-
-            CombatAction action = new CombatAction
+            if (unit.burnStacks != 0)
             {
-                type = CombatActionType.BurnTick,
-                source = unit, // or burn applier
-                target = unit,
-                amount = unit.burnStacks,
-                reason = "Burn"
-            };
+                CombatAction action = new CombatAction
+                {
+                    type = CombatActionType.BurnTick,
+                    source = unit, // or burn applier
+                    target = unit,
+                    amount = unit.burnStacks,
+                    reason = "Burn"
+                };
 
-            ExecuteAction(action);
+                ExecuteAction(action);
 
-            unit.burnStacks--;
+                unit.burnStacks--;
 
-            if (unit.burnStacks <= 0)
-                unit.burnStacks = 0;
+                if (unit.burnStacks <= 0)
+                    unit.burnStacks = 0;
+
+                CombatEventBus.PublishStatusChanged(
+                    unit,
+                    StatusEffectType.Burn,
+                    unit.burnStacks
+                );
+            }
         }
     }
 
