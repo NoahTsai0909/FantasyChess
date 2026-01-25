@@ -299,7 +299,7 @@ public class RunManager : MonoBehaviour
     }
 
 
-    public StatBlock GetPreviewStats(UnitDefinition definition, Rarity rarity)
+    /*public StatBlock GetPreviewStats(UnitDefinition definition, Rarity rarity)
     {
         int delta = rarity - definition.startingRarity;
         float multiplier = RarityScaling.GetMultiplier(delta);
@@ -318,7 +318,7 @@ public class RunManager : MonoBehaviour
         TemporaryStats tempStats = new TemporaryStats();
 
         return new StatBlock(rarityAdjusted, permStats, tempStats);
-    }
+    }*/
 
 
     public void InitializeShop(int count, Region region, UnitTagFlags unitTags)
@@ -407,7 +407,7 @@ public class RunManager : MonoBehaviour
         Debug.Log("=== RESETTING RUN ===");
 
         // Reset all run progression
-        currentGold = 100;
+        currentGold = 10;
         currentDay = 1;
         regularEventsCompleted = 0;
         isBattleDay = false;

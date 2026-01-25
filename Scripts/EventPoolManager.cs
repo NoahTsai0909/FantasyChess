@@ -54,12 +54,14 @@ public class EventPoolManager : MonoBehaviour
     // Get combat events (weighted random)
     public List<BaseEventSO> GetCombatEvents(int count)
     {
+        CategorizeEvents();
         return GetWeightedRandomEvents(combatEvents, count);
     }
 
     // Get regular events (weighted random)
     public List<BaseEventSO> GetRegularEvents(int count)
     {
+        CategorizeEvents();
         return GetWeightedRandomEvents(regularEvents, count);
     }
 

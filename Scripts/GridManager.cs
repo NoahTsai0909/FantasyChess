@@ -195,6 +195,17 @@ public class GridManager : MonoBehaviour
         return units;
     }
 
+    public UnitInstance GetRandomUnit()
+    {
+        List<UnitInstance> units = GetAllUnits();
+
+        if (units.Count == 0)
+            return null;
+
+        int randomIndex = Random.Range(0, units.Count);
+        return units[randomIndex];
+    }
+
     public void ClearAllUnits()
     {
         for (int r = 0; r < rows; r++)

@@ -166,4 +166,9 @@ public class TargetingSystem
             sortMethod = method;
         }
     }
+
+    public List<UnitInstance> GetAllies()
+    {
+        return GetCandidates(TargetTeam.Ally);
+    }
 }

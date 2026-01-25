@@ -15,8 +15,8 @@ MonoBehaviour:
   eventName: Abandoned Stash
   description: 'You encounter an abandoned stash of gold on the roadside. '
   eventIcon: {fileID: 8630833029534501343, guid: cef6df5bb482442408ce0a7adf781304, type: 3}
-  minReputationRequired: 1
-  maxReputationAllowed: 10
+  minDayRequired: 1
+  maxDayRequired: 6
   selectionWeight: 1
   targetScene: 5
   backgroundColor: {r: 1, g: 1, b: 1, a: 1}

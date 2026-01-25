@@ -10,8 +10,8 @@ public abstract class BaseEventSO : ScriptableObject
     public Sprite eventIcon;
 
     [Header("Availability")]
-    public int minReputationRequired = 1;
-    public int maxReputationAllowed = 10;
+    public int minDayRequired;
+    public int maxDayRequired;
     public float selectionWeight = 1.0f; // For weighted random
 
     [Header("Scene Management")]
@@ -87,8 +87,8 @@ public abstract class BaseEventSO : ScriptableObject
 
     public virtual bool IsAvailable()
     {
-        int rep = RunManager.Instance.reputation;
-        return rep >= minReputationRequired && rep <= maxReputationAllowed;
+        int day = RunManager.Instance.currentDay;
+        return day >= minDayRequired && day <= maxDayRequired;
     }
 
     public virtual UnitDefinition ReturnRandomUnit()

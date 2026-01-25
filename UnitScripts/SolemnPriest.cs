@@ -31,7 +31,6 @@ public class SolemnPriest : UnitInstance
 
     public override string GetAbilityDescription()
     {
-        stats = RunManager.Instance.GetPreviewStats(Definition, CurrentRarity);
         return ($"Heal the lowest health ally for {stats.Heal} health.");
     }
 }

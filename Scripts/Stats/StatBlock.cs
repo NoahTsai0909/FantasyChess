@@ -1,5 +1,17 @@
 using UnityEngine;
 [System.Serializable]
+
+public enum ModifiableStats
+{
+    Attack,
+    Heal,
+    MaxHP,
+    Cooldown,
+    Shield,
+    Burn,
+    Poison
+}
+
 public class StatBlock
 {
     private IStatSource baseStats;

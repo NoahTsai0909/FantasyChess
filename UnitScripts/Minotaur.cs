@@ -30,19 +30,13 @@ public class Minotaur : UnitInstance
                     reason = "Minotaur attack"
                 }
             );
-            Debug.Log($"{unitName} attacks {target.unitName} for {stats.Attack} damage!");
 
-        }
-        else
-        {
-            Debug.Log("No target found to attack!");
         }
         base.UseAbility();
     }
 
     public override string GetAbilityDescription()
     {
-        stats = RunManager.Instance.GetPreviewStats(Definition, CurrentRarity);
         return ($"Attack the nearest enemy for {stats.Attack} damage.\nPassive: When this unit survives combat, gain {bonusMaxHPstat} max hp.");
     }
 

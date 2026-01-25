@@ -21,7 +21,6 @@ public class Shieldmate : UnitInstance
 
     public override string GetAbilityDescription()
     {
-        stats = RunManager.Instance.GetPreviewStats(Definition, CurrentRarity);
         return ($"Shields self for {stats.Shield}.");
     }
 }

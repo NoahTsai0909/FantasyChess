@@ -15,8 +15,8 @@ MonoBehaviour:
   eventName: Enemy Battalion
   description: A wandering battalion of soldiers
   eventIcon: {fileID: 0}
-  minReputationRequired: 1
-  maxReputationAllowed: 10
+  minDayRequired: 1
+  maxDayRequired: 2
   selectionWeight: 1
   targetScene: 2
   backgroundColor: {r: 1, g: 1, b: 1, a: 1}

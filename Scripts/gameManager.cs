@@ -26,6 +26,8 @@ public class gameManager : MonoBehaviour
     private bool combatActive = true;
     public bool isCombatActive() => combatActive;
 
+    private UnitInstance unitReward;
+
     void Start()
     {
         TeamDefinition playerTeam = RunManager.Instance.GetTeamForCombat();
@@ -118,6 +120,7 @@ public class gameManager : MonoBehaviour
                 // Apply combat-specific rewards
                 RunManager.Instance.currentGold += combatEvent.goldReward;
                 RunManager.Instance.reputation += combatEvent.reputationReward;
+                PlayerUnitManager.Instance.TryAcquireUnit(unitReward.Definition, unitReward.CurrentRarity);
             }
             // Mark the event as completed
             RunManager.Instance.selectedEvent.CompleteEvent();
@@ -168,6 +171,17 @@ public class gameManager : MonoBehaviour
         {
             SpawnEnemyUnit(enemyPlacement, enemyGrid);
         }
+
+        foreach (var playerUnit in playerGrid.GetAllUnits())
+        {
+            playerUnit.CombatStartEffect();
+        }
+        foreach (var enemyUnit in enemyGrid.GetAllUnits())
+        {
+            enemyUnit.CombatStartEffect();
+        }
+        unitReward = enemyGrid.GetRandomUnit();
+
     }
 
 

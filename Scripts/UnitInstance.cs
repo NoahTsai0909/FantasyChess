@@ -107,7 +107,7 @@ public class UnitInstance : MonoBehaviour
         RecalculateStats();
     }
 
-    public void InitializeFromSaveData(UnitSaveData data)
+    public virtual void InitializeFromSaveData(UnitSaveData data)
     {
         if (data == null)
         {
@@ -133,11 +133,15 @@ public class UnitInstance : MonoBehaviour
 
     public void RecalculateStats()
     {
+        Debug.Log($"{unitName} RecalculateStats() called. temporaryStats ref: {temporaryStats.GetHashCode()}");
+
         stats = new StatBlock(
             GetRarityAdjustedDefinition(),
             permanentStats,
-            temporaryStats
+            temporaryStats  // This should be the same instance
         );
+
+        Debug.Log($"New stats created. Burn = {stats.Burn} (Perm:{permanentStats?.bonusBurn}, Temp:{temporaryStats.burnBonus})");
     }
 
     public void SetPlayerSide(bool isPlayerSide)
@@ -223,6 +227,11 @@ public class UnitInstance : MonoBehaviour
     protected virtual void UseAbility()
     {
         CombatEventBus.Publish(CombatEventBus.CombatEventType.AbilityUsed, this, null, 0);
+    }
+
+    public virtual void CombatStartEffect()
+    {
+
     }
 
     public virtual void TakeDamage(int dmg)
@@ -397,6 +406,22 @@ public class UnitInstance : MonoBehaviour
         );
     }
 
+    public void TemporaryStatModify(ModifiableStats modifiableStats, int bonus)
+    {
+        Debug.Log($"{unitName}.TemporaryStatModify({modifiableStats}, {bonus}) called");
+
+        if (modifiableStats == ModifiableStats.Burn)
+        {
+            Debug.Log($"Before: temporaryStats.burnBonus = {temporaryStats.burnBonus}");
+            temporaryStats.burnBonus += bonus;
+            Debug.Log($"After: temporaryStats.burnBonus = {temporaryStats.burnBonus}");
+        }
+        RecalculateStats();
+
+        Debug.Log($"Recalculated stats.Burn = {stats.Burn}");
+        return;
+    }
+
     /* =========================
      * Targeting helpers
      * ========================= */
@@ -430,6 +455,39 @@ public class UnitInstance : MonoBehaviour
         );
         return targetingSystem.FindUnit(criteria, transform.position);
     }
+
+    protected bool IsAdjacent(UnitInstance other)
+    {
+        if (other == null) return false;
+
+        int rowDiff = Mathf.Abs(row - other.row);
+        int colDiff = Mathf.Abs(col - other.col);
+
+        // 4-direction adjacency
+        Debug.Log($"Torch and {other.unitName} have rowdiff and coldiff of {rowDiff} and {colDiff}");
+        return (rowDiff + colDiff) == 1;
+    }
+
+    protected List<UnitInstance> FindAdjacentAllies()
+    {
+        if (targetingSystem == null) return new List<UnitInstance>();
+
+        var allies = targetingSystem.GetAllies();
+        var adjacentAllies = new List<UnitInstance>();
+
+        foreach (var ally in allies)
+        {
+            if (ally == this) continue;
+            if (IsAdjacent(ally))
+            {
+                Debug.Log($"{ally.unitName} is adjacent, added");
+                adjacentAllies.Add(ally);
+            }
+        }
+        Debug.Log(adjacentAllies.Count);
+        return adjacentAllies;
+    }
+
 
     protected virtual void HandleCombatEvent(CombatEventType type, UnitInstance source, UnitInstance target, int amount)
     {

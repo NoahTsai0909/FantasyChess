@@ -19,12 +19,14 @@ public class Hatchling : UnitInstance
             }
         );
 
+        Debug.Log($"Hatchling burn is {stats.Burn}");
+
         base.UseAbility();
     }
 
     public override string GetAbilityDescription()
     {
-        stats = RunManager.Instance.GetPreviewStats(Definition, CurrentRarity);
+        /*stats = RunManager.Instance.GetPreviewStats(Definition, CurrentRarity);*/
         return ($"Burn the nearest enemy for {stats.Burn}.");
     }
 }

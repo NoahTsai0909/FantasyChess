@@ -50,7 +50,6 @@ public class Ballista : UnitInstance
 
     public override string GetAbilityDescription()
     {
-        stats = RunManager.Instance.GetPreviewStats(Definition, CurrentRarity);
         return ($"Passive: When the ally in front of this unit uses an ability, this unit attacks the nearest enemy for {stats.Attack} damage.");
     }
 }

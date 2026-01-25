@@ -39,7 +39,6 @@ public class Farmer : UnitInstance
 
     public override string GetAbilityDescription()
     {
-        stats = RunManager.Instance.GetPreviewStats(Definition, CurrentRarity);
         return ($"Attack the nearest enemy for {stats.Attack} damage.\nPassive: When this unit survives combat, +1 gold.");
     }
 

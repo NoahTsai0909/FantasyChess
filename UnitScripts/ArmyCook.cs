@@ -37,7 +37,6 @@ public class ArmyCook : UnitInstance
 
     public override string GetAbilityDescription()
     {
-        stats = RunManager.Instance.GetPreviewStats(Definition, CurrentRarity);
         return ($"Attack the nearest enemy for {stats.Attack} damage. Heal the lowest health ally for {stats.Heal} health.");
     }
 }
