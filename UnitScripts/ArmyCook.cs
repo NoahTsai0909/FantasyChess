@@ -26,7 +26,7 @@ public class ArmyCook : UnitInstance
             {
                 type = CombatActionType.Heal,
                 source = this,
-                target = target,
+                target = target2,
                 amount = stats.Heal,
                 reason = "Army Cook Heal"
             }

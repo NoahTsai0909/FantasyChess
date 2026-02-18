@@ -15,6 +15,7 @@ MonoBehaviour:
   eventName: Mysterious stranger
   description: A companion decides to join your squad...
   eventIcon: {fileID: 8630833029534501343, guid: cef6df5bb482442408ce0a7adf781304, type: 3}
+  eventBackgroundImage: {fileID: 21300000, guid: 96a2251107d541843a33f1b5d44a6cc1, type: 3}
   minDayRequired: 1
   maxDayRequired: 6
   selectionWeight: 1

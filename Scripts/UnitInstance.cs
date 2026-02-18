@@ -30,12 +30,15 @@ public class UnitInstance : MonoBehaviour
     private bool inCombat = false;
 
     private int currentHP;
+    protected int currentEnergy;
     private int currentShield;
     public int GetCurrentHP() => currentHP;
 
     protected float cooldownTimer;
 
     public int burnStacks = 0;
+    public int slowStacks = 0;
+    public int hasteStacks = 0;
 
     public Guid id;
     public int row;
@@ -87,7 +90,8 @@ public class UnitInstance : MonoBehaviour
 
         if (cooldownTimer > 0)
         {
-            cooldownTimer -= Time.deltaTime;
+            float speedMultiplier = GetCooldownSpeedMultiplier();
+            cooldownTimer -= Time.deltaTime * speedMultiplier;
         }
         else
         {
@@ -133,15 +137,11 @@ public class UnitInstance : MonoBehaviour
 
     public void RecalculateStats()
     {
-        Debug.Log($"{unitName} RecalculateStats() called. temporaryStats ref: {temporaryStats.GetHashCode()}");
-
         stats = new StatBlock(
             GetRarityAdjustedDefinition(),
             permanentStats,
             temporaryStats  // This should be the same instance
         );
-
-        Debug.Log($"New stats created. Burn = {stats.Burn} (Perm:{permanentStats?.bonusBurn}, Temp:{temporaryStats.burnBonus})");
     }
 
     public void SetPlayerSide(bool isPlayerSide)
@@ -174,6 +174,7 @@ public class UnitInstance : MonoBehaviour
     public void InitializeCombatState()
     {
         currentHP = stats.MaxHP;
+        currentEnergy = stats.maxEnergy;
         cooldownTimer = stats.Cooldown;
     }
 
@@ -328,12 +329,19 @@ public class UnitInstance : MonoBehaviour
     public void ApplyBurn(int stacks)
     {
         burnStacks += stacks;
+        CombatEventBus.PublishStatusChanged(this, StatusEffectType.Burn, burnStacks);
+    }
 
-        CombatEventBus.PublishStatusChanged(
-        this,
-        StatusEffectType.Burn,
-        burnStacks
-    );
+    public void ApplySlow(int stacks)
+    {
+        slowStacks += stacks;
+        CombatEventBus.PublishStatusChanged(this, StatusEffectType.Slow, slowStacks);
+    }
+
+    public void ApplyHaste(int stacks)
+    {
+        hasteStacks += stacks;  
+        CombatEventBus.PublishStatusChanged(this, StatusEffectType.Haste, hasteStacks);
     }
 
     private System.Collections.IEnumerator FlashDisasterDamage()
@@ -402,7 +410,10 @@ public class UnitInstance : MonoBehaviour
             Definition.cooldown,
             Mathf.RoundToInt(Definition.shield * multiplier),
             Mathf.RoundToInt(Definition.burn * multiplier),
-            Mathf.RoundToInt(Definition.poison * multiplier)
+            Mathf.RoundToInt(Definition.poison * multiplier),
+            Definition.maxEnergy,
+            Definition.slow,
+            Definition.haste
         );
     }
 
@@ -420,6 +431,23 @@ public class UnitInstance : MonoBehaviour
 
         Debug.Log($"Recalculated stats.Burn = {stats.Burn}");
         return;
+    }
+
+    private float GetCooldownSpeedMultiplier()
+    {
+        bool slowed = slowStacks > 0;
+        bool hasted = hasteStacks > 0;
+
+        if (slowed && hasted)
+            return 1f;       // cancel out
+
+        if (slowed)
+            return 0.5f;     // 50% slower
+
+        if (hasted)
+            return 1.5f;     // 50% faster
+
+        return 1f;           // normal
     }
 
     /* =========================
@@ -452,6 +480,16 @@ public class UnitInstance : MonoBehaviour
         var criteria = new TargetingSystem.TargetCriteria(
             TargetingSystem.TargetTeam.Ally,
             TargetingSystem.SortMethod.LowestHealth
+        );
+        return targetingSystem.FindUnit(criteria, transform.position);
+    }
+
+    protected UnitInstance FindRandomEnemy()
+    {
+        if (targetingSystem == null) return null;
+        var criteria = new TargetingSystem.TargetCriteria(
+            TargetingSystem.TargetTeam.Enemy,
+            TargetingSystem.SortMethod.Random
         );
         return targetingSystem.FindUnit(criteria, transform.position);
     }

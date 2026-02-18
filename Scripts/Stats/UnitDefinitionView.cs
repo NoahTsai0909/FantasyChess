@@ -11,7 +11,13 @@ public class UnitDefinitionView : IStatSource
 
     public int Poison { get; private set; }
 
-    public UnitDefinitionView(int attack, int heal, int maxHP, float cooldown, int shield, int burn, int poison)
+    public int MaxEnergy { get; private set; }
+
+    public int Slow { get; private set; }
+
+    public int Haste { get; private set; }
+
+    public UnitDefinitionView(int attack, int heal, int maxHP, float cooldown, int shield, int burn, int poison, int maxEnergy, int slow, int haste)
     {
         Attack = attack;
         Heal = heal;
@@ -20,6 +26,9 @@ public class UnitDefinitionView : IStatSource
         Shield = shield;
         Burn = burn;
         Poison = poison;
+        MaxEnergy = maxEnergy;
+        Slow = slow;
+        Haste = haste;
     }
 }
 

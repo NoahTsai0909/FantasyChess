@@ -9,8 +9,8 @@ public enum CombatActionType
     ApplyBurn,
     BurnTick,
     Poison,
-    Haste,
-    Slow,
+    ApplyHaste,
+    ApplySlow,
     Charge,
     Freeze,
     Buff,
@@ -24,6 +24,7 @@ public class CombatAction
     public UnitInstance target;
     public int amount;
     public string reason; // optional (ability name, etc)
+    public Sprite projectileOverride; // Optional override
 }
 
 public class CombatManager : MonoBehaviour
@@ -71,6 +72,12 @@ public class CombatManager : MonoBehaviour
             case CombatActionType.ApplyBurn:
                 action.target.ApplyBurn(action.amount);
                 break;
+            case CombatActionType.ApplySlow:
+                action.target.ApplySlow(action.amount);
+                break;
+            case CombatActionType.ApplyHaste:
+                action.target.ApplyHaste(action.amount);
+                break;
         }
 
         // Record
@@ -117,6 +124,21 @@ public class CombatManager : MonoBehaviour
                     StatusEffectType.Burn,
                     unit.burnStacks
                 );
+            }
+
+            if (unit.slowStacks != 0)
+            {
+                unit.slowStacks--;
+                if (unit.slowStacks <= 0)
+                    unit.slowStacks = 0;
+                CombatEventBus.PublishStatusChanged(unit, StatusEffectType.Slow, unit.slowStacks);
+            }
+
+            if (unit.hasteStacks != 0)
+            {
+                unit.hasteStacks--;
+                if (unit.hasteStacks <= 0) unit.hasteStacks = 0;
+                CombatEventBus.PublishStatusChanged(unit, StatusEffectType.Haste, unit.hasteStacks);
             }
         }
     }

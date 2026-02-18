@@ -10,5 +10,11 @@ public interface IStatSource
     int Burn { get; }
 
     int Poison { get; }
+
+    int MaxEnergy { get; }
+
+    int Slow { get; }
+
+    int Haste { get; }  
 }
 

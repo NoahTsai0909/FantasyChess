@@ -21,8 +21,11 @@ MonoBehaviour:
   poison: 0
   cooldown: 6
   isPassive: 0
-  unitSprite: {fileID: -229438338720254273, guid: 4598991ace278a14e8495039b165a9e2, type: 3}
-  defaultProjectile: {fileID: 21300000, guid: 57108fd503bba3d4d883313f910abd80, type: 3}
+  unitSprite: {fileID: 21300000, guid: ca45e7682e7104e4faaa2acca1f31b97, type: 3}
+  defaultProjectile:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   cost: 2
   region: 0
   rarity: 0

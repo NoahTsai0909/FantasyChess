@@ -8,6 +8,7 @@ public abstract class BaseEventSO : ScriptableObject
     [TextArea(3, 5)]
     public string description;
     public Sprite eventIcon;
+    public Sprite eventBackgroundImage;
 
     [Header("Availability")]
     public int minDayRequired;

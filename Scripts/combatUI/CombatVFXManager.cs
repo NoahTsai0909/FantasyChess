@@ -11,6 +11,12 @@ public class CombatVFXManager : MonoBehaviour
     [SerializeField] private GameObject defaultProjectilePrefab;
     [SerializeField] private float projectileTravelTime;
 
+    [Header("Fallback Projectiles")]
+    [SerializeField] private Sprite defaultDamageProjectile;
+    [SerializeField] private Sprite defaultHealProjectile;
+    [SerializeField] private Sprite defaultShieldProjectile;
+    [SerializeField] private Sprite defaultBurnProjectile;
+
     private void Awake()
     {
         Instance = this;
@@ -52,7 +58,7 @@ public class CombatVFXManager : MonoBehaviour
 
     private void PlayProjectile(CombatAction action, Action onImpact)
     {
-        Sprite projectileSprite = action.source.Definition.defaultProjectile;
+        Sprite projectileSprite = GetProjectileForAction(action);
 
         if (projectileSprite == null)
         {
@@ -78,6 +84,19 @@ public class CombatVFXManager : MonoBehaviour
             TravelProjectile(proj.transform, start, end, travelTime, onImpact)
         );
     }
+
+    private Sprite GetProjectileForAction(CombatAction action)
+    {
+        // 1. Use action-specific override if provided
+        if (action.projectileOverride != null)
+        {
+            return action.projectileOverride;
+        }
+
+        // 3. Fall back to default based on action type
+        return GetFallbackProjectile(action.type);
+    }
+
 
     private IEnumerator TravelProjectile(Transform projectile, Vector3 start, Vector3 end, float duration, Action onImpact)
     {
@@ -107,6 +126,18 @@ public class CombatVFXManager : MonoBehaviour
                 action.target.Flash(Color.green);
                 break;
         }
+    }
+
+    private Sprite GetFallbackProjectile(CombatActionType actionType)
+    {
+        return actionType switch
+        {
+            CombatActionType.Damage => defaultDamageProjectile,
+            CombatActionType.Heal => defaultHealProjectile,
+            CombatActionType.Shield => defaultShieldProjectile,
+            CombatActionType.ApplyBurn => defaultBurnProjectile,
+            _ => defaultDamageProjectile // Default fallback
+        };
     }
 
 

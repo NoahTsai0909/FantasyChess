@@ -91,14 +91,18 @@ public class ShopSceneController : MonoBehaviour
         spawnedUnits.Add(unit);
 
         // Spawn purchase button
-        SpawnPurchaseButton(unit, unitData, xPos);
+        SpawnPurchaseButton(unit, unitData, unit.transform.position);
     }
 
-    void SpawnPurchaseButton(UnitInstance unit, UnitSaveData unitData, float xPos)
+    void SpawnPurchaseButton(UnitInstance unit, UnitSaveData unitData, Vector3 unitWorldPosition)
     {
         Button button = Instantiate(purchaseButtonPrefab, shopUIAnchor);
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(unit.transform.position);
-        button.transform.position = screenPos + new Vector3(0f, -100f, 0f);
+
+        // Position button in world space (below the unit)
+        button.transform.position = unitWorldPosition + new Vector3(0f, -4f, 0f);
+
+        // Make sure the button faces the camera
+        button.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
 
         int unitCost = GetPurchasePrice(unitData);
         // Update button text

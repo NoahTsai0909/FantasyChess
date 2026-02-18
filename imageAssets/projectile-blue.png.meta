@@ -103,10 +103,10 @@ TextureImporter:
       name: projectile-blue_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 18
-        width: 55
-        height: 28
+        x: 20
+        y: 25
+        width: 28
+        height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

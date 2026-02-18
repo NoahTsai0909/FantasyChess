@@ -9,7 +9,10 @@ public enum ModifiableStats
     Cooldown,
     Shield,
     Burn,
-    Poison
+    Poison,
+    Slow,
+    Haste,
+    MaxEnergy
 }
 
 public class StatBlock
@@ -36,6 +39,12 @@ public class StatBlock
 
     private int PermPoison => permanent?.bonusPoison ?? 0;
 
+    private int PermMaxEnergy => permanent?.bonusMaxEnergy ?? 0;
+
+    private int PermSlow => permanent?.bonusSlow ?? 0;  
+
+    private int PermHaste => permanent?.bonusHaste ?? 0;
+
     public int Attack =>
         baseStats.Attack
         + PermAttack
@@ -57,6 +66,13 @@ public class StatBlock
     public int Burn => baseStats.Burn + PermBurn + temporary.burnBonus;
 
     public int Poison => baseStats.Poison  + PermPoison + temporary.poisonBonus;
+
+    public int maxEnergy => baseStats.MaxEnergy + PermMaxEnergy + temporary.maxEnergyBonus;
+
+    public int Slow => baseStats.Slow + PermSlow + temporary.slowBonus;
+
+    public int Haste => baseStats.Haste + PermHaste + temporary.hasteBonus;
+
     public float Cooldown =>
         Mathf.Max(
             0.5f,

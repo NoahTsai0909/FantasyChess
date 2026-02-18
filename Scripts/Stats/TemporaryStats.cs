@@ -8,6 +8,9 @@ public class TemporaryStats
     public int shieldBonus;
     public int burnBonus;
     public int poisonBonus;
+    public int maxEnergyBonus;
+    public int slowBonus;
+    public int hasteBonus;
 
     public void Clear()
     {
@@ -18,5 +21,8 @@ public class TemporaryStats
         shieldBonus = 0;
         burnBonus = 0;
         poisonBonus = 0;
+        maxEnergyBonus = 0;
+        slowBonus = 0;
+        hasteBonus = 0;
     }
 }

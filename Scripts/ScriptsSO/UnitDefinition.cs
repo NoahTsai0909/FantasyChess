@@ -14,14 +14,18 @@ public class UnitDefinition : ScriptableObject, IStatSource
     public int shield;
     public int burn;
     public int poison;
+    public int slow;
+    public int haste;
 
     [Header("Cooldown")]
     public float cooldown;
     public bool isPassive;
+    public bool isEnergy;
+    public int maxEnergy;
 
     [Header("Visuals")]
     public Sprite unitSprite;
-    public Sprite defaultProjectile;
+    public List<Sprite> defaultProjectile;
 
     [Header("Meta")]
     public int cost;
@@ -45,6 +49,11 @@ public class UnitDefinition : ScriptableObject, IStatSource
     public int Shield => shield;
     public int Burn => burn;
     public int Poison => poison;
+
+    public int MaxEnergy => maxEnergy;
+
+    public int Slow => slow;
+    public int Haste => haste;
 }
 
 public enum Rarity { Common, Uncommon, Rare, Epic }

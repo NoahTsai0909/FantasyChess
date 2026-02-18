@@ -12,6 +12,7 @@ public class EventSceneController : MonoBehaviour
     [SerializeField] private Transform rewardAnchor;
     [SerializeField] private Button takeUnitButton;
     [SerializeField] private TextMeshProUGUI takeUnitButtonText;
+    [SerializeField] private SpriteRenderer eventBackgroundRenderer;
 
     private UnitInstance previewUnit;
     private Rarity previewUnitRarity;
@@ -26,6 +27,10 @@ public class EventSceneController : MonoBehaviour
             eventNameText.text = eventSO.eventName;
             descriptionText.text = eventSO.description;
             //eventIcon.sprite = eventSO.eventIcon;
+            if (eventBackgroundRenderer != null)
+            {
+                eventBackgroundRenderer.sprite = eventSO.eventBackgroundImage;
+            }
 
             if (eventSO is RandomUnitEventSO)
             {

@@ -8,6 +8,9 @@ public class PermanentStats
     public int bonusShield;
     public int bonusBurn;
     public int bonusPoison;
+    public int bonusMaxEnergy;
+    public int bonusSlow;
+    public int bonusHaste;
 
     public void Reset()
     {
@@ -18,5 +21,8 @@ public class PermanentStats
         bonusShield = 0;
         bonusBurn = 0;
         bonusPoison = 0;
+        bonusMaxEnergy = 0;
+        bonusSlow = 0;
+        bonusHaste = 0;
     }
 }

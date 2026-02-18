@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 828390084687526078}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 647.2, y: 376.51, z: 0}
-  m_LocalScale: {x: 0.27286112, y: 0.30112597, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -48,11 +48,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DeadEye
   definition: {fileID: 11400000, guid: ee091adf83bd1af41ae99a6d43bdfcac, type: 2}
   unitName: Deadeye
-  isPlayer: 0
+  burnStacks: 0
   row: 0
   col: 0
-  healthBarPrefab: {fileID: 0}
-  cooldownBarPrefab: {fileID: 0}
+  isPlayer: 0
+  myPlacement:
+    unitData:
+      definition: {fileID: 0}
+      rarity: 0
+      provisionCost: 0
+      provisionModifier: 0
+      valueModifier: 0
+    row: 0
+    col: 0
 --- !u!212 &6260144975608957514
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -100,12 +108,12 @@ SpriteRenderer:
   m_SortingLayerID: -1453934087
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 6255187896223928103, guid: 0bd84aeb11eb06f4eba6fb4e010d60be, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0bd84aeb11eb06f4eba6fb4e010d60be, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 6.12, y: 5.72}
+  m_Size: {x: 4, y: 4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -149,11 +157,11 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 6.12, y: 5.72}
-    newSize: {x: 6.12, y: 5.72}
+    oldSize: {x: 4, y: 4}
+    newSize: {x: 4, y: 4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 6.12, y: 5.72}
+  m_Size: {x: 4, y: 4}
   m_EdgeRadius: 0
