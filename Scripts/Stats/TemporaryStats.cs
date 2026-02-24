@@ -11,6 +11,7 @@ public class TemporaryStats
     public int maxEnergyBonus;
     public int slowBonus;
     public int hasteBonus;
+    public int multicastBonus;
 
     public void Clear()
     {
@@ -24,5 +25,6 @@ public class TemporaryStats
         maxEnergyBonus = 0;
         slowBonus = 0;
         hasteBonus = 0;
+        multicastBonus = 0;
     }
 }

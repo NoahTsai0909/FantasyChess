@@ -19,10 +19,16 @@ MonoBehaviour:
   shield: 0
   burn: 0
   poison: 0
+  slow: 0
+  haste: 0
   cooldown: 0
   isPassive: 1
+  isEnergy: 0
+  maxEnergy: 0
+  multicast: 1
   unitSprite: {fileID: 21300000, guid: f7dc34d5661890a46a0d9a68546b497d, type: 3}
-  defaultProjectile: {fileID: 0}
+  defaultProjectile:
+  - {fileID: 0}
   cost: 0
   region: 0
   rarity: 0

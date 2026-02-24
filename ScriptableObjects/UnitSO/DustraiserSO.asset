@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a16e02b8c37b3f43ac55682dba29a26, type: 3}
+  m_Name: DustraiserSO
+  m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
+  unitName: Dustraiser
+  maxHP: 65
+  attack: 0
+  heal: 0
+  shield: 8
+  burn: 0
+  poison: 0
+  slow: 0
+  haste: 2
+  cooldown: 4
+  isPassive: 0
+  isEnergy: 0
+  maxEnergy: 0
+  multicast: 1
+  unitSprite: {fileID: 21300000, guid: f735cd323ef6d9a4c89d40a1510c71ce, type: 3}
+  defaultProjectile: []
+  cost: 0
+  region: 0
+  rarity: 0
+  startingRarity: 1
+  provisionCost: 1
+  unitPrefab: {fileID: 2383103703400013816, guid: 3008aa01b4813e940b89a824864a8a84, type: 3}
+  tagFlags: 0

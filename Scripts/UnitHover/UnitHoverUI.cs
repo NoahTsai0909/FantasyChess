@@ -50,6 +50,8 @@ public class UnitHoverUI : MonoBehaviour
 
         if (!unit.Definition.isPassive)
             statsText.text += $"CD: {stats.Cooldown}s\n";
+        if (unit.Definition.isEnergy)
+            statsText.text += $"Energy: {stats.maxEnergy}\n";
         setRarityColor(unit.CurrentRarity);
         abilityText.text = unit.GetAbilityDescription();
     }

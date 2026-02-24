@@ -11,6 +11,7 @@ public class PermanentStats
     public int bonusMaxEnergy;
     public int bonusSlow;
     public int bonusHaste;
+    public int bonusMulticast;
 
     public void Reset()
     {
@@ -24,5 +25,6 @@ public class PermanentStats
         bonusMaxEnergy = 0;
         bonusSlow = 0;
         bonusHaste = 0;
+        bonusMulticast = 0;
     }
 }

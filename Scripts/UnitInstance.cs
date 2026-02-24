@@ -95,7 +95,10 @@ public class UnitInstance : MonoBehaviour
         }
         else
         {
-            UseAbility();
+            for (int i = 0; i < stats.Multicast; i++)
+            {
+                UseAbility();
+            }
             cooldownTimer = stats.Cooldown;
         }
     }
@@ -413,7 +416,8 @@ public class UnitInstance : MonoBehaviour
             Mathf.RoundToInt(Definition.poison * multiplier),
             Definition.maxEnergy,
             Definition.slow,
-            Definition.haste
+            Definition.haste,
+            Definition.multicast
         );
     }
 
@@ -423,13 +427,22 @@ public class UnitInstance : MonoBehaviour
 
         if (modifiableStats == ModifiableStats.Burn)
         {
-            Debug.Log($"Before: temporaryStats.burnBonus = {temporaryStats.burnBonus}");
             temporaryStats.burnBonus += bonus;
-            Debug.Log($"After: temporaryStats.burnBonus = {temporaryStats.burnBonus}");
         }
-        RecalculateStats();
-
-        Debug.Log($"Recalculated stats.Burn = {stats.Burn}");
+        else if (modifiableStats == ModifiableStats.Poison)
+        {
+            temporaryStats.poisonBonus += bonus;
+        }
+        else if (modifiableStats == ModifiableStats.MaxEnergy)
+        {
+            temporaryStats.maxEnergyBonus += bonus;
+            currentEnergy += bonus;
+        }
+        else if (modifiableStats == ModifiableStats.Attack)
+        {
+            temporaryStats.attackBonus += bonus;
+        }
+            RecalculateStats();
         return;
     }
 
@@ -502,8 +515,13 @@ public class UnitInstance : MonoBehaviour
         int colDiff = Mathf.Abs(col - other.col);
 
         // 4-direction adjacency
-        Debug.Log($"Torch and {other.unitName} have rowdiff and coldiff of {rowDiff} and {colDiff}");
         return (rowDiff + colDiff) == 1;
+    }
+
+    protected bool IsSide(UnitInstance other)
+    {
+        if (other == null) return false;
+        return Mathf.Abs(row - other.row) == 1 && col == other.col;
     }
 
     protected List<UnitInstance> FindAdjacentAllies()
@@ -518,16 +536,40 @@ public class UnitInstance : MonoBehaviour
             if (ally == this) continue;
             if (IsAdjacent(ally))
             {
-                Debug.Log($"{ally.unitName} is adjacent, added");
                 adjacentAllies.Add(ally);
             }
         }
-        Debug.Log(adjacentAllies.Count);
         return adjacentAllies;
+    }
+
+    protected List<UnitInstance> FindSideAllies()
+    {
+        if (targetingSystem == null) return new List<UnitInstance>();
+
+        var allies = targetingSystem.GetAllies();
+        var sideAllies = new List<UnitInstance>();
+
+        foreach (var ally in allies)
+        {
+            if (ally == this) continue;
+            if (IsSide(ally))
+            {
+                sideAllies.Add(ally);
+            }
+        }
+        return sideAllies;
+    }
+
+    protected List<UnitInstance> FindAllAllies()
+    {
+        if (targetingSystem == null) return new List<UnitInstance>();
+        return targetingSystem.GetAllies();
     }
 
 
     protected virtual void HandleCombatEvent(CombatEventType type, UnitInstance source, UnitInstance target, int amount)
     {
     }
+
+    protected virtual void HandleCombatAction(CombatAction action) { }
 }

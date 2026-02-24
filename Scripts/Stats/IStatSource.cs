@@ -16,5 +16,7 @@ public interface IStatSource
     int Slow { get; }
 
     int Haste { get; }  
+
+    int Multicast { get; }
 }
 

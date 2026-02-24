@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class DisasterManager : MonoBehaviour
 {
     [Header("Timing Settings")]
-    [SerializeField] private float disasterStartTime = 20f; // When disaster starts
+    [SerializeField] private float disasterStartTime = 30f; // When disaster starts
     [SerializeField] private float disasterTickInterval = 1f; // Damage every second
     [SerializeField] private int disasterInitialDamage = 1;
 

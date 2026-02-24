@@ -22,6 +22,7 @@ public class UnitDefinition : ScriptableObject, IStatSource
     public bool isPassive;
     public bool isEnergy;
     public int maxEnergy;
+    public int multicast = 1;
 
     [Header("Visuals")]
     public Sprite unitSprite;
@@ -54,6 +55,8 @@ public class UnitDefinition : ScriptableObject, IStatSource
 
     public int Slow => slow;
     public int Haste => haste;
+
+    public int Multicast => multicast;
 }
 
 public enum Rarity { Common, Uncommon, Rare, Epic }
