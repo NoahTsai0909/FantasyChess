@@ -46,7 +46,7 @@ public class BattleUIManager : MonoBehaviour
         // Create cooldown bar
         GameObject cooldownBar = Instantiate(cooldownBarPrefab, battleCanvas.transform);
         cooldownBar.transform.position = uiPosition + GetCooldownBarOffset(unit.isPlayer);
-        cooldownBar.transform.localScale = Vector3.one * 0.3f; // Scale it down
+        cooldownBar.transform.localScale = Vector3.one * 0.75f; // Scale it down
 
         Image healthFill = FindHealthBarImage(healthBar);
         Image cooldownFill = FindCooldownBarImage(cooldownBar);
@@ -130,7 +130,7 @@ public class BattleUIManager : MonoBehaviour
 
     private Vector3 GetCooldownBarOffset(bool isPlayer)
     {
-        return new Vector3(-1f, -2.5f, 0); // Changed to be more visible
+        return new Vector3(-1.5f, -2.5f, 0); // Changed to be more visible
     }
 
     private Vector3 GetStatusBarOffset(bool isPlayer)

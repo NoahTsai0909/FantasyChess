@@ -13,7 +13,8 @@ public enum ModifiableStats
     Slow,
     Haste,
     MaxEnergy,
-    Multicast
+    Multicast,
+    Value
 }
 
 public class StatBlock
@@ -48,6 +49,8 @@ public class StatBlock
 
     private int PermMulticast => permanent?.bonusMulticast ?? 0;
 
+    private int PermValue => permanent?.bonusValue ?? 0;
+
     public int Attack =>
         baseStats.Attack
         + PermAttack
@@ -77,6 +80,8 @@ public class StatBlock
     public int Haste => baseStats.Haste + PermHaste + temporary.hasteBonus;
 
     public int Multicast => baseStats.Multicast + PermMulticast + temporary.multicastBonus;
+
+    public int Value => baseStats.Value + PermValue + temporary.valueBonus;
     public float Cooldown =>
         Mathf.Max(
             0.5f,

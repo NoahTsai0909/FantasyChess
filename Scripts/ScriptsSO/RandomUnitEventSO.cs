@@ -6,6 +6,7 @@ public class RandomUnitEventSO : BaseEventSO
     [Header("Unit Reward Settings")]
     public Rarity minRarity = Rarity.Common;
     public Rarity maxRarity = Rarity.Common;
+    public Region region;
     public UnitTagFlags preferredTags = UnitTagFlags.None;
 
     private void ApplyRandomReward()
@@ -13,9 +14,9 @@ public class RandomUnitEventSO : BaseEventSO
         return;
     }
 
-    public override UnitDefinition ReturnRandomUnit()
+    public override UnitSaveData ReturnRandomUnit()
     {
-        UnitDefinition randomUnit = GetRandomUnitByReputation();
+        UnitSaveData randomUnit = UnitGenerationService.GenerateUnit(region, preferredTags);
         return randomUnit;
     }
 
@@ -24,7 +25,10 @@ public class RandomUnitEventSO : BaseEventSO
         if (UnitDatabase.Instance == null || UnitDatabase.Instance.allUnits.Count == 0)
             return null;
 
+        var rarity = RunManager.Instance.RollRarityForDay(RunManager.Instance.currentDay);
+
         // For now, get truly random unit from database
-        return UnitDatabase.Instance.GetRandomUnit();
+        //return UnitDatabase.Instance.GetRandomUnit();
+        return UnitDatabase.Instance.GetRandomUnit(rarity, requiredTags: preferredTags);
     }
 }

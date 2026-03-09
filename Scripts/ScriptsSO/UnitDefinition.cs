@@ -57,7 +57,9 @@ public class UnitDefinition : ScriptableObject, IStatSource
     public int Haste => haste;
 
     public int Multicast => multicast;
+
+    public int Value => 0;
 }
 
 public enum Rarity { Common, Uncommon, Rare, Epic }
-public enum Region { Solmire, Nethervale, Everborn, Axiom}
+public enum Region { Solmire, Nethervale, Everborn, Axiom, None}

@@ -9,6 +9,7 @@ public abstract class BaseEventSO : ScriptableObject
     public string description;
     public Sprite eventIcon;
     public Sprite eventBackgroundImage;
+    public string eventButtonText;
 
     [Header("Availability")]
     public int minDayRequired;
@@ -92,7 +93,7 @@ public abstract class BaseEventSO : ScriptableObject
         return day >= minDayRequired && day <= maxDayRequired;
     }
 
-    public virtual UnitDefinition ReturnRandomUnit()
+    public virtual UnitSaveData ReturnRandomUnit()
     {
         return null;
     }

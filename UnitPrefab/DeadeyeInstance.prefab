@@ -49,6 +49,8 @@ MonoBehaviour:
   definition: {fileID: 11400000, guid: ee091adf83bd1af41ae99a6d43bdfcac, type: 2}
   unitName: Deadeye
   burnStacks: 0
+  slowStacks: 0
+  hasteStacks: 0
   row: 0
   col: 0
   isPlayer: 0
@@ -63,6 +65,7 @@ MonoBehaviour:
     col: 0
 --- !u!212 &6260144975608957514
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -108,7 +111,8 @@ SpriteRenderer:
   m_SortingLayerID: -1453934087
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0bd84aeb11eb06f4eba6fb4e010d60be, type: 3}
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 21300000, guid: 9268782171a420246bf80e6e5a2baaeb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -117,7 +121,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &7250460388848536414
 BoxCollider2D:

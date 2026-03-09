@@ -155,7 +155,7 @@ MonoBehaviour:
   playerBenchPlacements: []
   defaultUnits:
   - unitData:
-      definition: {fileID: 11400000, guid: 49265a2fcef4d1d498afa64030ec1851, type: 2}
+      definition: {fileID: 11400000, guid: 73ecacf8bd3f2a64f8fb880afcdb1268, type: 2}
       rarity: 1
       provisionCost: 1
       provisionModifier: 0
@@ -167,6 +167,7 @@ MonoBehaviour:
   regularEventsCompleted: 0
   isBattleDay: 0
   reputation: 1
+  playerLevel: 1
   currentDailyEvents: []
   selectedEvent: {fileID: 0}
   currentEncounter: {fileID: 0}

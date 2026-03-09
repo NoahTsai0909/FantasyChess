@@ -8,6 +8,7 @@ using System.Collections.Generic;
 public class MapController : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI goldText;
+    [SerializeField] private TextMeshProUGUI reputationText;
     [SerializeField] private TextMeshProUGUI dayText;
     [SerializeField] private TextMeshProUGUI dayTypeText;
     [SerializeField] private TextMeshProUGUI eventCounterText;
@@ -16,6 +17,12 @@ public class MapController : MonoBehaviour
     [Header("Event Display")]
     [SerializeField] private Transform eventButtonContainer;
     [SerializeField] private GameObject eventButtonPrefab;
+
+    [Header("Level Up Panel")]
+    [SerializeField] private GameObject levelUpOverlay;
+    [SerializeField] private TextMeshProUGUI levelText;
+    [SerializeField] private TextMeshProUGUI rewardText;
+    [SerializeField] private Button continueButton;
 
     public static MapController Instance { get; private set; }
 
@@ -26,6 +33,7 @@ public class MapController : MonoBehaviour
 
     void Start()
     {
+        CheckLevelUp();
         UpdateUI();
         if (RunManager.Instance.currentDailyEvents.Count == 0 &&
             !RunManager.Instance.eventInProgress)
@@ -54,6 +62,7 @@ public class MapController : MonoBehaviour
         {
             goldText.text = $"Gold: {RunManager.Instance.currentGold}";
             dayText.text = $"Day: {RunManager.Instance.currentDay}";
+            reputationText.text = $"Reputation: {RunManager.Instance.reputation} / 10";
 
             // Show event counter
             if (RunManager.Instance.isBattleDay)
@@ -94,7 +103,6 @@ public class MapController : MonoBehaviour
 
     void OnEnable()
     {
-        Debug.Log($"=== MapController.OnEnable ===");
 
         // Always clear the event in progress flag when returning to map
         if (RunManager.Instance != null)
@@ -112,12 +120,31 @@ public class MapController : MonoBehaviour
         }
 
         UpdateUI();
-        Debug.Log($"=== END MapController.OnEnable ===");
     }
 
 
     public void inspectTeam()
     {
         SceneLoader.Instance.LoadScene(GameScene.PrepScene);
+    }
+
+    private void CheckLevelUp()
+    {
+        if (RunManager.Instance == null) return;
+        if (RunManager.Instance.reputation >= 10)
+        {
+            RunManager.Instance.reputation -= 10;
+            RunManager.Instance.playerLevel++;
+
+            levelUpOverlay.SetActive(true);
+            levelText.text = $"Level {RunManager.Instance.playerLevel}";
+            rewardText.text = "+2 Provision";
+
+            continueButton.onClick.AddListener(() =>
+            {
+                levelUpOverlay.SetActive(false);
+                RunManager.Instance.provisionCap += 2;
+            });
+        }
     }
 }

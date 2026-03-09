@@ -35,10 +35,11 @@ public class EventSceneController : MonoBehaviour
             if (eventSO is RandomUnitEventSO)
             {
                 //UnitDefinition randomUnit = eventSO.ReturnRandomUnit();
-                UnitSaveData randomUnit = UnitGenerationService.GenerateUnit();
+                UnitSaveData randomUnit = eventSO.ReturnRandomUnit();
                 ShowUnitPreview(randomUnit);
 
                 takeUnitButton.gameObject.SetActive(true);
+                takeUnitButtonText.text = eventSO.eventButtonText;
                 takeUnitButton.onClick.AddListener(() =>
                 {
                     //RunManager.Instance.AddUnitToBench(randomUnit);

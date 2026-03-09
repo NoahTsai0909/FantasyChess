@@ -39,7 +39,8 @@ public class RunManager : MonoBehaviour
     public int regularEventsCompleted = 0;
     public const int REGULAR_EVENTS_BEFORE_BATTLE = 3;
     public bool isBattleDay = false;
-    public int reputation = 1;
+    public int reputation = 0;
+    public int playerLevel = 1;
     public List<BaseEventSO> currentDailyEvents = new();
     public BaseEventSO selectedEvent;
     public EncounterDefinition currentEncounter;
@@ -188,6 +189,7 @@ public class RunManager : MonoBehaviour
     public void CompleteRegularEvent()
     {
         regularEventsCompleted++;
+        reputation++;
         Debug.Log($"Regular event completed: {regularEventsCompleted}/{REGULAR_EVENTS_BEFORE_BATTLE}");
 
         // Check if it's time for a battle
@@ -299,28 +301,6 @@ public class RunManager : MonoBehaviour
     }
 
 
-    /*public StatBlock GetPreviewStats(UnitDefinition definition, Rarity rarity)
-    {
-        int delta = rarity - definition.startingRarity;
-        float multiplier = RarityScaling.GetMultiplier(delta);
-
-        IStatSource rarityAdjusted = new UnitDefinitionView(
-            Mathf.RoundToInt(definition.attack * multiplier),
-            Mathf.RoundToInt(definition.heal * multiplier),
-            Mathf.RoundToInt(definition.maxHP * multiplier),
-            definition.cooldown,
-            Mathf.RoundToInt(definition.shield * multiplier),
-            Mathf.RoundToInt(definition.burn * multiplier),
-            Mathf.RoundToInt(definition.poison * multiplier)
-        );
-
-        PermanentStats permStats = new PermanentStats(); // no persistence for previews
-        TemporaryStats tempStats = new TemporaryStats();
-
-        return new StatBlock(rarityAdjusted, permStats, tempStats);
-    }*/
-
-
     public void InitializeShop(int count, Region region, UnitTagFlags unitTags)
     {
         if (shopState != null) return;
@@ -383,7 +363,7 @@ public class RunManager : MonoBehaviour
         return result;
     }
 
-    private Rarity RollRarityForDay(int day)
+    public Rarity RollRarityForDay(int day)
     {
         if (rarityDistributionTable == null)
         {

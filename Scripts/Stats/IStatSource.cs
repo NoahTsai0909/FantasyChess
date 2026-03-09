@@ -18,5 +18,7 @@ public interface IStatSource
     int Haste { get; }  
 
     int Multicast { get; }
+
+    int Value { get; }
 }
 

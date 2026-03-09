@@ -17,14 +17,16 @@ MonoBehaviour:
   - unitData:
       definition: {fileID: 11400000, guid: 88642c22682ab104a9c47221284759e5, type: 2}
       rarity: 0
-      row: 1
-      col: 1
+      provisionCost: 0
+      provisionModifier: 0
+      valueModifier: 0
     row: 0
     col: 0
   - unitData:
-      definition: {fileID: 11400000, guid: 8f005606f4a1e4847a4aa1978ce45a79, type: 2}
+      definition: {fileID: 11400000, guid: ee091adf83bd1af41ae99a6d43bdfcac, type: 2}
       rarity: 0
-      row: 1
-      col: 2
+      provisionCost: 0
+      provisionModifier: 0
+      valueModifier: 0
     row: 1
     col: 0

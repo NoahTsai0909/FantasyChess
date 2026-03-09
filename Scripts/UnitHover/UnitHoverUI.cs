@@ -7,9 +7,23 @@ using UnityEngine.UI;
 public class UnitHoverUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI nameText;
-    [SerializeField] private TextMeshProUGUI statsText;
     [SerializeField] private TextMeshProUGUI abilityText;
     [SerializeField] private Vector2 padding = new Vector2(12f, 12f);
+
+    [SerializeField] private Sprite backgroundCommon;
+    [SerializeField] private Sprite backgroundUncommon;
+    [SerializeField] private Sprite backgroundRare;
+    [SerializeField] private Sprite backgroundEpic;
+
+    [SerializeField] private StatWidget statWidgetPrefab;
+    [SerializeField] private Transform statsContainer;
+
+    [SerializeField] private Sprite attackIcon;
+    [SerializeField] private Sprite shieldIcon;
+    [SerializeField] private Sprite healIcon;
+    [SerializeField] private Sprite poisonIcon;
+    [SerializeField] private Sprite burnIcon;
+
 
     private Canvas canvas;
     private RectTransform rect;
@@ -38,21 +52,28 @@ public class UnitHoverUI : MonoBehaviour
 
         nameText.text = unit.Definition.unitName;
 
+        foreach (Transform child in statsContainer)
+            Destroy(child.gameObject);
+
         StatBlock stats = unit.Stats;
 
-        statsText.text = $"HP: {stats.MaxHP}\n";
-
         if (stats.Attack > 0)
-            statsText.text += $"ATK: {stats.Attack}\n";
+            AddStatWidget(attackIcon, stats.Attack);
+
+        if (stats.Shield > 0)
+            AddStatWidget(shieldIcon, stats.Shield);
 
         if (stats.Heal > 0)
-            statsText.text += $"Heal: {stats.Heal}\n";
+            AddStatWidget(healIcon, stats.Heal);
 
-        if (!unit.Definition.isPassive)
-            statsText.text += $"CD: {stats.Cooldown}s\n";
-        if (unit.Definition.isEnergy)
-            statsText.text += $"Energy: {stats.maxEnergy}\n";
-        setRarityColor(unit.CurrentRarity);
+        if (stats.Poison > 0)
+            AddStatWidget(poisonIcon, stats.Poison);
+
+        if (stats.Burn > 0)
+            AddStatWidget(burnIcon, stats.Burn);
+
+
+        SetRarityBackground(unit.CurrentRarity);
         abilityText.text = unit.GetAbilityDescription();
     }
 
@@ -63,55 +84,54 @@ public class UnitHoverUI : MonoBehaviour
 
     void FollowMouse()
     {
-        if (Mouse.current == null)
-            return;
+        Vector2 mouse = Mouse.current.position.ReadValue();
 
-        Vector2 mousePos = Mouse.current.position.ReadValue();
-        Vector2 size = rect.sizeDelta;
+        Vector2 size = rect.rect.size;
 
-        Vector2 pivot = new Vector2(0f, 0f); // bottom-left default
+        float x = mouse.x + padding.x;
+        float y = mouse.y + padding.y;
 
-        // If expanding UP would clip (mouse near top)
-        if (mousePos.y + size.y > Screen.height)
-        {
-            pivot.y = 1f; // anchor at top, expand downward
-        }
+        if (x + size.x > Screen.width)
+            x = mouse.x - size.x - padding.x;
 
-        // If expanding RIGHT would clip (mouse near right edge)
-        if (mousePos.x + size.x > Screen.width)
-        {
-            pivot.x = 1f; // anchor at right, expand left
-        }
+        if (y + size.y > Screen.height)
+            y = mouse.y - size.y - padding.y;
 
-        rect.pivot = pivot;
-        rect.position = mousePos + padding;
-
+        rect.position = new Vector2(x, y);
     }
 
-    private void setRarityColor(Rarity rarity)
+    private void SetRarityBackground(Rarity rarity)
     {
         switch (rarity)
         {
             case Rarity.Common:
-                image.color = new Color32(37, 37, 37, 255);
+                image.sprite = backgroundCommon;
                 break;
 
             case Rarity.Uncommon:
-                image.color = new Color32(3, 58, 17, 255);
+                image.sprite = backgroundUncommon;
                 break;
 
             case Rarity.Rare:
-                image.color = new Color32(0, 39, 91, 255);
+                image.sprite = backgroundRare;
                 break;
 
             case Rarity.Epic:
-                image.color = new Color32(48, 0, 81, 255);
+                image.sprite = backgroundEpic;
                 break;
 
             default:
-                image.color = new Color32(154, 28, 2, 255);
+                image.sprite = backgroundCommon;
                 break;
         }
     }
+
+    void AddStatWidget(Sprite icon, int value)
+    {
+        StatWidget widget = Instantiate(statWidgetPrefab, statsContainer);
+        widget.Set(icon, value);
+    }
+
+
 }
 

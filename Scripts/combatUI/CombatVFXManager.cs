@@ -66,22 +66,20 @@ public class CombatVFXManager : MonoBehaviour
             return;
         }
 
-        GameObject proj = Instantiate(defaultProjectilePrefab);
+        Vector3 start = action.source.transform.position;
+
+        GameObject proj = Instantiate(defaultProjectilePrefab, start, Quaternion.identity);
+
         SpriteRenderer sr = proj.GetComponent<SpriteRenderer>();
         sr.sprite = projectileSprite;
 
-        Vector3 start = action.source.transform.position;
-        Vector3 end = action.target.transform.position;
-
-        Vector3 dir = end - start;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        sr.transform.rotation = Quaternion.Euler(0, 0, angle);
-
-
-        float travelTime = projectileTravelTime;
-
         StartCoroutine(
-            TravelProjectile(proj.transform, start, end, travelTime, onImpact)
+            TravelProjectile(
+                proj.transform,
+                action.target.transform,
+                projectileTravelTime,
+                onImpact
+            )
         );
     }
 
@@ -98,18 +96,42 @@ public class CombatVFXManager : MonoBehaviour
     }
 
 
-    private IEnumerator TravelProjectile(Transform projectile, Vector3 start, Vector3 end, float duration, Action onImpact)
+    private IEnumerator TravelProjectile(
+    Transform projectile,
+    Transform target,
+    float duration,
+    Action onImpact)
     {
-        float t = 0f;
+        float elapsed = 0f;
+        Vector3 start = projectile.position;
 
-        while (t < 1f)
+        while (elapsed < duration)
         {
-            t += Time.deltaTime / duration;
-            projectile.position = Vector3.Lerp(start, end, t);
+            if (target == null)
+            {
+                Destroy(projectile.gameObject);
+                yield break;
+            }
+
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+
+            Vector3 currentTargetPos = target.position;
+
+            // Move
+            projectile.position = Vector3.Lerp(start, currentTargetPos, t);
+
+            //Update rotation dynamically
+            Vector3 dir = currentTargetPos - projectile.position;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            projectile.rotation = Quaternion.Euler(0, 0, angle);
+
             yield return null;
         }
 
-        onImpact?.Invoke();
+        if (target != null)
+            onImpact?.Invoke();
+
         Destroy(projectile.gameObject);
     }
 

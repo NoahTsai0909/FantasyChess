@@ -34,4 +34,4 @@ MonoBehaviour:
   startingRarity: 0
   provisionCost: 2
   unitPrefab: {fileID: 4675624728798789015, guid: 1c0e4a53089c20f4c8aa7be53d342b20, type: 3}
-  tagFlags: 0
+  tagFlags: 128

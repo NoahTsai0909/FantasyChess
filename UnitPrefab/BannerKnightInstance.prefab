@@ -49,6 +49,8 @@ MonoBehaviour:
   definition: {fileID: 11400000, guid: 88642c22682ab104a9c47221284759e5, type: 2}
   unitName: Banner Knight
   burnStacks: 0
+  slowStacks: 0
+  hasteStacks: 0
   row: 1
   col: 2
   isPlayer: 1
@@ -63,6 +65,7 @@ MonoBehaviour:
     col: 0
 --- !u!212 &2346179965296724333
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -108,7 +111,8 @@ SpriteRenderer:
   m_SortingLayerID: -1453934087
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4693492cb0f0b5d4a9d394cbbf1f0a3b, type: 3}
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 21300000, guid: 4d4b098f8aeecec4da7e2dc7b7060b68, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -117,7 +121,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &3055527152786462543
 BoxCollider2D:

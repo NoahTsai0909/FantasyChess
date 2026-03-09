@@ -120,6 +120,46 @@ public class DragAndDropManager : MonoBehaviour
             // Get target unit if any
             UnitInstance targetUnit = targetGrid.GetUnitAtPosition(targetPos.x, targetPos.y);
 
+            if (targetUnit != null && draggedUnit is IConsumable consumable)
+            {
+                // Prevent self-consume
+                if (targetUnit == draggedUnit)
+                {
+                    RevertDrag();
+                    return;
+                }
+
+                // Optional: prevent consuming across grids if you want
+                // if (targetGrid != sourceGrid) { RevertDrag(); return; }
+
+                // Apply consume effect
+                consumable.OnConsume(targetUnit);
+
+                // Remove from grid reference
+                sourceGrid.ClearUnitReference(draggedPlacement);
+
+                // Remove from RunManager
+                RemoveFromRunManager(draggedUnit, draggedPlacement);
+
+                // Destroy object
+                Destroy(draggedUnit.gameObject);
+
+                // Cleanup drag visuals/state
+                SetUnitDragVisuals(draggedUnit, false);
+
+                if (sellZone != null)
+                    sellZone.Highlight(false);
+
+                draggedUnit = null;
+                draggedPlacement = null;
+                sourceGrid = null;
+
+                if (provisionManager != null)
+                    provisionManager.CalculateCurrentProvision();
+
+                return;
+            }
+
             // CASE 1: Moving to empty cell
             if (targetUnit == null)
             {
@@ -300,7 +340,7 @@ public class DragAndDropManager : MonoBehaviour
         Debug.Log($"Selling unit: {draggedUnit.unitName}");
 
         // Calculate sell price
-        int sellPrice = draggedUnit.Definition.cost;
+        int sellPrice = draggedUnit.Stats.Value;
 
         // Add gold to player
         RunManager.Instance.currentGold += sellPrice;

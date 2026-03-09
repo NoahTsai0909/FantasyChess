@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8920a2a2659eb4f45baf49db4d32ce91, type: 3}
   m_Name: DynamicDuo
   m_EditorClassIdentifier: Assembly-CSharp::CombatEventSO
-  eventName: Dynamic Duo
+  eventName: Knight and Deadeye
   description: A duo of banner knight and deadeye
   eventIcon: {fileID: 0}
+  eventBackgroundImage: {fileID: 0}
+  eventButtonText: 
   minDayRequired: 1
   maxDayRequired: 1
   selectionWeight: 1
@@ -23,4 +25,4 @@ MonoBehaviour:
   flavorText: 
   encounter: {fileID: 11400000, guid: 19b03ee77a2596844ae7c645861d503d, type: 2}
   goldReward: 2
-  reputationReward: 3
+  reputationReward: 2

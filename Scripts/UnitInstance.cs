@@ -309,23 +309,29 @@ public class UnitInstance : MonoBehaviour
 
     public void TakeDisasterDamage(int damage)
     {
-        currentHP -= damage;
-        currentHP = Mathf.Max(0, currentHP);
+        if (damage <= 0)
+            return;
 
-        // Update health bar but NO event publishing
-        UpdateHealthBar();
+        int remainingDamage = damage;
 
-        // Optional: Different visual feedback (purple flash instead of red)
-        if (flashCoroutine != null)
+        if (currentShield > 0)
         {
-            sr.color = originalSpriteColor;
+            int absorbed = Mathf.Min(currentShield, remainingDamage);
+            currentShield -= absorbed;
+            remainingDamage -= absorbed;
+
+            UpdateShieldBar();
         }
-        flashCoroutine = StartCoroutine(FlashDisasterDamage());
 
-        if (currentHP <= 0)
+        if (remainingDamage > 0)
         {
-            CombatEventBus.Publish(CombatEventType.UnitDied, null, this, 0);
-            Die();
+            currentHP = Mathf.Max(0, currentHP - remainingDamage);
+
+            Flash(Color.purple);
+            UpdateHealthBar();
+
+            if (currentHP <= 0)
+                Die();
         }
     }
 
@@ -345,18 +351,6 @@ public class UnitInstance : MonoBehaviour
     {
         hasteStacks += stacks;  
         CombatEventBus.PublishStatusChanged(this, StatusEffectType.Haste, hasteStacks);
-    }
-
-    private System.Collections.IEnumerator FlashDisasterDamage()
-    {
-        if (sr == null) yield break;
-
-        Color originalColor = sr.color;
-        sr.color = new Color(0.5f, 0f, 0.5f); // Purple flash
-        yield return new WaitForSeconds(0.1f);
-        sr.color = originalColor;
-
-        flashCoroutine = null;
     }
 
     /* =========================
@@ -417,8 +411,22 @@ public class UnitInstance : MonoBehaviour
             Definition.maxEnergy,
             Definition.slow,
             Definition.haste,
-            Definition.multicast
+            Definition.multicast,
+            GetRarityAdjustedValue()
         );
+    }
+
+    private int GetRarityAdjustedValue()
+    {
+        int rarityMultiplier;
+        if (CurrentRarity == Rarity.Common) rarityMultiplier = 1;
+        else if (CurrentRarity == Rarity.Uncommon) rarityMultiplier = 2;
+        else if (CurrentRarity == Rarity.Rare) rarityMultiplier = 3;
+        else if (CurrentRarity == Rarity.Epic) rarityMultiplier = 4;
+        else rarityMultiplier = 1;
+
+        return rarityMultiplier * definition.provisionCost;
+
     }
 
     public void TemporaryStatModify(ModifiableStats modifiableStats, int bonus)

@@ -1,7 +1,11 @@
 using UnityEngine;
 using System;
 
+
+
 [System.Serializable]
+
+
 public class UnitSaveData
 {
     public Guid id;
@@ -34,6 +38,4 @@ public class UnitSaveData
         }
     }
 }
-
-
 

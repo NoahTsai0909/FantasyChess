@@ -108,8 +108,6 @@ public class gameManager : MonoBehaviour
 
         Time.timeScale = 0.5f;
 
-        Debug.Log($"Combat ended. Player won: {playerWon}");
-
         // Apply rewards only if player won
         if (playerWon && RunManager.Instance.selectedEvent != null)
         {

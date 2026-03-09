@@ -19,7 +19,9 @@ public class UnitDefinitionView : IStatSource
 
     public int Multicast { get; private set; }
 
-    public UnitDefinitionView(int attack, int heal, int maxHP, float cooldown, int shield, int burn, int poison, int maxEnergy, int slow, int haste, int multicast)
+    public int Value { get; private set; }
+
+    public UnitDefinitionView(int attack, int heal, int maxHP, float cooldown, int shield, int burn, int poison, int maxEnergy, int slow, int haste, int multicast, int value)
     {
         Attack = attack;
         Heal = heal;
@@ -32,6 +34,7 @@ public class UnitDefinitionView : IStatSource
         Slow = slow;
         Haste = haste;
         Multicast = multicast;
+        Value = value;
     }
 }
 
