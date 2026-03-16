@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 297064558412490003}
   - component: {fileID: 930933847635618065}
   - component: {fileID: 5592522213265187143}
+  - component: {fileID: 7322582009965216076}
   m_Layer: 5
   m_Name: UnitUIStatBadge
   m_TagString: Untagged
@@ -91,6 +92,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StatWidget
   iconImage: {fileID: 930933847635618065}
   valueText: {fileID: 1832942736385709233}
+--- !u!114 &7322582009965216076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105237586936206973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: 80
+  m_PreferredHeight: 40
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &7800678691300647732
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,8 +179,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 10
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 3c64842349b231549b438c94af8a201e, type: 2}
-  m_sharedMaterial: {fileID: -582553345882460316, guid: 3c64842349b231549b438c94af8a201e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e3f4902bece4433478404636b559b006, type: 2}
+  m_sharedMaterial: {fileID: 117932634976168315, guid: e3f4902bece4433478404636b559b006, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -183,7 +204,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32.75
+  m_fontSize: 30
   m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 1

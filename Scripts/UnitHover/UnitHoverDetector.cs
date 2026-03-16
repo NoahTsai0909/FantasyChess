@@ -4,7 +4,7 @@ using System.Collections;
 
 public class UnitHoverDetector : MonoBehaviour
 {
-    [SerializeField] private UnitHoverUI hoverUI;
+    [SerializeField] private UnitHoverUI hoverUIPrefab;
     [SerializeField] private float hoverDelay = 0.35f;
 
     private Camera mainCamera;
@@ -14,10 +14,45 @@ public class UnitHoverDetector : MonoBehaviour
     private UnitInstance pendingHoverUnit;
     private Coroutine hoverRoutine;
 
+    private UnitHoverUI hoverUIInstance;
+
     void Start()
     {
         mainCamera = Camera.main;
         mouse = Mouse.current;
+
+        // Find the Screen Space - Overlay canvas (or the one you want)
+        Canvas[] canvases = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
+        Canvas targetCanvas = null;
+
+        foreach (Canvas canvas in canvases)
+        {
+            // Choose based on render mode
+            if (canvas.renderMode == RenderMode.ScreenSpaceOverlay)
+            {
+                targetCanvas = canvas;
+                Debug.Log($"Found Screen Space Canvas: {canvas.name}");
+                break;
+            }
+        }
+
+        // Fallback to first canvas if none found
+        if (targetCanvas == null && canvases.Length > 0)
+        {
+            targetCanvas = canvases[0];
+            Debug.LogWarning($"No Screen Space canvas found, using: {targetCanvas.name}");
+        }
+
+        if (targetCanvas == null)
+        {
+            Debug.LogError("No canvas found in scene! Unit hover UI cannot be created.");
+            return;
+        }
+
+        // Instantiate the prefab as a child of the target canvas
+        hoverUIInstance = Instantiate(hoverUIPrefab, targetCanvas.transform);
+        hoverUIInstance.gameObject.SetActive(false);
+        hoverUIInstance.name = "UnitUI (Dynamic)";
     }
 
     void Update()
@@ -68,7 +103,7 @@ public class UnitHoverDetector : MonoBehaviour
         {
             currentHoveredUnit = unit;
             pendingHoverUnit = null;
-            hoverUI.Show(unit);
+            hoverUIInstance.Show(unit);
         }
     }
 
@@ -82,7 +117,7 @@ public class UnitHoverDetector : MonoBehaviour
 
         if (currentHoveredUnit != null)
         {
-            hoverUI.Hide();
+            hoverUIInstance.Hide();
             currentHoveredUnit = null;
         }
     }
@@ -92,5 +127,13 @@ public class UnitHoverDetector : MonoBehaviour
         Vector3 mousePos = mouse.position.ReadValue();
         mousePos.z = -mainCamera.transform.position.z;
         return mainCamera.ScreenToWorldPoint(mousePos);
+    }
+
+    void OnDestroy()
+    {
+        if (hoverUIInstance != null)
+        {
+            Destroy(hoverUIInstance.gameObject);
+        }
     }
 }

@@ -10,7 +10,7 @@ public class BattleUIManager : MonoBehaviour
     [SerializeField] private FloatingCombatText floatingTextPrefab;
     [SerializeField] private GameObject statusEffectBarPrefab;
 
-    private Dictionary<UnitInstance, (GameObject healthBar, Image healthFill, Image shieldFill, GameObject cooldownBar, Image cooldownFill, StatusEffectBar statusBar)> unitUIElements = new();
+    private Dictionary<UnitInstance, (HealthBarUI healthBar, CooldownBarUI cooldownBar, StatusEffectBar statusBar)> unitUIElements = new();
 
 
     private GridManager playerGrid;
@@ -35,41 +35,44 @@ public class BattleUIManager : MonoBehaviour
             return;
         }
 
-        // Use world position directly (no screen conversion)
         Vector3 uiPosition = worldPosition;
 
-        // Create health bar at unit's world position with offset
-        GameObject healthBar = Instantiate(healthBarPrefab, battleCanvas.transform);
-        healthBar.transform.position = uiPosition + GetHealthBarOffset(unit.isPlayer);
-        /*healthBar.transform.localScale = Vector3.one * 0.2f;*/
+        // Create health bar
+        GameObject healthBarGO = Instantiate(healthBarPrefab, battleCanvas.transform);
+        healthBarGO.transform.position = uiPosition + GetHealthBarOffset(unit.isPlayer);
+
+        HealthBarUI healthBar = healthBarGO.GetComponent<HealthBarUI>();
 
         // Create cooldown bar
-        GameObject cooldownBar = Instantiate(cooldownBarPrefab, battleCanvas.transform);
-        cooldownBar.transform.position = uiPosition + GetCooldownBarOffset(unit.isPlayer);
-        cooldownBar.transform.localScale = Vector3.one * 0.75f; // Scale it down
+        GameObject cooldownBarGO = Instantiate(cooldownBarPrefab, battleCanvas.transform);
+        cooldownBarGO.transform.position = uiPosition + GetCooldownBarOffset(unit.isPlayer);
+        cooldownBarGO.transform.localScale = Vector3.one * 0.75f;
 
-        Image healthFill = FindHealthBarImage(healthBar);
-        Image cooldownFill = FindCooldownBarImage(cooldownBar);
-        Image shieldFill = FindShieldBarImage(healthBar);
+        CooldownBarUI cooldownBar = cooldownBarGO.GetComponent<CooldownBarUI>();
 
-        /*GameObject statusBar = Instantiate(statusEffectBarPrefab, battleCanvas.transform);
-        statusBar.transform.position = uiPosition + GetStatusBarOffset(unit.isPlayer);*/
+        healthBar.SetTextVisible(false);
+        cooldownBar.SetTextVisible(false);
 
+        // Status bar stays the same
         GameObject statusBarGO = Instantiate(statusEffectBarPrefab, battleCanvas.transform);
         statusBarGO.transform.position = uiPosition + GetStatusBarOffset(unit.isPlayer);
 
         StatusEffectBar statusBar = statusBarGO.GetComponent<StatusEffectBar>();
 
         // Store references
-        unitUIElements[unit] = (healthBar, healthFill, shieldFill, cooldownBar, cooldownFill, statusBar);
+        unitUIElements[unit] = (healthBar, cooldownBar, statusBar);
 
-        // Initialize
-        if (healthFill != null)
+        // Initialize UI values
+        if (unit.inCombat)
         {
-            healthFill.fillAmount = 1f;
+            healthBar.SetValues(unit.GetCurrentHP(), unit.Stats.MaxHP, unit.GetCurrentShield());
+            cooldownBar.SetValues(unit.GetCooldownTimer(), unit.Stats.Cooldown);
         }
-        if (cooldownFill != null) cooldownFill.fillAmount = 0f;
-        if (shieldFill != null) shieldFill.fillAmount = 0f;
+        else
+        {
+            healthBar.SetValues(unit.Stats.MaxHP, unit.Stats.MaxHP, 0);
+            cooldownBar.SetValues(0, unit.Stats.Cooldown);
+        }
     }
 
     public void UpdateUnitUI(UnitInstance unit, Vector3 worldPosition)
@@ -77,33 +80,38 @@ public class BattleUIManager : MonoBehaviour
         if (unitUIElements.TryGetValue(unit, out var uiElements))
         {
             Vector3 uiPosition = worldPosition;
-            uiElements.healthBar.transform.position = uiPosition + GetHealthBarOffset(unit.isPlayer);
-            uiElements.cooldownBar.transform.position = uiPosition + GetCooldownBarOffset(unit.isPlayer);
-            uiElements.statusBar.transform.position = uiPosition + GetStatusBarOffset(unit.isPlayer);
+
+            uiElements.healthBar.transform.position =
+                uiPosition + GetHealthBarOffset(unit.isPlayer);
+
+            uiElements.cooldownBar.transform.position =
+                uiPosition + GetCooldownBarOffset(unit.isPlayer);
+
+            uiElements.statusBar.transform.position =
+                uiPosition + GetStatusBarOffset(unit.isPlayer);
         }
     }
 
-    public void UpdateHealthBar(UnitInstance unit, float fillAmount)
+    public void UpdateHealthBar(UnitInstance unit)
     {
-        if (unitUIElements.TryGetValue(unit, out var uiElements) && uiElements.healthFill != null)
+        if (unitUIElements.TryGetValue(unit, out var uiElements))
         {
-            uiElements.healthFill.fillAmount = fillAmount;
+            uiElements.healthBar.SetValues(
+                unit.GetCurrentHP(),
+                unit.Stats.MaxHP,
+                unit.GetCurrentShield()
+            );
         }
     }
 
-    public void UpdateShieldBar(UnitInstance unit, float fillAmount)
+    public void UpdateCooldownBar(UnitInstance unit)
     {
-        if (unitUIElements.TryGetValue(unit, out var uiElements) && uiElements.shieldFill != null)
+        if (unitUIElements.TryGetValue(unit, out var uiElements))
         {
-            uiElements.shieldFill.fillAmount = Mathf.Min(fillAmount, 1f);
-        }
-    }
-
-    public void UpdateCooldownBar(UnitInstance unit, float fillAmount)
-    {
-        if (unitUIElements.TryGetValue(unit, out var uiElements) && uiElements.cooldownFill != null)
-        {
-            uiElements.cooldownFill.fillAmount = fillAmount;
+            uiElements.cooldownBar.SetValues(
+                unit.GetCooldownTimer(),
+                unit.Stats.Cooldown
+            );
         }
     }
 
@@ -112,9 +120,11 @@ public class BattleUIManager : MonoBehaviour
         if (unitUIElements.TryGetValue(unit, out var uiElements))
         {
             if (uiElements.healthBar != null)
-                Destroy(uiElements.healthBar);
+                Destroy(uiElements.healthBar.gameObject);
+
             if (uiElements.cooldownBar != null)
-                Destroy(uiElements.cooldownBar);
+                Destroy(uiElements.cooldownBar.gameObject);
+
             if (uiElements.statusBar != null)
                 Destroy(uiElements.statusBar.gameObject);
 

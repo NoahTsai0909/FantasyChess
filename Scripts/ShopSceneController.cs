@@ -12,7 +12,7 @@ public class ShopSceneController : MonoBehaviour
     [SerializeField] private Transform unitAnchor;
     [SerializeField] private Button refreshButton;
     [SerializeField] private Button PrepSceneButton;
-    [SerializeField] private float horizontalSpacing = 2.5f;
+    [SerializeField] private float horizontalSpacing = 5f;
     [SerializeField] private Button purchaseButtonPrefab;
     [SerializeField] private Transform shopUIAnchor;
     [SerializeField] private TextMeshProUGUI goldText;
@@ -81,12 +81,16 @@ public class ShopSceneController : MonoBehaviour
         PrepSceneButton.onClick.AddListener(() => SceneLoader.Instance.LoadScene(GameScene.PrepScene));
     }
 
-    void SpawnShopUnit(UnitSaveData unitData, float xPos) // Changed parameter type
+    void SpawnShopUnit(UnitSaveData unitData, float xPos)
     {
         // Spawn unit preview
         UnitInstance unit = Instantiate(unitData.definition.unitPrefab, unitAnchor);
         unit.InitializeFromSaveData(unitData);
         unit.transform.localPosition = new Vector3(xPos, 0f, 0f);
+
+        // Force correct scale (adjust these values based on your grid cell size)
+        unit.transform.localScale = new Vector3(1f, 1f, 1f); // Match PrepScene scale
+
         unit.isPlayer = true;
         spawnedUnits.Add(unit);
 

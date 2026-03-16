@@ -21,18 +21,21 @@ public class UnitInstance : MonoBehaviour
     public StatBlock Stats => stats;
 
     public string unitName;
-    protected bool isPassive;
+    public bool isPassive;
 
     /* =========================
      * Combat state
      * ========================= */
 
-    private bool inCombat = false;
+    public bool inCombat = false;
 
     private int currentHP;
     protected int currentEnergy;
     private int currentShield;
     public int GetCurrentHP() => currentHP;
+    public int GetCurrentShield() => currentShield;
+
+    public float GetCooldownTimer() => cooldownTimer;  
 
     protected float cooldownTimer;
 
@@ -86,7 +89,7 @@ public class UnitInstance : MonoBehaviour
         if (!inCombat || isPassive)
             return;
 
-        UpdateCooldownBar();
+        RefreshUI();
 
         if (cooldownTimer > 0)
         {
@@ -199,7 +202,7 @@ public class UnitInstance : MonoBehaviour
         if (uiManager == null) return;
 
         uiManager.CreateUnitUI(this, transform.position);
-        UpdateHealthBar();
+        RefreshUI();
     }
 
     /* =========================
@@ -251,7 +254,6 @@ public class UnitInstance : MonoBehaviour
             currentShield -= absorbed;
             remainingDamage -= absorbed;
 
-            UpdateShieldBar();
             CombatEventBus.Publish(
                 CombatEventType.ShieldDamaged,
                 this,
@@ -265,7 +267,6 @@ public class UnitInstance : MonoBehaviour
             currentHP = Mathf.Max(0, currentHP - remainingDamage);
 
             Flash(Color.red);
-            UpdateHealthBar();
 
             CombatEventBus.Publish(
                 CombatEventType.DamageTaken,
@@ -277,18 +278,19 @@ public class UnitInstance : MonoBehaviour
             if (currentHP <= 0)
                 Die();
         }
+        RefreshUI();
     }
 
     public virtual void HealDamage(int dmg)
     {
         currentHP = Mathf.Min(stats.MaxHP, currentHP + dmg);
-        UpdateHealthBar();
+        RefreshUI();
     }
 
     public virtual void ShieldDamage(int dmg)
     {
         currentShield = currentShield + dmg;
-        UpdateShieldBar();
+        RefreshUI();
     }
 
     public virtual void Die()
@@ -320,7 +322,6 @@ public class UnitInstance : MonoBehaviour
             currentShield -= absorbed;
             remainingDamage -= absorbed;
 
-            UpdateShieldBar();
         }
 
         if (remainingDamage > 0)
@@ -328,11 +329,12 @@ public class UnitInstance : MonoBehaviour
             currentHP = Mathf.Max(0, currentHP - remainingDamage);
 
             Flash(Color.purple);
-            UpdateHealthBar();
 
             if (currentHP <= 0)
                 Die();
         }
+
+        RefreshUI();
     }
 
     public void ApplyBurn(int stacks)
@@ -357,21 +359,12 @@ public class UnitInstance : MonoBehaviour
     * Helpers
     * ========================= */
 
-    private void UpdateHealthBar()
+    private void RefreshUI()
     {
         if (uiManager == null) return;
-        uiManager.UpdateHealthBar(this, (float)currentHP / stats.MaxHP);
-    }
 
-    private void UpdateShieldBar()
-    {
-        if (uiManager == null) return;
-        uiManager.UpdateShieldBar(this, (float)currentShield / stats.MaxHP);
-    }
-    private void UpdateCooldownBar()
-    {
-        if (uiManager == null) return;
-        uiManager.UpdateCooldownBar(this, cooldownTimer / stats.Cooldown);
+        uiManager.UpdateHealthBar(this);
+        uiManager.UpdateCooldownBar(this);
     }
 
     public void Flash(Color color)
