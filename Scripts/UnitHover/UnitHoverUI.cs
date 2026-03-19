@@ -7,6 +7,7 @@ public class UnitHoverUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI abilityText;
+    [SerializeField] private TextMeshProUGUI provisionText;
     [SerializeField] private Vector2 offset = new Vector2(20f, 20f);
 
     [SerializeField] private Sprite backgroundCommon;
@@ -25,10 +26,10 @@ public class UnitHoverUI : MonoBehaviour
 
     [SerializeField] private HealthBarUI healthBar;
     [SerializeField] private CooldownBarUI cooldownBar;
+    [SerializeField] private Image backgroundImage;
 
     private Canvas canvas;
     private RectTransform rectTransform;
-    private Image backgroundImage;
     private UnitInstance currentUnit;
     private Camera mainCamera;
     private Camera canvasCamera;
@@ -37,7 +38,6 @@ public class UnitHoverUI : MonoBehaviour
     {
         canvas = GetComponentInParent<Canvas>();
         rectTransform = GetComponent<RectTransform>();
-        backgroundImage = GetComponent<Image>();
         mainCamera = Camera.main;
 
         // Determine which camera to use for screen-to-canvas conversion
@@ -94,6 +94,8 @@ public class UnitHoverUI : MonoBehaviour
         {
             cooldownBar.gameObject.SetActive(true);
         }
+
+        provisionText.text = unit.Definition.provisionCost.ToString();
 
             // Show and position
             gameObject.SetActive(true);
