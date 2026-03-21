@@ -5,84 +5,71 @@ using static SceneLoader;
 
 public class EventSceneController : MonoBehaviour
 {
+    [Header("Basic UI")]
     [SerializeField] private TextMeshProUGUI eventNameText;
     [SerializeField] private TextMeshProUGUI descriptionText;
-    //[SerializeField] private Image eventIcon;
     [SerializeField] private Button continueButton;
-    [SerializeField] private Transform rewardAnchor;
-    [SerializeField] private Button takeUnitButton;
-    [SerializeField] private TextMeshProUGUI takeUnitButtonText;
-    [SerializeField] private SpriteRenderer eventBackgroundRenderer;
 
-    private UnitInstance previewUnit;
-    private Rarity previewUnitRarity;
+    [Header("Dynamic Content")]
+    [SerializeField] private Transform contentParent; // Where spawned UI will go
+
+    [Header("Prefabs")]
+    [SerializeField] private GameObject rewardEventUIPrefab;
+
+    private BaseEventSO currentEvent;
+    private GameObject spawnedUI;
 
     void Start()
     {
-        if (RunManager.Instance.selectedEvent != null)
+        currentEvent = RunManager.Instance.selectedEvent;
+
+        if (currentEvent == null)
         {
-            var eventSO = RunManager.Instance.selectedEvent;
+            Debug.LogError("No selected event found!");
+            SceneLoader.Instance.LoadScene(GameScene.MapScene);
+            return;
+        }
 
-            // Display event info
-            eventNameText.text = eventSO.eventName;
-            descriptionText.text = eventSO.description;
-            //eventIcon.sprite = eventSO.eventIcon;
-            if (eventBackgroundRenderer != null)
-            {
-                eventBackgroundRenderer.sprite = eventSO.eventBackgroundImage;
-            }
+        // Display basic event info
+        eventNameText.text = currentEvent.eventName;
+        descriptionText.text = currentEvent.description;
 
-            if (eventSO is RandomUnitEventSO)
-            {
-                //UnitDefinition randomUnit = eventSO.ReturnRandomUnit();
-                UnitSaveData randomUnit = eventSO.ReturnRandomUnit();
-                ShowUnitPreview(randomUnit);
+        // Load appropriate UI based on event type
+        LoadEventUI();
+    }
 
-                takeUnitButton.gameObject.SetActive(true);
-                takeUnitButtonText.text = eventSO.eventButtonText;
-                takeUnitButton.onClick.AddListener(() =>
-                {
-                    //RunManager.Instance.AddUnitToBench(randomUnit);
-                    if (PlayerUnitManager.Instance.TryAcquireUnit(randomUnit.definition, previewUnitRarity))
-                    {
-                        takeUnitButton.interactable = false;
-                        CompleteEventAndReturn(eventSO);
-                    }
-                    else
-                    {
-                        Debug.Log("Error encountered when acquiring unit");
-                    }
-                });
-            }
-            if (eventSO is GoldEventSO)
-            {
-                int goldAmount = eventSO.getGoldAmount();
-                takeUnitButtonText.text = $"Gain {goldAmount} gold.";
-                takeUnitButton.gameObject.SetActive(true);
-                takeUnitButton.onClick.AddListener(() =>
-                {
-                    RunManager.Instance.currentGold += goldAmount;
-                    Debug.Log($"Acquired {goldAmount} gold");
-                    takeUnitButton.interactable = false;
-                    CompleteEventAndReturn(eventSO);
-                });
-
-            }
-            // Continue button returns to map
-            continueButton.onClick.AddListener(() =>
-            {
-                CompleteEventAndReturn(eventSO);
-            });
+    private void LoadEventUI()
+    {
+        // For now, we only have reward events (unit and gold)
+        // Later you can add more types
+        if (currentEvent is RandomUnitEventSO || currentEvent is GoldEventSO)
+        {
+            spawnedUI = Instantiate(rewardEventUIPrefab, contentParent);
+            spawnedUI.GetComponent<RewardEventUI>().Setup(currentEvent, this);
         }
         else
         {
-            Debug.LogError("No selected event found in EventScene!");
-            // Fallback to map scene
-            SceneLoader.Instance.LoadScene(GameScene.MapScene);
+            Debug.LogWarning($"No UI prefab defined for event type: {currentEvent.GetType()}");
         }
+
+        continueButton.onClick.AddListener(CompleteEvent);
+        
     }
 
-    private void ShowUnitPreview(UnitSaveData unit)
+
+    public void CompleteEvent()
+    {
+        // Clean up spawned UI
+        if (spawnedUI != null)
+            Destroy(spawnedUI);
+
+        // Complete the event and return to map
+        currentEvent.CompleteEvent();
+        SceneLoader.Instance.LoadScene(GameScene.MapScene);
+    }
+
+
+    /*private void ShowUnitPreview(UnitSaveData unit)
     {
         previewUnit = Instantiate(unit.definition.unitPrefab, rewardAnchor);
         previewUnit.InitializeFromSaveData(unit);
@@ -90,14 +77,6 @@ public class EventSceneController : MonoBehaviour
         previewUnit.enabled = false; // disables combat logic
         previewUnit.isPlayer = true;
         previewUnit.transform.localPosition = Vector3.zero;
-    }
+    }*/
 
-    private void CompleteEventAndReturn(BaseEventSO eventSO)
-    {
-        // Mark event as completed
-        eventSO.CompleteEvent();
-
-        // Return to map
-        SceneLoader.Instance.LoadScene(GameScene.MapScene);
-    }
 }
