@@ -9,21 +9,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0353c830dbf0d9458985e164589fd1e, type: 3}
-  m_Name: TestRandomUnitEvent
-  m_EditorClassIdentifier: Assembly-CSharp::RandomUnitEventSO
-  eventName: Mysterious stranger
-  description: A companion decides to join your squad...
+  m_Script: {fileID: 11500000, guid: e39388689547afc41b1d6c2e3aab8c61, type: 3}
+  m_Name: SummoningCircle
+  m_EditorClassIdentifier: Assembly-CSharp::ShopEventSO
+  eventName: Summoning Circle
+  description: "Recruit any unit!\t"
   eventIcon: {fileID: 8630833029534501343, guid: cef6df5bb482442408ce0a7adf781304, type: 3}
   eventBackgroundImage: {fileID: 21300000, guid: 96a2251107d541843a33f1b5d44a6cc1, type: 3}
-  eventButtonText: Recruit!
+  eventButtonText: 
   minDayRequired: 1
   maxDayRequired: 6
   selectionWeight: 1
-  targetScene: 5
+  targetScene: 6
   backgroundColor: {r: 1, g: 1, b: 1, a: 1}
   flavorText: 
-  minRarity: 0
-  maxRarity: 0
+  totalUnitsGenerated: 6
+  unitsPerPage: 3
+  refreshCost: 2
+  allowedTags: 0
   region: 0
-  preferredTags: 0
+  maxProvisionCost: -1
+  minProvisionCost: 0

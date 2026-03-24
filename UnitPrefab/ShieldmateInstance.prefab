@@ -36,6 +36,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3425786818943482756
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -79,8 +80,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1453934087
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 744b725bbcadcfa4b9f4479e0c1d5651, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -90,7 +92,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &3016116641872990884
 MonoBehaviour:
@@ -106,6 +107,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Shieldmate
   definition: {fileID: 11400000, guid: eb600ffba2f1c5d40834f309bc3d5900, type: 2}
   unitName: Shieldmate
+  isPassive: 0
+  inCombat: 0
+  burnStacks: 0
+  slowStacks: 0
+  hasteStacks: 0
   row: 0
   col: 0
   isPlayer: 0

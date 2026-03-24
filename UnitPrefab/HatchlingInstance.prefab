@@ -48,7 +48,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Hatchling
   definition: {fileID: 11400000, guid: 5467cd0d052e12d46a69750eb406f9a0, type: 2}
   unitName: Hatchling
+  isPassive: 0
+  inCombat: 0
   burnStacks: 0
+  slowStacks: 0
+  hasteStacks: 0
   row: 0
   col: 0
   isPlayer: 0
@@ -109,6 +113,7 @@ BoxCollider2D:
   m_EdgeRadius: 0
 --- !u!212 &5123952212386752083
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -152,8 +157,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1453934087
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: cd1bff3b09d875f4f9b9a2bcc9178e04, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -163,5 +169,4 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0

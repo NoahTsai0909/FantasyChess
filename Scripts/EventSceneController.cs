@@ -1,6 +1,7 @@
+// EventSceneController.cs
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using static SceneLoader;
 
 public class EventSceneController : MonoBehaviour
@@ -9,15 +10,17 @@ public class EventSceneController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI eventNameText;
     [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private Button continueButton;
+    [SerializeField] private SpriteRenderer eventBackgroundRenderer;
 
     [Header("Dynamic Content")]
-    [SerializeField] private Transform contentParent; // Where spawned UI will go
-
-    [Header("Prefabs")]
+    [SerializeField] private Transform contentParent; // For UI prefabs
+    [SerializeField] private Transform unitPreviewAnchor; // The world space anchor!
     [SerializeField] private GameObject rewardEventUIPrefab;
 
     private BaseEventSO currentEvent;
     private GameObject spawnedUI;
+    private UnitSaveData currentUnitPreviewSaveData;
+    private UnitInstance currentUnitPreview;
 
     void Start()
     {
@@ -25,7 +28,6 @@ public class EventSceneController : MonoBehaviour
 
         if (currentEvent == null)
         {
-            Debug.LogError("No selected event found!");
             SceneLoader.Instance.LoadScene(GameScene.MapScene);
             return;
         }
@@ -34,49 +36,67 @@ public class EventSceneController : MonoBehaviour
         eventNameText.text = currentEvent.eventName;
         descriptionText.text = currentEvent.description;
 
-        // Load appropriate UI based on event type
+        if (eventBackgroundRenderer != null && currentEvent.eventBackgroundImage != null)
+            eventBackgroundRenderer.sprite = currentEvent.eventBackgroundImage;
+
         LoadEventUI();
     }
 
     private void LoadEventUI()
     {
-        // For now, we only have reward events (unit and gold)
-        // Later you can add more types
-        if (currentEvent is RandomUnitEventSO || currentEvent is GoldEventSO)
+        // Spawn the UI prefab
+        spawnedUI = Instantiate(rewardEventUIPrefab, contentParent);
+        var rewardUI = spawnedUI.GetComponent<RewardEventUI>();
+        rewardUI.Setup(currentEvent, this);
+
+        // Handle unit preview - use the world space anchor!
+        if (currentEvent is RandomUnitEventSO unitEvent)
         {
-            spawnedUI = Instantiate(rewardEventUIPrefab, contentParent);
-            spawnedUI.GetComponent<RewardEventUI>().Setup(currentEvent, this);
+            currentUnitPreviewSaveData = unitEvent.ReturnRandomUnit();
+            ShowUnitPreview(currentUnitPreviewSaveData);
         }
-        else
+        else if (currentEvent is PresetUnitEventSO presetUnitEvent)
         {
-            Debug.LogWarning($"No UI prefab defined for event type: {currentEvent.GetType()}");
+            currentUnitPreviewSaveData = presetUnitEvent.ReturnRandomUnit();
+            ShowUnitPreview(currentUnitPreviewSaveData);
         }
 
-        continueButton.onClick.AddListener(CompleteEvent);
-        
+            continueButton.onClick.AddListener(CompleteEvent);
     }
 
+    private void ShowUnitPreview(UnitSaveData unit)
+    {
+        // Use the world space anchor, NOT the one inside UI
+        currentUnitPreview = Instantiate(unit.definition.unitPrefab, unitPreviewAnchor);
+        currentUnitPreview.InitializeFromSaveData(unit);
+        currentUnitPreview.isPlayer = true;
+        currentUnitPreview.enabled = false;
+        currentUnitPreview.transform.localPosition = Vector3.zero;
+        currentUnitPreview.transform.localScale = Vector3.one * 1.25f;
+
+        // Force it to render on top
+        SpriteRenderer renderer = currentUnitPreview.GetComponent<SpriteRenderer>();
+        if (renderer != null)
+        {
+            renderer.sortingOrder = 100;
+        }
+    }
 
     public void CompleteEvent()
     {
-        // Clean up spawned UI
+        if (currentUnitPreview != null)
+            Destroy(currentUnitPreview.gameObject);
+
         if (spawnedUI != null)
             Destroy(spawnedUI);
 
-        // Complete the event and return to map
         currentEvent.CompleteEvent();
         SceneLoader.Instance.LoadScene(GameScene.MapScene);
     }
 
-
-    /*private void ShowUnitPreview(UnitSaveData unit)
+    public void ObtainCurrentUnit()
     {
-        previewUnit = Instantiate(unit.definition.unitPrefab, rewardAnchor);
-        previewUnit.InitializeFromSaveData(unit);
-        previewUnitRarity = unit.rarity;
-        previewUnit.enabled = false; // disables combat logic
-        previewUnit.isPlayer = true;
-        previewUnit.transform.localPosition = Vector3.zero;
-    }*/
-
+        PlayerUnitManager.Instance.TryAcquireUnit(currentUnitPreviewSaveData.definition, currentUnitPreviewSaveData.rarity);
+        
+    }
 }

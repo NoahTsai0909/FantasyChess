@@ -48,6 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BannerKnight
   definition: {fileID: 11400000, guid: 88642c22682ab104a9c47221284759e5, type: 2}
   unitName: Banner Knight
+  isPassive: 0
+  inCombat: 0
   burnStacks: 0
   slowStacks: 0
   hasteStacks: 0
@@ -109,7 +111,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1453934087
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 4d4b098f8aeecec4da7e2dc7b7060b68, type: 3}

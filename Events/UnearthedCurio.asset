@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: UnearthedCurio
   m_EditorClassIdentifier: Assembly-CSharp::RandomUnitEventSO
   eventName: Unearthed Curio
-  description: You have unearthed a consumable curio!
+  description: Obtain a random consumable.
   eventIcon: {fileID: 8630833029534501343, guid: cef6df5bb482442408ce0a7adf781304, type: 3}
   eventBackgroundImage: {fileID: 21300000, guid: c42f4c0e6b4b10b4fb421039ed5ecb32, type: 3}
-  eventButtonText: Obtain!
+  eventButtonText: Obtain
   minDayRequired: 1
   maxDayRequired: 12
   selectionWeight: 1

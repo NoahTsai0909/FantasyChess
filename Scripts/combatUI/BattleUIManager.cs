@@ -50,7 +50,7 @@ public class BattleUIManager : MonoBehaviour
 
         CooldownBarUI cooldownBar = cooldownBarGO.GetComponent<CooldownBarUI>();
 
-        healthBar.SetTextVisible(false);
+        //healthBar.SetTextVisible(false);
         cooldownBar.SetTextVisible(false);
 
         // Status bar stays the same

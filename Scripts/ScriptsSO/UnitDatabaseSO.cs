@@ -25,7 +25,7 @@ public class UnitDatabase : ScriptableObject
         }
     }
 
-    public UnitDefinition GetRandomUnit(Rarity rolledRarity, Region? region = null, UnitTagFlags requiredTags = UnitTagFlags.None)
+    public UnitDefinition GetRandomUnit(Rarity rolledRarity, Region? region = null, UnitTagFlags requiredTags = UnitTagFlags.None, int minProvision = 0, int maxProvision = -1)
     {
         IEnumerable<UnitDefinition> pool = allUnits;
 
@@ -39,11 +39,21 @@ public class UnitDatabase : ScriptableObject
             pool = pool.Where(u =>
                 (u.tagFlags & requiredTags) == requiredTags);
 
+        pool = pool.Where(u => u.provisionCost >= minProvision);
+
+        if (maxProvision > 0)  // Only apply if maxProvision is set to a positive number
+            pool = pool.Where(u => u.provisionCost <= maxProvision);
+
         var list = pool.ToList();
         if (list.Count == 0)
             return null;
 
         return list[Random.Range(0, list.Count)];
+    }
+
+    public UnitDefinition GetRandomUnit(Rarity rolledRarity, Region? region = null, UnitTagFlags requiredTags = UnitTagFlags.None)
+    {
+        return GetRandomUnit(rolledRarity, region, requiredTags, 0, -1);
     }
 
     // Get units by tag (you'll need to add tags to UnitDefinition)

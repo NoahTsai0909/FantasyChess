@@ -14,6 +14,12 @@ public class HealthBarUI : MonoBehaviour
     {
         healthFill.fillAmount = (float)currentHP / maxHP;
         shieldFill.fillAmount = Mathf.Clamp01((float)shield / maxHP);
+    }
+
+    public void SetHoverUIValues(int currentHP, int maxHP, int shield)
+    {
+        healthFill.fillAmount = (float)currentHP / maxHP;
+        shieldFill.fillAmount = Mathf.Clamp01((float)shield / maxHP);
 
         if (healthText != null)
             healthText.text = currentHP.ToString();
@@ -22,8 +28,8 @@ public class HealthBarUI : MonoBehaviour
         {
             if (shield > 0)
             {
-                shieldText.gameObject.SetActive(true);
                 shieldText.text = shield.ToString();
+                shieldText.gameObject.SetActive(true);
             }
             else
             {

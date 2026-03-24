@@ -20,15 +20,5 @@ public class RandomUnitEventSO : BaseEventSO
         return randomUnit;
     }
 
-    private UnitDefinition GetRandomUnitByReputation()
-    {
-        if (UnitDatabase.Instance == null || UnitDatabase.Instance.allUnits.Count == 0)
-            return null;
-
-        var rarity = RunManager.Instance.RollRarityForDay(RunManager.Instance.currentDay);
-
-        // For now, get truly random unit from database
-        //return UnitDatabase.Instance.GetRandomUnit();
-        return UnitDatabase.Instance.GetRandomUnit(rarity, requiredTags: preferredTags);
-    }
+    
 }

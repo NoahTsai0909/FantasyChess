@@ -36,7 +36,9 @@ public class ShopSceneController : MonoBehaviour
         RunManager.Instance.InitializeShop(
             shopEvent.totalUnitsGenerated,
             shopEvent.region,
-            shopEvent.allowedTags
+            shopEvent.allowedTags,
+            shopEvent.minProvisionCost,    
+            shopEvent.maxProvisionCost
         );
 
         shopState = RunManager.Instance.shopState;
@@ -60,14 +62,15 @@ public class ShopSceneController : MonoBehaviour
         refreshButton.onClick.RemoveAllListeners();
         refreshButton.onClick.AddListener(() =>
         {
-            if (RunManager.Instance.currentGold < 2)
+            if (RunManager.Instance.currentGold < shopEvent.refreshCost)
             {
-                Debug.Log($"Not enough gold, player only has {RunManager.Instance.currentGold} gold");
+                Debug.Log($"Not enough gold to refresh! Need {shopEvent.refreshCost}g, have {RunManager.Instance.currentGold}g");
                 return;
             }
 
-            RunManager.Instance.currentGold -= 2;
+            RunManager.Instance.currentGold -= shopEvent.refreshCost;
             shopState.hasRefreshed = true;
+
             shopState.currentPage = 1;
             goldText.text = $"Gold: {RunManager.Instance.currentGold}";
 

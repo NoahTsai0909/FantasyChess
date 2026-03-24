@@ -98,7 +98,7 @@ public class UnitHoverUI : MonoBehaviour
         provisionText.text = unit.Definition.provisionCost.ToString();
 
             // Show and position
-            gameObject.SetActive(true);
+        gameObject.SetActive(true);
         LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
         UpdatePosition();
     }
@@ -206,12 +206,14 @@ public class UnitHoverUI : MonoBehaviour
     {
         if (currentUnit.inCombat)
         {
-            healthBar.SetValues(currentUnit.GetCurrentHP(), currentUnit.Stats.MaxHP, currentUnit.GetCurrentShield());
+            healthBar.SetHoverUIValues(currentUnit.GetCurrentHP(), currentUnit.Stats.MaxHP, currentUnit.GetCurrentShield());
+            healthBar.SetTextVisible(true);
             cooldownBar.SetValues(currentUnit.GetCooldownTimer(), currentUnit.Stats.Cooldown);
         }
         else
         {
-            healthBar.SetValues(currentUnit.Stats.MaxHP, currentUnit.Stats.MaxHP, currentUnit.GetCurrentShield());
+            healthBar.SetHoverUIValues(currentUnit.Stats.MaxHP, currentUnit.Stats.MaxHP, currentUnit.GetCurrentShield());
+            healthBar.SetTextVisible(true);
             cooldownBar.SetValues(currentUnit.Stats.Cooldown, currentUnit.Stats.Cooldown);
         }
     }
