@@ -39,7 +39,7 @@ public class MapController : MonoBehaviour
             !RunManager.Instance.eventInProgress)
         {
             // First time - start with regular events
-            RunManager.Instance.isBattleDay = false;
+            RunManager.Instance.isBattlePhase = false;
             RunManager.Instance.regularEventsCompleted = 0;
             RunManager.Instance.GenerateDailyEvents();
         }
@@ -65,7 +65,7 @@ public class MapController : MonoBehaviour
             reputationText.text = $"Reputation: {RunManager.Instance.reputation} / 10";
 
             // Show event counter
-            if (RunManager.Instance.isBattleDay)
+            if (RunManager.Instance.isBattlePhase)
             {
                 dayTypeText.text = "BATTLE DAY";
                 dayTypeText.color = Color.red;

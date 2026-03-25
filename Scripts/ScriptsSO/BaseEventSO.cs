@@ -68,14 +68,10 @@ public abstract class BaseEventSO : ScriptableObject
 
         if (isCombat)
         {
-            // BATTLE COMPLETED - increment day and reset
-            RunManager.Instance.currentDay++;
             RunManager.Instance.CompleteBattleEvent();
-            Debug.Log($"Battle completed! Day {RunManager.Instance.currentDay} complete.");
         }
         else
         {
-            // REGULAR EVENT - just track
             RunManager.Instance.CompleteRegularEvent();
         }
 
