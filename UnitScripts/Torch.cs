@@ -58,7 +58,7 @@ public class Torch : UnitInstance
 
     public override string GetAbilityDescription()
     {
-        return ($"Adjacent allies have +{burnBuff} burn.");
+        return ($"Combat Start: Adjacent allies have +{burnBuff} burn.");
     }
 
 }

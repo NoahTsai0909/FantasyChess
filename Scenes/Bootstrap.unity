@@ -162,13 +162,23 @@ MonoBehaviour:
       valueModifier: 0
     row: 1
     col: 1
+  - unitData:
+      definition: {fileID: 11400000, guid: 4991c681c15f0e443ac1bde94296d548, type: 2}
+      rarity: 1
+      provisionCost: 3
+      provisionModifier: 0
+      valueModifier: 0
+    row: 1
+    col: 1
   benchSize: 8
   currentDay: 1
   regularEventsCompleted: 0
-  isBattleDay: 0
+  isBattlePhase: 0
+  currentEventPhase: 0
   reputation: 1
   playerLevel: 1
   currentDailyEvents: []
+  allDayEvents: []
   selectedEvent: {fileID: 0}
   currentEncounter: {fileID: 0}
   eventInProgress: 0

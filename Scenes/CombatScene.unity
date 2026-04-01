@@ -611,7 +611,7 @@ MonoBehaviour:
   rows: 3
   cols: 4
   cellSize: 4
-  tilePrefab: {fileID: 7939534437322562976, guid: 48e77782e79490a40904c9e3f9eb703a, type: 3}
+  tilePrefab: {fileID: 0}
 --- !u!1 &1148643568
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,7 +659,7 @@ MonoBehaviour:
   rows: 3
   cols: 4
   cellSize: 4
-  tilePrefab: {fileID: 7939534437322562976, guid: 48e77782e79490a40904c9e3f9eb703a, type: 3}
+  tilePrefab: {fileID: 0}
 --- !u!1 &1377996625
 GameObject:
   m_ObjectHideFlags: 0
@@ -970,12 +970,12 @@ SpriteRenderer:
   m_SortingLayer: -1
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 2d6c7678f10b90040bf78b7619cafffc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 12036b7c828178f45a19f53c94396e10, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 40, y: 22.5}
+  m_Size: {x: 60, y: 33.75}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
