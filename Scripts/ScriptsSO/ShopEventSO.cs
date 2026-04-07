@@ -8,6 +8,7 @@ public class ShopEventSO : BaseEventSO
     public int totalUnitsGenerated = 6;
     public int unitsPerPage = 3;
     public int refreshCost = 2;  // Add this line
+    public bool discount = false;
     public UnitTagFlags allowedTags = UnitTagFlags.None;
     public Region region = Region.Solmire;
 

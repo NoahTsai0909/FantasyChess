@@ -44,6 +44,7 @@ public class RunManager : MonoBehaviour
     public int currentEventPhase = 0;
     public int reputation = 0;
     public int playerLevel = 1;
+    public int playerHealth = 12;
 
     // New: Day event tracking
     public List<BaseEventSO> currentDailyEvents = new();  // Current 3 events to display
@@ -439,10 +440,12 @@ public class RunManager : MonoBehaviour
 
         currentGold = 10;
         currentDay = 1;
+        provisionCap = 4;
         regularEventsCompleted = 0;
         isBattlePhase = false;
-        reputation = 1;
+        reputation = 0;
         currentEventPhase = 0;
+        playerHealth = 12;
 
         // Clear events
         currentDailyEvents.Clear();

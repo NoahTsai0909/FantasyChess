@@ -128,6 +128,7 @@ public class gameManager : MonoBehaviour
             // Player lost - still mark event as completed but no rewards
             if (RunManager.Instance.selectedEvent != null)
                 RunManager.Instance.selectedEvent.CompleteEvent();
+            RunManager.Instance.playerHealth -= RunManager.Instance.currentDay;
         }
 
         // Start coroutine to transition scene
@@ -138,7 +139,7 @@ public class gameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(endCombatDelay);
 
-        if (playerWon)
+        if (playerWon || RunManager.Instance.playerHealth > 0)
         {
             // Go to map scene to continue run
             Time.timeScale = 1f;

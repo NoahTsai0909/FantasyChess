@@ -58,6 +58,7 @@ public class ShopSceneController : MonoBehaviour
     void SetupRefreshButton()
     {
         refreshButton.gameObject.SetActive(!shopState.hasRefreshed);
+        refreshButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Refresh ({shopEvent.refreshCost}g)";
 
         refreshButton.onClick.RemoveAllListeners();
         refreshButton.onClick.AddListener(() =>
@@ -144,7 +145,25 @@ public class ShopSceneController : MonoBehaviour
 
     int GetPurchasePrice(UnitSaveData unit)
     {
-        return unit.EffectiveValue * 2;
+        int discountValue = 0;
+        if (shopEvent.discount)
+        {
+            discountValue = RarityToMultiplier(unit.rarity); 
+        }
+
+        return (unit.EffectiveValue * 2) - discountValue;
+    }
+
+    public static int RarityToMultiplier(Rarity rarity)
+    {
+        switch (rarity)
+        {
+            case Rarity.Common: return 1;
+            case Rarity.Uncommon: return 2;
+            case Rarity.Rare: return 3;
+            case Rarity.Epic: return 4;
+            default: return 1;
+        }
     }
 
     void DisplayCurrentPage()
