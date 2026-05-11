@@ -30,7 +30,7 @@ public class RewardEventUI : MonoBehaviour
             int goldAmount = goldEvent.getGoldAmount();
             takeRewardButtonText.text = goldEvent.eventButtonText ?? $"TAKE {goldAmount} GOLD";
             takeRewardButton.onClick.AddListener(() => {
-                RunManager.Instance.currentGold += goldAmount;
+                RunManager.Instance.Stats.CurrentGold += goldAmount;
                 RewardTaken();
             });
         }

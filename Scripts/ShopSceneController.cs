@@ -43,7 +43,7 @@ public class ShopSceneController : MonoBehaviour
 
         shopState = RunManager.Instance.shopState;
 
-        goldText.text = $"Gold: {RunManager.Instance.currentGold}";
+        goldText.text = $"Gold: {RunManager.Instance.Stats.CurrentGold}";
 
         continueButton.onClick.AddListener(() =>
         {
@@ -63,17 +63,17 @@ public class ShopSceneController : MonoBehaviour
         refreshButton.onClick.RemoveAllListeners();
         refreshButton.onClick.AddListener(() =>
         {
-            if (RunManager.Instance.currentGold < shopEvent.refreshCost)
+            if (RunManager.Instance.Stats.CurrentGold < shopEvent.refreshCost)
             {
-                Debug.Log($"Not enough gold to refresh! Need {shopEvent.refreshCost}g, have {RunManager.Instance.currentGold}g");
+                Debug.Log($"Not enough gold to refresh! Need {shopEvent.refreshCost}g, have {RunManager.Instance.Stats.CurrentGold}g");
                 return;
             }
 
-            RunManager.Instance.currentGold -= shopEvent.refreshCost;
+            RunManager.Instance.Stats.CurrentGold -= shopEvent.refreshCost;
             shopState.hasRefreshed = true;
 
             shopState.currentPage = 1;
-            goldText.text = $"Gold: {RunManager.Instance.currentGold}";
+            goldText.text = $"Gold: {RunManager.Instance.Stats.CurrentGold}";
 
             refreshButton.gameObject.SetActive(false);
             DisplayCurrentPage();
@@ -122,15 +122,15 @@ public class ShopSceneController : MonoBehaviour
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() =>
         {
-            if (RunManager.Instance.currentGold < unitCost)
+            if (RunManager.Instance.Stats.CurrentGold < unitCost)
             {
                 Debug.Log("Not enough gold");
                 return;
             }
 
-            RunManager.Instance.currentGold -= unitCost;
+            RunManager.Instance.Stats.CurrentGold -= unitCost;
             PlayerUnitManager.Instance.TryAcquireUnit(unitData.definition, unitData.rarity); // Pass rarity!
-            goldText.text = $"Gold: {RunManager.Instance.currentGold}";
+            goldText.text = $"Gold: {RunManager.Instance.Stats.CurrentGold}";
             shopState.purchasedUnits.Add(unitData.definition);
 
             spawnedUnits.Remove(unit);

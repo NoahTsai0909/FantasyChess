@@ -12,7 +12,7 @@ public static class UnitGenerationService
         UnitTagFlags requiredTags = UnitTagFlags.None)
     {
         // Get current day
-        int day = RunManager.Instance.currentDay;
+        int day = RunManager.Instance.Stats.CurrentDay;
 
         // Get rarity distribution for this day
         DayRarityEntry dist = RunManager.Instance.rarityDistributionTable.GetForDay(day);

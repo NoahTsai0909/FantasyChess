@@ -116,8 +116,8 @@ public class gameManager : MonoBehaviour
             if (combatEvent != null)
             {
                 // Apply combat-specific rewards
-                RunManager.Instance.currentGold += combatEvent.goldReward;
-                RunManager.Instance.reputation += combatEvent.reputationReward;
+                RunManager.Instance.Stats.CurrentGold += combatEvent.goldReward;
+                RunManager.Instance.Stats.Reputation += combatEvent.reputationReward;
                 PlayerUnitManager.Instance.TryAcquireUnit(unitReward.Definition, unitReward.CurrentRarity);
             }
             // Mark the event as completed
@@ -128,7 +128,7 @@ public class gameManager : MonoBehaviour
             // Player lost - still mark event as completed but no rewards
             if (RunManager.Instance.selectedEvent != null)
                 RunManager.Instance.selectedEvent.CompleteEvent();
-            RunManager.Instance.playerHealth -= RunManager.Instance.currentDay;
+            RunManager.Instance.Stats.PlayerHealth -= RunManager.Instance.Stats.CurrentDay;
         }
 
         // Start coroutine to transition scene
@@ -139,7 +139,7 @@ public class gameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(endCombatDelay);
 
-        if (playerWon || RunManager.Instance.playerHealth > 0)
+        if (playerWon || RunManager.Instance.Stats.PlayerHealth > 0)
         {
             // Go to map scene to continue run
             Time.timeScale = 1f;

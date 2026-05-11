@@ -60,9 +60,9 @@ public class MapController : MonoBehaviour
     {
         if (RunManager.Instance != null)
         {
-            goldText.text = $"Gold: {RunManager.Instance.currentGold}";
-            dayText.text = $"Day: {RunManager.Instance.currentDay}";
-            reputationText.text = $"Reputation: {RunManager.Instance.reputation} / 10";
+            goldText.text = $"Gold: {RunManager.Instance.Stats.CurrentGold}";
+            dayText.text = $"Day: {RunManager.Instance.Stats.CurrentDay}";
+            reputationText.text = $"Reputation: {RunManager.Instance.Stats.Reputation} / 10";
 
             // Show event counter
             if (RunManager.Instance.isBattlePhase)
@@ -131,19 +131,19 @@ public class MapController : MonoBehaviour
     private void CheckLevelUp()
     {
         if (RunManager.Instance == null) return;
-        if (RunManager.Instance.reputation >= 10)
+        if (RunManager.Instance.Stats.Reputation >= 10)
         {
-            RunManager.Instance.reputation -= 10;
-            RunManager.Instance.playerLevel++;
+            RunManager.Instance.Stats.Reputation -= 10;
+            RunManager.Instance.Stats.PlayerLevel++;
 
             levelUpOverlay.SetActive(true);
-            levelText.text = $"Level {RunManager.Instance.playerLevel}";
+            levelText.text = $"Level {RunManager.Instance.Stats.PlayerLevel}";
             rewardText.text = "+2 Provision";
 
             continueButton.onClick.AddListener(() =>
             {
                 levelUpOverlay.SetActive(false);
-                RunManager.Instance.provisionCap += 2;
+                RunManager.Instance.Stats.ProvisionCap += 2;
             });
         }
     }

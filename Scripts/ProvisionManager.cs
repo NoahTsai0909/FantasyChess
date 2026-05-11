@@ -59,7 +59,7 @@ public class ProvisionManager : MonoBehaviour
         int unitCost = GetUnitProvisionCost(unit);
         int projectedTotal = currentProvisionUsed + unitCost;
 
-        return projectedTotal <= runManager.provisionCap;
+        return projectedTotal <= runManager.Stats.ProvisionCap;
     }
 
     public bool CanSwapUnits(UnitInstance unitLeavingBattle, UnitInstance unitEnteringBattle)
@@ -71,19 +71,19 @@ public class ProvisionManager : MonoBehaviour
         int enteringCost = GetUnitProvisionCost(unitEnteringBattle);
         int netChange = enteringCost - leavingCost;
 
-        return currentProvisionUsed + netChange <= runManager.provisionCap;
+        return currentProvisionUsed + netChange <= runManager.Stats.ProvisionCap;
     }
 
     public bool IsProvisionValid()
     {
-        return currentProvisionUsed <= runManager.provisionCap;
+        return currentProvisionUsed <= runManager.Stats.ProvisionCap;
     }
 
     private void UpdateUI()
     {
         if (provisionText == null) return;
 
-        provisionText.text = $"{currentProvisionUsed}/{runManager.provisionCap}";
+        provisionText.text = $"{currentProvisionUsed}/{runManager.Stats.ProvisionCap}";
         provisionText.color = IsProvisionValid() ? validColor : exceededColor;
     }
 

@@ -412,6 +412,7 @@ GameObject:
   - component: {fileID: 2318910110956149190}
   - component: {fileID: 7980973599177933286}
   - component: {fileID: 5177744081319116699}
+  - component: {fileID: 2450454668892009620}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -460,7 +461,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &7980973599177933286
 MonoBehaviour:
@@ -502,6 +503,26 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2450454668892009620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2752075051840053414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f84ac66071d267e4b98fce76c1d702a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunHUDManager
+  dayText: {fileID: 3901328094233171128}
+  playerHealthText: {fileID: 4413428909851662718}
+  playerXPText: {fileID: 4820586996884223297}
+  playerXPFill: {fileID: 4770227434104986849}
+  provisionCapText: {fileID: 8120894586631699096}
+  goldText: {fileID: 2154123048613695469}
+  PrepSceneButton: {fileID: 0}
+  maxReputation: 10
 --- !u!1 &2778865927955378251
 GameObject:
   m_ObjectHideFlags: 0
@@ -948,6 +969,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3751676385476915670}
+  - component: {fileID: 4471875883932645987}
   m_Layer: 0
   m_Name: RunHUD
   m_TagString: Untagged
@@ -971,6 +993,18 @@ Transform:
   - {fileID: 399642858813836406}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4471875883932645987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5777369037020479147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a7af142e7b97e040abf577d824a9db2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PersistentUIManager
 --- !u!1 &6099592626124496521
 GameObject:
   m_ObjectHideFlags: 0
@@ -1401,7 +1435,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 69, y: -15}
+  m_AnchoredPosition: {x: 690, y: -15}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6634180113291741175

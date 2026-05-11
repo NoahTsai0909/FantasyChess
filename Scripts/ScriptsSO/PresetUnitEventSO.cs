@@ -9,7 +9,7 @@ public class PresetUnitEventSO : BaseEventSO
 
     public override UnitSaveData ReturnRandomUnit()
     {
-        int day = RunManager.Instance.currentDay;
+        int day = RunManager.Instance.Stats.CurrentDay;
 
         // Get rarity distribution for this day
         DayRarityEntry dist = RunManager.Instance.rarityDistributionTable.GetForDay(day);

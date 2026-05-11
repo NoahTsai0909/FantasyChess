@@ -10,7 +10,7 @@ public class RunManager : MonoBehaviour
     public static RunManager Instance { get; private set; }
 
     // Run Data
-    public int currentGold = 10;
+    public RunStats Stats = new RunStats();
 
     public List<UnitPlacement> playerTeamPlacements = new();
     public List<UnitPlacement> playerBenchPlacements = new();
@@ -37,14 +37,11 @@ public class RunManager : MonoBehaviour
     [SerializeField] private List<UnitPlacement> defaultUnits;
     [SerializeField] private int benchSize = 8;
 
-    public int currentDay = 1;
     public int regularEventsCompleted = 0;
     public const int REGULAR_EVENTS_PER_DAY = 3;
     public bool isBattlePhase = false;
     public int currentEventPhase = 0;
-    public int reputation = 0;
-    public int playerLevel = 1;
-    public int playerHealth = 12;
+    
 
     // New: Day event tracking
     public List<BaseEventSO> currentDailyEvents = new();  // Current 3 events to display
@@ -55,7 +52,7 @@ public class RunManager : MonoBehaviour
     public bool eventInProgress = false;
     public const int TOTAL_DAYS = 12;
     public ShopState shopState;
-    public int provisionCap = 4;
+
 
     private Dictionary<Guid, PermanentStats> permanentStatsMap = new();
 
@@ -74,6 +71,7 @@ public class RunManager : MonoBehaviour
             InitializeBench();
             SanitizeBench();
 
+            Stats.Initialize();
             regularEventsCompleted = 0;
             isBattlePhase = false;
             currentEventPhase = 0;
@@ -188,7 +186,7 @@ public class RunManager : MonoBehaviour
 
     public void StartNewDay()
     {
-        currentDay++;
+        Stats.CurrentDay++;
         regularEventsCompleted = 0;
         isBattlePhase = false;
         currentEventPhase = 0;
@@ -196,13 +194,13 @@ public class RunManager : MonoBehaviour
         currentDailyEvents.Clear();
 
         GenerateDailyEvents();
-        Debug.Log($"Day {currentDay} started!");
+        Debug.Log($"Day {Stats.CurrentDay} started!");
     }
 
     public void CompleteRegularEvent()
     {
         regularEventsCompleted++;
-        reputation++;
+        Stats.Reputation++;
         Debug.Log($"Regular event completed: {regularEventsCompleted}/{REGULAR_EVENTS_PER_DAY}");
 
         // Move to next regular event phase
@@ -233,10 +231,10 @@ public class RunManager : MonoBehaviour
         currentEventPhase = 0;
         allDayEvents.Clear();
 
-        Debug.Log($"Battle completed! Day {currentDay} is complete.");
+        Debug.Log($"Battle completed! Day {Stats.CurrentDay} is complete.");
 
         // Check if run is complete (7 days)
-        if (currentDay >= TOTAL_DAYS)
+        if (Stats.CurrentDay >= TOTAL_DAYS)
         {
             Debug.Log($"RUN COMPLETE! Finished all {TOTAL_DAYS} days!");
             SceneLoader.Instance.LoadScene(GameScene.MainMenuScene);
@@ -251,7 +249,7 @@ public class RunManager : MonoBehaviour
     public void GenerateDailyEvents()
     {
         Debug.Log($"=== GenerateDailyEvents START ===");
-        Debug.Log($"Day {currentDay}, Phase: {(isBattlePhase ? "BATTLE" : $"REGULAR {currentEventPhase + 1}/3")}, Regular events completed: {regularEventsCompleted}");
+        Debug.Log($"Day {Stats.CurrentDay}, Phase: {(isBattlePhase ? "BATTLE" : $"REGULAR {currentEventPhase + 1}/3")}, Regular events completed: {regularEventsCompleted}");
 
         EventPoolManager eventPool = EventPoolManager.Instance;
 
@@ -280,7 +278,7 @@ public class RunManager : MonoBehaviour
             // Generate ALL 9 regular events for the day if we haven't already
             if (allDayEvents.Count == 0)
             {
-                Debug.Log($"GENERATING ALL 9 REGULAR EVENTS FOR DAY {currentDay}");
+                Debug.Log($"GENERATING ALL 9 REGULAR EVENTS FOR DAY {Stats.CurrentDay}");
                 allDayEvents = eventPool.GetRegularEvents(9);
                 Debug.Log($"Generated {allDayEvents.Count} total events for the day");
 
@@ -371,7 +369,7 @@ public class RunManager : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-            var rarity = RollRarityForDay(currentDay);
+            var rarity = RollRarityForDay(Stats.CurrentDay);
 
             UnitDefinition def = null;
             int attempts = 0;
@@ -438,14 +436,10 @@ public class RunManager : MonoBehaviour
     {
         Debug.Log("=== RESETTING RUN ===");
 
-        currentGold = 10;
-        currentDay = 1;
-        provisionCap = 4;
+        Stats.Initialize();
         regularEventsCompleted = 0;
         isBattlePhase = false;
-        reputation = 0;
         currentEventPhase = 0;
-        playerHealth = 12;
 
         // Clear events
         currentDailyEvents.Clear();

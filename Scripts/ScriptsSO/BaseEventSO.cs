@@ -85,7 +85,7 @@ public abstract class BaseEventSO : ScriptableObject
 
     public virtual bool IsAvailable()
     {
-        int day = RunManager.Instance.currentDay;
+        int day = RunManager.Instance.Stats.CurrentDay;
         return day >= minDayRequired && day <= maxDayRequired;
     }
 

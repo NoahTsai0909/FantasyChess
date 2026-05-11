@@ -49,7 +49,7 @@ public class Farmer : UnitInstance
 
     private void HandleCombatEnd()
     {
-        RunManager.Instance.currentGold+=1;
+        RunManager.Instance.Stats.CurrentGold+=1;
         Debug.Log("Farmer just farmed 1 gold!");
     }
 

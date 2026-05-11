@@ -343,8 +343,8 @@ public class DragAndDropManager : MonoBehaviour
         int sellPrice = draggedUnit.Stats.Value;
 
         // Add gold to player
-        RunManager.Instance.currentGold += sellPrice;
-        Debug.Log($"Gained {sellPrice} gold. Total: {RunManager.Instance.currentGold}");
+        RunManager.Instance.Stats.CurrentGold += sellPrice;
+        Debug.Log($"Gained {sellPrice} gold. Total: {RunManager.Instance.Stats.CurrentGold}");
 
         // Remove from source grid
         if (sourceGrid != null)
@@ -358,7 +358,7 @@ public class DragAndDropManager : MonoBehaviour
         // Destroy the unit GameObject
         Destroy(draggedUnit.gameObject);
 
-        RunManager.Instance.currentGold += sellPrice;
+        RunManager.Instance.Stats.CurrentGold += sellPrice;
     }
 
     void RemoveFromRunManager(UnitInstance unit, UnitPlacement placement)
