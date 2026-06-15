@@ -609,7 +609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridManager
   rows: 3
-  cols: 4
+  cols: 3
   cellSize: 4
   tilePrefab: {fileID: 0}
 --- !u!1 &1148643568
@@ -657,7 +657,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridManager
   rows: 3
-  cols: 4
+  cols: 3
   cellSize: 4
   tilePrefab: {fileID: 0}
 --- !u!1 &1377996625

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 09b99406dee299f408fe13e6061ae6d0
+guid: 517b980bbe2fe414a92be3926a3b146d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7599306131041468686
-    second: TopBarDay_0
+      213: -1585871231429317413
+    second: TopBarDay 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TopBarDay_0
+      name: TopBarDay 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2fe33df2657d98690800000000000000
-      internalID: -7599306131041468686
+      spriteID: bdce42f648addf9e0800000000000000
+      internalID: -1585871231429317413
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      TopBarDay_0: -7599306131041468686
+      TopBarDay 1_0: -1585871231429317413
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

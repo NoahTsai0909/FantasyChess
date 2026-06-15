@@ -521,7 +521,6 @@ MonoBehaviour:
   playerXPFill: {fileID: 4770227434104986849}
   provisionCapText: {fileID: 8120894586631699096}
   goldText: {fileID: 2154123048613695469}
-  PrepSceneButton: {fileID: 0}
   maxReputation: 10
 --- !u!1 &2778865927955378251
 GameObject:
@@ -1603,7 +1602,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 09b99406dee299f408fe13e6061ae6d0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 517b980bbe2fe414a92be3926a3b146d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
