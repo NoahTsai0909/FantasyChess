@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1511201257085588305}
   - component: {fileID: 3966252100248244866}
   m_Layer: 0
-  m_Name: MendingStatueInstance
+  m_Name: ShrineInstance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 98317774c4d06e646901fe67e344a190, type: 3}
+  m_Sprite: {fileID: 21300000, guid: df2d0a99efd276e4184125accf63499c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

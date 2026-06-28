@@ -5,6 +5,9 @@ TextureImporter:
   - first:
       213: -8553596595128423742
     second: Torch_0
+  - first:
+      213: 330400763883709057
+    second: Torch_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +54,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 80
+  spritePixelsToUnits: 160
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -103,10 +106,10 @@ TextureImporter:
       name: Torch_0
       rect:
         serializedVersion: 2
-        x: 60
-        y: 61
-        width: 183
-        height: 258
+        x: 170
+        y: 394
+        width: 52
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -117,6 +120,28 @@ TextureImporter:
       bones: []
       spriteID: 2ca216337358b4980800000000000000
       internalID: -8553596595128423742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torch_1
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 12
+        width: 230
+        height: 452
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1826ec48eb1d59400800000000000000
+      internalID: 330400763883709057
       vertices: []
       indices: 
       edges: []
@@ -136,6 +161,7 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Torch_0: -8553596595128423742
+      Torch_1: 330400763883709057
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

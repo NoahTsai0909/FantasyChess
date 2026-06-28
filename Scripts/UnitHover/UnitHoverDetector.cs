@@ -6,6 +6,7 @@ public class UnitHoverDetector : MonoBehaviour
 {
     [SerializeField] private UnitHoverUI hoverUIPrefab;
     [SerializeField] private float hoverDelay = 0.35f;
+    [SerializeField] private RectTransform hoverAnchor;
 
     private Camera mainCamera;
     private Mouse mouse;
@@ -53,6 +54,20 @@ public class UnitHoverDetector : MonoBehaviour
         hoverUIInstance = Instantiate(hoverUIPrefab, targetCanvas.transform);
         hoverUIInstance.gameObject.SetActive(false);
         hoverUIInstance.name = "UnitUI (Dynamic)";
+
+        if (hoverAnchor != null)
+        {
+            RectTransform uiRect = hoverUIInstance.GetComponent<RectTransform>();
+            uiRect.anchorMin = hoverAnchor.anchorMin;
+            uiRect.anchorMax = hoverAnchor.anchorMax;
+            uiRect.pivot = hoverAnchor.pivot;
+            uiRect.anchoredPosition = hoverAnchor.anchoredPosition;
+
+            Debug.Log($"Anchor Settings - Min: {hoverAnchor.anchorMin}, Max: {hoverAnchor.anchorMax}");
+            Debug.Log($"Anchor Pivot: {hoverAnchor.pivot}");
+            Debug.Log($"Anchor Position: {hoverAnchor.anchoredPosition}");
+            Debug.Log($"UI Position after copy: {uiRect.anchoredPosition}");
+        }
     }
 
     void Update()

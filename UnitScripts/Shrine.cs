@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MendingStatue : UnitInstance
+public class Shrine : UnitInstance
 {
     protected override void UseAbility()
     {
@@ -16,7 +16,7 @@ public class MendingStatue : UnitInstance
                 source = this,
                 target = target,
                 amount = stats.Heal,
-                reason = "Mending Statue Heal"
+                reason = "Shrine Heal"
             }
         );
         }

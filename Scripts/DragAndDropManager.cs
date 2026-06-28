@@ -357,8 +357,6 @@ public class DragAndDropManager : MonoBehaviour
 
         // Destroy the unit GameObject
         Destroy(draggedUnit.gameObject);
-
-        RunManager.Instance.Stats.CurrentGold += sellPrice;
     }
 
     void RemoveFromRunManager(UnitInstance unit, UnitPlacement placement)

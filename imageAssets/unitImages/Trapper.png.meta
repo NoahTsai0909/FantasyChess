@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4d4b098f8aeecec4da7e2dc7b7060b68
+guid: a2d8b1123a2397949baf89d58267ea46
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1769304468731189557
-    second: ClumsyKnight_0
+      213: -7718398469036257577
+    second: Trapper_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ClumsyKnight_0
+      name: Trapper_0
       rect:
         serializedVersion: 2
-        x: 133
-        y: 29
-        width: 383
-        height: 507
+        x: 150
+        y: 1
+        width: 366
+        height: 513
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bc624c9b5fa2277e0800000000000000
-      internalID: -1769304468731189557
+      spriteID: 7decc2a7c7db2e490800000000000000
+      internalID: -7718398469036257577
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ClumsyKnight_0: -1769304468731189557
+      Trapper_0: -7718398469036257577
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

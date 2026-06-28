@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 21258213c5ab63f4cb1df2468805912f
+guid: df2d0a99efd276e4184125accf63499c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4750156103627744980
-    second: gametrapper_0
+      213: -7886095280468031780
+    second: Shrine_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 160
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: gametrapper_0
+      name: Shrine_0
       rect:
         serializedVersion: 2
-        x: 13
-        y: 5
-        width: 48
-        height: 54
+        x: 90
+        y: 3
+        width: 453
+        height: 470
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c295d9fe03e041eb0800000000000000
-      internalID: -4750156103627744980
+      spriteID: cd681deef16fe8290800000000000000
+      internalID: -7886095280468031780
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      gametrapper_0: -4750156103627744980
+      Shrine_0: -7886095280468031780
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

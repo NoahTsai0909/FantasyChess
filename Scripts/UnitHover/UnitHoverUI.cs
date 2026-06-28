@@ -10,6 +10,8 @@ public class UnitHoverUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI provisionText;
     [SerializeField] private Vector2 offset = new Vector2(20f, 20f);
 
+    [SerializeField] private bool useFixedPosition = true;
+
     [SerializeField] private Sprite backgroundCommon;
     [SerializeField] private Sprite backgroundUncommon;
     [SerializeField] private Sprite backgroundRare;
@@ -59,7 +61,10 @@ public class UnitHoverUI : MonoBehaviour
             return;
 
         UpdateDynamicValues();
-        UpdatePosition();
+        if (!useFixedPosition)
+        {
+            UpdatePosition();
+        }
     }
 
     public void Show(UnitInstance unit)
@@ -99,8 +104,22 @@ public class UnitHoverUI : MonoBehaviour
 
             // Show and position
         gameObject.SetActive(true);
-        LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
-        UpdatePosition();
+        if (!useFixedPosition)
+        {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
+            UpdatePosition();
+        }
+        else
+        {
+            // Just rebuild layout to ensure content fits, but keep position
+            LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
+            // Ensure our anchor position is maintained
+            if (canvas != null && rectTransform != null)
+            {
+                // Re-apply the anchored position to be safe
+                // You could also just skip this if the position stays
+            }
+        }
     }
 
     public void Hide()

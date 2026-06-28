@@ -3,8 +3,8 @@ guid: 314d85add4ae80d428b24b9597f13fbd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2291062258145363396
-    second: ancienttome_0
+      213: 1100628040385424194
+    second: AncientTome_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 160
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ancienttome_0
+      name: AncientTome_0
       rect:
         serializedVersion: 2
-        x: 11
-        y: 15
-        width: 40
-        height: 45
+        x: 181
+        y: 22
+        width: 270
+        height: 316
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c3af0f8c3038430e0800000000000000
-      internalID: -2291062258145363396
+      spriteID: 24be1011f57364f00800000000000000
+      internalID: 1100628040385424194
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ancienttome_0: -2291062258145363396
+      AncientTome_0: 1100628040385424194
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

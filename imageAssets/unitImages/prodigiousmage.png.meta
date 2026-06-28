@@ -3,8 +3,8 @@ guid: 0dd248afb3267824db40140bdbf3b352
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2645019312991535603
-    second: prodigiousmage_0
+      213: -597288472460237829
+    second: ProdigiousMage_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 160
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: prodigiousmage_0
+      name: ProdigiousMage_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 1
-        width: 54
-        height: 60
+        x: 164
+        y: 10
+        width: 344
+        height: 419
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d0e7711e2f00b4bd0800000000000000
-      internalID: -2645019312991535603
+      spriteID: bf362928c4106b7f0800000000000000
+      internalID: -597288472460237829
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      prodigiousmage_0: -2645019312991535603
+      ProdigiousMage_0: -597288472460237829
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
