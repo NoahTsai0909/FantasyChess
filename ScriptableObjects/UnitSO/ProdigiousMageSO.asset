@@ -25,7 +25,7 @@ MonoBehaviour:
   isPassive: 0
   isEnergy: 1
   maxEnergy: 1
-  multicast: 1
+  multicast: 2
   unitSprite: {fileID: 21300000, guid: 0dd248afb3267824db40140bdbf3b352, type: 3}
   defaultProjectile: []
   cost: 0

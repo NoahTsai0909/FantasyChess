@@ -3,6 +3,34 @@ using UnityEngine;
 
 public class Dustraiser : UnitInstance
 {
+    private int hasteModifier = 0;
+
+    public override void InitializeFromSaveData(UnitSaveData data)
+    {
+        base.InitializeFromSaveData(data);
+        if (CurrentRarity == Rarity.Uncommon)
+        {
+            hasteModifier = 0;
+        }
+        if (CurrentRarity == Rarity.Rare)
+        {
+            hasteModifier = 1;
+        }
+        else if (CurrentRarity == Rarity.Epic)
+        {
+            hasteModifier = 2;
+        }
+        else
+        {
+            hasteModifier = 0;
+        }
+    }
+
+    protected override int GetRarityAdjustedHaste()
+    {
+        return hasteModifier;
+    }
+
     protected override void UseAbility()
     {
 

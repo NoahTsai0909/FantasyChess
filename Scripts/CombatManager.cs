@@ -14,7 +14,8 @@ public enum CombatActionType
     Charge,
     Freeze,
     Buff,
-    Debuff
+    Debuff,
+    Advance
 }
 
 public class CombatAction
@@ -77,6 +78,9 @@ public class CombatManager : MonoBehaviour
                 break;
             case CombatActionType.ApplyHaste:
                 action.target.ApplyHaste(action.amount);
+                break;
+            case CombatActionType.Advance:
+                action.target.Advance(action.amount);
                 break;
         }
 

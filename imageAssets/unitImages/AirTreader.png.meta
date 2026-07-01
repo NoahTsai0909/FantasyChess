@@ -5,6 +5,12 @@ TextureImporter:
   - first:
       213: -2139310135062034717
     second: AirTreader_0
+  - first:
+      213: -5605348864480720937
+    second: AirTreader_1
+  - first:
+      213: 2189385097060963080
+    second: AirTreader_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,10 +109,10 @@ TextureImporter:
       name: AirTreader_0
       rect:
         serializedVersion: 2
-        x: 114
-        y: 103
-        width: 426
-        height: 466
+        x: 152
+        y: 92
+        width: 57
+        height: 81
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -117,6 +123,50 @@ TextureImporter:
       bones: []
       spriteID: 3e60c3744c4af42e0800000000000000
       internalID: -2139310135062034717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AirTreader_1
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 92
+        width: 328
+        height: 422
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d7cc7af7ecc532b0800000000000000
+      internalID: -5605348864480720937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AirTreader_2
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 86
+        width: 44
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8035ada5522426e10800000000000000
+      internalID: 2189385097060963080
       vertices: []
       indices: 
       edges: []
@@ -136,6 +186,8 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       AirTreader_0: -2139310135062034717
+      AirTreader_1: -5605348864480720937
+      AirTreader_2: 2189385097060963080
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

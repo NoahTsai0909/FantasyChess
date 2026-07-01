@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 9e2aaf45902d9304491650d45601bb9a
+guid: 4f3db3eeeb4535a48b938c9fecd902bd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5010643499226707632
-    second: mendingstatue_0
+      213: 1592230072824693114
+    second: ScorchingCaster 1_0
+  - first:
+      213: 21332565564816976
+    second: ScorchingCaster 1_1
+  - first:
+      213: -5532094494051594685
+    second: ScorchingCaster 1_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +57,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 80
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: mendingstatue_0
+      name: ScorchingCaster 1_0
       rect:
         serializedVersion: 2
-        x: 10
-        y: 0
-        width: 44
-        height: 63
+        x: 66
+        y: 5
+        width: 219
+        height: 264
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +121,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 059c874f84e967ab0800000000000000
-      internalID: -5010643499226707632
+      spriteID: a710963b0dcb81610800000000000000
+      internalID: 1592230072824693114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScorchingCaster 1_1
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 175
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05e73a8fad9cb4000800000000000000
+      internalID: 21332565564816976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScorchingCaster 1_2
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 135
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34e09223e5d0a33b0800000000000000
+      internalID: -5532094494051594685
       vertices: []
       indices: 
       edges: []
@@ -135,7 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      mendingstatue_0: -5010643499226707632
+      ScorchingCaster 1_0: 1592230072824693114
+      ScorchingCaster 1_1: 21332565564816976
+      ScorchingCaster 1_2: -5532094494051594685
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

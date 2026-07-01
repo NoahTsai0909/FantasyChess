@@ -34,12 +34,10 @@ public class ProdigiousMage : UnitInstance
             }
         );
 
-        currentEnergy -= 1;
-
         base.UseAbility();
     }
     public override string GetAbilityDescription()
     {
-        return ($"Attack the farthest enemy for {stats.Attack} damage twice.");
+        return ($"Attack the farthest enemy for {stats.Attack} damage.");
     }
 }

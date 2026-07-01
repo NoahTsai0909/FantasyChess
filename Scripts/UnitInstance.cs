@@ -22,6 +22,7 @@ public class UnitInstance : MonoBehaviour
 
     public string unitName;
     public bool isPassive;
+    public bool isEnergy;
 
     /* =========================
      * Combat state
@@ -78,6 +79,7 @@ public class UnitInstance : MonoBehaviour
             sr.sprite = definition.unitSprite;
             unitName = definition.unitName;
             isPassive = definition.isPassive;
+            isEnergy = definition.isEnergy;
         }
 
         originalSpriteColor = sr.color;
@@ -87,6 +89,9 @@ public class UnitInstance : MonoBehaviour
     private void Update()
     {
         if (!inCombat || isPassive)
+            return;
+
+        if (isEnergy && currentEnergy <= 0)
             return;
 
         RefreshUI();
@@ -101,6 +106,9 @@ public class UnitInstance : MonoBehaviour
             for (int i = 0; i < stats.Multicast; i++)
             {
                 UseAbility();
+            }
+            if (isEnergy){
+                currentEnergy = Mathf.Max(currentEnergy - 1, 0);
             }
             cooldownTimer = stats.Cooldown;
         }
@@ -402,12 +410,22 @@ public class UnitInstance : MonoBehaviour
             Mathf.RoundToInt(Definition.burn * multiplier),
             Mathf.RoundToInt(Definition.poison * multiplier),
             Definition.maxEnergy,
-            Definition.slow,
-            Definition.haste,
+            Definition.slow + GetRarityAdjustedSlow(),
+            Definition.haste + GetRarityAdjustedHaste(),
             Definition.multicast,
             GetRarityAdjustedValue()
         );
     }
+
+    protected virtual int GetRarityAdjustedSlow() //only implement if needed in derived classes
+    {
+        return 0;
+    }
+
+    protected virtual int GetRarityAdjustedHaste()
+    {
+        return 0;
+    }   
 
     private int GetRarityAdjustedValue()
     {
@@ -443,6 +461,11 @@ public class UnitInstance : MonoBehaviour
         {
             temporaryStats.attackBonus += bonus;
         }
+        else if (modifiableStats == ModifiableStats.MaxHP)
+        {
+            temporaryStats.maxHPBonus += bonus;
+            currentHP += bonus;
+        }
             RecalculateStats();
         return;
     }
@@ -462,6 +485,12 @@ public class UnitInstance : MonoBehaviour
             return 1.5f;     // 50% faster
 
         return 1f;           // normal
+    }
+
+    public void Advance(int seconds)
+    {
+        cooldownTimer = Mathf.Max(cooldownTimer - seconds, 0f);
+    
     }
 
     /* =========================

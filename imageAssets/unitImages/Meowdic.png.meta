@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 4f3db3eeeb4535a48b938c9fecd902bd
+guid: dc7fd7f2396953a4eacae51969f84102
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1592230072824693114
-    second: ScorchingCaster 1_0
-  - first:
-      213: 21332565564816976
-    second: ScorchingCaster 1_1
-  - first:
-      213: -5532094494051594685
-    second: ScorchingCaster 1_2
+      213: 4114676076981906207
+    second: Meowdic_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -106,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ScorchingCaster 1_0
+      name: Meowdic_0
       rect:
         serializedVersion: 2
-        x: 66
-        y: 5
-        width: 219
-        height: 264
+        x: 174
+        y: 11
+        width: 375
+        height: 440
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,52 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a710963b0dcb81610800000000000000
-      internalID: 1592230072824693114
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ScorchingCaster 1_1
-      rect:
-        serializedVersion: 2
-        x: 276
-        y: 175
-        width: 16
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 05e73a8fad9cb4000800000000000000
-      internalID: 21332565564816976
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ScorchingCaster 1_2
-      rect:
-        serializedVersion: 2
-        x: 277
-        y: 135
-        width: 11
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 34e09223e5d0a33b0800000000000000
-      internalID: -5532094494051594685
+      spriteID: f1bed4e67144a1930800000000000000
+      internalID: 4114676076981906207
       vertices: []
       indices: 
       edges: []
@@ -185,9 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ScorchingCaster 1_0: 1592230072824693114
-      ScorchingCaster 1_1: 21332565564816976
-      ScorchingCaster 1_2: -5532094494051594685
+      Meowdic_0: 4114676076981906207
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
