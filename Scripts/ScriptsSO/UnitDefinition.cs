@@ -37,6 +37,7 @@ public class UnitDefinition : ScriptableObject, IStatSource
 
     [Header("Prefab Reference")]
     public UnitInstance unitPrefab;
+    public UnitDefinition spawnDefinition;
 
     [Header("Tags")]
     public UnitTagFlags tagFlags;

@@ -267,4 +267,26 @@ public class GridManager : MonoBehaviour
         if (!InBounds(r, c)) return transform.position;
         return worldPositions[r, c] + unitVisualOffset;
     }
+
+    public bool IsPositionValid(int row, int col)
+    {
+        return InBounds(row, col);
+    }
+
+
+    public bool IsPositionOccupied(int row, int col)
+    {
+        if (!InBounds(row, col))
+            return true; // Out of bounds is considered occupied
+
+        return unitInstances[row, col] != null;
+    }
+
+    public UnitInstance GetUnitAt(int row, int col)
+    {
+        if (!InBounds(row, col))
+            return null;
+
+        return unitInstances[row, col];
+    }
 }

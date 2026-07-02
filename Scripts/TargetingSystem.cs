@@ -171,4 +171,9 @@ public class TargetingSystem
     {
         return GetCandidates(TargetTeam.Ally);
     }
+
+    public List<UnitInstance> GetEnemies()
+    {
+        return GetCandidates(TargetTeam.Enemy);
+    }
 }

@@ -52,6 +52,9 @@ public class UnitInstance : MonoBehaviour
     public RunManager.UnitPlacement myPlacement;
     private TargetingSystem targetingSystem;
 
+    public bool isSpawnedUnit = false;  // Track if this is a spawned unit
+    public UnitInstance spawnSource;
+
     /* =========================
      * Visuals / UI
      * ========================= */
@@ -174,6 +177,7 @@ public class UnitInstance : MonoBehaviour
     {
         this.row = row;
         this.col = col;
+        this.myGrid = grid;
 
         grid.PlaceUnit(row, col, this, isPlayer);
 
@@ -305,17 +309,22 @@ public class UnitInstance : MonoBehaviour
     {
         if (myGrid != null)
         {
-            Vector2Int pos = myGrid.GetUnitPosition(this);
-            myGrid.RemoveUnit(pos.x, pos.y);
+            myGrid.RemoveUnit(row, col);
         }
 
         if (uiManager != null)
             uiManager.RemoveUnitUI(this);
 
+        OnDeathEffect();
+
         CombatEventBus.Publish(CombatEventType.UnitDied, this, this, 0);
         Destroy(gameObject);
     }
 
+    protected virtual void OnDeathEffect()
+    {
+        // Override in derived classes for death effects
+    }
 
     public void TakeDisasterDamage(int damage)
     {
@@ -594,6 +603,12 @@ public class UnitInstance : MonoBehaviour
     {
         if (targetingSystem == null) return new List<UnitInstance>();
         return targetingSystem.GetAllies();
+    }
+
+    protected List<UnitInstance> FindAllEnemies()
+    {
+        if (targetingSystem == null) return new List<UnitInstance>();
+        return targetingSystem.GetEnemies();
     }
 
 

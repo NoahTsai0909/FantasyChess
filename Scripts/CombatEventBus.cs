@@ -9,6 +9,7 @@ public static class CombatEventBus
         Healed,
         UnitDied,
         ShieldDamaged,
+        UnitSpawned,
     }
 
     public static event Action<CombatAction> OnActionResolved;
