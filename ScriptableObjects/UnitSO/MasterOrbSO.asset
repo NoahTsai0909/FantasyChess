@@ -10,29 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a16e02b8c37b3f43ac55682dba29a26, type: 3}
-  m_Name: MidasSO
+  m_Name: MasterOrbSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
-  unitName: Midas
-  maxHP: 60
-  attack: 10
+  unitName: Master Orb
+  maxHP: 140
+  attack: 60
   heal: 0
   shield: 0
   burn: 0
   poison: 0
   slow: 0
   haste: 0
-  cooldown: 4
+  cooldown: 0
   isPassive: 0
   isEnergy: 0
   maxEnergy: 0
   multicast: 1
-  unitSprite: {fileID: 21300000, guid: d45ef1293558bf64f9565a54e3fd3bce, type: 3}
+  unitSprite: {fileID: 21300000, guid: c222f30ad4e58a2429ae07c0d75e2738, type: 3}
   defaultProjectile: []
   cost: 0
   region: 0
   rarity: 0
   startingRarity: 3
-  provisionCost: 2
-  unitPrefab: {fileID: 1849145661950572377, guid: 54450a41aa094f844b54285126c57214, type: 3}
+  provisionCost: 3
+  unitPrefab: {fileID: 4305466394241091539, guid: e9a3165493c704542b09f1af36de474d, type: 3}
   spawnDefinition: {fileID: 0}
   tagFlags: 0

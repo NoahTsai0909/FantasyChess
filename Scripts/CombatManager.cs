@@ -15,7 +15,8 @@ public enum CombatActionType
     Freeze,
     Buff,
     Debuff,
-    Advance
+    Advance,
+    Kill,
 }
 
 public class CombatAction
@@ -81,6 +82,9 @@ public class CombatManager : MonoBehaviour
                 break;
             case CombatActionType.Advance:
                 action.target.Advance(action.amount);
+                break;
+            case CombatActionType.Kill:
+                action.target.Die();
                 break;
         }
 

@@ -154,7 +154,7 @@ MonoBehaviour:
   playerBenchPlacements: []
   defaultUnits:
   - unitData:
-      definition: {fileID: 11400000, guid: ede77293b613b784bafd796375b40877, type: 2}
+      definition: {fileID: 11400000, guid: 12b3a3030c868b446943d77ccc7c563f, type: 2}
       rarity: 3
       provisionCost: 3
       provisionModifier: 0

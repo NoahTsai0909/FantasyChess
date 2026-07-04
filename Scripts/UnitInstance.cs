@@ -34,9 +34,24 @@ public class UnitInstance : MonoBehaviour
     protected int currentEnergy;
     private int currentShield;
     public int GetCurrentHP() => currentHP;
+
+    public void SetCurrentHP(int newHP)
+    {
+        currentHP = Mathf.Clamp(newHP, 0, stats.MaxHP);
+        RefreshUI();
+    }
+    public int GetMaxHP() => stats.MaxHP;
+    public void SetMaxHP(int newMaxHP)
+    {
+        int oldMaxHP = stats.MaxHP;
+        int delta = newMaxHP - oldMaxHP;
+        TemporaryStatModify(ModifiableStats.MaxHP, delta);
+    }
     public int GetCurrentShield() => currentShield;
 
     public float GetCooldownTimer() => cooldownTimer;  
+
+    public int GetCurrentValue() => stats.Value;
 
     protected float cooldownTimer;
 

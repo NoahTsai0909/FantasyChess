@@ -7,8 +7,8 @@ public static class RarityScaling
         {
             0 => 1.0f,   // starting rarity
             1 => 1.5f,   // +1 tier
-            2 => 2.25f,  // +2 tiers
-            3 => 3.5f,   // +3 tiers
+            2 => 2.5f,  // +2 tiers
+            3 => 4.5f,   // +3 tiers
             _ => 1.0f
         };
     }
@@ -19,9 +19,9 @@ public static class RarityScaling
         {
             case Rarity.Common:
                 return Rarity.Uncommon;
-            case Rarity.Rare:
+            case Rarity.Uncommon:
                 return Rarity.Rare;
-            case Rarity.Epic:
+            case Rarity.Rare:
                 return Rarity.Epic;
             default:
                 return Rarity.Epic;

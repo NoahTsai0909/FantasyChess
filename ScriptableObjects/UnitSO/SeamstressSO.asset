@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: SeamstressSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Seamstress
-  maxHP: 65
+  maxHP: 60
   attack: 20
   heal: 0
   shield: 0
-  burn: 0
+  burn: 4
   poison: 0
   slow: 0
   haste: 0
-  cooldown: 4
+  cooldown: 5
   isPassive: 0
   isEnergy: 0
   maxEnergy: 0
@@ -31,7 +31,8 @@ MonoBehaviour:
   cost: 0
   region: 0
   rarity: 0
-  startingRarity: 2
-  provisionCost: 2
+  startingRarity: 3
+  provisionCost: 3
   unitPrefab: {fileID: 4675785470022910515, guid: a29fc6ec80d21044780547c736905793, type: 3}
+  spawnDefinition: {fileID: 0}
   tagFlags: 0

@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: d45ef1293558bf64f9565a54e3fd3bce
+guid: 718bc55fb31de454e9bdde2a0407f456
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 449096418590239244
-    second: Midas 1_0
-  - first:
-      213: -1066009969038208926
-    second: Midas 1_1
+      213: -3233056331275776207
+    second: TitanicCrusher_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Midas 1_0
+      name: TitanicCrusher_0
       rect:
         serializedVersion: 2
-        x: 74
-        y: 373
-        width: 75
-        height: 60
+        x: 42
+        y: 11
+        width: 563
+        height: 463
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,30 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c0aa8f330d28b3600800000000000000
-      internalID: 449096418590239244
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Midas 1_1
-      rect:
-        serializedVersion: 2
-        x: 88
-        y: 12
-        width: 480
-        height: 488
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 260d374c495c431f0800000000000000
-      internalID: -1066009969038208926
+      spriteID: 13fca7b6560e123d0800000000000000
+      internalID: -3233056331275776207
       vertices: []
       indices: 
       edges: []
@@ -160,8 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Midas 1_0: 449096418590239244
-      Midas 1_1: -1066009969038208926
+      TitanicCrusher_0: -3233056331275776207
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8920a2a2659eb4f45baf49db4d32ce91, type: 3}
-  m_Name: EnemyBattalion
+  m_Name: HoldTheLine
   m_EditorClassIdentifier: Assembly-CSharp::CombatEventSO
-  eventName: Enemy Battalion
-  description: A wandering battalion of soldiers
+  eventName: Hold The Line
+  description: 2 shieldmates and a blacksmith
   eventIcon: {fileID: 0}
   eventBackgroundImage: {fileID: 0}
   eventButtonText: 
-  minDayRequired: 1
+  minDayRequired: 2
   maxDayRequired: 2
   selectionWeight: 1
   targetScene: 2
   backgroundColor: {r: 1, g: 1, b: 1, a: 1}
   flavorText: 
-  encounter: {fileID: 11400000, guid: 351bdef2bce433b41856f84ac1105b9c, type: 2}
+  encounter: {fileID: 11400000, guid: f9facd9b08b5a72438dfdae75ca52c47, type: 2}
   goldReward: 3
   reputationReward: 3

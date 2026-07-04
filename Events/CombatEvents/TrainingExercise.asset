@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8920a2a2659eb4f45baf49db4d32ce91, type: 3}
-  m_Name: DynamicDuo
+  m_Name: TrainingExercise
   m_EditorClassIdentifier: Assembly-CSharp::CombatEventSO
-  eventName: Knight and Deadeye
+  eventName: Training Exercise
   description: A duo of banner knight and deadeye
   eventIcon: {fileID: 0}
   eventBackgroundImage: {fileID: 0}

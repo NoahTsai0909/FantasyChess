@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: d45ef1293558bf64f9565a54e3fd3bce
+guid: c222f30ad4e58a2429ae07c0d75e2738
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 449096418590239244
-    second: Midas 1_0
+      213: -4409253769720014688
+    second: MasterOrb_0
   - first:
-      213: -1066009969038208926
-    second: Midas 1_1
+      213: 6402774051743541131
+    second: MasterOrb_1
+  - first:
+      213: -2101011217582611621
+    second: MasterOrb_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Midas 1_0
+      name: MasterOrb_0
       rect:
         serializedVersion: 2
-        x: 74
-        y: 373
-        width: 75
-        height: 60
+        x: 99
+        y: 4
+        width: 389
+        height: 497
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,20 +121,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c0aa8f330d28b3600800000000000000
-      internalID: 449096418590239244
+      spriteID: 0a85943ce0f2fc2c0800000000000000
+      internalID: -4409253769720014688
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Midas 1_1
+      name: MasterOrb_1
       rect:
         serializedVersion: 2
-        x: 88
-        y: 12
-        width: 480
-        height: 488
+        x: 470
+        y: 339
+        width: 31
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,8 +143,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 260d374c495c431f0800000000000000
-      internalID: -1066009969038208926
+      spriteID: b872343a3193bd850800000000000000
+      internalID: 6402774051743541131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MasterOrb_2
+      rect:
+        serializedVersion: 2
+        x: 489
+        y: 299
+        width: 13
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b53a0e2ed65b7d2e0800000000000000
+      internalID: -2101011217582611621
       vertices: []
       indices: 
       edges: []
@@ -160,8 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Midas 1_0: 449096418590239244
-      Midas 1_1: -1066009969038208926
+      MasterOrb_0: -4409253769720014688
+      MasterOrb_1: 6402774051743541131
+      MasterOrb_2: -2101011217582611621
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

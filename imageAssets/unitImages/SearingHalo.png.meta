@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: d45ef1293558bf64f9565a54e3fd3bce
+guid: c438f98a6a4418e41b99a60c436e1317
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 449096418590239244
-    second: Midas 1_0
+      213: 1734321436556707521
+    second: SearingHalo_0
   - first:
-      213: -1066009969038208926
-    second: Midas 1_1
+      213: 8359144358976749326
+    second: SearingHalo_1
+  - first:
+      213: 2579674763638635974
+    second: SearingHalo_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Midas 1_0
+      name: SearingHalo_0
       rect:
         serializedVersion: 2
-        x: 74
-        y: 373
-        width: 75
-        height: 60
+        x: 142
+        y: 196
+        width: 387
+        height: 343
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,20 +121,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c0aa8f330d28b3600800000000000000
-      internalID: 449096418590239244
+      spriteID: 1c6ce40682c811810800000000000000
+      internalID: 1734321436556707521
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Midas 1_1
+      name: SearingHalo_1
       rect:
         serializedVersion: 2
-        x: 88
-        y: 12
-        width: 480
-        height: 488
+        x: 225
+        y: 508
+        width: 25
+        height: 45
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,8 +143,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 260d374c495c431f0800000000000000
-      internalID: -1066009969038208926
+      spriteID: e0ff40f7185a10470800000000000000
+      internalID: 8359144358976749326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SearingHalo_2
+      rect:
+        serializedVersion: 2
+        x: 476
+        y: 370
+        width: 85
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6cd78b2a788dcc320800000000000000
+      internalID: 2579674763638635974
       vertices: []
       indices: 
       edges: []
@@ -160,8 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Midas 1_0: 449096418590239244
-      Midas 1_1: -1066009969038208926
+      SearingHalo_0: 1734321436556707521
+      SearingHalo_1: 8359144358976749326
+      SearingHalo_2: 2579674763638635974
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

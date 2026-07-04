@@ -10,23 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57601b2f037543c458f452a8ef88aa8a, type: 3}
-  m_Name: KnightPriest
+  m_Name: HoldTheLine
   m_EditorClassIdentifier: Assembly-CSharp::EncounterDefinition
-  encounterName: Knight and Priest
+  encounterName: Hold The Line
   enemyUnits:
   - unitData:
-      definition: {fileID: 11400000, guid: 88642c22682ab104a9c47221284759e5, type: 2}
+      definition: {fileID: 11400000, guid: eb600ffba2f1c5d40834f309bc3d5900, type: 2}
       rarity: 0
-      provisionCost: 1
+      provisionCost: 0
+      provisionModifier: 0
+      valueModifier: 0
+    row: 0
+    col: 0
+  - unitData:
+      definition: {fileID: 11400000, guid: eb600ffba2f1c5d40834f309bc3d5900, type: 2}
+      rarity: 0
+      provisionCost: 0
       provisionModifier: 0
       valueModifier: 0
     row: 1
     col: 1
   - unitData:
-      definition: {fileID: 11400000, guid: 8f005606f4a1e4847a4aa1978ce45a79, type: 2}
+      definition: {fileID: 11400000, guid: 6435ef4f87c06cd478998c73bcdf6d2b, type: 2}
       rarity: 0
-      provisionCost: 1
+      provisionCost: 0
       provisionModifier: 0
       valueModifier: 0
-    row: 1
+    row: 2
     col: 2
