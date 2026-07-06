@@ -8,6 +8,7 @@ public class UnitHoverUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI abilityText;
     [SerializeField] private TextMeshProUGUI provisionText;
+    [SerializeField] private TextMeshProUGUI valueText;
     [SerializeField] private Vector2 offset = new Vector2(20f, 20f);
 
     [SerializeField] private bool useFixedPosition = true;
@@ -101,8 +102,9 @@ public class UnitHoverUI : MonoBehaviour
         }
 
         provisionText.text = unit.Definition.provisionCost.ToString();
+        valueText.text = stats.Value.ToString();
 
-            // Show and position
+        // Show and position
         gameObject.SetActive(true);
         if (!useFixedPosition)
         {

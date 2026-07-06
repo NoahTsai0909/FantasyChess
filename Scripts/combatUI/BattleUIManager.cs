@@ -46,7 +46,7 @@ public class BattleUIManager : MonoBehaviour
         // Create cooldown bar
         GameObject cooldownBarGO = Instantiate(cooldownBarPrefab, battleCanvas.transform);
         cooldownBarGO.transform.position = uiPosition + GetCooldownBarOffset(unit.isPlayer);
-        cooldownBarGO.transform.localScale = Vector3.one * 0.75f;
+        cooldownBarGO.transform.localScale = Vector3.one * 1.0f;
 
         CooldownBarUI cooldownBar = cooldownBarGO.GetComponent<CooldownBarUI>();
 
@@ -140,7 +140,7 @@ public class BattleUIManager : MonoBehaviour
 
     private Vector3 GetCooldownBarOffset(bool isPlayer)
     {
-        return new Vector3(-1.5f, -2.5f, 0); // Changed to be more visible
+        return new Vector3(-2f, -2.5f, 0); // Changed to be more visible
     }
 
     private Vector3 GetStatusBarOffset(bool isPlayer)
@@ -251,7 +251,7 @@ public class BattleUIManager : MonoBehaviour
     {
         var instance = Instantiate(
             floatingTextPrefab,
-            worldPos + Vector3.up * 0.5f + Vector3.right,
+            worldPos + Vector3.up + Vector3.right,
             Quaternion.identity
         );
 
