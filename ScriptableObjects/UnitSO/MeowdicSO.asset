@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MeowdicSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Meowdic
-  maxHP: 65
+  maxHP: 110
   attack: 0
   heal: 15
   shield: 0
@@ -34,4 +34,5 @@ MonoBehaviour:
   startingRarity: 2
   provisionCost: 2
   unitPrefab: {fileID: 1503403973901803797, guid: e33da57a6c09d1442bccb9e309da1ba5, type: 3}
+  spawnDefinition: {fileID: 0}
   tagFlags: 0

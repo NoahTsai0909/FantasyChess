@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlatedFlamespitterSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Plated Flamespitter
-  maxHP: 60
+  maxHP: 80
   attack: 0
   heal: 0
   shield: 10
@@ -34,4 +34,5 @@ MonoBehaviour:
   startingRarity: 1
   provisionCost: 0
   unitPrefab: {fileID: 8706290825402064065, guid: eb1a872ebe6712044b0290b7af1723b3, type: 3}
+  spawnDefinition: {fileID: 0}
   tagFlags: 0

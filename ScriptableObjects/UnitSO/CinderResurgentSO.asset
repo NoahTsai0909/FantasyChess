@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CinderResurgentSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Cinder Resurgent
-  maxHP: 60
+  maxHP: 220
   attack: 15
   heal: 0
   shield: 0

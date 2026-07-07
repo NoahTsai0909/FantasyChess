@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MendingCasterSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Mending Caster
-  maxHP: 60
+  maxHP: 80
   attack: 0
   heal: 15
   shield: 0
@@ -34,4 +34,5 @@ MonoBehaviour:
   startingRarity: 1
   provisionCost: 2
   unitPrefab: {fileID: 4181515150228128974, guid: 987ab39ee2d6803489c439d53382a9e4, type: 3}
+  spawnDefinition: {fileID: 0}
   tagFlags: 0

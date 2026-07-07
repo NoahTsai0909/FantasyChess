@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MidasSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Midas
-  maxHP: 60
+  maxHP: 150
   attack: 10
   heal: 0
   shield: 0

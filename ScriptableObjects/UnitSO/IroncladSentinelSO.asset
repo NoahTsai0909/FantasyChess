@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IroncladSentinelSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Ironclad Sentinel
-  maxHP: 75
+  maxHP: 130
   attack: 20
   heal: 0
   shield: 0
@@ -34,4 +34,5 @@ MonoBehaviour:
   startingRarity: 2
   provisionCost: 2
   unitPrefab: {fileID: 7826954811003542200, guid: b94d644f8390cfc4e8628b70d4cbb667, type: 3}
+  spawnDefinition: {fileID: 0}
   tagFlags: 0

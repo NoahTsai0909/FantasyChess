@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8920a2a2659eb4f45baf49db4d32ce91, type: 3}
-  m_Name: HatchlingNest
+  m_Name: DeadlyPerformance
   m_EditorClassIdentifier: Assembly-CSharp::CombatEventSO
-  eventName: Hatchling Nest
-  description: A nest of dangertous hatchlings..
-  eventIcon: {fileID: 8630833029534501343, guid: cef6df5bb482442408ce0a7adf781304, type: 3}
+  eventName: Deadly Performance
+  description: A deadly Jester and a ballista
+  eventIcon: {fileID: 0}
   eventBackgroundImage: {fileID: 0}
   eventButtonText: 
-  minDayRequired: 1
-  maxDayRequired: 1
+  minDayRequired: 2
+  maxDayRequired: 2
   selectionWeight: 1
   targetScene: 2
   backgroundColor: {r: 1, g: 1, b: 1, a: 1}
   flavorText: 
-  encounter: {fileID: 11400000, guid: 5d00001e53126074babf3e31b02e38cc, type: 2}
+  encounter: {fileID: 11400000, guid: 4eb3210ba89ea7e4f91d02c1eeb806b6, type: 2}
   goldReward: 2
-  reputationReward: 3
+  reputationReward: 2

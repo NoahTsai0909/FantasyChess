@@ -466,7 +466,6 @@ public class UnitInstance : MonoBehaviour
 
     public void TemporaryStatModify(ModifiableStats modifiableStats, int bonus)
     {
-        Debug.Log($"{unitName}.TemporaryStatModify({modifiableStats}, {bonus}) called");
 
         if (modifiableStats == ModifiableStats.Burn)
         {

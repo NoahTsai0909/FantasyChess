@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SeamstressSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Seamstress
-  maxHP: 60
+  maxHP: 120
   attack: 20
   heal: 0
   shield: 0

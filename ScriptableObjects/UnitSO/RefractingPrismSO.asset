@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RefractingPrismSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Refracting Prism
-  maxHP: 70
+  maxHP: 120
   attack: 0
   heal: 0
   shield: 0
@@ -34,4 +34,5 @@ MonoBehaviour:
   startingRarity: 2
   provisionCost: 2
   unitPrefab: {fileID: 5720999026440135174, guid: 761242a39fb753f408a79631fb42811a, type: 3}
+  spawnDefinition: {fileID: 0}
   tagFlags: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PaladinSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Paladin
-  maxHP: 70
+  maxHP: 90
   attack: 10
   heal: 0
   shield: 0
@@ -34,4 +34,5 @@ MonoBehaviour:
   startingRarity: 1
   provisionCost: 2
   unitPrefab: {fileID: 7663128204014150854, guid: 733379dc16ac9174897aab3660c0dc4e, type: 3}
+  spawnDefinition: {fileID: 0}
   tagFlags: 0
