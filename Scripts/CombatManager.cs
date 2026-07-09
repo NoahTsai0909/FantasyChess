@@ -25,7 +25,9 @@ public class CombatAction
     public UnitInstance source;
     public UnitInstance target;
     public int amount;
+    public bool isCrit;
     public string reason; // optional (ability name, etc)
+    public bool isPassive; // optional (for passive abilities)
     public Sprite projectileOverride; // Optional override
 }
 
@@ -58,6 +60,20 @@ public class CombatManager : MonoBehaviour
 
     public void ResolveAction(CombatAction action)
     {
+
+        if (action.isCrit)
+        {
+            switch (action.type)
+            {
+                case CombatActionType.Damage:
+                case CombatActionType.BurnTick:
+                case CombatActionType.Heal:
+                case CombatActionType.Shield:
+                case CombatActionType.ApplyBurn:
+                    action.amount *= 2;
+                    break;
+            }
+        }
         switch (action.type)
         {
             case CombatActionType.Damage:
@@ -68,31 +84,34 @@ public class CombatManager : MonoBehaviour
             case CombatActionType.Heal:
                 action.target.HealDamage(action.amount);
                 break;
+
             case CombatActionType.Shield:
                 action.target.ShieldDamage(action.amount);
                 break;
+
             case CombatActionType.ApplyBurn:
                 action.target.ApplyBurn(action.amount);
                 break;
+
             case CombatActionType.ApplySlow:
                 action.target.ApplySlow(action.amount);
                 break;
+
             case CombatActionType.ApplyHaste:
                 action.target.ApplyHaste(action.amount);
                 break;
+
             case CombatActionType.Advance:
                 action.target.Advance(action.amount);
                 break;
+
             case CombatActionType.Kill:
                 action.target.Die();
                 break;
         }
 
-        // Record
-        combatLog.Add(action);
-
-        // Notify observers
-        CombatEventBus.PublishActionResolved(action);
+        combatLog.Add(action);//record the action in the combat log
+        CombatEventBus.PublishActionResolved(action); //publish the action resolved event
     }
 
     void Update()

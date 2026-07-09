@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 using static CombatEventBus;
@@ -54,7 +55,7 @@ public class UnitInstance : MonoBehaviour
     public int GetCurrentValue() => stats.Value;
 
     protected float cooldownTimer;
-
+    protected bool abilityCrit;
     public int burnStacks = 0;
     public int slowStacks = 0;
     public int hasteStacks = 0;
@@ -132,7 +133,7 @@ public class UnitInstance : MonoBehaviour
         }
     }
 
-    public void InitializeEnemy(UnitDefinition def, Rarity rarity)
+    public virtual void InitializeEnemy(UnitDefinition def, Rarity rarity)
     {
         definition = def;
         CurrentRarity = rarity;
@@ -260,6 +261,7 @@ public class UnitInstance : MonoBehaviour
 
     protected virtual void UseAbility()
     {
+        abilityCrit = RollCrit();
         CombatEventBus.Publish(CombatEventBus.CombatEventType.AbilityUsed, this, null, 0);
     }
 
@@ -390,6 +392,10 @@ public class UnitInstance : MonoBehaviour
     /* =========================
     * Helpers
     * ========================= */
+    private bool RollCrit()
+    {
+        return UnityEngine.Random.Range(0f, 100f) < stats.CritChance;
+    }
 
     private void RefreshUI()
     {
@@ -437,7 +443,8 @@ public class UnitInstance : MonoBehaviour
             Definition.slow + GetRarityAdjustedSlow(),
             Definition.haste + GetRarityAdjustedHaste(),
             Definition.multicast,
-            GetRarityAdjustedValue()
+            GetRarityAdjustedValue(),
+            Definition.critChance
         );
     }
 
@@ -488,6 +495,10 @@ public class UnitInstance : MonoBehaviour
         {
             temporaryStats.maxHPBonus += bonus;
             currentHP += bonus;
+        }
+        else if (modifiableStats == ModifiableStats.CritChance)
+        {
+            temporaryStats.critChanceBonus += bonus;
         }
             RecalculateStats();
         return;

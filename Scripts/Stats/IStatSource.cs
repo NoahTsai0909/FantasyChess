@@ -20,5 +20,7 @@ public interface IStatSource
     int Multicast { get; }
 
     int Value { get; }
+
+    int CritChance { get; } 
 }
 

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9268782171a420246bf80e6e5a2baaeb
+guid: 9c592162dba5d5d49866e22d18bbac4c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5081659279774951377
-    second: Ranger_0
+      213: -4422243309838741616
+    second: Arsonist_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 80
+  spritePixelsToUnits: 160
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ranger_0
+      name: Arsonist_0
       rect:
         serializedVersion: 2
-        x: 55
+        x: 199
         y: 0
-        width: 190
-        height: 243
+        width: 262
+        height: 453
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f28527f0fc15a79b0800000000000000
-      internalID: -5081659279774951377
+      spriteID: 09fc6b6c32901a2c0800000000000000
+      internalID: -4422243309838741616
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Ranger_0: -5081659279774951377
+      Arsonist_0: -4422243309838741616
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

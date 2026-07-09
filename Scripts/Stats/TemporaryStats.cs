@@ -13,6 +13,7 @@ public class TemporaryStats
     public int hasteBonus;
     public int multicastBonus;
     public int valueBonus;
+    public int critChanceBonus;
 
     public void Clear()
     {
@@ -28,5 +29,6 @@ public class TemporaryStats
         hasteBonus = 0;
         multicastBonus = 0;
         valueBonus = 0;
+        critChanceBonus = 0;
     }
 }

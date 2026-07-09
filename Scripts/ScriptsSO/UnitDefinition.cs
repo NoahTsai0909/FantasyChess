@@ -16,6 +16,7 @@ public class UnitDefinition : ScriptableObject, IStatSource
     public int poison;
     public int slow;
     public int haste;
+    public int critChance;
 
     [Header("Cooldown")]
     public float cooldown;
@@ -60,6 +61,8 @@ public class UnitDefinition : ScriptableObject, IStatSource
     public int Multicast => multicast;
 
     public int Value => 0;
+
+    public int CritChance => critChance;
 }
 
 public enum Rarity { Common, Uncommon, Rare, Epic }
