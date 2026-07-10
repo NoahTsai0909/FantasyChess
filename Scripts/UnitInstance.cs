@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
@@ -78,6 +79,8 @@ public class UnitInstance : MonoBehaviour
     private SpriteRenderer sr;
     private Color originalSpriteColor;
     private Coroutine flashCoroutine;
+    private bool isCastingSequence;
+    private float castRecovery = 0.3f;
 
     private BattleUIManager uiManager;
 
@@ -120,24 +123,33 @@ public class UnitInstance : MonoBehaviour
             float speedMultiplier = GetCooldownSpeedMultiplier();
             cooldownTimer -= Time.deltaTime * speedMultiplier;
         }
-        else
+
+        if (cooldownTimer <= 0 && !isCastingSequence)
         {
-            int multicast = stats.Multicast;
+            StartCoroutine(CastSequence());
 
-            Debug.Log($"Locked multicast = {multicast}");
-
-            for (int i = 0; i < multicast; i++)
-            {
-                Debug.Log($"Cast #{i}");
-                UseAbility();
-            }
-
-            Debug.Log("Finished multicast");
-            if (isEnergy){
+            if (isEnergy)
                 currentEnergy = Mathf.Max(currentEnergy - 1, 0);
-            }
-            cooldownTimer = stats.Cooldown;
         }
+    }
+
+    private IEnumerator CastSequence()
+    {
+        isCastingSequence = true;
+
+        cooldownTimer = stats.Cooldown;
+
+        int multicast = stats.Multicast;
+
+        for (int i = 0; i < multicast; i++)
+        {
+            UseAbility();
+
+            if (i < multicast - 1)
+                yield return new WaitForSeconds(castRecovery);
+        }
+
+        isCastingSequence = false;
     }
 
     public virtual void InitializeEnemy(UnitDefinition def, Rarity rarity)

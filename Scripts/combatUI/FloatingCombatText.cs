@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class FloatingCombatText : MonoBehaviour
 {
@@ -11,11 +12,18 @@ public class FloatingCombatText : MonoBehaviour
     private float timer;
     private Color baseColor;
 
-    public void Initialize(string value, Color color)
+    public void Initialize(string value, Color color, bool isCrit)
     {
         text.text = value;
         text.color = color;
         baseColor = color;
+
+        if (isCrit)
+        {
+            text.text += "!";
+            text.fontStyle = FontStyles.Bold;
+            text.fontSize *= 1.4f;
+        }
     }
 
     void Update()

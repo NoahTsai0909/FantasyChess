@@ -255,24 +255,24 @@ public class BattleUIManager : MonoBehaviour
         switch (action.type)
         {
             case CombatActionType.Damage:
-                SpawnFloatingText(worldPos, $"-{action.amount}", Color.red);
+                SpawnFloatingText(worldPos, $"-{action.amount}", Color.red, action.isCrit);
                 break;
 
             case CombatActionType.Heal:
-                SpawnFloatingText(worldPos, $"+{action.amount}", Color.green);
+                SpawnFloatingText(worldPos, $"+{action.amount}", Color.green, action.isCrit);
                 break;
 
             case CombatActionType.Shield:
-                SpawnFloatingText(worldPos, $"+{action.amount}", Color.gold);
+                SpawnFloatingText(worldPos, $"+{action.amount}", Color.gold, action.isCrit);
                 break;
 
             case CombatActionType.BurnTick:
-                SpawnFloatingText(worldPos, $"-{action.amount}", Color.orange);
+                SpawnFloatingText(worldPos, $"-{action.amount}", Color.orange, false);
                 break;
         }
     }
 
-    private void SpawnFloatingText(Vector3 worldPos, string text, Color color)
+    private void SpawnFloatingText(Vector3 worldPos, string text, Color color, bool isCrit)
     {
         Vector3 offset = new Vector3(Random.Range(-0.4f, 0.4f),1f + Random.Range(-0.2f, 0.3f),0f);
         var instance = Instantiate(
@@ -281,7 +281,7 @@ public class BattleUIManager : MonoBehaviour
             Quaternion.identity
         );
 
-        instance.Initialize(text, color);
+        instance.Initialize(text, color, isCrit);
     }
 
     private void HandleStatusChanged(UnitInstance unit, StatusEffectType type, int stacks)
