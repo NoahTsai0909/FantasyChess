@@ -5,26 +5,27 @@ public class Lightmare : UnitInstance
 {
 
     private int hasteModifier = 0;
-
     public override void InitializeFromSaveData(UnitSaveData data)
     {
         base.InitializeFromSaveData(data);
-        if (CurrentRarity == Rarity.Uncommon)
+        hasteModifier = findBuff(CurrentRarity);
+    }
+
+    public override void InitializeEnemy(UnitDefinition def, Rarity rarity)
+    {
+        base.InitializeEnemy(def, rarity);
+        hasteModifier = findBuff(rarity);
+    }
+
+    private int findBuff(Rarity rarity)
+    {
+        return rarity switch
         {
-            hasteModifier = 0;
-        }
-        if (CurrentRarity == Rarity.Rare)
-        {
-            hasteModifier = 1;
-        }
-        else if (CurrentRarity == Rarity.Epic)
-        {
-            hasteModifier = 2;
-        }
-        else
-        {
-            hasteModifier = 0;
-        }
+            Rarity.Uncommon => 0,
+            Rarity.Rare => 1,
+            Rarity.Epic => 2,
+            _ => 0
+        };
     }
 
     protected override int GetRarityAdjustedHaste()

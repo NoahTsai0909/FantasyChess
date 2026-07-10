@@ -162,7 +162,7 @@ MonoBehaviour:
     row: 1
     col: 1
   - unitData:
-      definition: {fileID: 11400000, guid: baa5edd3153c4c64898806ac0c0ed1d6, type: 2}
+      definition: {fileID: 11400000, guid: c4e422c5afa61ce448701faebaab4255, type: 2}
       rarity: 2
       provisionCost: 0
       provisionModifier: 0

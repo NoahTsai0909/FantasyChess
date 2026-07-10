@@ -26,9 +26,23 @@ public class Meridian : UnitInstance
 
     protected override void UseAbility()
     {
+        Debug.Log("A");
+
         base.UseAbility();
+
+        Debug.Log("B");
+
         UnitInstance target = FindFarthestEnemy();
-        if (target == null) return;
+
+        Debug.Log("C");
+
+        if (target == null)
+        {
+            Debug.Log("NULL");
+            return;
+        }
+
+        Debug.Log("D");
 
         CombatManager.Instance.ExecuteAction(
         new CombatAction
@@ -41,6 +55,8 @@ public class Meridian : UnitInstance
             isCrit = abilityCrit
         }
         );
+
+        Debug.Log("E");
     }
 
     public override string GetAbilityDescription()

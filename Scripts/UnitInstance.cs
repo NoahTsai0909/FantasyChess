@@ -122,10 +122,17 @@ public class UnitInstance : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < stats.Multicast; i++)
+            int multicast = stats.Multicast;
+
+            Debug.Log($"Locked multicast = {multicast}");
+
+            for (int i = 0; i < multicast; i++)
             {
+                Debug.Log($"Cast #{i}");
                 UseAbility();
             }
+
+            Debug.Log("Finished multicast");
             if (isEnergy){
                 currentEnergy = Mathf.Max(currentEnergy - 1, 0);
             }

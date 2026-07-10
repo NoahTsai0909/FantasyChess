@@ -11,6 +11,7 @@ public class BattleUIManager : MonoBehaviour
     [SerializeField] private GameObject statusEffectBarPrefab;
 
     private Dictionary<UnitInstance, (HealthBarUI healthBar, CooldownBarUI cooldownBar, StatusEffectBar statusBar)> unitUIElements = new();
+    private Dictionary<UnitInstance, float> nextPopupTime = new();
 
 
     private GridManager playerGrid;
@@ -226,6 +227,29 @@ public class BattleUIManager : MonoBehaviour
         if (action.target == null)
             return;
 
+        float spawnTime = Time.time;
+
+        if (nextPopupTime.TryGetValue(action.target, out float nextTime))
+        {
+            spawnTime = Mathf.Max(Time.time, nextTime);
+        }
+
+        nextPopupTime[action.target] = spawnTime + 0.15f;
+
+        StartCoroutine(SpawnPopupDelayed(action, spawnTime - Time.time));
+
+        Vector3 worldPos = action.target.transform.position;
+
+    }
+
+    private System.Collections.IEnumerator SpawnPopupDelayed(CombatAction action, float delay)
+    {
+        if (delay > 0)
+            yield return new WaitForSeconds(delay);
+
+        if (action.target == null)
+            yield break;
+
         Vector3 worldPos = action.target.transform.position;
 
         switch (action.type)
@@ -241,6 +265,7 @@ public class BattleUIManager : MonoBehaviour
             case CombatActionType.Shield:
                 SpawnFloatingText(worldPos, $"+{action.amount}", Color.gold);
                 break;
+
             case CombatActionType.BurnTick:
                 SpawnFloatingText(worldPos, $"-{action.amount}", Color.orange);
                 break;
@@ -249,9 +274,10 @@ public class BattleUIManager : MonoBehaviour
 
     private void SpawnFloatingText(Vector3 worldPos, string text, Color color)
     {
+        Vector3 offset = new Vector3(Random.Range(-0.4f, 0.4f),1f + Random.Range(-0.2f, 0.3f),0f);
         var instance = Instantiate(
             floatingTextPrefab,
-            worldPos + Vector3.up + Vector3.right,
+            worldPos + offset,
             Quaternion.identity
         );
 

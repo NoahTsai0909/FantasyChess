@@ -109,6 +109,7 @@ public class CombatVFXManager : MonoBehaviour
         {
             if (target == null)
             {
+                onImpact?.Invoke();
                 Destroy(projectile.gameObject);
                 yield break;
             }
