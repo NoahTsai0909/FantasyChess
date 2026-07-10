@@ -26,6 +26,7 @@ public class UnitHoverUI : MonoBehaviour
     [SerializeField] private Sprite healIcon;
     [SerializeField] private Sprite poisonIcon;
     [SerializeField] private Sprite burnIcon;
+    [SerializeField] private Sprite critIcon;
 
     [SerializeField] private HealthBarUI healthBar;
     [SerializeField] private CooldownBarUI cooldownBar;
@@ -91,6 +92,7 @@ public class UnitHoverUI : MonoBehaviour
         if (stats.Heal > 0) AddStatWidget(healIcon, stats.Heal);
         if (stats.Poison > 0) AddStatWidget(poisonIcon, stats.Poison);
         if (stats.Burn > 0) AddStatWidget(burnIcon, stats.Burn);
+        if (stats.CritChance != 0) AddStatWidget(critIcon, stats.CritChance, true);
 
         if (unit.Definition.isPassive)
         {
@@ -217,10 +219,10 @@ public class UnitHoverUI : MonoBehaviour
         }
     }
 
-    private void AddStatWidget(Sprite icon, int value)
+    private void AddStatWidget(Sprite icon, int value, bool isCrit = false)
     {
         StatWidget widget = Instantiate(statWidgetPrefab, statsContainer);
-        widget.Set(icon, value);
+        widget.Set(icon, value, isCrit);
     }
 
     private void UpdateDynamicValues()

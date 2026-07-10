@@ -30,6 +30,7 @@ public class AirTreader : UnitInstance
 
     protected override void UseAbility()
     {
+        base.UseAbility();
         if (currentEnergy <= 0) return;
         List<UnitInstance> targets = FindAllAllies();
         foreach (UnitInstance target in targets)
@@ -46,7 +47,6 @@ public class AirTreader : UnitInstance
 
             );
         }
-        base.UseAbility();
     }
 
     protected override int GetRarityAdjustedHaste()

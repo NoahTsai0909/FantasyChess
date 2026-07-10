@@ -500,6 +500,18 @@ public class UnitInstance : MonoBehaviour
         {
             temporaryStats.critChanceBonus += bonus;
         }
+        else if (modifiableStats == ModifiableStats.Multicast)
+        {
+            temporaryStats.multicastBonus += bonus;
+        }
+        else if (modifiableStats == ModifiableStats.Heal)
+        {
+            temporaryStats.healBonus += bonus;
+        }
+        else if (modifiableStats == ModifiableStats.Shield)
+        {
+            temporaryStats.shieldBonus += bonus;
+        }
             RecalculateStats();
         return;
     }
