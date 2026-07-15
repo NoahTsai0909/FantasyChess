@@ -469,12 +469,12 @@ public class UnitInstance : MonoBehaviour
 
     protected virtual int GetRarityAdjustedSlow() //only implement if needed in derived classes
     {
-        return 0;
+        return CurrentRarity - Definition.startingRarity;
     }
 
     protected virtual int GetRarityAdjustedHaste()
     {
-        return 0;
+        return CurrentRarity - Definition.startingRarity;
     }   
 
     private int GetRarityAdjustedValue()
@@ -570,6 +570,18 @@ public class UnitInstance : MonoBehaviour
             TargetingSystem.SortMethod.Nearest
         );
         return targetingSystem.FindUnit(criteria, transform.position);
+    }
+
+    protected List<UnitInstance> FindNearestEnemies(int count)
+    {
+        if (targetingSystem == null) return new List<UnitInstance>();
+
+        var criteria = new TargetingSystem.TargetCriteria(
+            TargetingSystem.TargetTeam.Enemy,
+            TargetingSystem.SortMethod.Nearest
+        );
+
+        return targetingSystem.FindMultipleUnits(criteria, count, transform.position);
     }
 
     protected UnitInstance FindFarthestEnemy()

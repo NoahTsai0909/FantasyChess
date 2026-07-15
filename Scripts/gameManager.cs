@@ -18,7 +18,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] private BattleUIManager battleUIManager;
 
     [Header("Combat Settings")]
-    [SerializeField] private float endCombatDelay = 1.5f;
+    [SerializeField] private float endCombatDelay = 1.0f;
 
     [Header("Disaster System")]
     [SerializeField] private DisasterManager disasterManager;

@@ -18,7 +18,7 @@ MonoBehaviour:
   eventBackgroundImage: {fileID: 0}
   eventButtonText: 
   minDayRequired: 3
-  maxDayRequired: 3
+  maxDayRequired: 4
   selectionWeight: 1
   targetScene: 2
   backgroundColor: {r: 1, g: 1, b: 1, a: 1}

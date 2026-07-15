@@ -38,3 +38,19 @@ MonoBehaviour:
       valueModifier: 0
     row: 1
     col: 1
+  - unitData:
+      definition: {fileID: 11400000, guid: a696c4d986292e84385f2226a8406760, type: 2}
+      rarity: 0
+      provisionCost: 0
+      provisionModifier: 0
+      valueModifier: 0
+    row: 1
+    col: 0
+  - unitData:
+      definition: {fileID: 11400000, guid: a696c4d986292e84385f2226a8406760, type: 2}
+      rarity: 0
+      provisionCost: 0
+      provisionModifier: 0
+      valueModifier: 0
+    row: 1
+    col: 2

@@ -21,7 +21,7 @@ MonoBehaviour:
   poison: 0
   slow: 0
   haste: 0
-  critChance: 25
+  critChance: 100
   cooldown: 6
   isPassive: 0
   isEnergy: 0

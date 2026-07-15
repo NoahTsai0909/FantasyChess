@@ -14,13 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Cinder Resurgent
   maxHP: 220
-  attack: 15
+  attack: 35
   heal: 0
   shield: 0
-  burn: 5
+  burn: 10
   poison: 0
   slow: 0
   haste: 0
+  critChance: 0
   cooldown: 5
   isPassive: 0
   isEnergy: 0

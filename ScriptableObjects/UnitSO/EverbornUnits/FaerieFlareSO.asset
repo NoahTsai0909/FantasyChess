@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a16e02b8c37b3f43ac55682dba29a26, type: 3}
+  m_Name: FaerieFlareSO
+  m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
+  unitName: Faerie Flare
+  maxHP: 125
+  attack: 0
+  heal: 0
+  shield: 0
+  burn: 12
+  poison: 0
+  slow: 0
+  haste: 0
+  critChance: 0
+  cooldown: 8
+  isPassive: 0
+  isEnergy: 0
+  maxEnergy: 0
+  multicast: 1
+  unitSprite: {fileID: 21300000, guid: 84bee58bab3c3e749a8e4005f17e80a4, type: 3}
+  defaultProjectile: []
+  cost: 0
+  region: 2
+  rarity: 0
+  startingRarity: 2
+  provisionCost: 2
+  unitPrefab: {fileID: 6690224037057042781, guid: 0f384825e2d26344b8636f3b18f509ba, type: 3}
+  spawnDefinition: {fileID: 0}
+  tagFlags: 0

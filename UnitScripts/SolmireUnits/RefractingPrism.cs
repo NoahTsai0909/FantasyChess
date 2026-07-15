@@ -6,11 +6,8 @@ public class RefractingPrism : UnitInstance
     public override void EnterCombat(GridManager grid, int row, int col, bool isPlayer)
     {
         base.EnterCombat(grid, row, col, isPlayer);
+        CombatEventBus.OnActionResolved += HandleActionResolved;
 
-        if (isPassive)
-        {
-            CombatEventBus.OnActionResolved += HandleActionResolved;
-        }
     }
 
     private void OnDestroy()
@@ -35,6 +32,7 @@ public class RefractingPrism : UnitInstance
                     isPassive = true
                 }
             );
+            Debug.Log($"Refracting Prism: Reflected {action.amount} damage back to {action.source.unitName}");
         }
         if (action.type == CombatActionType.Heal && action.source.isPlayer == this.isPlayer)
         {
@@ -49,6 +47,7 @@ public class RefractingPrism : UnitInstance
                     isPassive = true
                 }
             );
+            Debug.Log($"Refracting Prism: Reflected {action.amount} healing back to {action.source.unitName}");
         }
 
 

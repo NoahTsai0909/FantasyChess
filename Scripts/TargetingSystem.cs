@@ -142,6 +142,37 @@ public class TargetingSystem
         return highest;
     }
 
+    // Generic method to find multiple units based on criteria
+    public List<UnitInstance> FindMultipleUnits(TargetCriteria criteria, int maxCount, Vector3 referencePosition = default)
+    {
+        List<UnitInstance> candidates = GetCandidates(criteria.targetTeam);
+
+        if (candidates.Count == 0) return new List<UnitInstance>();
+
+        return criteria.sortMethod switch
+        {
+            SortMethod.Nearest => FindNearestMultiple(candidates, maxCount, referencePosition),
+            // You can add other multi-target sorts later like FindFarthestMultiple, FindRandomMultiple, etc.
+            _ => FindNearestMultiple(candidates, maxCount, referencePosition)
+        };
+    }
+
+    // Helper method to sort and grab the top X nearest candidates
+    private List<UnitInstance> FindNearestMultiple(List<UnitInstance> candidates, int count, Vector3 referencePosition)
+    {
+        // Sort the candidates list by distance in ascending order
+        candidates.Sort((a, b) =>
+        {
+            float distA = Vector3.Distance(referencePosition, a.transform.position);
+            float distB = Vector3.Distance(referencePosition, b.transform.position);
+            return distA.CompareTo(distB);
+        });
+
+        // Clamp the count so we don't try to grab more units than actually exist
+        int returnCount = Mathf.Min(count, candidates.Count);
+        return candidates.GetRange(0, returnCount);
+    }
+
 
 
     private UnitInstance FindRandom(List<UnitInstance> candidates)

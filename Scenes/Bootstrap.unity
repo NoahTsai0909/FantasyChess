@@ -154,16 +154,16 @@ MonoBehaviour:
   playerBenchPlacements: []
   defaultUnits:
   - unitData:
-      definition: {fileID: 11400000, guid: 4e57f9188ee73e24786fc0f1a9d21260, type: 2}
-      rarity: 2
+      definition: {fileID: 11400000, guid: 04008bd19c1794f438d65cb978421cf9, type: 2}
+      rarity: 3
       provisionCost: 0
       provisionModifier: 0
       valueModifier: 0
     row: 1
     col: 1
   - unitData:
-      definition: {fileID: 11400000, guid: c4e422c5afa61ce448701faebaab4255, type: 2}
-      rarity: 2
+      definition: {fileID: 11400000, guid: d3b948c569f95704da5a9a3e71be6b13, type: 2}
+      rarity: 3
       provisionCost: 0
       provisionModifier: 0
       valueModifier: 0

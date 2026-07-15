@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8920a2a2659eb4f45baf49db4d32ce91, type: 3}
+  m_Name: ForestFire
+  m_EditorClassIdentifier: Assembly-CSharp::CombatEventSO
+  eventName: Forest Fire
+  description: 
+  eventIcon: {fileID: 0}
+  eventBackgroundImage: {fileID: 0}
+  eventButtonText: 
+  minDayRequired: 7
+  maxDayRequired: 8
+  selectionWeight: 1
+  targetScene: 2
+  backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+  flavorText: 
+  encounter: {fileID: 11400000, guid: f9db9309da8087d42b583069ee6ee5dd, type: 2}
+  goldReward: 2
+  reputationReward: 2

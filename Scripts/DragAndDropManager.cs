@@ -320,6 +320,8 @@ public class DragAndDropManager : MonoBehaviour
             Color c = sr.color;
             c.a = isDragging ? 0.6f : 1f;
             sr.color = c;
+
+            sr.sortingOrder = isDragging ? 100 : 0;
         }
     }
 
