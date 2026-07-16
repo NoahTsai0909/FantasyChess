@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7682987730868079286}
   - component: {fileID: 859761279574861200}
   - component: {fileID: 980299003710195199}
+  - component: {fileID: -3935134588676194370}
   m_Layer: 0
   m_Name: DuelistInstance
   m_TagString: Untagged
@@ -49,6 +50,7 @@ MonoBehaviour:
   definition: {fileID: 11400000, guid: 4631eab1f9b966a419e4a965c4544af2, type: 2}
   unitName: Duelist
   isPassive: 0
+  isEnergy: 0
   inCombat: 0
   burnStacks: 0
   slowStacks: 0
@@ -65,6 +67,8 @@ MonoBehaviour:
       valueModifier: 0
     row: 0
     col: 0
+  isSpawnedUnit: 0
+  spawnSource: {fileID: 0}
 --- !u!212 &859761279574861200
 SpriteRenderer:
   serializedVersion: 2
@@ -91,7 +95,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 5a6db85ebb9466f4b90af9ebdd3c4fdc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -170,3 +174,15 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4, y: 4}
   m_EdgeRadius: 0
+--- !u!114 &-3935134588676194370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3580925661400565074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc0c72defaec0db4791315e9b2cb2b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitVisualController

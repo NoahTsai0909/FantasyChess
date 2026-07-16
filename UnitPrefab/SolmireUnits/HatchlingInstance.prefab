@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 549727382163613588}
   - component: {fileID: 6375552354217119841}
   - component: {fileID: 5123952212386752083}
+  - component: {fileID: 1365814815140375501}
   m_Layer: 0
   m_Name: HatchlingInstance
   m_TagString: Untagged
@@ -49,6 +50,7 @@ MonoBehaviour:
   definition: {fileID: 11400000, guid: 5467cd0d052e12d46a69750eb406f9a0, type: 2}
   unitName: Hatchling
   isPassive: 0
+  isEnergy: 0
   inCombat: 0
   burnStacks: 0
   slowStacks: 0
@@ -65,6 +67,8 @@ MonoBehaviour:
       valueModifier: 0
     row: 0
     col: 0
+  isSpawnedUnit: 0
+  spawnSource: {fileID: 0}
 --- !u!61 &6375552354217119841
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -137,7 +141,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 5a6db85ebb9466f4b90af9ebdd3c4fdc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -170,3 +174,15 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1365814815140375501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 502971951414887552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc0c72defaec0db4791315e9b2cb2b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitVisualController

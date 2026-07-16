@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3667571039922370459}
   - component: {fileID: 5191265914076195053}
   - component: {fileID: 4305466394241091539}
+  - component: {fileID: 1883466526507884740}
   m_Layer: 0
   m_Name: MasterOrbInstance
   m_TagString: Untagged
@@ -60,7 +61,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 5a6db85ebb9466f4b90af9ebdd3c4fdc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -173,3 +174,15 @@ MonoBehaviour:
     col: 0
   isSpawnedUnit: 0
   spawnSource: {fileID: 0}
+--- !u!114 &1883466526507884740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426840411350988994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc0c72defaec0db4791315e9b2cb2b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitVisualController

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1649995735460641629}
   - component: {fileID: 2845720871495510524}
   - component: {fileID: 7073752968241063285}
+  - component: {fileID: 9140468389659549702}
   m_Layer: 0
   m_Name: BallistaInstance
   m_TagString: Untagged
@@ -60,7 +61,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 5a6db85ebb9466f4b90af9ebdd3c4fdc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,6 +109,7 @@ MonoBehaviour:
   definition: {fileID: 11400000, guid: defba5472dfab994683d340274c29d67, type: 2}
   unitName: Ballista
   isPassive: 0
+  isEnergy: 0
   inCombat: 0
   burnStacks: 0
   slowStacks: 0
@@ -124,6 +126,8 @@ MonoBehaviour:
       valueModifier: 0
     row: 0
     col: 0
+  isSpawnedUnit: 0
+  spawnSource: {fileID: 0}
 --- !u!61 &7073752968241063285
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -170,3 +174,15 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4, y: 4}
   m_EdgeRadius: 0
+--- !u!114 &9140468389659549702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9023021984765453083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc0c72defaec0db4791315e9b2cb2b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitVisualController

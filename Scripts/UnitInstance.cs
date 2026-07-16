@@ -161,6 +161,8 @@ public class UnitInstance : MonoBehaviour
         temporaryStats = new TemporaryStats();
 
         RecalculateStats();
+
+        GetComponent<UnitVisualController>()?.UpdateRarityOutline(CurrentRarity);
     }
 
     public virtual void InitializeFromSaveData(UnitSaveData data)
@@ -184,6 +186,8 @@ public class UnitInstance : MonoBehaviour
         temporaryStats = new TemporaryStats();
 
         RecalculateStats();
+
+        GetComponent<UnitVisualController>()?.UpdateRarityOutline(CurrentRarity);
     }
 
 

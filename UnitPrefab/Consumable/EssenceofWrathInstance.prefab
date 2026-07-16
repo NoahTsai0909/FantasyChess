@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5213653158288962576}
   - component: {fileID: 3112291608894679063}
   - component: {fileID: 1527266960563838775}
+  - component: {fileID: 7090585005744725211}
   m_Layer: 0
   m_Name: EssenceofWrathInstance
   m_TagString: Untagged
@@ -106,7 +107,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 5a6db85ebb9466f4b90af9ebdd3c4fdc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -126,7 +127,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1453934087
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: cb52f91cff58abd40b4230bf09905b63, type: 3}
@@ -153,6 +154,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EssenceofWrath
   definition: {fileID: 11400000, guid: 22a7614f1d79235418176ea49184ae77, type: 2}
   unitName: Essence of Wrath
+  isPassive: 0
+  isEnergy: 0
+  inCombat: 0
   burnStacks: 0
   slowStacks: 0
   hasteStacks: 0
@@ -168,3 +172,17 @@ MonoBehaviour:
       valueModifier: 0
     row: 0
     col: 0
+  isSpawnedUnit: 0
+  spawnSource: {fileID: 0}
+--- !u!114 &7090585005744725211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7829701940111444892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc0c72defaec0db4791315e9b2cb2b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitVisualController

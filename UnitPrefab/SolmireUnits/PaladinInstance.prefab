@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7133146055641981726}
   - component: {fileID: 7482873923411930453}
   - component: {fileID: 7663128204014150854}
+  - component: {fileID: -4706352234141150023}
   m_Layer: 0
   m_Name: PaladinInstance
   m_TagString: Untagged
@@ -106,7 +107,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 5a6db85ebb9466f4b90af9ebdd3c4fdc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -154,6 +155,7 @@ MonoBehaviour:
   definition: {fileID: 11400000, guid: 7f7d0119318b38c438ad7b81568d94d4, type: 2}
   unitName: Paladin
   isPassive: 0
+  isEnergy: 0
   inCombat: 0
   burnStacks: 0
   slowStacks: 0
@@ -170,3 +172,17 @@ MonoBehaviour:
       valueModifier: 0
     row: 0
     col: 0
+  isSpawnedUnit: 0
+  spawnSource: {fileID: 0}
+--- !u!114 &-4706352234141150023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6757244922252953682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc0c72defaec0db4791315e9b2cb2b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitVisualController

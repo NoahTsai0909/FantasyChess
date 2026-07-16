@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1807140018485177481}
   - component: {fileID: 2346179965296724333}
   - component: {fileID: 3055527152786462543}
+  - component: {fileID: 4798375662946024258}
   m_Layer: 0
   m_Name: BannerKnightInstance
   m_TagString: Untagged
@@ -49,6 +50,7 @@ MonoBehaviour:
   definition: {fileID: 11400000, guid: 88642c22682ab104a9c47221284759e5, type: 2}
   unitName: Banner Knight
   isPassive: 0
+  isEnergy: 0
   inCombat: 0
   burnStacks: 0
   slowStacks: 0
@@ -65,6 +67,8 @@ MonoBehaviour:
       valueModifier: 0
     row: 0
     col: 0
+  isSpawnedUnit: 0
+  spawnSource: {fileID: 0}
 --- !u!212 &2346179965296724333
 SpriteRenderer:
   serializedVersion: 2
@@ -91,7 +95,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 5a6db85ebb9466f4b90af9ebdd3c4fdc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -170,3 +174,15 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4, y: 4}
   m_EdgeRadius: 0
+--- !u!114 &4798375662946024258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1699308559486155778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc0c72defaec0db4791315e9b2cb2b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitVisualController
