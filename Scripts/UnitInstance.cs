@@ -68,17 +68,11 @@ public class UnitInstance : MonoBehaviour
     private GridManager myGrid;
     public RunManager.UnitPlacement myPlacement;
     private TargetingSystem targetingSystem;
+    public UnitVisualController Visuals { get; private set; }
 
     public bool isSpawnedUnit = false;  // Track if this is a spawned unit
     public UnitInstance spawnSource;
 
-    /* =========================
-     * Visuals / UI
-     * ========================= */
-
-    private SpriteRenderer sr;
-    private Color originalSpriteColor;
-    private Coroutine flashCoroutine;
     private bool isCastingSequence;
     private float castRecovery = 0.3f;
 
@@ -91,21 +85,20 @@ public class UnitInstance : MonoBehaviour
     protected virtual void Awake()
     {
         temporaryStats = new TemporaryStats();
-        sr = GetComponent<SpriteRenderer>();
+        Visuals = GetComponent<UnitVisualController>();
     }
 
     private void Start()
     {
         if (definition != null)
         {
-            sr.sprite = definition.unitSprite;
             unitName = definition.unitName;
             isPassive = definition.isPassive;
             isEnergy = definition.isEnergy;
-        }
 
-        originalSpriteColor = sr.color;
-        UpdateSpriteDirection();
+            Visuals?.InitializeVisuals(definition);
+        }
+        Visuals?.SetDirection(isPlayer);
     }
 
     private void Update()
@@ -162,7 +155,7 @@ public class UnitInstance : MonoBehaviour
 
         RecalculateStats();
 
-        GetComponent<UnitVisualController>()?.UpdateRarityOutline(CurrentRarity);
+        Visuals?.UpdateRarityOutline(CurrentRarity);
     }
 
     public virtual void InitializeFromSaveData(UnitSaveData data)
@@ -187,7 +180,7 @@ public class UnitInstance : MonoBehaviour
 
         RecalculateStats();
 
-        GetComponent<UnitVisualController>()?.UpdateRarityOutline(CurrentRarity);
+        Visuals?.UpdateRarityOutline(CurrentRarity);
     }
 
 
@@ -203,13 +196,7 @@ public class UnitInstance : MonoBehaviour
     public void SetPlayerSide(bool isPlayerSide)
     {
         isPlayer = isPlayerSide;
-        UpdateSpriteDirection();
-    }
-
-    private void UpdateSpriteDirection()
-    {
-        if (sr != null)
-            sr.flipX = !isPlayer;
+        Visuals?.SetDirection(isPlayer);
     }
 
     public virtual void EnterCombat(GridManager grid, int row, int col, bool isPlayer)
@@ -318,7 +305,7 @@ public class UnitInstance : MonoBehaviour
         {
             currentHP = Mathf.Max(0, currentHP - remainingDamage);
 
-            Flash(Color.red);
+            Visuals?.Flash(Color.red);
 
             CombatEventBus.Publish(
                 CombatEventType.DamageTaken,
@@ -385,7 +372,7 @@ public class UnitInstance : MonoBehaviour
         {
             currentHP = Mathf.Max(0, currentHP - remainingDamage);
 
-            Flash(Color.purple);
+            Visuals?.Flash(Color.purple);
 
             if (currentHP <= 0)
                 Die();
@@ -428,21 +415,6 @@ public class UnitInstance : MonoBehaviour
         uiManager.UpdateCooldownBar(this);
     }
 
-    public void Flash(Color color)
-    {
-        if (flashCoroutine != null)
-            StopCoroutine(flashCoroutine);
-
-        flashCoroutine = StartCoroutine(FlashRoutine(color));
-    }
-
-    private System.Collections.IEnumerator FlashRoutine(Color color)
-    {
-        sr.color = color;
-        yield return new WaitForSeconds(0.1f);
-        sr.color = originalSpriteColor;
-        flashCoroutine = null;
-    }
     public virtual string GetAbilityDescription()
     {
         return "";

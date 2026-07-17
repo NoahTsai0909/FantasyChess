@@ -138,15 +138,16 @@ public class CombatVFXManager : MonoBehaviour
 
     private void PlayInstantEffect(CombatAction action)
     {
+        if (action.target == null || action.target.Visuals == null) return;
+
         switch (action.type)
         {
             case CombatActionType.Shield:
-                // Flash blue
-                action.target.Flash(Color.gold);
+                action.target.Visuals.Flash(Color.gold);
                 break;
 
             case CombatActionType.Heal:
-                action.target.Flash(Color.green);
+                action.target.Visuals.Flash(Color.green);
                 break;
         }
     }

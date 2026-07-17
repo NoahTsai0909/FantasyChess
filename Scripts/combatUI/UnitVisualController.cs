@@ -1,21 +1,44 @@
 using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class UnitVisualController : MonoBehaviour
 {
     private SpriteRenderer sr;
+    private Color originalSpriteColor;
+    private Coroutine flashCoroutine;
 
     [Header("Glow Animation Settings")]
     public bool enablePulse = true;
-    public float pulseSpeed = 6f;       // How fast it breathes
-    public float minThickness = 2f;     // The thinnest the outline gets
-    public float maxThickness = 7f;     // The thickest the outline gets
+    public float pulseSpeed = 4f;
+    public float minThickness = 2f;
+    public float maxThickness = 6f;
 
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
+        originalSpriteColor = sr.color; // Store the base color immediately
     }
 
+    // Called once when the unit first sets up
+    public void InitializeVisuals(UnitDefinition def)
+    {
+        if (def != null && sr != null)
+        {
+            sr.sprite = def.unitSprite;
+        }
+    }
+
+    // Handles which way the sprite faces
+    public void SetDirection(bool isPlayerSide)
+    {
+        if (sr != null)
+        {
+            sr.flipX = !isPlayerSide;
+        }
+    }
+
+    // Sets the shader outline
     public void UpdateRarityOutline(Rarity rarity)
     {
         if (sr == null || sr.material == null) return;
@@ -29,25 +52,35 @@ public class UnitVisualController : MonoBehaviour
             case Rarity.Epic: ColorUtility.TryParseHtmlString("#A335EE", out outlineColor); break;
         }
 
-        // Set the color and shader modes once
         sr.material.SetColor("_SolidOutline", outlineColor);
         sr.material.SetFloat("_OutlineEnabled", 1f);
         sr.material.SetFloat("_OutlineMode", 0f);
         sr.material.SetFloat("_OutlineShape", 0f);
     }
 
+    // Replaces the Flash() method inside UnitInstance
+    public void Flash(Color flashColor)
+    {
+        if (flashCoroutine != null)
+            StopCoroutine(flashCoroutine);
+
+        flashCoroutine = StartCoroutine(FlashRoutine(flashColor));
+    }
+
+    private IEnumerator FlashRoutine(Color flashColor)
+    {
+        sr.color = flashColor;
+        yield return new WaitForSeconds(0.1f);
+        sr.color = originalSpriteColor;
+        flashCoroutine = null;
+    }
+
     private void Update()
     {
-        // Every frame, if pulsing is enabled, smoothly animate the thickness
         if (enablePulse && sr != null && sr.material != null)
         {
-            // Mathf.Sin returns -1 to 1. We map it to 0 to 1 for easier blending.
             float timePulse = (Mathf.Sin(Time.time * pulseSpeed) + 1f) / 2f;
-
-            // Blend smoothly between your min and max thickness based on the time
             float currentThickness = Mathf.Lerp(minThickness, maxThickness, timePulse);
-
-            // Push the new thickness to the material
             sr.material.SetFloat("_Thickness", currentThickness);
         }
     }
