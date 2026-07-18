@@ -507,6 +507,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc0c72defaec0db4791315e9b2cb2b2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnitVisualController
+  enablePulse: 1
+  pulseSpeed: 4
+  minThickness: 2
+  maxThickness: 6
 --- !u!1 &625536098
 GameObject:
   m_ObjectHideFlags: 0

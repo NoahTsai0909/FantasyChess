@@ -17,6 +17,12 @@ public class CombatVFXManager : MonoBehaviour
     [SerializeField] private Sprite defaultShieldProjectile;
     [SerializeField] private Sprite defaultBurnProjectile;
 
+    [Header("VFX Prefabs")]
+    [SerializeField] private GameObject healImpactPrefab;
+    [SerializeField] private GameObject attackImpactPrefab;
+    [SerializeField] private GameObject shieldImpactPrefab;
+    [SerializeField] private GameObject burnImpactPrefab;
+
     private void Awake()
     {
         Instance = this;
@@ -67,18 +73,42 @@ public class CombatVFXManager : MonoBehaviour
         }
 
         Vector3 start = action.source.transform.position;
-
         GameObject proj = Instantiate(defaultProjectilePrefab, start, Quaternion.identity);
 
         SpriteRenderer sr = proj.GetComponent<SpriteRenderer>();
         sr.sprite = projectileSprite;
+
+        // --- NEW LOGIC: Wrap the impact action ---
+        Action wrappedOnImpact = () =>
+        {
+            // 1. Spawn the VFX if it's a heal and the target is still alive
+            if (action.type == CombatActionType.Heal && action.target != null && healImpactPrefab != null)
+            {
+                Instantiate(healImpactPrefab, action.target.transform.position, Quaternion.identity);
+            }
+            else if (action.type == CombatActionType.Damage && action.target != null && attackImpactPrefab != null)
+            {
+                Instantiate(attackImpactPrefab, action.target.transform.position, Quaternion.identity);
+            }
+            else if (action.type == CombatActionType.Shield && action.target != null && shieldImpactPrefab != null)
+            {
+                Instantiate(shieldImpactPrefab, action.target.transform.position, Quaternion.identity);
+            }
+            else if (action.type == CombatActionType.ApplyBurn && action.target != null && burnImpactPrefab != null)
+            {
+                Instantiate(burnImpactPrefab, action.target.transform.position, Quaternion.identity);
+            }
+
+                // 2. Execute the actual gameplay heal logic you passed in originally
+                onImpact?.Invoke();
+        };
 
         StartCoroutine(
             TravelProjectile(
                 proj.transform,
                 action.target.transform,
                 projectileTravelTime,
-                onImpact
+                wrappedOnImpact // <-- Pass the wrapped action here!
             )
         );
     }
@@ -144,10 +174,18 @@ public class CombatVFXManager : MonoBehaviour
         {
             case CombatActionType.Shield:
                 action.target.Visuals.Flash(Color.gold);
+                if (shieldImpactPrefab != null)
+                {
+                    Instantiate(shieldImpactPrefab, action.target.transform.position, Quaternion.identity);
+                }
                 break;
 
             case CombatActionType.Heal:
                 action.target.Visuals.Flash(Color.green);
+                if (healImpactPrefab != null)
+                {
+                    Instantiate(healImpactPrefab, action.target.transform.position, Quaternion.identity);
+                }
                 break;
         }
     }

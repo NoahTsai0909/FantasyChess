@@ -280,6 +280,10 @@ MonoBehaviour:
   defaultHealProjectile: {fileID: 21300000, guid: 57108fd503bba3d4d883313f910abd80, type: 3}
   defaultShieldProjectile: {fileID: 21300000, guid: 623b6c7b473dd8445bbbc7b36d31e17f, type: 3}
   defaultBurnProjectile: {fileID: 21300000, guid: 3091dcb9b2f42f346a2e67798732ab14, type: 3}
+  healImpactPrefab: {fileID: 931703471361549320, guid: 1c57fc83cb0ae9b4c9dbfb1336e24343, type: 3}
+  attackImpactPrefab: {fileID: 3516344537215648627, guid: e93a5c9ea929f6748972b5a8a379da3d, type: 3}
+  shieldImpactPrefab: {fileID: 2508037873459460753, guid: 6666f321b192d8a4e940b6e1d7ddca73, type: 3}
+  burnImpactPrefab: {fileID: 566577339864655856, guid: 69882947cdd5ef94f977d971d14f23c4, type: 3}
 --- !u!4 &297485664
 Transform:
   m_ObjectHideFlags: 0
