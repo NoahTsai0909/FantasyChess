@@ -20,7 +20,7 @@ public class Jester : UnitInstance
             }
         );
     }
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Attack a random enemy for {stats.Attack} damage.");
     }

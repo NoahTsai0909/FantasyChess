@@ -50,7 +50,7 @@ public class Swiftswipe : UnitInstance
         TemporaryStatModify(ModifiableStats.Attack, attackModifier);
     }
 
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Attacks the nearest enemy for {stats.Attack} damage, then gains {attackModifier} attack.");
     }

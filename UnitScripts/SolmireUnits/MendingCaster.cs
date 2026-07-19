@@ -21,7 +21,7 @@ public class MendingCaster : UnitInstance
             }
         );
     }
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Heal the lowest health ally for {stats.Heal}.");
     }

@@ -10,7 +10,7 @@ public class ScatteredPyre : UnitInstance
         Die();
     }
 
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"This dies. Summon a Cinder Resurgent.");
     }

@@ -36,7 +36,7 @@ public class SpiritrootElixir : UnitInstance, IConsumable
         target.RecalculateStats();
     }
 
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Overlay on an ally unit to consume this and grant it {healthModifier} health permanently.");
     }

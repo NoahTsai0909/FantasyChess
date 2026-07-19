@@ -47,7 +47,7 @@ public class Longshot : UnitInstance
         this.TemporaryStatModify(ModifiableStats.CritChance, critModifier);
         
     }
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Attack the farthest enemy for {stats.Attack} damage. Gain {critModifier}% crit chance.");
     }

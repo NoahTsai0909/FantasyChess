@@ -61,7 +61,7 @@ public class Midas : UnitInstance
         );
         base.UseAbility();
     }
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Attack the nearest enemy for {stats.Attack} damage. \n Combat Start: Kill the highest-health enemy with max health less than or equal tothis unit's max health. Gain gold equal to its value.");
     }

@@ -53,7 +53,7 @@ public class RefractingPrism : UnitInstance
 
     }
 
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Passive: When this is damaged by an enemy, return the same damage. When this is healed by an ally, return the same healing.");
     }

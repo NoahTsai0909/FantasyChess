@@ -54,7 +54,7 @@ public class AirTreader : UnitInstance
         return hasteModifier;
     }
 
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Hastes all allies for {stats.Haste} seconds.");
     }

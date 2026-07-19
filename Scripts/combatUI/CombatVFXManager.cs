@@ -24,6 +24,11 @@ public class CombatVFXManager : MonoBehaviour
     [SerializeField] private GameObject burnImpactPrefab;
     [SerializeField] private GameObject meleeSlashPrefab;
 
+    [Header("Projectile Motion")]
+    public float maxArcHeight = 2.0f; // How high it arcs
+    [Tooltip("Controls the speed of the projectile over its travel time.")]
+    public AnimationCurve projectileSpeedCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+
     private void Awake()
     {
         Instance = this;
@@ -37,7 +42,7 @@ public class CombatVFXManager : MonoBehaviour
             return;
         }
 
-        if (RequiresProjectile(action))
+        if (RequiresProjectile(action) && action.source != action.target)
         {
             // Check if the source is melee AND if the action is actually a damage attack
             // Note: Update "definition" if your UnitInstance uses a capital "Definition"

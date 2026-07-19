@@ -73,7 +73,7 @@ public class SearingHalo : UnitInstance
             }
         );
     }
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Burn all enemies for {stats.Burn}. Heal this for {stats.Heal}. Whenever this is healed, advance this 1 second.");
     }

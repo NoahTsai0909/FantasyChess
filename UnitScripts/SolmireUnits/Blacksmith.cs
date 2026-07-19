@@ -23,7 +23,7 @@ public class Blacksmith : UnitInstance
         }
     }
 
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Shield all allies for {stats.Shield}.");
     }

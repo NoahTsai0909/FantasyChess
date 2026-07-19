@@ -7,10 +7,8 @@ public class PlatedFlamespitter : UnitInstance
     {
         base.EnterCombat(grid, row, col, isPlayer);
 
-        if (isPassive)
-        {
-            CombatEventBus.OnCombatEvent += HandleCombatEvent;
-        }
+        CombatEventBus.OnCombatEvent += HandleCombatEvent;
+        
     }
 
     private void OnDestroy()
@@ -58,7 +56,7 @@ public class PlatedFlamespitter : UnitInstance
         );
     }
 
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Passive: When the ally behind this unit uses an ability, this unit burns the nearest enemy for {stats.Burn} and shields self for {stats.Shield}.");
     }

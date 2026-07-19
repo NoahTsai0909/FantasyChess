@@ -42,7 +42,7 @@ public class Scout : UnitInstance
 
     }
 
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Side allies gain {critBuff} crit.");
     }

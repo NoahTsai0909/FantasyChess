@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class UnitHoverUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI nameText;
-    [SerializeField] private TextMeshProUGUI abilityText;
     [SerializeField] private TextMeshProUGUI provisionText;
     [SerializeField] private TextMeshProUGUI valueText;
     [SerializeField] private Vector2 offset = new Vector2(20f, 20f);
@@ -31,6 +30,13 @@ public class UnitHoverUI : MonoBehaviour
     [SerializeField] private HealthBarUI healthBar;
     [SerializeField] private CooldownBarUI cooldownBar;
     [SerializeField] private Image backgroundImage;
+
+    [Header("Ability UI")]
+    [SerializeField] private GameObject activeAbilityBox;
+    [SerializeField] private TextMeshProUGUI activeAbilityText;
+
+    [SerializeField] private GameObject passiveAbilityBox;
+    [SerializeField] private TextMeshProUGUI passiveAbilityText;
 
     private Canvas canvas;
     private RectTransform rectTransform;
@@ -79,7 +85,6 @@ public class UnitHoverUI : MonoBehaviour
 
         // Set UI content
         nameText.text = unit.Definition.unitName;
-        abilityText.text = unit.GetAbilityDescription();
         SetRarityBackground(unit.CurrentRarity);
 
         // Clear and repopulate stat widgets
@@ -123,6 +128,35 @@ public class UnitHoverUI : MonoBehaviour
                 // Re-apply the anchored position to be safe
                 // You could also just skip this if the position stays
             }
+        }
+
+        string activeDesc = unit.GetActiveDescription();
+        string passiveDesc = unit.GetPassiveDescription();
+
+        // Handle Active Ability Box
+        if (!string.IsNullOrEmpty(activeDesc))
+        {
+            activeAbilityBox.SetActive(true);
+            activeAbilityText.text = activeDesc;
+
+            // If we have an active ability, show the cooldown bar
+            cooldownBar.gameObject.SetActive(true);
+        }
+        else
+        {
+            activeAbilityBox.SetActive(false);
+            cooldownBar.gameObject.SetActive(false);
+        }
+
+        // Handle Passive Ability Box
+        if (!string.IsNullOrEmpty(passiveDesc))
+        {
+            passiveAbilityBox.SetActive(true);
+            passiveAbilityText.text = passiveDesc;
+        }
+        else
+        {
+            passiveAbilityBox.SetActive(false);
         }
     }
 

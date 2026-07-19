@@ -61,6 +61,8 @@ public class UnitVisualController : MonoBehaviour
     // Replaces the Flash() method inside UnitInstance
     public void Flash(Color flashColor)
     {
+        if (this == null || !gameObject.activeInHierarchy) return;
+
         if (flashCoroutine != null)
             StopCoroutine(flashCoroutine);
 

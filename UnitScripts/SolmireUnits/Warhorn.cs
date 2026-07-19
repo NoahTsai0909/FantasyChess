@@ -39,7 +39,7 @@ public class Warhorn : UnitInstance
         base.UseAbility();
     }
 
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Increase attack of allies by {attackBuff}.");
     }

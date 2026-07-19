@@ -120,7 +120,7 @@ public class Seamstress : UnitInstance
             }
         );
     }
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Attack the nearest enemy for {stats.Attack} damage. \n Combat Start: The ally in front of this has +{maxHealthBuffPercent}% max health.");
     }

@@ -21,7 +21,7 @@ public class ProdigiousMage : UnitInstance
             }
         );
     }
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Attack the farthest enemy for {stats.Attack} damage.");
     }

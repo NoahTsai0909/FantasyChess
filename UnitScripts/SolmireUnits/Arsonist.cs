@@ -39,7 +39,7 @@ public class Arsonist : UnitInstance
 
     }
 
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Passive: When an enemy is applied burn from an ability, this also burns it for {stats.Burn}.");
     }

@@ -33,7 +33,7 @@ public class Kindling : UnitInstance
         );
     }
 
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Burn the nearest enemy for {stats.Burn} and heal this for {stats.Heal}.");
     }

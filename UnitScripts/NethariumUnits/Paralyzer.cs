@@ -26,7 +26,7 @@ public class Paralyzer : UnitInstance
         
     }
 
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Slow the nearest enemy for {stats.Slow} seconds.");
     }

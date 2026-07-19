@@ -282,6 +282,8 @@ public class UnitInstance : MonoBehaviour
 
     public virtual void TakeDamage(int dmg)
     {
+        if (this == null) return;
+
         if (dmg <= 0)
             return;
 
@@ -415,11 +417,15 @@ public class UnitInstance : MonoBehaviour
         uiManager.UpdateCooldownBar(this);
     }
 
-    public virtual string GetAbilityDescription()
+    public virtual string GetActiveDescription()
     {
         return "";
     }
 
+    public virtual string GetPassiveDescription()
+    {
+        return "";
+    }
 
     IStatSource GetRarityAdjustedDefinition()
     {

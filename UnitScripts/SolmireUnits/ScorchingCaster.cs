@@ -37,7 +37,7 @@ public class ScorchingCaster : UnitInstance
         );
 
     }
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Attack the nearest enemy for {stats.Attack} damage. Burn the farthest enemy for {stats.Burn}." );
     }

@@ -42,7 +42,7 @@ public class ArcaneAugur : UnitInstance
             }
         );
     }
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Attack the nearest enemy for {stats.Attack} damage. Whenever another ally uses energy, recharge 1 energy.");
     }

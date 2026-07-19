@@ -23,7 +23,7 @@ public class Shrine : UnitInstance
         }
     }
 
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Heals all adjacent allies for {stats.Heal}.");
     }

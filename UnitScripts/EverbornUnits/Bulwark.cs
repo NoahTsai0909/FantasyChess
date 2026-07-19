@@ -54,7 +54,7 @@ public class Bulwark : UnitInstance
     }
 
     
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"When an ally is healed, shield it {stats.Shield}. When an ally is shielded, heal it {stats.Heal}. ");
     }

@@ -65,7 +65,7 @@ public class MasterOrb : UnitInstance
         );
     }
 
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Allies have +4 energy.Whenever an energy is expended, damage the farthest enemy by {stats.Attack}.");
     }

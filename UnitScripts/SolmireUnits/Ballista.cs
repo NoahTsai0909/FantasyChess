@@ -8,10 +8,7 @@ public class Ballista : UnitInstance
     {
         base.EnterCombat(grid, row, col, isPlayer);
 
-        if (isPassive)
-        {
-            CombatEventBus.OnCombatEvent += HandleCombatEvent;
-        }
+        CombatEventBus.OnCombatEvent += HandleCombatEvent;
     }
 
     private void OnDestroy()
@@ -49,7 +46,7 @@ public class Ballista : UnitInstance
         }
     }
 
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Passive: When the ally in front of this unit uses an ability, this unit attacks the nearest enemy for {stats.Attack} damage.");
     }

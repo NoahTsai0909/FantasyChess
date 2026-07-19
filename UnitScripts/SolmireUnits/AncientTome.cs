@@ -49,7 +49,7 @@ public class AncientTome : UnitInstance
         base.Die();
     }
 
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Side allies have +{energyBuff} max energy.");
     }

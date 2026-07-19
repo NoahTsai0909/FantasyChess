@@ -57,7 +57,7 @@ public class Meowdic : UnitInstance
         }
     }
 
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Heals side allies for {stats.Heal}. Whenever an ally is healed, advance this 1 second.");
     }

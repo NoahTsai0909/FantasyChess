@@ -69,7 +69,7 @@ public class Paladin : UnitInstance
         }
     }
 
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Passive: When an ally is healed, this unit gains {attackModifier} attack for this fight. Attacks the nearest enemy for {stats.Attack} damage.");
     }

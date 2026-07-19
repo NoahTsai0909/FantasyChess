@@ -77,7 +77,7 @@ public class Dustraiser : UnitInstance
         }
     }
 
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Hastes the ally behind this for {stats.Haste} seconds and shields it for {stats.Shield}.");
     }

@@ -36,7 +36,7 @@ public class Cinderblight : UnitInstance, IConsumable
         target.RecalculateStats();
     }
 
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Overlay on an ally unit to consume this and grant it {burnModifier} burn permanently.");
     }

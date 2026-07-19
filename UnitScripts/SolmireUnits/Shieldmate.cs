@@ -19,7 +19,7 @@ public class Shieldmate : UnitInstance
 
     }
 
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Shields self for {stats.Shield}.");
     }

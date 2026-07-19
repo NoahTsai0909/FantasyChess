@@ -54,7 +54,7 @@ public class Lightmare : UnitInstance
         base.UseAbility();
     }
 
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Hastes side allies for {stats.Haste} seconds.");
     }

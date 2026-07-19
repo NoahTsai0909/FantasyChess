@@ -38,7 +38,7 @@ public class Tinderheart : UnitInstance
         }
     }
 
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Allies gain {burnBuff} burn.");
     }

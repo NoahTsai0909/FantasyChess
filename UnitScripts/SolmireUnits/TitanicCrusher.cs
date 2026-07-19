@@ -27,7 +27,7 @@ public class TitanicCrusher : UnitInstance
         }
 
     }
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Damage all enemies equal to this unit's max health.");
     }

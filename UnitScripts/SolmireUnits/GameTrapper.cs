@@ -32,7 +32,7 @@ public class GameTrapper : UnitInstance
         );
     }
 
-    public override string GetAbilityDescription()
+    public override string GetActiveDescription()
     {
         return ($"Attack the nearest enemy for {stats.Attack} damage and slow it for {stats.Slow} seconds.");
     }
