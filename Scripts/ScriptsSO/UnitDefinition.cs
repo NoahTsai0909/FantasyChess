@@ -35,6 +35,7 @@ public class UnitDefinition : ScriptableObject, IStatSource
     public Rarity rarity;
     public Rarity startingRarity;
     public int provisionCost;
+    public bool isMelee;
 
     [Header("Prefab Reference")]
     public UnitInstance unitPrefab;

@@ -284,6 +284,7 @@ MonoBehaviour:
   attackImpactPrefab: {fileID: 3516344537215648627, guid: e93a5c9ea929f6748972b5a8a379da3d, type: 3}
   shieldImpactPrefab: {fileID: 2508037873459460753, guid: 6666f321b192d8a4e940b6e1d7ddca73, type: 3}
   burnImpactPrefab: {fileID: 566577339864655856, guid: 69882947cdd5ef94f977d971d14f23c4, type: 3}
+  meleeSlashPrefab: {fileID: 6767337181534009556, guid: f7f90c68a75180b4f8e1fe08de22f7aa, type: 3}
 --- !u!4 &297485664
 Transform:
   m_ObjectHideFlags: 0

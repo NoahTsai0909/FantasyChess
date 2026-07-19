@@ -22,6 +22,7 @@ public class CombatVFXManager : MonoBehaviour
     [SerializeField] private GameObject attackImpactPrefab;
     [SerializeField] private GameObject shieldImpactPrefab;
     [SerializeField] private GameObject burnImpactPrefab;
+    [SerializeField] private GameObject meleeSlashPrefab;
 
     private void Awake()
     {
@@ -38,7 +39,17 @@ public class CombatVFXManager : MonoBehaviour
 
         if (RequiresProjectile(action))
         {
-            PlayProjectile(action, onImpact);
+            // Check if the source is melee AND if the action is actually a damage attack
+            // Note: Update "definition" if your UnitInstance uses a capital "Definition"
+            if (action.source.Definition != null && action.source.Definition.isMelee && action.type == CombatActionType.Damage)
+            {
+                PlayMeleeEffect(action, onImpact);
+            }
+            else
+            {
+                // Ranged units, or melee units using non-damage actions (like heals)
+                PlayProjectile(action, onImpact);
+            }
         }
         else
         {
@@ -200,6 +211,42 @@ public class CombatVFXManager : MonoBehaviour
             CombatActionType.ApplyBurn => defaultBurnProjectile,
             _ => defaultDamageProjectile // Default fallback
         };
+    }
+
+    private void PlayMeleeEffect(CombatAction action, Action onImpact)
+    {
+        StartCoroutine(MeleeRoutine(action, onImpact));
+    }
+
+    private IEnumerator MeleeRoutine(CombatAction action, Action onImpact)
+    {
+        // 1. Spawn the slash effect at the ATTACKER'S position
+        if (action.source != null && meleeSlashPrefab != null)
+        {
+            // Store a reference to the spawned object so we can modify it
+            GameObject slashVFX = Instantiate(meleeSlashPrefab, action.source.transform.position, Quaternion.identity);
+
+            // Check if it's an enemy (isPlayer == false)
+            if (!action.source.isPlayer)
+            {
+                // Invert the X scale to flip the entire prefab horizontally
+                Vector3 scale = slashVFX.transform.localScale;
+                scale.x *= -1;
+                slashVFX.transform.localScale = scale;
+            }
+        }
+
+        // 2. Wait for a short duration to simulate the attack landing
+        yield return new WaitForSeconds(0.2f);
+
+        // 3. NEW: Spawn the target impact VFX right before the damage happens
+        if (action.target != null && attackImpactPrefab != null)
+        {
+            Instantiate(attackImpactPrefab, action.target.transform.position, Quaternion.identity);
+        }
+
+        // 4. Trigger the actual damage and the target's visual impact
+        onImpact?.Invoke();
     }
 
 
