@@ -53,6 +53,11 @@ public class GridManager : MonoBehaviour
         {
             for (int c = 0; c < cols; c++)
             {
+                if (tilePrefab == null)
+                {
+                    Debug.LogWarning("Tile prefab is not assigned in GridManager.");
+                    return;
+                }
                 GameObject tile = Instantiate(tilePrefab, transform);
                 tile.transform.position = worldPositions[r, c];
                 /*tile.transform.localScale = Vector3.one * (cellSize * 0.95f);*/

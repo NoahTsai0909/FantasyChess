@@ -8,14 +8,13 @@ public class CombatVFXManager : MonoBehaviour
     public static CombatVFXManager Instance;
 
     [Header("Defaults")]
-    [SerializeField] private GameObject defaultProjectilePrefab;
     [SerializeField] private float projectileTravelTime;
 
-    [Header("Fallback Projectiles")]
-    [SerializeField] private Sprite defaultDamageProjectile;
-    [SerializeField] private Sprite defaultHealProjectile;
-    [SerializeField] private Sprite defaultShieldProjectile;
-    [SerializeField] private Sprite defaultBurnProjectile;
+    [Header("Fallback Projectile Prefabs")]
+    [SerializeField] private GameObject defaultDamageProjectilePrefab;
+    [SerializeField] private GameObject defaultHealProjectilePrefab;
+    [SerializeField] private GameObject defaultShieldProjectilePrefab;
+    [SerializeField] private GameObject defaultBurnProjectilePrefab;
 
     [Header("VFX Prefabs")]
     [SerializeField] private GameObject healImpactPrefab;
@@ -24,10 +23,23 @@ public class CombatVFXManager : MonoBehaviour
     [SerializeField] private GameObject burnImpactPrefab;
     [SerializeField] private GameObject meleeSlashPrefab;
 
+    [Header("Fallback Colors")]
+    [SerializeField] private Color defaultDamageColor = Color.red;
+    [SerializeField] private Color defaultHealColor = Color.green;
+    [SerializeField] private Color defaultShieldColor = Color.yellow;
+    [SerializeField] private Color defaultBurnColor = new Color(1f, 0.5f, 0f); // Orange
+
     [Header("Projectile Motion")]
     public float maxArcHeight = 2.0f; // How high it arcs
     [Tooltip("Controls the speed of the projectile over its travel time.")]
     public AnimationCurve projectileSpeedCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+
+    [Tooltip("Draw the physical shape of the arc! Start at 0, peak at 1, end at 0.")]
+    public AnimationCurve projectileArcCurve = new AnimationCurve(
+    new Keyframe(0f, 0f),
+    new Keyframe(0.3f, 1f), // Peaks early at 30% of the flight
+    new Keyframe(1f, 0f)
+);
 
     private void Awake()
     {
@@ -81,19 +93,26 @@ public class CombatVFXManager : MonoBehaviour
 
     private void PlayProjectile(CombatAction action, Action onImpact)
     {
-        Sprite projectileSprite = GetProjectileForAction(action);
+        GameObject projectilePrefab = GetProjectileForAction(action);
 
-        if (projectileSprite == null)
+        if (projectilePrefab == null)
         {
             onImpact?.Invoke();
             return;
         }
 
         Vector3 start = action.source.transform.position;
-        GameObject proj = Instantiate(defaultProjectilePrefab, start, Quaternion.identity);
+        GameObject proj = Instantiate(projectilePrefab, start, Quaternion.identity);
 
-        SpriteRenderer sr = proj.GetComponent<SpriteRenderer>();
-        sr.sprite = projectileSprite;
+        TrailRenderer tr = proj.GetComponent<TrailRenderer>();
+        if (tr != null)
+        {
+            Color projColor = GetColorForAction(action);
+            tr.startColor = projColor;
+
+            // Fade out to the same color but with 0 Alpha
+            tr.endColor = new Color(projColor.r, projColor.g, projColor.b, 0f);
+        }
 
         // --- NEW LOGIC: Wrap the impact action ---
         Action wrappedOnImpact = () =>
@@ -130,9 +149,9 @@ public class CombatVFXManager : MonoBehaviour
         );
     }
 
-    private Sprite GetProjectileForAction(CombatAction action)
+    private GameObject GetProjectileForAction(CombatAction action)
     {
-        // 1. Use action-specific override if provided
+        // 1. Use action-specific override if provided (Ensure CombatAction.projectileOverride is now a GameObject!)
         if (action.projectileOverride != null)
         {
             return action.projectileOverride;
@@ -171,7 +190,7 @@ public class CombatVFXManager : MonoBehaviour
 
             // 4. Add the Arc! 
             // Mathf.Sin of PI * linearT gives a perfect curve that starts at 0, peaks at 0.5, and ends at 0.
-            float arc = Mathf.Sin(linearT * Mathf.PI) * maxArcHeight;
+            float arc = projectileArcCurve.Evaluate(linearT) * maxArcHeight;
             currentPos.y += arc; // Push it upward along the Y axis
 
             // 5. Calculate rotation before moving so the projectile points exactly where it's arcing
@@ -218,15 +237,15 @@ public class CombatVFXManager : MonoBehaviour
         }
     }
 
-    private Sprite GetFallbackProjectile(CombatActionType actionType)
+    private GameObject GetFallbackProjectile(CombatActionType actionType)
     {
         return actionType switch
         {
-            CombatActionType.Damage => defaultDamageProjectile,
-            CombatActionType.Heal => defaultHealProjectile,
-            CombatActionType.Shield => defaultShieldProjectile,
-            CombatActionType.ApplyBurn => defaultBurnProjectile,
-            _ => defaultDamageProjectile // Default fallback
+            CombatActionType.Damage => defaultDamageProjectilePrefab,
+            CombatActionType.Heal => defaultHealProjectilePrefab,
+            CombatActionType.Shield => defaultShieldProjectilePrefab,
+            CombatActionType.ApplyBurn => defaultBurnProjectilePrefab,
+            _ => defaultDamageProjectilePrefab // Default fallback
         };
     }
 
@@ -266,6 +285,17 @@ public class CombatVFXManager : MonoBehaviour
         onImpact?.Invoke();
     }
 
+    private Color GetColorForAction(CombatAction action)
+    {
+        return action.type switch
+        {
+            CombatActionType.Damage => defaultDamageColor,
+            CombatActionType.Heal => defaultHealColor,
+            CombatActionType.Shield => defaultShieldColor,
+            CombatActionType.ApplyBurn => defaultBurnColor,
+            _ => Color.white
+        };
+    }
 
 }
 

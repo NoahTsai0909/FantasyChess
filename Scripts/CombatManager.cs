@@ -28,7 +28,7 @@ public class CombatAction
     public bool isCrit;
     public string reason; // optional (ability name, etc)
     public bool isPassive; // optional (for passive abilities)
-    public Sprite projectileOverride; // Optional override
+    public GameObject projectileOverride; // Optional override
 }
 
 public class CombatManager : MonoBehaviour

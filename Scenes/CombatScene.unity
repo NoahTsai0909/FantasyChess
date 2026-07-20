@@ -274,17 +274,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f91540552010694f8ccf8559d1763dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombatVFXManager
-  defaultProjectilePrefab: {fileID: 9171238828374351539, guid: 97df4fa614484344dbaf567dc3fb7b2d, type: 3}
   projectileTravelTime: 0.25
-  defaultDamageProjectile: {fileID: 21300000, guid: 623b6c7b473dd8445bbbc7b36d31e17f, type: 3}
-  defaultHealProjectile: {fileID: 21300000, guid: 57108fd503bba3d4d883313f910abd80, type: 3}
-  defaultShieldProjectile: {fileID: 21300000, guid: 623b6c7b473dd8445bbbc7b36d31e17f, type: 3}
-  defaultBurnProjectile: {fileID: 21300000, guid: 3091dcb9b2f42f346a2e67798732ab14, type: 3}
+  defaultDamageProjectilePrefab: {fileID: 4564892777239986246, guid: 5ad4dc53cc3d8db4b9bad652be1c3231, type: 3}
+  defaultHealProjectilePrefab: {fileID: 4564892777239986246, guid: 5ad4dc53cc3d8db4b9bad652be1c3231, type: 3}
+  defaultShieldProjectilePrefab: {fileID: 4564892777239986246, guid: 5ad4dc53cc3d8db4b9bad652be1c3231, type: 3}
+  defaultBurnProjectilePrefab: {fileID: 8108392530388780990, guid: 7402be29e0e5e9c4d89fd216ffd28a0f, type: 3}
   healImpactPrefab: {fileID: 931703471361549320, guid: 1c57fc83cb0ae9b4c9dbfb1336e24343, type: 3}
   attackImpactPrefab: {fileID: 3516344537215648627, guid: e93a5c9ea929f6748972b5a8a379da3d, type: 3}
   shieldImpactPrefab: {fileID: 2508037873459460753, guid: 6666f321b192d8a4e940b6e1d7ddca73, type: 3}
   burnImpactPrefab: {fileID: 566577339864655856, guid: 69882947cdd5ef94f977d971d14f23c4, type: 3}
   meleeSlashPrefab: {fileID: 6767337181534009556, guid: f7f90c68a75180b4f8e1fe08de22f7aa, type: 3}
+  defaultDamageColor: {r: 1, g: 0, b: 0, a: 1}
+  defaultHealColor: {r: 0, g: 1, b: 0, a: 1}
+  defaultShieldColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  defaultBurnColor: {r: 1, g: 0.5, b: 0, a: 1}
   maxArcHeight: 2
   projectileSpeedCurve:
     serializedVersion: 2
@@ -301,6 +304,39 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  projectileArcCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.3
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -421,8 +457,8 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
+  m_RenderPostProcessing: 1
+  m_Antialiasing: 1
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -838,6 +874,55 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1535534064
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1535534066}
+  - component: {fileID: 1535534065}
+  m_Layer: 0
+  m_Name: Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1535534065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535534064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.Volume
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: b3f274b027ab2e84ca68adeb3a9e1a47, type: 2}
+--- !u!4 &1535534066
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535534064}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1545069894
 GameObject:
   m_ObjectHideFlags: 0
@@ -1339,3 +1424,4 @@ SceneRoots:
   - {fileID: 242179334}
   - {fileID: 297485664}
   - {fileID: 348750166}
+  - {fileID: 1535534066}
