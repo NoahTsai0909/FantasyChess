@@ -71,6 +71,7 @@ public class CombatVFXManager : MonoBehaviour
             case CombatActionType.Damage:
             case CombatActionType.Heal:
             case CombatActionType.ApplyBurn:
+            case CombatActionType.Shield:
                 return true;
 
             default:
@@ -142,14 +143,10 @@ public class CombatVFXManager : MonoBehaviour
     }
 
 
-    private IEnumerator TravelProjectile(
-    Transform projectile,
-    Transform target,
-    float duration,
-    Action onImpact)
+    private IEnumerator TravelProjectile(Transform projectile, Transform target, float duration, Action onImpact)
     {
         float elapsed = 0f;
-        Vector3 start = projectile.position;
+        Vector3 startPos = projectile.position;
 
         while (elapsed < duration)
         {
@@ -161,17 +158,32 @@ public class CombatVFXManager : MonoBehaviour
             }
 
             elapsed += Time.deltaTime;
-            float t = elapsed / duration;
 
+            // 1. Calculate linear time (0.0 to 1.0)
+            float linearT = elapsed / duration;
+
+            // 2. Feed it through your curve for easing (speed changes)
+            float easedT = projectileSpeedCurve.Evaluate(linearT);
+
+            // 3. Get the base straight-line position using the eased time
             Vector3 currentTargetPos = target.position;
+            Vector3 currentPos = Vector3.Lerp(startPos, currentTargetPos, easedT);
 
-            // Move
-            projectile.position = Vector3.Lerp(start, currentTargetPos, t);
+            // 4. Add the Arc! 
+            // Mathf.Sin of PI * linearT gives a perfect curve that starts at 0, peaks at 0.5, and ends at 0.
+            float arc = Mathf.Sin(linearT * Mathf.PI) * maxArcHeight;
+            currentPos.y += arc; // Push it upward along the Y axis
 
-            //Update rotation dynamically
-            Vector3 dir = currentTargetPos - projectile.position;
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            projectile.rotation = Quaternion.Euler(0, 0, angle);
+            // 5. Calculate rotation before moving so the projectile points exactly where it's arcing
+            Vector3 moveDirection = currentPos - projectile.position;
+            if (moveDirection != Vector3.zero)
+            {
+                float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+                projectile.rotation = Quaternion.Euler(0, 0, angle);
+            }
+
+            // 6. Finally, update the position
+            projectile.position = currentPos;
 
             yield return null;
         }

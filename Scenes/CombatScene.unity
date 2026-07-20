@@ -285,6 +285,31 @@ MonoBehaviour:
   shieldImpactPrefab: {fileID: 2508037873459460753, guid: 6666f321b192d8a4e940b6e1d7ddca73, type: 3}
   burnImpactPrefab: {fileID: 566577339864655856, guid: 69882947cdd5ef94f977d971d14f23c4, type: 3}
   meleeSlashPrefab: {fileID: 6767337181534009556, guid: f7f90c68a75180b4f8e1fe08de22f7aa, type: 3}
+  maxArcHeight: 2
+  projectileSpeedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &297485664
 Transform:
   m_ObjectHideFlags: 0
