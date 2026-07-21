@@ -22,10 +22,21 @@ public static class StatusEffectOrder
     };
 }
 
+// Create a struct to map types to sprites in the Inspector
+[System.Serializable]
+public struct StatusSpriteMapping
+{
+    public StatusEffectType type;
+    public Sprite iconSprite;
+}
+
 public class StatusEffectBar : MonoBehaviour
 {
     [SerializeField] private Transform iconContainer;
     [SerializeField] private StatusEffectIcon iconPrefab;
+
+    // Add this list so you can drag and drop your sprites in the Inspector
+    [SerializeField] private List<StatusSpriteMapping> statusSprites = new();
 
     private Dictionary<StatusEffectType, StatusEffectIcon> icons = new();
 
@@ -40,12 +51,27 @@ public class StatusEffectBar : MonoBehaviour
         if (!icons.TryGetValue(type, out var icon))
         {
             icon = Instantiate(iconPrefab, iconContainer);
-            icon.Initialize(type);
+
+            // Find the correct sprite for this status type
+            Sprite iconSprite = GetSpriteForType(type);
+            icon.Initialize(type, iconSprite);
+
             icons[type] = icon;
             ReorderIcons();
         }
 
         icon.SetStacks(stacks);
+    }
+
+    // Helper method to look up the sprite
+    private Sprite GetSpriteForType(StatusEffectType type)
+    {
+        foreach (var mapping in statusSprites)
+        {
+            if (mapping.type == type)
+                return mapping.iconSprite;
+        }
+        return null; // Fallback if no sprite is assigned
     }
 
     public void RemoveStatus(StatusEffectType type)
@@ -71,5 +97,4 @@ public class StatusEffectBar : MonoBehaviour
             }
         }
     }
-
 }

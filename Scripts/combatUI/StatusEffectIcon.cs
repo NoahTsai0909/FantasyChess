@@ -9,10 +9,12 @@ public class StatusEffectIcon : MonoBehaviour
 
     private StatusEffectType type;
 
-    public void Initialize(StatusEffectType type)
+    // We now pass the specific Sprite in the Initialize method
+    public void Initialize(StatusEffectType type, Sprite customSprite)
     {
         this.type = type;
-        iconImage.color = GetColorForType(type);
+        iconImage.sprite = customSprite;
+        iconImage.color = Color.white; // Ensures the image uses its original colors
     }
 
     public void SetStacks(int stacks)
@@ -22,19 +24,6 @@ public class StatusEffectIcon : MonoBehaviour
 
         stackText.text = stacks.ToString();
         stackText.gameObject.SetActive(true);
-    }
-
-    private Color GetColorForType(StatusEffectType type)
-    {
-        return type switch
-        {
-            StatusEffectType.Burn => new Color(1f, 0.5f, 0.1f),   // orange
-            StatusEffectType.Poison => new Color(0.6f, 0.2f, 0.8f), // purple
-            StatusEffectType.Haste => new Color(0.4f, 1f, 0.4f),   // light green
-            StatusEffectType.Slow => new Color(0.55f, 0.4f, 0.2f),// brown
-            StatusEffectType.Freeze => new Color(0.6f, 0.8f, 1f),   // light blue
-            _ => Color.white
-        };
     }
 }
 

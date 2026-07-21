@@ -15,6 +15,8 @@ public class CombatVFXManager : MonoBehaviour
     [SerializeField] private GameObject defaultHealProjectilePrefab;
     [SerializeField] private GameObject defaultShieldProjectilePrefab;
     [SerializeField] private GameObject defaultBurnProjectilePrefab;
+    [SerializeField] private GameObject defaultSlowProjectilePrefab;
+    [SerializeField] private GameObject defaultHasteProjectilePrefab;
 
     [Header("VFX Prefabs")]
     [SerializeField] private GameObject healImpactPrefab;
@@ -22,12 +24,16 @@ public class CombatVFXManager : MonoBehaviour
     [SerializeField] private GameObject shieldImpactPrefab;
     [SerializeField] private GameObject burnImpactPrefab;
     [SerializeField] private GameObject meleeSlashPrefab;
+    [SerializeField] private GameObject slowImpactPrefab;
+    [SerializeField] private GameObject hasteImpactPrefab;
 
     [Header("Fallback Colors")]
     [SerializeField] private Color defaultDamageColor = Color.red;
     [SerializeField] private Color defaultHealColor = Color.green;
     [SerializeField] private Color defaultShieldColor = Color.yellow;
     [SerializeField] private Color defaultBurnColor = new Color(1f, 0.5f, 0f); // Orange
+    [SerializeField] private Color defaultSlowColor = Color.brown;
+    [SerializeField] private Color defaultHasteColor = Color.cyan;
 
     [Header("Projectile Motion")]
     public float maxArcHeight = 2.0f; // How high it arcs
@@ -84,6 +90,8 @@ public class CombatVFXManager : MonoBehaviour
             case CombatActionType.Heal:
             case CombatActionType.ApplyBurn:
             case CombatActionType.Shield:
+            case CombatActionType.ApplySlow:
+            case CombatActionType.ApplyHaste:
                 return true;
 
             default:
@@ -133,6 +141,14 @@ public class CombatVFXManager : MonoBehaviour
             else if (action.type == CombatActionType.ApplyBurn && action.target != null && burnImpactPrefab != null)
             {
                 Instantiate(burnImpactPrefab, action.target.transform.position, Quaternion.identity);
+            }
+            else if (action.type == CombatActionType.ApplySlow && action.target != null && slowImpactPrefab != null)
+            {
+                Instantiate(slowImpactPrefab, action.target.transform.position, Quaternion.identity);
+            }
+            else if (action.type == CombatActionType.ApplyHaste && action.target != null && hasteImpactPrefab != null)
+            {
+                Instantiate(hasteImpactPrefab, action.target.transform.position, Quaternion.identity);
             }
 
                 // 2. Execute the actual gameplay heal logic you passed in originally
@@ -245,6 +261,8 @@ public class CombatVFXManager : MonoBehaviour
             CombatActionType.Heal => defaultHealProjectilePrefab,
             CombatActionType.Shield => defaultShieldProjectilePrefab,
             CombatActionType.ApplyBurn => defaultBurnProjectilePrefab,
+            CombatActionType.ApplyHaste => defaultHasteProjectilePrefab,
+            CombatActionType.ApplySlow => defaultSlowProjectilePrefab,
             _ => defaultDamageProjectilePrefab // Default fallback
         };
     }
@@ -293,6 +311,8 @@ public class CombatVFXManager : MonoBehaviour
             CombatActionType.Heal => defaultHealColor,
             CombatActionType.Shield => defaultShieldColor,
             CombatActionType.ApplyBurn => defaultBurnColor,
+            CombatActionType.ApplySlow => defaultSlowColor,
+            CombatActionType.ApplyHaste => defaultHasteColor,
             _ => Color.white
         };
     }

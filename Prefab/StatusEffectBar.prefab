@@ -109,3 +109,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StatusEffectBar
   iconContainer: {fileID: 6218671754898720319}
   iconPrefab: {fileID: 522266512843081953, guid: b1ece5b13cbe247429c4a256d803acf4, type: 3}
+  statusSprites:
+  - type: 0
+    iconSprite: {fileID: 21300000, guid: fd14ea1d379ad6547854f1940a89b154, type: 3}
+  - type: 1
+    iconSprite: {fileID: 21300000, guid: 4f7771a6feba17145b61eb1d34ffa9d8, type: 3}
+  - type: 2
+    iconSprite: {fileID: 21300000, guid: c4353adc5578aaa4aadea7278b84f8ee, type: 3}
+  - type: 3
+    iconSprite: {fileID: 21300000, guid: 69ee145df43f9f641b289cdcc5f52ea9, type: 3}
+  - type: 4
+    iconSprite: {fileID: 21300000, guid: d58c1977010eb5d4d84c0e082212c401, type: 3}
