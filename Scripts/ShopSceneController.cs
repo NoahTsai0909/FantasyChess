@@ -207,7 +207,7 @@ public class ShopSceneController : MonoBehaviour
     private void CompleteEventAndReturn(BaseEventSO eventSO)
     {
         // Mark event as completed
-        eventSO.CompleteEvent();
+        eventSO.OnCompleted();
 
         // Return to map
         SceneLoader.Instance.LoadScene(GameScene.MapScene);

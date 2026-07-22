@@ -121,13 +121,13 @@ public class gameManager : MonoBehaviour
                 PlayerUnitManager.Instance.TryAcquireUnit(unitReward.Definition, unitReward.CurrentRarity);
             }
             // Mark the event as completed
-            RunManager.Instance.selectedEvent.CompleteEvent();
+            RunManager.Instance.selectedEvent.OnCompleted();
         }
         else if (!playerWon)
         {
             // Player lost - still mark event as completed but no rewards
             if (RunManager.Instance.selectedEvent != null)
-                RunManager.Instance.selectedEvent.CompleteEvent();
+                RunManager.Instance.selectedEvent.OnCompleted();
             RunManager.Instance.Stats.PlayerHealth -= RunManager.Instance.Stats.CurrentDay;
         }
 

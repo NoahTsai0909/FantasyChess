@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bff6408a3a17924b9fb916c32996ac3, type: 3}
+  m_Name: ViolentInsight
+  m_EditorClassIdentifier: Assembly-CSharp::StoryEventSO
+  eventName: Violent Insight
+  description: Get a consumable that grants attack permanently.
+  eventIcon: {fileID: 0}
+  eventBackgroundImage: {fileID: 21300000, guid: d8130d643939ba440b87b63460f83d6f, type: 3}
+  minDayRequired: 1
+  maxDayRequired: 6
+  selectionWeight: 1
+  targetScene: 5
+  promptText: You feel a surge of power welling up within you...
+  choices:
+  - buttonText: Take the Essence of Wrath.
+    previewUnit: {fileID: 11400000, guid: 22a7614f1d79235418176ea49184ae77, type: 2}
+    generateRandomUnitPreview: 0
+    randomRegion: 0
+    outcome: {fileID: 11400000, guid: a3c17a837ec59904c86905ef4908430c, type: 2}
+  - buttonText: Leave.
+    previewUnit: {fileID: 0}
+    generateRandomUnitPreview: 0
+    randomRegion: 0
+    outcome: {fileID: 11400000, guid: f55e49cdda5c02c43a443ab2b5264be3, type: 2}

@@ -1,4 +1,4 @@
-// EventSceneController.cs
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,18 +9,16 @@ public class EventSceneController : MonoBehaviour
     [Header("Basic UI")]
     [SerializeField] private TextMeshProUGUI eventNameText;
     [SerializeField] private TextMeshProUGUI descriptionText;
-    [SerializeField] private Button continueButton;
     [SerializeField] private SpriteRenderer eventBackgroundRenderer;
 
     [Header("Dynamic Content")]
-    [SerializeField] private Transform contentParent; // For UI prefabs
-    [SerializeField] private Transform unitPreviewAnchor; // The world space anchor!
-    [SerializeField] private GameObject rewardEventUIPrefab;
+    [SerializeField] private Transform contentParent;
+    [SerializeField] private Button choiceButtonPrefab;
 
     private BaseEventSO currentEvent;
-    private GameObject spawnedUI;
-    private UnitSaveData currentUnitPreviewSaveData;
-    private UnitInstance currentUnitPreview;
+
+    // We now track a LIST of previews, since there can be multiple on screen
+    private List<UnitInstance> spawnedPreviews = new();
 
     void Start()
     {
@@ -32,71 +30,107 @@ public class EventSceneController : MonoBehaviour
             return;
         }
 
-        // Display basic event info
         eventNameText.text = currentEvent.eventName;
         descriptionText.text = currentEvent.description;
 
         if (eventBackgroundRenderer != null && currentEvent.eventBackgroundImage != null)
             eventBackgroundRenderer.sprite = currentEvent.eventBackgroundImage;
 
-        LoadEventUI();
+        LoadEventChoices();
     }
 
-    private void LoadEventUI()
+    private void LoadEventChoices()
     {
-        // Spawn the UI prefab
-        spawnedUI = Instantiate(rewardEventUIPrefab, contentParent);
-        var rewardUI = spawnedUI.GetComponent<RewardEventUI>();
-        rewardUI.Setup(currentEvent, this);
-
-        // Handle unit preview - use the world space anchor!
-        if (currentEvent is RandomUnitEventSO unitEvent)
+        if (currentEvent is StoryEventSO storyEvent)
         {
-            currentUnitPreviewSaveData = unitEvent.ReturnRandomUnit();
-            ShowUnitPreview(currentUnitPreviewSaveData);
-        }
-        else if (currentEvent is PresetUnitEventSO presetUnitEvent)
-        {
-            currentUnitPreviewSaveData = presetUnitEvent.ReturnRandomUnit();
-            ShowUnitPreview(currentUnitPreviewSaveData);
-        }
+            descriptionText.text = storyEvent.promptText;
+            foreach (EventChoice choice in storyEvent.choices)
+            {
+                Button newButton = Instantiate(choiceButtonPrefab, contentParent);
 
-            continueButton.onClick.AddListener(CompleteEvent);
+                TextMeshProUGUI btnText = newButton.GetComponentInChildren<TextMeshProUGUI>();
+                if (btnText != null) btnText.text = choice.buttonText;
+
+                // NEW: Create a context for this specific choice
+                EventContext choiceContext = new EventContext();
+
+                // 1. Check if we need to generate a completely random unit
+                if (choice.generateRandomUnitPreview)
+                {
+                    // CHANGE: Pass choice.preferredTags instead of UnitTagFlags.None
+                    UnitSaveData randomData = UnitGenerationService.GenerateUnit(
+                        choice.randomRegion,
+                        choice.preferredTags
+                    );
+
+                    choiceContext.generatedUnit = randomData;
+                    SpawnUnitOnButton(randomData, newButton);
+                }
+                // 2. Otherwise, check if we have a specific unit to preview
+                else if (choice.previewUnit != null)
+                {
+                    int day = RunManager.Instance.Stats.CurrentDay;
+                    DayRarityEntry dist = RunManager.Instance.rarityDistributionTable.GetForDay(day);
+                    Rarity rolledRarity = RarityDistributionTable.RollRarity(dist);
+
+                    UnitSaveData generatedData = new UnitSaveData
+                    {
+                        definition = choice.previewUnit,
+                        rarity = rolledRarity
+                    };
+
+                    choiceContext.generatedUnit = generatedData;
+                    SpawnUnitOnButton(generatedData, newButton);
+                }
+
+                // Pass the unique context into the click event
+                newButton.onClick.AddListener(() => ExecutePlayerChoice(choice, choiceContext));
+            }
+        }
     }
 
-    private void ShowUnitPreview(UnitSaveData unit)
+    // Notice we pass UnitSaveData now instead of UnitDefinition
+    private void SpawnUnitOnButton(UnitSaveData unitData, Button parentButton)
     {
-        // Use the world space anchor, NOT the one inside UI
-        currentUnitPreview = Instantiate(unit.definition.unitPrefab, unitPreviewAnchor);
-        currentUnitPreview.InitializeFromSaveData(unit);
-        currentUnitPreview.isPlayer = true;
-        currentUnitPreview.enabled = false;
-        currentUnitPreview.transform.localPosition = Vector3.zero;
-        currentUnitPreview.transform.localScale = Vector3.one * 1.25f;
+        Transform anchor = parentButton.transform.Find("UnitAnchor");
+        if (anchor == null) return;
 
-        // Force it to render on top
-        SpriteRenderer renderer = currentUnitPreview.GetComponent<SpriteRenderer>();
-        if (renderer != null)
+        UnitInstance preview = Instantiate(unitData.definition.unitPrefab, anchor);
+
+        // The preview is now initialized with the real rolled rarity
+        preview.InitializeFromSaveData(unitData);
+        preview.isPlayer = true;
+        preview.enabled = false;
+
+        preview.transform.localPosition = Vector3.zero;
+        preview.transform.localScale = Vector3.one * 25f;
+
+        SpriteRenderer renderer = preview.GetComponent<SpriteRenderer>();
+        if (renderer != null) renderer.sortingOrder = 100;
+
+        spawnedPreviews.Add(preview);
+    }
+
+    private void ExecutePlayerChoice(EventChoice selectedChoice, EventContext context)
+    {
+        if (selectedChoice.outcome != null)
         {
-            renderer.sortingOrder = 100;
+            // Pass the context into the logic!
+            selectedChoice.outcome.ExecuteOutcome(context);
         }
+        CompleteEvent();
     }
 
     public void CompleteEvent()
     {
-        if (currentUnitPreview != null)
-            Destroy(currentUnitPreview.gameObject);
+        // Clean up all spawned previews
+        foreach (var preview in spawnedPreviews)
+        {
+            if (preview != null) Destroy(preview.gameObject);
+        }
+        spawnedPreviews.Clear();
 
-        if (spawnedUI != null)
-            Destroy(spawnedUI);
-
-        currentEvent.CompleteEvent();
+        currentEvent.OnCompleted();
         SceneLoader.Instance.LoadScene(GameScene.MapScene);
-    }
-
-    public void ObtainCurrentUnit()
-    {
-        PlayerUnitManager.Instance.TryAcquireUnit(currentUnitPreviewSaveData.definition, currentUnitPreviewSaveData.rarity);
-        
     }
 }

@@ -583,16 +583,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EventPoolManager
   allEvents:
-  - {fileID: 11400000, guid: fc7ab8165f65f694d98041eb91f44335, type: 2}
+  - {fileID: 11400000, guid: 1e5a4c869cd3bd748993d6fd1842ade7, type: 2}
   - {fileID: 11400000, guid: 8ced2cad0a49ee740940a01a98a57522, type: 2}
   - {fileID: 11400000, guid: 1ccfed83e43c22642940fa9d48faf67f, type: 2}
   - {fileID: 11400000, guid: 3d52efd378c21b144adbca05c8d334ba, type: 2}
   - {fileID: 11400000, guid: b958f4ca10426a249872c2447af9f8a5, type: 2}
-  - {fileID: 11400000, guid: 3176ca3ae4543a54bb684f7902ce219f, type: 2}
-  - {fileID: 11400000, guid: 24154071e343e8c4181ea46c31c9aded, type: 2}
   - {fileID: 11400000, guid: 907cb91864e67434dbbe7518aea648e9, type: 2}
-  - {fileID: 11400000, guid: ec4ba35809545004d93176b283cb7080, type: 2}
-  - {fileID: 11400000, guid: d7c627e6452d1344ea8f8f95549285a9, type: 2}
   - {fileID: 11400000, guid: 80b2f103fda3f9545a52113c95b186d6, type: 2}
   - {fileID: 11400000, guid: 7b64d7ae0e251764088f0c9fffdcfe1c, type: 2}
   - {fileID: 11400000, guid: 064bf2a1c6e571740ac741724d97abb2, type: 2}
@@ -608,6 +604,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 51d7bdae49b0a014b8947f3bff99d492, type: 2}
   - {fileID: 11400000, guid: a42d383b15b05a448b2c0efa43867b22, type: 2}
   - {fileID: 11400000, guid: 099bfbc761602b74c93487b588660a53, type: 2}
+  - {fileID: 11400000, guid: a50abd76c766801459d0a7500da262ae, type: 2}
+  - {fileID: 11400000, guid: aa9a2e60c2e84f44aa2928b55beff739, type: 2}
+  - {fileID: 11400000, guid: b1d4626274e378e489569bf4183cfa72, type: 2}
+  - {fileID: 11400000, guid: ef799aa296af5f648bf853caf49a996d, type: 2}
 --- !u!4 &492678632
 Transform:
   m_ObjectHideFlags: 0

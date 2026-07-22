@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a16e02b8c37b3f43ac55682dba29a26, type: 3}
+  m_Name: EssenceofWrathSO
+  m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
+  unitName: Essence of Wrath
+  maxHP: 10
+  attack: 0
+  heal: 0
+  shield: 0
+  burn: 0
+  poison: 0
+  slow: 0
+  haste: 0
+  cooldown: 0
+  isPassive: 1
+  isEnergy: 0
+  maxEnergy: 0
+  multicast: 1
+  unitSprite: {fileID: 21300000, guid: cb52f91cff58abd40b4230bf09905b63, type: 3}
+  defaultProjectile: []
+  cost: 0
+  region: 4
+  rarity: 0
+  startingRarity: 0
+  provisionCost: 0
+  unitPrefab: {fileID: 1527266960563838775, guid: 1018e9aeab8f81844a476334df9e3a1d, type: 3}
+  tagFlags: 1024

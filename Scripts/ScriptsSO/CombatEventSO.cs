@@ -11,15 +11,17 @@ public class CombatEventSO : BaseEventSO
 
     public override void OnSelected()
     {
-        // Store the encounter BEFORE calling base
+        // 1. Do Combat specific setup
         RunManager.Instance.currentEncounter = encounter;
-        Debug.Log($"Combat event selected: {eventName}, Encounter: {encounter?.encounterName}");
+        targetScene = GameScene.CombatScene;
 
-        // Make sure targetScene is CombatScene
-        targetScene = GameScene.CombatScene; // Force it to be combat scene
-
-        // Now call base - this will set selectedEvent and load scene
+        // 2. Call base to log it and load the scene
         base.OnSelected();
     }
 
+    public override void OnCompleted()
+    {
+        RunManager.Instance.CompleteBattleEvent();
+        base.OnCompleted();
+    }
 }

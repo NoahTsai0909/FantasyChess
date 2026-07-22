@@ -138,14 +138,10 @@ public class UnitHoverUI : MonoBehaviour
         {
             activeAbilityBox.SetActive(true);
             activeAbilityText.text = activeDesc;
-
-            // If we have an active ability, show the cooldown bar
-            cooldownBar.gameObject.SetActive(true);
         }
         else
         {
             activeAbilityBox.SetActive(false);
-            cooldownBar.gameObject.SetActive(false);
         }
 
         // Handle Passive Ability Box
