@@ -19,6 +19,11 @@ public class ShopEventSO : BaseEventSO
     public override void OnCompleted()
     {
         RunManager.Instance.shopState = null;
+        if (RunManager.Instance != null)
+        {
+            // This clears the old events and increments your 1/3 event counter
+            RunManager.Instance.CompleteRegularEvent();
+        }
         base.OnCompleted();
     }
 }

@@ -8,6 +8,8 @@ public class StoryEventSO : BaseEventSO
     [Header("Event Choices")]
     public string promptText;
     public List<EventChoice> choices;
+    [Header("Event Visuals")]
+    public Sprite eventIllustration;
 
     public override void OnSelected()
     {

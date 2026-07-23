@@ -35,3 +35,4 @@ MonoBehaviour:
     randomRegion: 4
     preferredTags: 0
     outcome: {fileID: 11400000, guid: f55e49cdda5c02c43a443ab2b5264be3, type: 2}
+  eventIllustration: {fileID: 21300000, guid: 969a2e987df2fdf4998ff39c7e3bd249, type: 3}

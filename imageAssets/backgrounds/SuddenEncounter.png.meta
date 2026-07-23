@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9bb45e847e876b446a7aab2417f500ee
+guid: 1438876de26984b45a3ee3c844586904
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7680179232986027214
-    second: MoltenTrail_0
+      213: -3012180997787679401
+    second: SuddenEncounter_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MoltenTrail_0
+      name: SuddenEncounter_0
       rect:
         serializedVersion: 2
-        x: 18
-        y: 0
-        width: 1262
-        height: 1891
+        x: 30
+        y: 203
+        width: 1250
+        height: 1982
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 23b298ecda58a6590800000000000000
-      internalID: -7680179232986027214
+      spriteID: 7550fab77559236d0800000000000000
+      internalID: -3012180997787679401
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      MoltenTrail_0: -7680179232986027214
+      SuddenEncounter_0: -3012180997787679401
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

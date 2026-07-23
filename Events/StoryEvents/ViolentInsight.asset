@@ -26,9 +26,12 @@ MonoBehaviour:
     previewUnit: {fileID: 11400000, guid: 22a7614f1d79235418176ea49184ae77, type: 2}
     generateRandomUnitPreview: 0
     randomRegion: 0
+    preferredTags: 0
     outcome: {fileID: 11400000, guid: a3c17a837ec59904c86905ef4908430c, type: 2}
   - buttonText: Leave.
     previewUnit: {fileID: 0}
     generateRandomUnitPreview: 0
     randomRegion: 0
+    preferredTags: 0
     outcome: {fileID: 11400000, guid: f55e49cdda5c02c43a443ab2b5264be3, type: 2}
+  eventIllustration: {fileID: 21300000, guid: 5e4c0029090efd646aa7b51d87575bc0, type: 3}

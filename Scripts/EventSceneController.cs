@@ -13,12 +13,14 @@ public class EventSceneController : MonoBehaviour
 
     [Header("Dynamic Content")]
     [SerializeField] private Transform contentParent;
+    [SerializeField] private Transform eventSpriteAnchor;
     [SerializeField] private Button choiceButtonPrefab;
 
     private BaseEventSO currentEvent;
 
     // We now track a LIST of previews, since there can be multiple on screen
     private List<UnitInstance> spawnedPreviews = new();
+    private GameObject spawnedIllustration;
 
     void Start()
     {
@@ -44,6 +46,10 @@ public class EventSceneController : MonoBehaviour
         if (currentEvent is StoryEventSO storyEvent)
         {
             descriptionText.text = storyEvent.promptText;
+            if (storyEvent.eventIllustration != null)
+            {
+                SpawnEventIllustration(storyEvent.eventIllustration);
+            }
             foreach (EventChoice choice in storyEvent.choices)
             {
                 Button newButton = Instantiate(choiceButtonPrefab, contentParent);
@@ -121,6 +127,28 @@ public class EventSceneController : MonoBehaviour
         CompleteEvent();
     }
 
+    private void SpawnEventIllustration(Sprite artwork)
+    {
+        // 1. Create a new empty GameObject and name it
+        spawnedIllustration = new GameObject("StoryIllustration");
+
+        // 2. Parent it to your new anchor
+        spawnedIllustration.transform.SetParent(eventSpriteAnchor, false);
+
+        // 3. Add a SpriteRenderer and assign the artwork
+        SpriteRenderer renderer = spawnedIllustration.AddComponent<SpriteRenderer>();
+        renderer.sprite = artwork;
+
+        // 4. Ensure it renders properly on your Screen Space - Camera canvas
+        // (Set this to a number lower than 100 so unit previews still render on top of it)
+        renderer.sortingOrder = 50;
+
+        spawnedIllustration.transform.localPosition = Vector3.zero;
+        //universally scale these images up or down
+        spawnedIllustration.transform.localScale = Vector3.one * 7f;
+    }
+
+
     public void CompleteEvent()
     {
         // Clean up all spawned previews
@@ -129,6 +157,11 @@ public class EventSceneController : MonoBehaviour
             if (preview != null) Destroy(preview.gameObject);
         }
         spawnedPreviews.Clear();
+
+        if (spawnedIllustration != null)
+        {
+            Destroy(spawnedIllustration);
+        }
 
         currentEvent.OnCompleted();
         SceneLoader.Instance.LoadScene(GameScene.MapScene);

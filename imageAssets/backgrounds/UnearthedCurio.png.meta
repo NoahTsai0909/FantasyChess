@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9bb45e847e876b446a7aab2417f500ee
+guid: 969a2e987df2fdf4998ff39c7e3bd249
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7680179232986027214
-    second: MoltenTrail_0
+      213: -8620990325951415988
+    second: UnearthedCurio_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MoltenTrail_0
+      name: UnearthedCurio_0
       rect:
         serializedVersion: 2
-        x: 18
-        y: 0
-        width: 1262
-        height: 1891
+        x: 38
+        y: 55
+        width: 1242
+        height: 1824
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 23b298ecda58a6590800000000000000
-      internalID: -7680179232986027214
+      spriteID: c49369979f61c5880800000000000000
+      internalID: -8620990325951415988
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      MoltenTrail_0: -7680179232986027214
+      UnearthedCurio_0: -8620990325951415988
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
