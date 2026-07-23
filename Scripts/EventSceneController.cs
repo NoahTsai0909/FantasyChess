@@ -151,17 +151,9 @@ public class EventSceneController : MonoBehaviour
 
     public void CompleteEvent()
     {
-        // Clean up all spawned previews
-        foreach (var preview in spawnedPreviews)
-        {
-            if (preview != null) Destroy(preview.gameObject);
-        }
         spawnedPreviews.Clear();
 
-        if (spawnedIllustration != null)
-        {
-            Destroy(spawnedIllustration);
-        }
+        spawnedIllustration = null;
 
         currentEvent.OnCompleted();
         SceneLoader.Instance.LoadScene(GameScene.MapScene);
