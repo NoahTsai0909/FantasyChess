@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bff6408a3a17924b9fb916c32996ac3, type: 3}
   m_Name: HeartOfTheGrove
   m_EditorClassIdentifier: Assembly-CSharp::StoryEventSO
-  eventName: HeartOfTheGrove
+  eventName: Heart Of The Grove
   description: Get a consumable that grants max health permanently.
   eventIcon: {fileID: 0}
-  eventBackgroundImage: {fileID: 21300000, guid: d8130d643939ba440b87b63460f83d6f, type: 3}
+  eventBackgroundImage: {fileID: 21300000, guid: 95f87df34ec49df49b816b29856fa078, type: 3}
   minDayRequired: 1
   maxDayRequired: 6
   selectionWeight: 1

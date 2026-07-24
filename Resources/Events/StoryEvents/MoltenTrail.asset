@@ -10,28 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9bff6408a3a17924b9fb916c32996ac3, type: 3}
-  m_Name: ViolentInsight
+  m_Name: MoltenTrail
   m_EditorClassIdentifier: Assembly-CSharp::StoryEventSO
-  eventName: Violent Insight
-  description: Get a consumable that grants attack permanently.
+  eventName: Molten Trail
+  description: Get a consumable that grants burn permanently.
   eventIcon: {fileID: 0}
-  eventBackgroundImage: {fileID: 21300000, guid: d8130d643939ba440b87b63460f83d6f, type: 3}
+  eventBackgroundImage: {fileID: 21300000, guid: 95f87df34ec49df49b816b29856fa078, type: 3}
   minDayRequired: 1
   maxDayRequired: 6
   selectionWeight: 1
   targetScene: 5
-  promptText: You feel a surge of power welling up within you...
+  promptText: A handful of burning ashes, you feel a stinging pulse oozing from the
+    cinders.
   choices:
-  - buttonText: Take the Essence of Wrath.
-    previewUnit: {fileID: 11400000, guid: 22a7614f1d79235418176ea49184ae77, type: 2}
+  - buttonText: Take the Cinderblight.
+    previewUnit: {fileID: 11400000, guid: a16a5b2709f578d42bf95cdc195a04e7, type: 2}
     generateRandomUnitPreview: 0
     randomRegion: 0
     preferredTags: 0
-    outcome: {fileID: 11400000, guid: a3c17a837ec59904c86905ef4908430c, type: 2}
+    outcome: {fileID: 11400000, guid: ece5622ebdcd60c43b185923c7d0c416, type: 2}
   - buttonText: Leave.
     previewUnit: {fileID: 0}
     generateRandomUnitPreview: 0
     randomRegion: 0
     preferredTags: 0
     outcome: {fileID: 11400000, guid: f55e49cdda5c02c43a443ab2b5264be3, type: 2}
-  eventIllustration: {fileID: 21300000, guid: 5e4c0029090efd646aa7b51d87575bc0, type: 3}
+  eventIllustration: {fileID: 21300000, guid: 9bb45e847e876b446a7aab2417f500ee, type: 3}

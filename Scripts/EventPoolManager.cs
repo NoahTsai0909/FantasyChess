@@ -6,8 +6,8 @@ public class EventPoolManager : MonoBehaviour
 {
     public static EventPoolManager Instance { get; private set; }
 
-    [Header("Event Pools")]
-    [SerializeField] private List<BaseEventSO> allEvents = new List<BaseEventSO>();
+    // Removed the [SerializeField] so the Inspector stays clean!
+    private List<BaseEventSO> allEvents = new List<BaseEventSO>();
 
     // Separate pools for faster filtering
     private List<BaseEventSO> combatEvents = new List<BaseEventSO>();
@@ -28,8 +28,18 @@ public class EventPoolManager : MonoBehaviour
 
     void Start()
     {
+        LoadEventsFromResources();
         CategorizeEvents();
         DebugEventPool();
+    }
+
+    private void LoadEventsFromResources()
+    {
+        // This automatically finds EVERY BaseEventSO inside Assets/Resources/Events/
+        BaseEventSO[] loadedEvents = Resources.LoadAll<BaseEventSO>("Events");
+
+        // Convert the array to our list
+        allEvents = new List<BaseEventSO>(loadedEvents);
     }
 
     private void CategorizeEvents()
@@ -54,14 +64,15 @@ public class EventPoolManager : MonoBehaviour
     // Get combat events (weighted random)
     public List<BaseEventSO> GetCombatEvents(int count)
     {
-        CategorizeEvents();
+        // REMOVED: CategorizeEvents() call to save performance. 
+        // We only categorize at Start() or when Reputation changes!
         return GetWeightedRandomEvents(combatEvents, count);
     }
 
     // Get regular events (weighted random)
     public List<BaseEventSO> GetRegularEvents(int count)
     {
-        CategorizeEvents();
+        // REMOVED: CategorizeEvents() call to save performance.
         return GetWeightedRandomEvents(regularEvents, count);
     }
 
