@@ -338,7 +338,7 @@ public class UnitInstance : MonoBehaviour
     {
         if (myGrid != null)
         {
-            myGrid.RemoveUnit(row, col);
+            myGrid.RemoveUnit(row, col, false);
         }
 
         if (uiManager != null)
@@ -347,7 +347,16 @@ public class UnitInstance : MonoBehaviour
         OnDeathEffect();
 
         CombatEventBus.Publish(CombatEventType.UnitDied, this, this, 0);
-        Destroy(gameObject);
+        inCombat = false;
+        if (Visuals != null)
+        {
+            Visuals.PlayDeathAnimationAndDestroy();
+        }
+        else
+        {
+            // Fallback just in case visuals are missing
+            Destroy(gameObject);
+        }
     }
 
     protected virtual void OnDeathEffect()

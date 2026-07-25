@@ -7,11 +7,6 @@ using System.Collections.Generic;
 
 public class MapController : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI goldText;
-    [SerializeField] private TextMeshProUGUI reputationText;
-    [SerializeField] private TextMeshProUGUI dayText;
-    [SerializeField] private TextMeshProUGUI dayTypeText;
-    [SerializeField] private TextMeshProUGUI eventCounterText;
     [SerializeField] private Button prepSceneButton;
 
     [Header("Event Display")]
@@ -58,26 +53,6 @@ public class MapController : MonoBehaviour
 
     public void UpdateUI()
     {
-        if (RunManager.Instance != null)
-        {
-            goldText.text = $"Gold: {RunManager.Instance.Stats.CurrentGold}";
-            dayText.text = $"Day: {RunManager.Instance.Stats.CurrentDay}";
-            reputationText.text = $"Reputation: {RunManager.Instance.Stats.Reputation} / 10";
-
-            // Show event counter
-            if (RunManager.Instance.isBattlePhase)
-            {
-                dayTypeText.text = "BATTLE DAY";
-                dayTypeText.color = Color.red;
-                eventCounterText.text = "Choose your battle!";
-            }
-            else
-            {
-                dayTypeText.text = "EVENT DAY";
-                dayTypeText.color = Color.blue;
-                eventCounterText.text = $"Event {RunManager.Instance.regularEventsCompleted + 1}/3";
-            }
-        }
     }
 
     public void DisplayEvents(List<BaseEventSO> events)

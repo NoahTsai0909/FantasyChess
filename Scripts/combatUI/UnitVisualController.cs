@@ -86,4 +86,42 @@ public class UnitVisualController : MonoBehaviour
             sr.material.SetFloat("_Thickness", currentThickness);
         }
     }
+
+    public void PlayDeathAnimationAndDestroy()
+    {
+        // Stop any damage flashes currently happening
+        if (flashCoroutine != null)
+            StopCoroutine(flashCoroutine);
+
+        StartCoroutine(VisualDeathRoutine());
+    }
+
+    private IEnumerator VisualDeathRoutine()
+    {
+        if (sr != null)
+        {
+            Color startColor = sr.color;
+            Color targetColor = new Color(0.3f, 0.3f, 0.3f, 0f);
+
+            float fadeDuration = 0.5f;
+            float timer = 0f;
+
+            while (timer < fadeDuration)
+            {
+                timer += Time.deltaTime;
+                sr.color = Color.Lerp(startColor, targetColor, timer / fadeDuration);
+
+                // Optional: You can also shrink the pulse effect as they die!
+                if (sr.material != null)
+                {
+                    sr.material.SetFloat("_Thickness", Mathf.Lerp(maxThickness, 0f, timer / fadeDuration));
+                }
+
+                yield return null;
+            }
+        }
+
+        // The visual controller finally destroys the root object
+        Destroy(gameObject);
+    }
 }
