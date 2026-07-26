@@ -77,7 +77,7 @@ public class RunHUDManager : MonoBehaviour
     private void UpdateDay(int day)
     {
         if (dayText != null)
-            dayText.text = "Day: \n" +day.ToString();
+            dayText.text = "Day \n" +day.ToString();
     }
 
     private void UpdateLevel(int level)
