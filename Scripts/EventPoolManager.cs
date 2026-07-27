@@ -63,22 +63,21 @@ public class EventPoolManager : MonoBehaviour
 
     // Get combat events (weighted random)
     public List<BaseEventSO> GetCombatEvents(int count)
-    {
-        // REMOVED: CategorizeEvents() call to save performance. 
-        // We only categorize at Start() or when Reputation changes!
+    { 
+        CategorizeEvents();
         return GetWeightedRandomEvents(combatEvents, count);
     }
 
     // Get regular events (weighted random)
     public List<BaseEventSO> GetRegularEvents(int count)
     {
-        // REMOVED: CategorizeEvents() call to save performance.
+        CategorizeEvents();
         return GetWeightedRandomEvents(regularEvents, count);
     }
 
-    // Get any events (for backward compatibility)
     public List<BaseEventSO> GetRandomEvents(int count)
     {
+        CategorizeEvents();
         var availableEvents = combatEvents.Concat(regularEvents).ToList();
         return GetWeightedRandomEvents(availableEvents, count);
     }

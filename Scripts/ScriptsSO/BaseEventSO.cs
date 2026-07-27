@@ -9,6 +9,8 @@ public abstract class BaseEventSO : ScriptableObject
     public string description;
     public Sprite eventIcon;
     public Sprite eventBackgroundImage;
+    [Header("Visuals")]
+    public Color portalGlowColor = Color.white;
 
     [Header("Availability")]
     public int minDayRequired;

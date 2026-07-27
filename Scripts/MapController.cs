@@ -19,6 +19,14 @@ public class MapController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI rewardText;
     [SerializeField] private Button continueButton;
 
+    [Header("Event Info HUD")]
+    [SerializeField] private GameObject eventInfoPanel; // Assign your new HUD image here
+    [SerializeField] private TextMeshProUGUI infoTitleText;
+    [SerializeField] private TextMeshProUGUI infoDescText;
+
+    [Tooltip("How far from the portal should the HUD appear?")]
+    [SerializeField] private Vector3 hoverOffset = new Vector3(0, 200f, 0);
+
     public static MapController Instance { get; private set; }
 
     void Awake()
@@ -60,19 +68,25 @@ public class MapController : MonoBehaviour
         foreach (Transform child in eventButtonContainer)
             Destroy(child.gameObject);
 
-        // Create buttons for each event
-        foreach (var eventSO in events)
+        // Use a traditional for-loop so we know the index number (0, 1, or 2)
+        for (int i = 0; i < events.Count; i++)
         {
             GameObject buttonObj = Instantiate(eventButtonPrefab, eventButtonContainer);
-            EventButtonUI buttonUI = buttonObj.GetComponent<EventButtonUI>();
+            PortalArtifactUI portalUI = buttonObj.GetComponent<PortalArtifactUI>();
 
-            if (buttonUI != null)
+            if (portalUI != null)
             {
-                buttonUI.Initialize(eventSO);
+                portalUI.Initialize(events[i]);
+
+                // If there are exactly 3 events, and this is the middle one (index 1)
+                if (events.Count == 3 && i == 1)
+                {
+                    // Push it up by 60 pixels (Adjust this number to your liking!)
+                    portalUI.SetElevation(60f);
+                }
             }
         }
 
-        // Update UI text
         UpdateUI();
     }
 
@@ -122,4 +136,21 @@ public class MapController : MonoBehaviour
             });
         }
     }
+
+    public void ShowEventInfo(string eventName, string eventDescription, Vector3 targetPosition)
+    {
+        infoTitleText.text = eventName;
+        infoDescText.text = eventDescription;
+
+        // Move the panel to the portal's position + the offset
+        eventInfoPanel.transform.position = targetPosition + hoverOffset;
+
+        eventInfoPanel.SetActive(true);
+    }
+
+    public void HideEventInfo()
+    {
+        eventInfoPanel.SetActive(false);
+    }
+
 }

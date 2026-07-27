@@ -116,10 +116,10 @@ public class CombatVFXManager : MonoBehaviour
         if (tr != null)
         {
             Color projColor = GetColorForAction(action);
-            tr.startColor = projColor;
+            /*tr.startColor = projColor;
 
             // Fade out to the same color but with 0 Alpha
-            tr.endColor = new Color(projColor.r, projColor.g, projColor.b, 0f);
+            tr.endColor = new Color(projColor.r, projColor.g, projColor.b, 0f);*/
         }
 
         // --- NEW LOGIC: Wrap the impact action ---
