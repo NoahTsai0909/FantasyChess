@@ -9,7 +9,7 @@ public class EventSceneController : MonoBehaviour
     [Header("Basic UI")]
     [SerializeField] private TextMeshProUGUI eventNameText;
     [SerializeField] private TextMeshProUGUI descriptionText;
-    [SerializeField] private SpriteRenderer eventBackgroundRenderer;
+    [SerializeField] private Image eventBackgroundRenderer;
 
     [Header("Dynamic Content")]
     [SerializeField] private Transform contentParent;

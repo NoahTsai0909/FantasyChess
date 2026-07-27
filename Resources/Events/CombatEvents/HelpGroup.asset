@@ -14,15 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CombatEventSO
   eventName: Help Group
   description: Bulwark + Shieldmate + Kindling + Priest
-  eventIcon: {fileID: 0}
+  eventIcon: {fileID: 21300000, guid: 277a3539fdd297840bd0c9d19fbe4dd7, type: 3}
   eventBackgroundImage: {fileID: 0}
-  eventButtonText: 
+  portalGlowColor: {r: 1, g: 1, b: 1, a: 1}
   minDayRequired: 3
   maxDayRequired: 4
   selectionWeight: 1
   targetScene: 2
-  backgroundColor: {r: 1, g: 1, b: 1, a: 1}
-  flavorText: 
   encounter: {fileID: 11400000, guid: 1bf88f5cf2f378a45b89042ff0398fb6, type: 2}
   goldReward: 3
   reputationReward: 3

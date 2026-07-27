@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StoryEventSO
   eventName: Molten Trail
   description: Get a consumable that grants burn permanently.
-  eventIcon: {fileID: 0}
+  eventIcon: {fileID: 21300000, guid: 277a3539fdd297840bd0c9d19fbe4dd7, type: 3}
   eventBackgroundImage: {fileID: 21300000, guid: 95f87df34ec49df49b816b29856fa078, type: 3}
   portalGlowColor: {r: 1, g: 0.7058824, b: 0.12941177, a: 1}
   minDayRequired: 1

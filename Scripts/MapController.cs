@@ -24,10 +24,15 @@ public class MapController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI infoTitleText;
     [SerializeField] private TextMeshProUGUI infoDescText;
 
+    [Header("Transition Overlay")]
+    [SerializeField] private Image blackScreenOverlay;
+
     [Tooltip("How far from the portal should the HUD appear?")]
     [SerializeField] private Vector3 hoverOffset = new Vector3(0, 200f, 0);
 
     public static MapController Instance { get; private set; }
+
+    public bool isTransitioning = false;
 
     void Awake()
     {
@@ -107,7 +112,7 @@ public class MapController : MonoBehaviour
 
             DisplayEvents(RunManager.Instance.currentDailyEvents);
         }
-
+        isTransitioning = false;
         UpdateUI();
     }
 
@@ -151,6 +156,20 @@ public class MapController : MonoBehaviour
     public void HideEventInfo()
     {
         eventInfoPanel.SetActive(false);
+    }
+
+    public void SetOverlayAlpha(float alpha)
+    {
+        if (blackScreenOverlay != null)
+        {
+            // Turn it on the moment we need it
+            if (!blackScreenOverlay.gameObject.activeSelf && alpha > 0f)
+            {
+                blackScreenOverlay.gameObject.SetActive(true);
+            }
+
+            blackScreenOverlay.color = new Color(0, 0, 0, alpha);
+        }
     }
 
 }
