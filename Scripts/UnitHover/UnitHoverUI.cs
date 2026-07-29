@@ -134,14 +134,14 @@ public class UnitHoverUI : MonoBehaviour
             }
         }
 
-        string activeDesc = unit.GetActiveDescription();
-        string passiveDesc = unit.GetPassiveDescription();
+        string activeDesc = TextIconUtility.ParseDescription(unit.GetActiveDescription());
+        string passiveDesc = TextIconUtility.ParseDescription(unit.GetPassiveDescription());
 
         // Handle Active Ability Box
         if (!string.IsNullOrEmpty(activeDesc))
         {
             activeAbilityBox.SetActive(true);
-            activeAbilityText.text = activeDesc;
+            activeAbilityText.SetText(activeDesc);
         }
         else
         {
@@ -152,7 +152,7 @@ public class UnitHoverUI : MonoBehaviour
         if (!string.IsNullOrEmpty(passiveDesc))
         {
             passiveAbilityBox.SetActive(true);
-            passiveAbilityText.text = passiveDesc;
+            passiveAbilityText.SetText(passiveDesc);
         }
         else
         {

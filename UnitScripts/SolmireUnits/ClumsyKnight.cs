@@ -17,7 +17,7 @@ public class ClumsyKnight : UnitInstance
                 source = this,
                 target = target,
                 amount = stats.Attack,
-                reason = "Banner Knight Attack",
+                reason = "Clumsy Knight Attack",
                 isCrit = abilityCrit
             }
         );
@@ -26,7 +26,7 @@ public class ClumsyKnight : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"Attack the nearest enemy for {stats.Attack} damage.");
+        return ($"Attack the nearest enemy for [ATK] {stats.Attack}.");
     }
 
 }

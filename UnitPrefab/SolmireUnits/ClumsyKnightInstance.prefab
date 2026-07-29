@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3055527152786462543}
   - component: {fileID: 4798375662946024258}
   m_Layer: 0
-  m_Name: BannerKnightInstance
+  m_Name: ClumsyKnightInstance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BannerKnight
   definition: {fileID: 11400000, guid: 88642c22682ab104a9c47221284759e5, type: 2}
-  unitName: Banner Knight
+  unitName: Clumsy Knight
   isPassive: 0
   isEnergy: 0
   inCombat: 0
@@ -186,3 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc0c72defaec0db4791315e9b2cb2b2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnitVisualController
+  enablePulse: 1
+  pulseSpeed: 4
+  minThickness: 2
+  maxThickness: 6
