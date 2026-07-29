@@ -38,6 +38,9 @@ public class UnitHoverUI : MonoBehaviour
     [SerializeField] private GameObject passiveAbilityBox;
     [SerializeField] private TextMeshProUGUI passiveAbilityText;
 
+    [Header("Behavior")]
+    [SerializeField] private bool isPermanentUI = false;
+
     private Canvas canvas;
     private RectTransform rectTransform;
     private UnitInstance currentUnit;
@@ -60,7 +63,8 @@ public class UnitHoverUI : MonoBehaviour
             canvasCamera = canvas.worldCamera ?? mainCamera;
         }
 
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        if (!isPermanentUI) gameObject.SetActive(false);
     }
 
     void Update()
@@ -158,6 +162,7 @@ public class UnitHoverUI : MonoBehaviour
 
     public void Hide()
     {
+        if (isPermanentUI) return;
         currentUnit = null;
         gameObject.SetActive(false);
     }

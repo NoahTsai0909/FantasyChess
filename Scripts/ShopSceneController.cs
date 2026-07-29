@@ -5,24 +5,24 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static RunManager;
-using static SceneLoader;
 
 public class ShopSceneController : MonoBehaviour
 {
-    [SerializeField] private Transform unitAnchor;
+    [Header("UI & Anchors")]
+    [SerializeField] private ShopUnitCard shopUnitCardPrefab;
+    [SerializeField] private Transform shopUIAnchor; // This should be your HorizontalLayoutGroup Panel
+    [SerializeField] private Transform hiddenUnitAnchor; // An empty GameObject to hold the invisible dummy units
+
+    [Header("Buttons & Text")]
     [SerializeField] private Button refreshButton;
-    [SerializeField] private Button PrepSceneButton;
-    [SerializeField] private float horizontalSpacing = 5f;
-    [SerializeField] private Button purchaseButtonPrefab;
-    [SerializeField] private Transform shopUIAnchor;
-    [SerializeField] private TextMeshProUGUI goldText;
+    [SerializeField] private Button prepSceneButton;
     [SerializeField] private Button continueButton;
 
     private ShopEventSO shopEvent;
     private ShopState shopState;
 
-    private List<UnitInstance> spawnedUnits = new();
-    private List<Button> spawnedButtons = new();
+    private List<ShopUnitCard> spawnedCards = new();
+    private List<UnitInstance> spawnedDummies = new();
 
     void Start()
     {
@@ -37,18 +37,13 @@ public class ShopSceneController : MonoBehaviour
             shopEvent.totalUnitsGenerated,
             shopEvent.region,
             shopEvent.allowedTags,
-            shopEvent.minProvisionCost,    
+            shopEvent.minProvisionCost,
             shopEvent.maxProvisionCost
         );
 
         shopState = RunManager.Instance.shopState;
 
-        goldText.text = $"Gold: {RunManager.Instance.Stats.CurrentGold}";
-
-        continueButton.onClick.AddListener(() =>
-        {
-            CompleteEventAndReturn(shopEvent);
-        });
+        continueButton.onClick.AddListener(() => CompleteEventAndReturn(shopEvent));
 
         SetupRefreshButton();
         SetupPrepSceneButton();
@@ -58,7 +53,9 @@ public class ShopSceneController : MonoBehaviour
     void SetupRefreshButton()
     {
         refreshButton.gameObject.SetActive(!shopState.hasRefreshed);
-        refreshButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Refresh ({shopEvent.refreshCost}g)";
+
+        var buttonText = refreshButton.GetComponentInChildren<TextMeshProUGUI>();
+        if (buttonText != null) buttonText.text = $"Refresh ({shopEvent.refreshCost}g)";
 
         refreshButton.onClick.RemoveAllListeners();
         refreshButton.onClick.AddListener(() =>
@@ -71,10 +68,7 @@ public class ShopSceneController : MonoBehaviour
 
             RunManager.Instance.Stats.CurrentGold -= shopEvent.refreshCost;
             shopState.hasRefreshed = true;
-
             shopState.currentPage = 1;
-            goldText.text = $"Gold: {RunManager.Instance.Stats.CurrentGold}";
-
             refreshButton.gameObject.SetActive(false);
             DisplayCurrentPage();
         });
@@ -82,45 +76,40 @@ public class ShopSceneController : MonoBehaviour
 
     void SetupPrepSceneButton()
     {
-        PrepSceneButton.onClick.AddListener(() => SceneLoader.Instance.LoadScene(GameScene.PrepScene));
+        prepSceneButton.onClick.AddListener(() => SceneLoader.Instance.LoadScene(SceneLoader.GameScene.PrepScene));
     }
 
-    void SpawnShopUnit(UnitSaveData unitData, float xPos)
+    void DisplayCurrentPage()
     {
-        // Spawn unit preview
-        UnitInstance unit = Instantiate(unitData.definition.unitPrefab, unitAnchor);
-        unit.InitializeFromSaveData(unitData);
-        unit.transform.localPosition = new Vector3(xPos, 0f, 0f);
+        ClearSpawnedUnits();
 
-        // Force correct scale (adjust these values based on your grid cell size)
-        unit.transform.localScale = new Vector3(1f, 1f, 1f); // Match PrepScene scale
+        var pageUnits = shopState.offeredUnits
+            .Skip(shopState.currentPage * shopEvent.unitsPerPage)
+            .Take(shopEvent.unitsPerPage)
+            .Where(u => !shopState.purchasedUnits.Contains(u.definition))
+            .ToList();
 
-        unit.isPlayer = true;
-        spawnedUnits.Add(unit);
-
-        // Spawn purchase button
-        SpawnPurchaseButton(unit, unitData, unit.transform.position);
+        for (int i = 0; i < pageUnits.Count; i++)
+        {
+            SpawnShopCard(pageUnits[i]);
+        }
     }
 
-    void SpawnPurchaseButton(UnitInstance unit, UnitSaveData unitData, Vector3 unitWorldPosition)
+    void SpawnShopCard(UnitSaveData unitData)
     {
-        Button button = Instantiate(purchaseButtonPrefab, shopUIAnchor);
+        // 1. Spawn the invisible dummy unit to calculate abilities
+        UnitInstance dummyUnit = Instantiate(unitData.definition.unitPrefab, hiddenUnitAnchor);
+        dummyUnit.InitializeFromSaveData(unitData);
+        dummyUnit.isPlayer = true;
+        dummyUnit.gameObject.SetActive(false); // Keep it invisible!
+        spawnedDummies.Add(dummyUnit);
 
-        // Position button in world space (below the unit)
-        button.transform.position = unitWorldPosition + new Vector3(0f, -4f, 0f);
-
-        // Make sure the button faces the camera
-        button.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
-
+        // 2. Spawn the UI Card
+        ShopUnitCard card = Instantiate(shopUnitCardPrefab, shopUIAnchor);
         int unitCost = GetPurchasePrice(unitData);
-        // Update button text
-        var text = button.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-        if (text != null)
-            text.text = $"Buy ({unitCost}g)";
 
-        // Hook up click logic
-        button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() =>
+        // 3. Initialize the card with the dummy unit and the Purchase logic
+        card.Initialize(dummyUnit, unitCost, () =>
         {
             if (RunManager.Instance.Stats.CurrentGold < unitCost)
             {
@@ -128,29 +117,31 @@ public class ShopSceneController : MonoBehaviour
                 return;
             }
 
+            // Deduct Gold and Acquire Unit
             RunManager.Instance.Stats.CurrentGold -= unitCost;
-            PlayerUnitManager.Instance.TryAcquireUnit(unitData.definition, unitData.rarity); // Pass rarity!
-            goldText.text = $"Gold: {RunManager.Instance.Stats.CurrentGold}";
+            PlayerUnitManager.Instance.TryAcquireUnit(unitData.definition, unitData.rarity);
             shopState.purchasedUnits.Add(unitData.definition);
 
-            spawnedUnits.Remove(unit);
-            spawnedButtons.Remove(button);
+            // Clean up the invisible dummy unit to free memory
+            spawnedDummies.Remove(dummyUnit);
+            Destroy(dummyUnit.gameObject);
 
-            Destroy(unit.gameObject);
-            Destroy(button.gameObject);
+            // INSTEAD of destroying the card, just hide it!
+            // Do NOT remove it from spawnedCards so ClearSpawnedUnits() still finds it later.
+            card.MarkAsPurchased();
         });
 
-        spawnedButtons.Add(button);
+        spawnedCards.Add(card);
     }
+
 
     int GetPurchasePrice(UnitSaveData unit)
     {
         int discountValue = 0;
         if (shopEvent.discount)
         {
-            discountValue = RarityToMultiplier(unit.rarity); 
+            discountValue = RarityToMultiplier(unit.rarity);
         }
-
         return (unit.EffectiveValue * 2) - discountValue;
     }
 
@@ -166,50 +157,24 @@ public class ShopSceneController : MonoBehaviour
         }
     }
 
-    void DisplayCurrentPage()
-    {
-        ClearSpawnedUnits();
-
-        // Get units for current page, excluding purchased ones
-        var pageUnits = shopState.offeredUnits
-            .Skip(shopState.currentPage * shopEvent.unitsPerPage)
-            .Take(shopEvent.unitsPerPage)
-            .Where(u => !shopState.purchasedUnits.Contains(u.definition)) // Check definition
-            .ToList();
-
-        int count = pageUnits.Count;
-        float startX = -(count - 1) * horizontalSpacing * 0.5f;
-
-        for (int i = 0; i < count; i++)
-        {
-            SpawnShopUnit(pageUnits[i], startX + i * horizontalSpacing);
-        }
-    }
-
     void ClearSpawnedUnits()
     {
-        foreach (var unit in spawnedUnits)
+        foreach (var card in spawnedCards)
         {
-            if (unit != null)
-                Destroy(unit.gameObject);
+            if (card != null) Destroy(card.gameObject);
         }
+        spawnedCards.Clear();
 
-        foreach (var button in spawnedButtons)
+        foreach (var dummy in spawnedDummies)
         {
-            if (button != null)
-                Destroy(button.gameObject);
+            if (dummy != null) Destroy(dummy.gameObject);
         }
-
-        spawnedUnits.Clear();
-        spawnedButtons.Clear();
+        spawnedDummies.Clear();
     }
 
     private void CompleteEventAndReturn(BaseEventSO eventSO)
     {
-        // Mark event as completed
         eventSO.OnCompleted();
-
-        // Return to map
-        SceneLoader.Instance.LoadScene(GameScene.MapScene);
+        SceneLoader.Instance.LoadScene(SceneLoader.GameScene.MapScene);
     }
 }
