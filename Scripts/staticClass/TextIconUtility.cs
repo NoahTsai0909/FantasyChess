@@ -14,6 +14,8 @@ public static class TextIconUtility
     private const string CritIcon = "<sprite name=crit>";
     private const string EnergyIcon = "<sprite name=energy>";
     private const string MulticastIcon = "<sprite name=multicast>";
+    private const string ProvisionIcon = "<sprite name=provision>";
+    private const string MaxProvisionIcon = "<sprite name=maxprovision>";
     private const string MaxHealthIcon = "<sprite name=maxhealth>";
 
     // Define your hex colors
@@ -28,6 +30,8 @@ public static class TextIconUtility
     private const string ColorEnergy = "#EF1DAA";
     private const string ColorCrit = "#FE8500";
     private const string ColorMulticast = "#FF4444";
+    private const string ColorProvision = "#AA55CB";
+    private const string ColorMaxProvision = "#AA55CB";
     private const string ColorMaxHealth = "#088A06";
 
     // Standardized formatters for stats (useful for UI elements like price tags)
@@ -48,6 +52,10 @@ public static class TextIconUtility
     public static string FormatMaxHealth(int amount) => $"{MaxHealthIcon} <color={ColorMaxHealth}>{amount}</color>";
 
     public static string FormatMulticast(int amount) => $"{MulticastIcon} <color={ColorMulticast}>{amount}</color>";
+
+    public static string FormatProvision(int amount) => $"{ProvisionIcon} <color={ColorProvision}>{amount}</color>";
+
+    public static string FormatMaxProvision(int amount) => $"{MaxProvisionIcon} <color={ColorMaxProvision}>{amount}</color>";
     public static string ParseDescription(string rawDescription)
     {
         if (string.IsNullOrEmpty(rawDescription)) return "";
@@ -69,6 +77,8 @@ public static class TextIconUtility
         parsedText = Regex.Replace(parsedText, @"\[ENERGY\]\s*(\d+)", $"{EnergyIcon} <color={ColorEnergy}>$1</color>");
         parsedText = Regex.Replace(parsedText, @"\[CRIT\]\s*(\d+)", $"{CritIcon} <color={ColorCrit}>$1</color>");
         parsedText = Regex.Replace(parsedText, @"\[MULTICAST\]\s*(\d+)", $"{MulticastIcon} <color={ColorMulticast}>$1</color>");
+        parsedText = Regex.Replace(parsedText, @"\[PROVISION\]\s*(\d+)", $"{ProvisionIcon} <color={ColorProvision}>$1</color>");
+        parsedText = Regex.Replace(parsedText, @"\[MAXPROVISION\]\s*(\d+)", $"{MaxProvisionIcon} <color={ColorMaxProvision}>$1</color>");
 
         // Fallback: If you just type [ATK] without a number after it, just replace the icon
         parsedText = parsedText.Replace("[GOLD]", GoldIcon)
@@ -82,12 +92,15 @@ public static class TextIconUtility
                                .Replace("[ENERGY]", EnergyIcon)
                                .Replace("[CRIT]", CritIcon)
                                .Replace("[MULTICAST]", MulticastIcon)
+                               .Replace("[PROVISION]", ProvisionIcon)
+                               .Replace("[MAXPROVISION]", MaxProvisionIcon)
                                .Replace("[MAXHEALTH]", MaxHealthIcon);
         
 
         parsedText = parsedText.Replace("[c_attack]", $"<color={ColorAttack}>")
                                .Replace("[c_shield]", $"<color={ColorShield}>")
                                .Replace("[c_heal]", $"<color={ColorHeal}>")
+                               .Replace("[c_gold]", $"<color={ColorGold}>")
                                  .Replace("[c_burn]", $"<color={ColorBurn}>")
                                  .Replace("[c_haste]", $"<color={ColorHaste}>")
                                  .Replace("[c_poison]", $"<color={ColorPoison}>")
@@ -96,6 +109,8 @@ public static class TextIconUtility
                                  .Replace("[c_energy]", $"<color={ColorEnergy}>")
                                  .Replace("[c_crit]", $"<color={ColorCrit}>")
                                  .Replace("[c_multicast]", $"<color={ColorMulticast}>")
+                                 .Replace("[c_provision]", $"<color={ColorProvision}>")
+                                 .Replace("[c_maxprovision]", $"<color={ColorMaxProvision}>")
                                .Replace("[/c]", "</color>");
 
         return parsedText;

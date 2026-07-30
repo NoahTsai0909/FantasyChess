@@ -83,7 +83,7 @@ public class ProvisionManager : MonoBehaviour
     {
         if (provisionText == null) return;
 
-        provisionText.text = $"{currentProvisionUsed}/{runManager.Stats.ProvisionCap}";
+        provisionText.SetText(TextIconUtility.ParseDescription($"[PROVISION] [c_gold]{currentProvisionUsed}/{runManager.Stats.ProvisionCap}[/c]"));
         provisionText.color = IsProvisionValid() ? validColor : exceededColor;
     }
 

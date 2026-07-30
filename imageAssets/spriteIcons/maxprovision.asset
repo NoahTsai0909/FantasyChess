@@ -1,13 +1,13 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!21 &-4108120412033937948
+--- !u!21 &-8171210293900731754
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: gold Material
+  m_Name: maxprovision Material
   m_Shader: {fileID: 4800000, guid: cf81c85f95fe47e1a27f6ae460cf182c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 2a27a0b46272eed448758380770dd87d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9ab474f55ea540c47be608c3b6229888, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84a92b25f83d49b9bc132d206b370281, type: 3}
-  m_Name: gold
+  m_Name: maxprovision
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_SpriteAsset
   m_Version: 1.1.0
   m_FaceInfo:
@@ -77,44 +77,30 @@ MonoBehaviour:
     m_StrikethroughOffset: 0
     m_StrikethroughThickness: 0
     m_TabWidth: 0
-  m_Material: {fileID: -4108120412033937948}
-  spriteSheet: {fileID: 2800000, guid: 2a27a0b46272eed448758380770dd87d, type: 3}
+  m_Material: {fileID: -8171210293900731754}
+  spriteSheet: {fileID: 2800000, guid: 9ab474f55ea540c47be608c3b6229888, type: 3}
   m_SpriteCharacterTable:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 0
-    m_Scale: 1.7
-    m_Name: gold
+    m_Scale: 1
+    m_Name: maxprovision
   m_GlyphTable:
   - m_Index: 0
     m_Metrics:
-      m_Width: 320
-      m_Height: 320
-      m_HorizontalBearingX: -60
-      m_HorizontalBearingY: 220
+      m_Width: 200
+      m_Height: 200
+      m_HorizontalBearingX: -100
+      m_HorizontalBearingY: 100
       m_HorizontalAdvance: 200
     m_GlyphRect:
       m_X: 0
       m_Y: 0
-      m_Width: 320
-      m_Height: 320
+      m_Width: 200
+      m_Height: 200
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
-    sprite: {fileID: 21300000, guid: 2a27a0b46272eed448758380770dd87d, type: 3}
+    sprite: {fileID: 21300000, guid: 9ab474f55ea540c47be608c3b6229888, type: 3}
   spriteInfoList: []
-  fallbackSpriteAssets:
-  - {fileID: 11400000, guid: d9d852a06d1268b40b32c663313d36bb, type: 2}
-  - {fileID: 11400000, guid: b859d1df1bdc6574ba8f4ef4b344a2eb, type: 2}
-  - {fileID: 11400000, guid: c846d8bfc6cb2b24e96013063480aa2e, type: 2}
-  - {fileID: 11400000, guid: 7acfd93d01835c7428b1c1e26c6681d8, type: 2}
-  - {fileID: 11400000, guid: e5299dc96e50a8b4eaae564f0f88b20b, type: 2}
-  - {fileID: 11400000, guid: 0d6b1513b59f8174483782d5ba23bdb7, type: 2}
-  - {fileID: 11400000, guid: 3f750a7a3eaeda848a914274fb88d2c9, type: 2}
-  - {fileID: 11400000, guid: 4eb61807d5f081b44a150d226ad2921c, type: 2}
-  - {fileID: 11400000, guid: aa306638ef60f6f4aa467ecf49e1924c, type: 2}
-  - {fileID: 11400000, guid: 4de6ccde79dc7c34ebfd98b9e5dcc518, type: 2}
-  - {fileID: 11400000, guid: 5c1efdb0cc64c5049964efd6166b943a, type: 2}
-  - {fileID: 11400000, guid: 4f8e8f4133456d44e9854521feb8d5bd, type: 2}
-  - {fileID: 11400000, guid: b85efc98934869f4a937e559996fe67f, type: 2}
-  - {fileID: 11400000, guid: dc6712a1ef13b234b9bc717476a013c3, type: 2}
+  fallbackSpriteAssets: []
