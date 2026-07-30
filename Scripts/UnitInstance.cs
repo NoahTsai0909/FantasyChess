@@ -272,6 +272,7 @@ public class UnitInstance : MonoBehaviour
     protected virtual void UseAbility()
     {
         abilityCrit = RollCrit();
+        Visuals?.PlayAttackAnimation();
         CombatEventBus.Publish(CombatEventBus.CombatEventType.AbilityUsed, this, null, 0);
     }
 

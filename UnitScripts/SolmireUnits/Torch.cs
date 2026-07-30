@@ -55,9 +55,9 @@ public class Torch : UnitInstance
         base.Die();
     }
 
-    public override string GetActiveDescription()
+    public override string GetPassiveDescription()
     {
-        return ($"Combat Start: Adjacent allies have +{burnBuff} burn.");
+        return ($"Combat Start: Adjacent allies have [c_burn]+{burnBuff}[/c] [BURN].");
     }
 
 }

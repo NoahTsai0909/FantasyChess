@@ -23,6 +23,6 @@ public class MendingCaster : UnitInstance
     }
     public override string GetActiveDescription()
     {
-        return ($"Heal the lowest health ally for {stats.Heal}.");
+        return ($"[c_heal]Heal[/c] the lowest health ally for [HEAL] {stats.Heal}.");
     }
 }

@@ -38,6 +38,6 @@ public class SpiritrootElixir : UnitInstance, IConsumable
 
     public override string GetActiveDescription()
     {
-        return ($"Overlay on an ally unit to consume this and grant it {healthModifier} health permanently.");
+        return ($"Consume this to grant [c_maxhealth]{healthModifier}[/c] [MAXHEALTH] permanently.");
     }
 }

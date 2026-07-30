@@ -27,6 +27,6 @@ public class Hatchling : UnitInstance
     public override string GetActiveDescription()
     {
         /*stats = RunManager.Instance.GetPreviewStats(Definition, CurrentRarity);*/
-        return ($"Burn the nearest enemy for {stats.Burn}.");
+        return ($"[c_burn]Burn[/c] the nearest enemy for [BURN] {stats.Burn}.");
     }
 }

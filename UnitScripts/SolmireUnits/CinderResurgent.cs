@@ -44,7 +44,12 @@ public class CinderResurgent : UnitInstance
     }
     public override string GetActiveDescription()
     {
-        return ($"Attack the nearest enemy for {stats.Attack} damage. Burn all enemies for {stats.Burn}. When this dies, summon a Scattered Pyre.");
+        return ($"[c_attack]Attack[/c] the nearest enemy for [ATK] {stats.Attack}. [c_burn]Burn[/c] all enemies for [BURN] {stats.Burn}.");
+    }
+
+    public override string GetPassiveDescription()
+    {
+        return ("When this dies, summon a Scattered Pyre.");
     }
 
     protected override void OnDeathEffect()

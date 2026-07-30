@@ -53,9 +53,9 @@ public class Bulwark : UnitInstance
     }
     }
 
-    
-    public override string GetActiveDescription()
+
+    public override string GetPassiveDescription()
     {
-        return ($"When an ally is healed, shield it {stats.Shield}. When an ally is shielded, heal it {stats.Heal}. ");
+        return ($"When an ally is [c_heal]healed[/c], [c_shield]shield[/c] it for [SHIELD] {stats.Shield}. When an ally is [c_shield]shielded[/c], [c_heal]heal[/c] it for [HEAL] {stats.Heal}. ");
     }
 }

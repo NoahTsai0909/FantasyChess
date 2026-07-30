@@ -38,6 +38,6 @@ public class EssenceofWrath : UnitInstance, IConsumable
 
     public override string GetActiveDescription()
     {
-        return ($"Overlay on an ally unit to consume this and grant it {attackModifier} attack permanently.");
+        return ($"Consume this to grant [c_attack]{attackModifier}[/c] [ATK] permanently.");
     }
 }

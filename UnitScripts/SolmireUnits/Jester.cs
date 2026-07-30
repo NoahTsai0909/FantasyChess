@@ -22,6 +22,6 @@ public class Jester : UnitInstance
     }
     public override string GetActiveDescription()
     {
-        return ($"Attack a random enemy for {stats.Attack} damage.");
+        return ($"[c_attack]Attack[/c] a random enemy for [ATK] {stats.Attack}.");
     }
 }

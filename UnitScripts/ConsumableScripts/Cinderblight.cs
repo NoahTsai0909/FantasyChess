@@ -38,6 +38,6 @@ public class Cinderblight : UnitInstance, IConsumable
 
     public override string GetActiveDescription()
     {
-        return ($"Overlay on an ally unit to consume this and grant it {burnModifier} burn permanently.");
+        return ($"Consume this to grant [c_burn]{burnModifier}[/c] [BURN] permanently.");
     }
 }

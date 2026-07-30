@@ -169,6 +169,14 @@ MonoBehaviour:
       valueModifier: 0
     row: 0
     col: 1
+  - unitData:
+      definition: {fileID: 11400000, guid: 5f1b78a5fffe29a418f8723f751630c9, type: 2}
+      rarity: 3
+      provisionCost: 0
+      provisionModifier: 0
+      valueModifier: 0
+    row: 0
+    col: 0
   benchSize: 8
   regularEventsCompleted: 0
   isBattlePhase: 0
@@ -511,6 +519,9 @@ MonoBehaviour:
   pulseSpeed: 4
   minThickness: 2
   maxThickness: 6
+  enableBreathing: 1
+  breatheSpeed: 3
+  breatheAmount: 0.03
 --- !u!1 &625536098
 GameObject:
   m_ObjectHideFlags: 0

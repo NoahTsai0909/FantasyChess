@@ -93,11 +93,11 @@ public class SludgeVortex : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return $"Attack up to {enemyCount} nearest enemies for {stats.Attack} damage. Slow each for {stats.Slow} seconds.";
+        return $"[c_attack]Attack[/c] up to {enemyCount} nearest enemies for [ATK] {stats.Attack}. [c_slow]Slow[/c] each for [SLOW] {stats.Slow}.";
     }
 
     public override string GetPassiveDescription()
     {
-        return $"When an enemy is slowed, this gains {attackBuff} damage.";
+        return $"When an enemy is [c_slow]slowed[/c], this gains [c_attack]{attackBuff}[/c] [ATK].";
     }
 }

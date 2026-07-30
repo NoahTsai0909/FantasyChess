@@ -56,8 +56,9 @@ public class PlatedFlamespitter : UnitInstance
         );
     }
 
-    public override string GetActiveDescription()
+
+    public override string GetPassiveDescription()
     {
-        return ($"Passive: When the ally behind this unit uses an ability, this unit burns the nearest enemy for {stats.Burn} and shields self for {stats.Shield}.");
+        return ($"When the ally behind this unit uses an ability, [c_burn]burn[/c] the nearest enemy for [BURN] {stats.Burn} and [c_shield]shield[/c] this for [SHIELD] {stats.Shield}.");
     }
 }

@@ -25,6 +25,6 @@ public class Blacksmith : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"Shield all allies for {stats.Shield}.");
+        return ($"[c_shield]Shield[/c] all allies for [SHIELD] {stats.Shield}.");
     }
 }

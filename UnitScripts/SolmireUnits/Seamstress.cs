@@ -122,6 +122,11 @@ public class Seamstress : UnitInstance
     }
     public override string GetActiveDescription()
     {
-        return ($"Attack the nearest enemy for {stats.Attack} damage. \n Combat Start: The ally in front of this has +{maxHealthBuffPercent}% max health.");
+        return ($"[c_attack]Attack[/c] the nearest enemy for [ATK] {stats.Attack}.");
+    }
+
+    public override string GetPassiveDescription()
+    {
+        return ($"Combat Start: The ally in front of this has [c_maxhealth]+{maxHealthBuffPercent}%[/c] [MAXHEALTH].");
     }
 }

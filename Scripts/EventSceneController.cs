@@ -110,6 +110,7 @@ public class EventSceneController : MonoBehaviour
 
         preview.transform.localPosition = Vector3.zero;
         preview.transform.localScale = Vector3.one * 25f;
+        if (preview.Visuals != null) preview.Visuals.SetBaseScale(preview.transform.localScale);
 
         SpriteRenderer renderer = preview.GetComponent<SpriteRenderer>();
         if (renderer != null) renderer.sortingOrder = 100;

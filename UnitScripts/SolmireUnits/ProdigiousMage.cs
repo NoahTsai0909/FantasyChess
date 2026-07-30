@@ -23,6 +23,6 @@ public class ProdigiousMage : UnitInstance
     }
     public override string GetActiveDescription()
     {
-        return ($"Attack the farthest enemy for {stats.Attack} damage.");
+        return ($"[c_attack]Attack[/c] the farthest enemy for [ATK] {stats.Attack}.");
     }
 }

@@ -38,6 +38,6 @@ public class IroncladSentinel : UnitInstance
     }
     public override string GetActiveDescription()
     {
-        return ($"Attack the nearest enemy for {stats.Attack} damage. If this is shielded, attack for {2 * stats.Attack} instead.");
+        return ($"[c_attack]Attack[/c] the nearest enemy for [ATK] {stats.Attack}. If this is [c_shield]shielded[/c], [c_attack]attack[/c] for [ATK] {2 * stats.Attack} instead.");
     }
 }

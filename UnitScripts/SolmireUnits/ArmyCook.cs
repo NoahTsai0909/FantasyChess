@@ -45,6 +45,6 @@ public class ArmyCook : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"Attack the nearest enemy for {stats.Attack} damage. Heal the lowest health ally for {stats.Heal} health.");
+        return ($"[c_attack]Attack[/c] the nearest enemy for [ATK] {stats.Attack}. [c_heal]Heal[/c] the lowest health ally for [HEAL] {stats.Heal}.");
     }
 }

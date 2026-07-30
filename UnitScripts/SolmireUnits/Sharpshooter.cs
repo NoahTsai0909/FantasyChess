@@ -70,6 +70,11 @@ public class Sharpshooter : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"Attack the farthest enemy for {stats.Attack} damage. Passive: When an ally crits, this gains {attackBuff} attack.");
+        return ($"[c_attack]Attack[/c] the farthest enemy for [ATK] {stats.Attack}.");
+    }
+
+    public override string GetPassiveDescription()
+    {
+        return ($"When an ally [c_crits]crits[/c], this gains [c_attack]{attackBuff}[/c] [ATK].");
     }
 }

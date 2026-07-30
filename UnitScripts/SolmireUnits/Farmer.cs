@@ -64,7 +64,12 @@ public class Farmer : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"Attack the nearest enemy for {stats.Attack} damage.\nPassive: When this unit survives combat, +{goldReward} gold.");
+        return ($"[c_attack]Attack[/c] the nearest enemy for [ATK] {stats.Attack}.");
+    }
+
+    public override string GetPassiveDescription()
+    {
+        return ($"When this unit survives combat, + {goldReward} [GOLD].");
     }
 
     private void OnDestroy()

@@ -48,7 +48,12 @@ public class Meridian : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"Attack the farthest enemy for {stats.Attack} damage. Passive: When an ally crits, this gains 1 multicast.");
+        return ($"[c_attack]Attack[/c] the farthest enemy for [ATK] {stats.Attack}.");
+    }
+
+    public override string GetPassiveDescription()
+    {
+        return ("When an ally [c_crit]crits[/c], this gains [c_multicast]1[/c] [MULTICAST].");
     }
 
 

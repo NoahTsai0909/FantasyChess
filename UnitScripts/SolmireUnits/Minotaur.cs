@@ -59,7 +59,12 @@ public class Minotaur : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"Attack the nearest enemy for {stats.Attack} damage.\nPassive: When this unit survives combat, gain {bonusMaxHPstat} max hp.");
+        return ($"[c_attack]Attack[/c] the nearest enemy for [ATK] {stats.Attack}.");
+    }
+
+    public override string GetPassiveDescription()
+    {
+        return ($"When this unit survives combat, gain [MAXHEALTH] [c_maxhealth]{bonusMaxHPstat}[/c] permanently.");
     }
 
     private void OnDestroy() { 

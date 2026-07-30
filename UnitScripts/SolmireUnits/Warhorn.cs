@@ -41,6 +41,6 @@ public class Warhorn : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"Increase attack of allies by {attackBuff}.");
+        return ($"All allies gain [c_attack]+{attackBuff}[/c] [ATK].");
     }
 }

@@ -79,6 +79,6 @@ public class Dustraiser : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"Hastes the ally behind this for {stats.Haste} seconds and shields it for {stats.Shield}.");
+        return ($"[c_haste]Haste[/c] the ally behind this for [HASTE] {stats.Haste} and [c_shield]shield[/c] it for [SHIELD] {stats.Shield}.");
     }
 }

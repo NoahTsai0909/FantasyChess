@@ -71,6 +71,11 @@ public class Paladin : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"Passive: When an ally is healed, this unit gains {attackModifier} attack for this fight. Attacks the nearest enemy for {stats.Attack} damage.");
+        return ($"[c_attack]Attacks[/c] the nearest enemy for [ATK] {stats.Attack}.");
+    }
+
+    public override string GetPassiveDescription()
+    {
+        return ($"When an ally is [c_heal]healed[/c], this unit gains [c_attack]{attackModifier}[/c] [ATK].");
     }
 }

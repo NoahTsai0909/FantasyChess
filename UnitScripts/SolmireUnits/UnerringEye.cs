@@ -94,6 +94,11 @@ public class UnerringEye : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"Hastes adjacent allies for {stats.Haste} seconds. Passive: Adjacent allies have +{critModifier} crit chance.");
+        return ($"[c_haste]Haste[/c] adjacent allies for [HASTE] {stats.Haste}.");
+    }
+
+    public override string GetPassiveDescription()
+    {
+        return ($"Combat Start: Adjacent allies have [c_crit]+{critModifier}[/c] [CRIT].");
     }
 }

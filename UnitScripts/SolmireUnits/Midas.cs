@@ -63,6 +63,11 @@ public class Midas : UnitInstance
     }
     public override string GetActiveDescription()
     {
-        return ($"Attack the nearest enemy for {stats.Attack} damage. \n Combat Start: Kill the highest-health enemy with max health less than or equal tothis unit's max health. Gain gold equal to its value.");
+        return ($"[c_Attack]Attack[/c] the nearest enemy for [ATK] {stats.Attack}.");
+    }
+
+    public override string GetPassiveDescription()
+    {
+        return ("Combat Start: Kill the highest-health enemy with [MAXHEALTH] less than or equal to this unit's [MAXHEALTH]. Gain [GOLD] equal to its value.");
     }
 }

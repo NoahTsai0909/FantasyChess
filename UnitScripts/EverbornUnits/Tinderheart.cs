@@ -40,6 +40,6 @@ public class Tinderheart : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"Allies gain {burnBuff} burn.");
+        return ($"All allies gain [c_burn]{burnBuff}[/c] [BURN].");
     }
 }

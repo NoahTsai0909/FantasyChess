@@ -52,6 +52,6 @@ public class Swiftswipe : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"Attacks the nearest enemy for {stats.Attack} damage, then gains {attackModifier} attack.");
+        return ($"[c_attack]Attacks[/c] the nearest enemy for [ATK] {stats.Attack}, then gains [c_attack]{attackModifier}[/c] [ATK].");
     }
 }

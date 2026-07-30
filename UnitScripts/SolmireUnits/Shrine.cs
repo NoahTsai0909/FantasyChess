@@ -25,6 +25,6 @@ public class Shrine : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"Heals all adjacent allies for {stats.Heal}.");
+        return ($"[c_heal]Heals[/c] all adjacent allies for [HEAL] {stats.Heal}.");
     }
 }

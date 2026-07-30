@@ -75,6 +75,11 @@ public class SearingHalo : UnitInstance
     }
     public override string GetActiveDescription()
     {
-        return ($"Burn all enemies for {stats.Burn}. Heal this for {stats.Heal}. Whenever this is healed, advance this 1 second.");
+        return ($"[c_burn]Burn[/c] all enemies for [BURN] {stats.Burn}. [c_heal]Heal[/c] this for [HEAL] {stats.Heal}.");
+    }
+
+    public override string GetPassiveDescription()
+    {
+        return ("Whenever this is [c_heal]healed[/c], advance this 1 second.");
     }
 }

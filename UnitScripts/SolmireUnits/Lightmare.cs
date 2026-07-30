@@ -56,6 +56,6 @@ public class Lightmare : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"Hastes side allies for {stats.Haste} seconds.");
+        return ($"[c_haste]Haste[/c] side allies for [HASTE] {stats.Haste}.");
     }
 }

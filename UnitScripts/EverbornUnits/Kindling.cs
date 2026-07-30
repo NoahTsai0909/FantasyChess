@@ -35,6 +35,6 @@ public class Kindling : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"Burn the nearest enemy for {stats.Burn} and heal this for {stats.Heal}.");
+        return ($"[c_burn]Burn[/c] the nearest enemy for [BURN] {stats.Burn}. [c_heal]Heal[/c] this for [HEAL] {stats.Heal}.");
     }
 }

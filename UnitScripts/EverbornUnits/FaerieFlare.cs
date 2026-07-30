@@ -32,6 +32,6 @@ public class FaerieFlare : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"If this has at least 20 burn, gain 1 multicast. Burn the nearest enemy for {stats.Burn}.");
+        return ($"If this has at least [c_burn]20[/c] [BURN], gain [c_multicast]1[/c] [MULTICAST]. [c_burn]Burn[/c] the nearest enemy for [BURN] {stats.Burn}.");
     }
 }

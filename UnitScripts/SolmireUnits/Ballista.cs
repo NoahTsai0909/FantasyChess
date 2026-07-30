@@ -46,8 +46,8 @@ public class Ballista : UnitInstance
         }
     }
 
-    public override string GetActiveDescription()
+    public override string GetPassiveDescription()
     {
-        return ($"Passive: When the ally in front of this unit uses an ability, this unit attacks the nearest enemy for {stats.Attack} damage.");
+        return ($"When the ally in front of this unit uses an ability, [c_attack]attack[/c] the nearest enemy for [ATK] {stats.Attack}.");
     }
 }

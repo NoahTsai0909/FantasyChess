@@ -49,7 +49,7 @@ public class Longshot : UnitInstance
     }
     public override string GetActiveDescription()
     {
-        return ($"Attack the farthest enemy for {stats.Attack} damage. Gain {critModifier}% crit chance.");
+        return ($"[c_attack]Attack[/c] the farthest enemy for [ATK] {stats.Attack}. Gain [c_crit]{critModifier}%[/c] [CRIT].");
     }
 
 }

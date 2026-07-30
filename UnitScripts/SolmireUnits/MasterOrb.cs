@@ -69,4 +69,9 @@ public class MasterOrb : UnitInstance
     {
         return ($"Allies have +4 energy.Whenever an energy is expended, damage the farthest enemy by {stats.Attack}.");
     }
+
+    public override string GetPassiveDescription()
+    {
+        return ("Combat Start: Allies have [c_energy]+4[/c] [ENERGY].");
+    }
 }

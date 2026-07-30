@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class DeadEye : UnitInstance
+public class Ranger : UnitInstance
 {
     protected override void Awake()
     {
         base.Awake();
-        Debug.Log("Deadeye deployed");
+        Debug.Log("Ranger deployed");
     }
 
     protected override void UseAbility()
@@ -22,7 +22,7 @@ public class DeadEye : UnitInstance
                     source = this,
                     target = target,
                     amount = stats.Attack,
-                    reason = "Deadeye attack",
+                    reason = "Ranger attack",
                     isCrit = abilityCrit
                 }
             );
@@ -37,6 +37,6 @@ public class DeadEye : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"Attack the farthest enemy for {stats.Attack} damage.");
+        return ($"[c_attack]Attack[/c] the farthest enemy for [ATK] {stats.Attack}.");
     }
 }

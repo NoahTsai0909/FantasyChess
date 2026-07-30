@@ -32,6 +32,6 @@ public class SolemnPriest : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"Heal the lowest health ally for {stats.Heal} health.");
+        return ($"[c_heal]Heal[/c] the lowest health ally for [HEAL] {stats.Heal}.");
     }
 }

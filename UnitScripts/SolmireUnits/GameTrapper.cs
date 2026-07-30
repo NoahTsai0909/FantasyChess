@@ -34,6 +34,6 @@ public class GameTrapper : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"Attack the nearest enemy for {stats.Attack} damage and slow it for {stats.Slow} seconds.");
+        return ($"[c_attack]Attack[/c] the nearest enemy for [ATK] {stats.Attack} and [c_slow]slow[/c] it for [SLOW] {stats.Slow}.");
     }
 }

@@ -44,6 +44,11 @@ public class ArcaneAugur : UnitInstance
     }
     public override string GetActiveDescription()
     {
-        return ($"Attack the nearest enemy for {stats.Attack} damage. Whenever another ally uses energy, recharge 1 energy.");
+        return ($"[c_attack]Attack[/c] the nearest enemy for [ATK] {stats.Attack}.");
+    }
+
+    public override string GetPassiveDescription()
+    {
+        return ("Whenever another ally uses [ENERGY], recharge [c_energy]1[/c] [ENERGY].");
     }
 }

@@ -49,8 +49,8 @@ public class AncientTome : UnitInstance
         base.Die();
     }
 
-    public override string GetActiveDescription()
+    public override string GetPassiveDescription()
     {
-        return ($"Side allies have +{energyBuff} max energy.");
+        return ($"Side allies have [c_energy]+{energyBuff}[/c] max [ENERGY].");
     }
 }

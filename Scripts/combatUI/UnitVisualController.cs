@@ -6,7 +6,9 @@ public class UnitVisualController : MonoBehaviour
 {
     private SpriteRenderer sr;
     private Color originalSpriteColor;
-    private Coroutine flashCoroutine;
+    private Vector3 originalScale; // NEW: Track the base scale
+
+    private Coroutine activeAnimationRoutine; // Track if we are attacking/getting hit
 
     [Header("Glow Animation Settings")]
     public bool enablePulse = true;
@@ -14,13 +16,18 @@ public class UnitVisualController : MonoBehaviour
     public float minThickness = 2f;
     public float maxThickness = 6f;
 
+    [Header("Juice Settings")]
+    public bool enableBreathing = true;
+    public float breatheSpeed = 3f;
+    public float breatheAmount = 0.03f;
+
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
-        originalSpriteColor = sr.color; // Store the base color immediately
+        originalSpriteColor = sr.color;
+        originalScale = transform.localScale; // Store base scale on awake
     }
 
-    // Called once when the unit first sets up
     public void InitializeVisuals(UnitDefinition def)
     {
         if (def != null && sr != null)
@@ -29,7 +36,6 @@ public class UnitVisualController : MonoBehaviour
         }
     }
 
-    // Handles which way the sprite faces
     public void SetDirection(bool isPlayerSide)
     {
         if (sr != null)
@@ -38,13 +44,11 @@ public class UnitVisualController : MonoBehaviour
         }
     }
 
-    // Sets the shader outline
     public void UpdateRarityOutline(Rarity rarity)
     {
         if (sr == null || sr.material == null) return;
 
         Color outlineColor = Color.gray;
-
         switch (rarity)
         {
             case Rarity.Uncommon: outlineColor = Color.green; break;
@@ -58,41 +62,127 @@ public class UnitVisualController : MonoBehaviour
         sr.material.SetFloat("_OutlineShape", 0f);
     }
 
-    // Replaces the Flash() method inside UnitInstance
-    public void Flash(Color flashColor)
-    {
-        if (this == null || !gameObject.activeInHierarchy) return;
-
-        if (flashCoroutine != null)
-            StopCoroutine(flashCoroutine);
-
-        flashCoroutine = StartCoroutine(FlashRoutine(flashColor));
-    }
-
-    private IEnumerator FlashRoutine(Color flashColor)
-    {
-        sr.color = flashColor;
-        yield return new WaitForSeconds(0.1f);
-        sr.color = originalSpriteColor;
-        flashCoroutine = null;
-    }
-
     private void Update()
     {
+        // 1. Outline Pulse
         if (enablePulse && sr != null && sr.material != null)
         {
             float timePulse = (Mathf.Sin(Time.time * pulseSpeed) + 1f) / 2f;
             float currentThickness = Mathf.Lerp(minThickness, maxThickness, timePulse);
             sr.material.SetFloat("_Thickness", currentThickness);
         }
+
+        // 2. Idle Breathing (Only breathe if we aren't currently attacking or getting hit!)
+        if (enableBreathing && activeAnimationRoutine == null)
+        {
+            // A simple sine wave that slightly stretches the Y axis
+            float breathe = Mathf.Sin(Time.time * breatheSpeed) * breatheAmount;
+            transform.localScale = new Vector3(originalScale.x, originalScale.y + breathe, originalScale.z);
+        }
     }
+
+    /* =========================
+     * JUICE ANIMATIONS
+     * ========================= */
+
+    // Replaces the old Flash() method
+    public void Flash(Color flashColor)
+    {
+        if (this == null || !gameObject.activeInHierarchy) return;
+
+        if (activeAnimationRoutine != null)
+            StopCoroutine(activeAnimationRoutine);
+
+        activeAnimationRoutine = StartCoroutine(HitReactionRoutine(flashColor));
+    }
+
+    // NEW: Trigger this when the unit uses an ability
+    public void PlayAttackAnimation()
+    {
+        if (this == null || !gameObject.activeInHierarchy) return;
+
+        if (activeAnimationRoutine != null)
+            StopCoroutine(activeAnimationRoutine);
+
+        activeAnimationRoutine = StartCoroutine(AttackSnapRoutine());
+    }
+
+    private IEnumerator HitReactionRoutine(Color flashColor)
+    {
+        // 1. The Impact (Instant squash and color change)
+        sr.color = flashColor;
+        transform.localScale = new Vector3(originalScale.x * 1.3f, originalScale.y * 0.7f, originalScale.z); // Flatten out
+
+        float recoverTime = 0.2f;
+        float timer = 0f;
+
+        // 2. The Recovery (Smoothly bounce back to normal)
+        while (timer < recoverTime)
+        {
+            timer += Time.deltaTime;
+            float t = timer / recoverTime;
+
+            // Lerp scale back to normal
+            transform.localScale = Vector3.Lerp(new Vector3(originalScale.x * 1.3f, originalScale.y * 0.7f, originalScale.z), originalScale, t);
+
+            // End the color flash very early in the animation
+            if (timer > 0.05f) sr.color = originalSpriteColor;
+
+            yield return null;
+        }
+
+        transform.localScale = originalScale;
+        sr.color = originalSpriteColor;
+        activeAnimationRoutine = null;
+    }
+
+    private IEnumerator AttackSnapRoutine()
+    {
+        // 1. Windup (Squash down and prepare)
+        float windupTime = 0.1f;
+        float timer = 0f;
+        Vector3 windupScale = new Vector3(originalScale.x * 1.15f, originalScale.y * 0.85f, originalScale.z);
+
+        while (timer < windupTime)
+        {
+            timer += Time.deltaTime;
+            transform.localScale = Vector3.Lerp(originalScale, windupScale, timer / windupTime);
+            yield return null;
+        }
+
+        // 2. The Strike (Snap extremely tall and skinny, completely in place)
+        float strikeTime = 0.05f;
+        timer = 0f;
+        Vector3 strikeScale = new Vector3(originalScale.x * 0.8f, originalScale.y * 1.25f, originalScale.z);
+
+        while (timer < strikeTime)
+        {
+            timer += Time.deltaTime;
+            transform.localScale = Vector3.Lerp(windupScale, strikeScale, timer / strikeTime);
+            yield return null;
+        }
+
+        // 3. Recover
+        float recoverTime = 0.15f;
+        timer = 0f;
+        while (timer < recoverTime)
+        {
+            timer += Time.deltaTime;
+            transform.localScale = Vector3.Lerp(strikeScale, originalScale, timer / recoverTime);
+            yield return null;
+        }
+
+        transform.localScale = originalScale;
+        activeAnimationRoutine = null;
+    }
+
+    /* =========================
+     * DEATH
+     * ========================= */
 
     public void PlayDeathAnimationAndDestroy()
     {
-        // Stop any damage flashes currently happening
-        if (flashCoroutine != null)
-            StopCoroutine(flashCoroutine);
-
+        if (activeAnimationRoutine != null) StopCoroutine(activeAnimationRoutine);
         StartCoroutine(VisualDeathRoutine());
     }
 
@@ -102,7 +192,6 @@ public class UnitVisualController : MonoBehaviour
         {
             Color startColor = sr.color;
             Color targetColor = new Color(0.3f, 0.3f, 0.3f, 0f);
-
             float fadeDuration = 0.5f;
             float timer = 0f;
 
@@ -111,17 +200,19 @@ public class UnitVisualController : MonoBehaviour
                 timer += Time.deltaTime;
                 sr.color = Color.Lerp(startColor, targetColor, timer / fadeDuration);
 
-                // Optional: You can also shrink the pulse effect as they die!
                 if (sr.material != null)
                 {
                     sr.material.SetFloat("_Thickness", Mathf.Lerp(maxThickness, 0f, timer / fadeDuration));
                 }
-
                 yield return null;
             }
         }
-
-        // The visual controller finally destroys the root object
         Destroy(gameObject);
+    }
+
+    public void SetBaseScale(Vector3 newScale)
+    {
+        originalScale = newScale;
+        transform.localScale = newScale;
     }
 }

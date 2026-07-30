@@ -21,6 +21,6 @@ public class Shieldmate : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"Shields self for {stats.Shield}.");
+        return ($"[c_shield]Shield[/c] this for [SHIELD] {stats.Shield}.");
     }
 }

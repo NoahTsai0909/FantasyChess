@@ -56,6 +56,6 @@ public class AirTreader : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"Hastes all allies for {stats.Haste} seconds.");
+        return ($"[c_haste]Haste[/c] all allies for [HASTE] {stats.Haste}.");
     }
 }
