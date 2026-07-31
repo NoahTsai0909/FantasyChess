@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: bda16a2e8a9a2074cb8d7d31b6bf7fb1
+guid: b03539b9d6ef0a542b58608835b074d6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5644014692899231392
-    second: cooldownBarInner_0
+      213: -7787657019562232291
+    second: cooldownBarBorderUncommon_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cooldownBarInner_0
+      name: cooldownBarBorderUncommon_0
       rect:
         serializedVersion: 2
-        x: 54
-        y: 54
-        width: 536
-        height: 535
+        x: 6
+        y: 6
+        width: 630
+        height: 629
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0a6185db571935e40800000000000000
-      internalID: 5644014692899231392
+      spriteID: d167a64933face390800000000000000
+      internalID: -7787657019562232291
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      cooldownBarInner_0: 5644014692899231392
+      cooldownBarBorderUncommon_0: -7787657019562232291
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

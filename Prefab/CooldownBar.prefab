@@ -220,7 +220,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -271,7 +271,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CooldownBarUI
   cooldownFill: {fileID: 6555174092070466529}
+  backgroundImage: {fileID: 6462988444748988471}
   valueText: {fileID: 7512145166674660701}
+  commonBackground: {fileID: 21300000, guid: b3e55bc8d50acfb43b4382a476f15bfc, type: 3}
+  commonFill: {fileID: 21300000, guid: 128c32bd12ba3cc48a02cb1d4efbc2f4, type: 3}
+  uncommonBackground: {fileID: 21300000, guid: b03539b9d6ef0a542b58608835b074d6, type: 3}
+  uncommonFill: {fileID: 21300000, guid: 3cc8f1666b32d3c4aa79fc93730205b4, type: 3}
+  rareBackground: {fileID: 21300000, guid: 768dc0d0de86b2b479e9a4d812d88fed, type: 3}
+  rareFill: {fileID: 21300000, guid: b854673ef28281846b7152b36f9db106, type: 3}
+  epicBackground: {fileID: 21300000, guid: d06586af73a7ec2439153c3b73cfa2e0, type: 3}
+  epicFill: {fileID: 21300000, guid: bda16a2e8a9a2074cb8d7d31b6bf7fb1, type: 3}
 --- !u!1 &7586609099023857786
 GameObject:
   m_ObjectHideFlags: 0

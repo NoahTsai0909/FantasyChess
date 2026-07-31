@@ -73,10 +73,7 @@ public class UnitHoverUI : MonoBehaviour
             return;
 
         UpdateDynamicValues();
-        if (!useFixedPosition)
-        {
-            UpdatePosition();
-        }
+        UpdatePosition();
     }
 
     public void Show(UnitInstance unit)
@@ -90,6 +87,7 @@ public class UnitHoverUI : MonoBehaviour
         // Set UI content
         nameText.text = unit.Definition.unitName;
         SetRarityBackground(unit.CurrentRarity);
+        cooldownBar.SetVisuals(unit.CurrentRarity);
 
         // Clear and repopulate stat widgets
         foreach (Transform child in statsContainer)
@@ -171,6 +169,40 @@ public class UnitHoverUI : MonoBehaviour
     {
         if (canvas == null || currentUnit == null || mainCamera == null) return;
 
+        if(useFixedPosition)
+        {
+            // ADAPTIVE FIXED POSITIONING
+            // Find out if the unit is on the left or right side of the screen
+            Vector2 screenPos = mainCamera.WorldToScreenPoint(currentUnit.transform.position);
+
+            // THE FIX: Move the threshold line from 50% to 70%
+            float flipThreshold = Screen.width * 0.7f;
+
+            // If the unit is anywhere in the left 70% of the screen, spawn UI on the Right.
+            bool unitIsOnLeft = screenPos.x < flipThreshold;
+
+            // Give it a little padding from the edge of the screen
+            float edgePadding = 50f;
+
+            if (unitIsOnLeft)
+            {
+                // Snap UI to the RIGHT side of the screen
+                rectTransform.anchorMin = new Vector2(1, 0.5f);
+                rectTransform.anchorMax = new Vector2(1, 0.5f);
+                rectTransform.pivot = new Vector2(1, 0.5f);
+                rectTransform.anchoredPosition = new Vector2(-edgePadding, 0f);
+            }
+            else
+            {
+                // Snap UI to the LEFT side of the screen
+                rectTransform.anchorMin = new Vector2(0, 0.5f);
+                rectTransform.anchorMax = new Vector2(0, 0.5f);
+                rectTransform.pivot = new Vector2(0, 0.5f);
+                rectTransform.anchoredPosition = new Vector2(edgePadding, 0f);
+            }
+
+            return; // Exit early so we don't run the relative positioning code below
+        }
         // Get the unit's world position
         Vector3 unitWorldPos = currentUnit.transform.position;
 

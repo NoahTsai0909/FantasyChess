@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: bda16a2e8a9a2074cb8d7d31b6bf7fb1
+guid: 128c32bd12ba3cc48a02cb1d4efbc2f4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5644014692899231392
-    second: cooldownBarInner_0
+      213: 755677125465441603
+    second: cooldownBarInnerCommon_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cooldownBarInner_0
+      name: cooldownBarInnerCommon_0
       rect:
         serializedVersion: 2
         x: 54
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0a6185db571935e40800000000000000
-      internalID: 5644014692899231392
+      spriteID: 34581448754bc7a00800000000000000
+      internalID: 755677125465441603
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      cooldownBarInner_0: 5644014692899231392
+      cooldownBarInnerCommon_0: 755677125465441603
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

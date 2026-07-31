@@ -53,6 +53,7 @@ public class BattleUIManager : MonoBehaviour
 
         //healthBar.SetTextVisible(false);
         cooldownBar.SetTextVisible(false);
+        cooldownBar.SetVisuals(unit.CurrentRarity);
 
         // Status bar stays the same
         GameObject statusBarGO = Instantiate(statusEffectBarPrefab, battleCanvas.transform);
@@ -146,7 +147,7 @@ public class BattleUIManager : MonoBehaviour
 
     private Vector3 GetStatusBarOffset(bool isPlayer)
     {
-        return new Vector3(0, -2f, 0);
+        return new Vector3(0, -3.25f, 0);
     }
 
     private Image FindHealthBarImage(GameObject healthBar)
