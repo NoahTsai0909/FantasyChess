@@ -34,7 +34,7 @@ MonoBehaviour:
     outcome: {fileID: 11400000, guid: ec2bd3a307c5a0346a76e2ef83dbeea4, type: 2}
     condition: {fileID: 0}
   - buttonText: Oh, I wouldn't say freed. More like, under new management. (Lose
-      1 experience, gain 15 gold)
+      1 experience, gain 10 gold)
     previewUnit: {fileID: 0}
     generateRandomUnitPreview: 0
     randomRegion: 0

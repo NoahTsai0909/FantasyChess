@@ -404,6 +404,7 @@ GameObject:
   - component: {fileID: 2924485424252453023}
   - component: {fileID: 9158828532718746247}
   - component: {fileID: 7288476998394859509}
+  - component: {fileID: 7715843161182125019}
   m_Layer: 5
   m_Name: UnitPortrait
   m_TagString: Untagged
@@ -450,7 +451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 1536d60d51475f34b82d8112ea67bb7b, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -468,6 +469,25 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7715843161182125019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8810533976883800218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f9f361795d6d734cbd459f07c778ab9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIUnitVisualController
+  enablePulse: 1
+  pulseSpeed: 4
+  minThickness: 2
+  maxThickness: 6
+  enableBreathing: 1
+  breatheSpeed: 3
+  breatheAmount: 0.03
 --- !u!1001 &4522110794959111450
 PrefabInstance:
   m_ObjectHideFlags: 0

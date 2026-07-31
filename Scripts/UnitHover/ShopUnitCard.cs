@@ -23,10 +23,11 @@ public class ShopUnitCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void Initialize(UnitInstance dummyUnit, int price, UnityAction onBuyClicked)
     {
-        // 1. Portrait setup
-        if (dummyUnit.Definition.unitSprite != null)
+        UIUnitVisualController visualController = unitPortrait.GetComponent<UIUnitVisualController>();
+        if (visualController != null)
         {
-            unitPortrait.sprite = dummyUnit.Definition.unitSprite;
+            // Pass in the definition and the specific rarity so it knows what color to pulse!
+            visualController.InitializeVisuals(dummyUnit.Definition, dummyUnit.CurrentRarity);
         }
 
         // 2. Data setup
