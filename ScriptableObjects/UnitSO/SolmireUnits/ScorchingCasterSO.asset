@@ -21,6 +21,7 @@ MonoBehaviour:
   poison: 0
   slow: 0
   haste: 0
+  critChance: 0
   cooldown: 4
   isPassive: 0
   isEnergy: 1
@@ -33,5 +34,7 @@ MonoBehaviour:
   rarity: 0
   startingRarity: 1
   provisionCost: 2
+  isMelee: 0
   unitPrefab: {fileID: 6056702208597906296, guid: 1a153b76ba0bb66449f25a26562b6982, type: 3}
-  tagFlags: 0
+  spawnDefinition: {fileID: 0}
+  tagFlags: 1572

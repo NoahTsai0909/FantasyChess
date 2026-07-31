@@ -56,7 +56,7 @@ public class RunHUDManager : MonoBehaviour
             UpdateHealth(RunManager.Instance.Stats.PlayerHealth);
             UpdateDay(RunManager.Instance.Stats.CurrentDay);
             UpdateLevel(RunManager.Instance.Stats.PlayerLevel);
-            UpdateReputation(RunManager.Instance.Stats.Reputation);
+            UpdateReputation(RunManager.Instance.Stats.Experience);
             UpdateProvisionCap(RunManager.Instance.Stats.ProvisionCap);
         }
     }

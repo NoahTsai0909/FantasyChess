@@ -125,9 +125,9 @@ public class MapController : MonoBehaviour
     private void CheckLevelUp()
     {
         if (RunManager.Instance == null) return;
-        if (RunManager.Instance.Stats.Reputation >= 10)
+        if (RunManager.Instance.Stats.Experience >= 10)
         {
-            RunManager.Instance.Stats.Reputation -= 10;
+            RunManager.Instance.Stats.Experience -= 10;
             RunManager.Instance.Stats.PlayerLevel++;
 
             levelUpOverlay.SetActive(true);

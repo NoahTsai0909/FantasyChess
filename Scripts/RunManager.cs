@@ -200,7 +200,7 @@ public class RunManager : MonoBehaviour
     public void CompleteRegularEvent()
     {
         regularEventsCompleted++;
-        Stats.Reputation++;
+        Stats.Experience++;
         Debug.Log($"Regular event completed: {regularEventsCompleted}/{REGULAR_EVENTS_PER_DAY}");
 
         // Move to next regular event phase

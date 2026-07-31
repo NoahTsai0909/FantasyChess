@@ -55,7 +55,24 @@ public class EventSceneController : MonoBehaviour
                 Button newButton = Instantiate(choiceButtonPrefab, contentParent);
 
                 TextMeshProUGUI btnText = newButton.GetComponentInChildren<TextMeshProUGUI>();
-                if (btnText != null) btnText.text = choice.buttonText;
+
+                string displayText = choice.buttonText;
+                bool isInteractable = true;
+
+                // 2. Check if a condition exists and evaluate it
+                if (choice.condition != null)
+                {
+                    isInteractable = choice.condition.IsMet();
+
+                    if (!isInteractable)
+                    {
+                        // Append the red requirement text using Rich Text
+                        displayText += $"\n<size=70%><color=#FF4444>({choice.condition.GetRequirementText()})</color></size>";
+                    }
+                }
+
+                if (btnText != null) btnText.text = displayText;
+                newButton.interactable = isInteractable;
 
                 // NEW: Create a context for this specific choice
                 EventContext choiceContext = new EventContext();

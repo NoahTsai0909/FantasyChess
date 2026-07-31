@@ -49,7 +49,7 @@ public class RunStats
     }
 
     private int _reputation;
-    public int Reputation
+    public int Experience
     {
         get => _reputation;
         set
@@ -77,7 +77,7 @@ public class RunStats
         PlayerHealth = 12;
         CurrentDay = 1;
         PlayerLevel = 1;
-        Reputation = 0;
+        Experience = 0;
         ProvisionCap = 4;
     }
 }

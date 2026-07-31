@@ -37,4 +37,4 @@ MonoBehaviour:
   isMelee: 1
   unitPrefab: {fileID: 6604508876743058789, guid: 239d8f918d371874aafce0ab77346f8b, type: 3}
   spawnDefinition: {fileID: 0}
-  tagFlags: 0
+  tagFlags: 5120

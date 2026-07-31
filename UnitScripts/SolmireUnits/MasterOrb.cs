@@ -65,13 +65,8 @@ public class MasterOrb : UnitInstance
         );
     }
 
-    public override string GetActiveDescription()
-    {
-        return ($"Allies have +4 energy.Whenever an energy is expended, damage the farthest enemy by {stats.Attack}.");
-    }
-
     public override string GetPassiveDescription()
     {
-        return ("Combat Start: Allies have [c_energy]+4[/c] [ENERGY].");
+        return ("Combat Start: Allies have [c_energy]+4[/c] [ENERGY]. Whenever a [ENERGY] is used, [c_attack]attack[/c] the farthest enemy by [ATK] {stats.Attack}.");
     }
 }

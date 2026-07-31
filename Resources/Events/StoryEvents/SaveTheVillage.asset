@@ -12,15 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bff6408a3a17924b9fb916c32996ac3, type: 3}
   m_Name: SaveTheVillage
   m_EditorClassIdentifier: Assembly-CSharp::StoryEventSO
-  eventName: 
-  description: 
-  eventIcon: {fileID: 0}
-  eventBackgroundImage: {fileID: 0}
-  portalGlowColor: {r: 1, g: 1, b: 1, a: 1}
-  minDayRequired: 0
-  maxDayRequired: 0
+  eventName: Save The Village
+  description: Gain experience or gain gold.
+  eventIcon: {fileID: 21300000, guid: 277a3539fdd297840bd0c9d19fbe4dd7, type: 3}
+  eventBackgroundImage: {fileID: 21300000, guid: 95f87df34ec49df49b816b29856fa078, type: 3}
+  portalGlowColor: {r: 1, g: 0.7058824, b: 0.12941177, a: 1}
+  minDayRequired: 1
+  maxDayRequired: 12
   selectionWeight: 1
-  targetScene: 0
-  promptText: 
-  choices: []
+  targetScene: 5
+  promptText: A desperate village pleads for your aid. A band of ruthless marauders
+    has descended upon their homes, leaving fear and ruin in their wake. Lucky for
+    them, you handily cast out these barbarians. The villagers approach you to offer
+    thanks.
+  choices:
+  - buttonText: Spreading my feats far and wide will suffice as thanks! (Gain 1 experience)
+    previewUnit: {fileID: 0}
+    generateRandomUnitPreview: 0
+    randomRegion: 0
+    preferredTags: 0
+    outcome: {fileID: 11400000, guid: ec2bd3a307c5a0346a76e2ef83dbeea4, type: 2}
+    condition: {fileID: 0}
+  - buttonText: Oh, I wouldn't say freed. More like, under new management. (Lose
+      1 experience, gain 15 gold)
+    previewUnit: {fileID: 0}
+    generateRandomUnitPreview: 0
+    randomRegion: 0
+    preferredTags: 0
+    outcome: {fileID: 11400000, guid: 25ef23a86f0dd124690c4c3c59f2d43c, type: 2}
+    condition: {fileID: 11400000, guid: 0735d7dcc1c494543a193e96a9920258, type: 2}
+  - buttonText: Leave.
+    previewUnit: {fileID: 0}
+    generateRandomUnitPreview: 0
+    randomRegion: 0
+    preferredTags: 0
+    outcome: {fileID: 11400000, guid: f55e49cdda5c02c43a443ab2b5264be3, type: 2}
+    condition: {fileID: 0}
   eventIllustration: {fileID: 0}

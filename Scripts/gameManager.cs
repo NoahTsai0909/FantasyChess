@@ -117,7 +117,7 @@ public class gameManager : MonoBehaviour
             {
                 // Apply combat-specific rewards
                 RunManager.Instance.Stats.CurrentGold += combatEvent.goldReward;
-                RunManager.Instance.Stats.Reputation += combatEvent.reputationReward;
+                RunManager.Instance.Stats.Experience += combatEvent.reputationReward;
                 PlayerUnitManager.Instance.TryAcquireUnit(unitReward.Definition, unitReward.CurrentRarity);
             }
             // Mark the event as completed

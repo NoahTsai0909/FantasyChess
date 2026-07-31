@@ -8,6 +8,7 @@ public class StoryEventSO : BaseEventSO
     [Header("Event Choices")]
     public string promptText;
     public List<EventChoice> choices;
+
     [Header("Event Visuals")]
     public Sprite eventIllustration;
 
@@ -33,7 +34,6 @@ public class StoryEventSO : BaseEventSO
 public class EventChoice
 {
     public string buttonText;
-
     [Header("Preview Settings")]
     [Tooltip("The specific unit to preview next to this button (optional)")]
     public UnitDefinition previewUnit;
@@ -44,4 +44,5 @@ public class EventChoice
     public UnitTagFlags preferredTags = UnitTagFlags.None;
 
     public EventOutcomeSO outcome;
+    public ChoiceConditionSO condition;
 }

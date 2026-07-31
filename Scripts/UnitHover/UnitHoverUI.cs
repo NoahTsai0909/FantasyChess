@@ -30,8 +30,13 @@ public class UnitHoverUI : MonoBehaviour
     [SerializeField] private GameObject passiveAbilityBox;
     [SerializeField] private TextMeshProUGUI passiveAbilityText;
 
+    [Header("Tags")]
+    [SerializeField] private Transform tagContainer;
+    [SerializeField] private GameObject tagBadgePrefab;
+
     [Header("Behavior")]
     [SerializeField] private bool isPermanentUI = false;
+
 
     private Canvas canvas;
     private RectTransform rectTransform;
@@ -84,13 +89,13 @@ public class UnitHoverUI : MonoBehaviour
         StatBlock stats = unit.Stats;
 
         string allStats = "";
-        if (unit.Definition.isEnergy && stats.maxEnergy > 0) allStats += TextIconUtility.FormatEnergy(stats.maxEnergy) + "   ";
-        if (stats.Attack > 0) allStats += TextIconUtility.FormatAttack(stats.Attack) + "   ";
-        if (stats.Shield > 0) allStats += TextIconUtility.FormatShield(stats.Shield) + "   ";
-        if (stats.Heal > 0) allStats += TextIconUtility.FormatHeal(stats.Heal) + "   ";
-        if (stats.Poison > 0) allStats += TextIconUtility.FormatPoison(stats.Poison) + "   ";
-        if (stats.Burn > 0) allStats += TextIconUtility.FormatBurn(stats.Burn) + "   ";
-        if (stats.CritChance > 0) allStats += TextIconUtility.FormatCrit(stats.CritChance) + "   ";
+        if (unit.Definition.isEnergy) allStats += TextIconUtility.FormatEnergy(stats.maxEnergy) + "  ";
+        if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Damage)) allStats += TextIconUtility.FormatAttack(stats.Attack) + "  ";
+        if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Shield)) allStats += TextIconUtility.FormatShield(stats.Shield) + "  ";
+        if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Heal)) allStats += TextIconUtility.FormatHeal(stats.Heal) + "  ";
+        if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Poison)) allStats += TextIconUtility.FormatPoison(stats.Poison) + "  ";
+        if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Burn)) allStats += TextIconUtility.FormatBurn(stats.Burn) + "  ";
+        if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Crit)) allStats += TextIconUtility.FormatCrit(stats.CritChance) + "  ";
         statText.SetText(allStats);
 
         if (unit.Definition.isPassive)
@@ -147,6 +152,39 @@ public class UnitHoverUI : MonoBehaviour
         else
         {
             passiveAbilityBox.SetActive(false);
+        }
+
+        foreach (Transform child in tagContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // 2. Safely get the unit's tags
+        UnitTagFlags unitTags = unit.Definition.tagFlags;
+
+        // 3. Loop through every possible tag defined in your UnitTagFlags enum
+        foreach (UnitTagFlags flag in System.Enum.GetValues(typeof(UnitTagFlags)))
+        {
+            if (flag == UnitTagFlags.None) continue;
+
+            if (flag == UnitTagFlags.Damage || flag == UnitTagFlags.Shield || flag == UnitTagFlags.Heal || flag == UnitTagFlags.Poison || flag == UnitTagFlags.Burn || flag == UnitTagFlags.Crit || flag == UnitTagFlags.Energy || flag == UnitTagFlags.Slow || flag == UnitTagFlags.MaxHP)
+            {
+                continue;
+            }
+
+            // 4. Check if the unit actually has this specific flag
+            if (unitTags.HasFlag(flag))
+            {
+                // Spawn the dark background prefab into the container
+                GameObject newBadge = Instantiate(tagBadgePrefab, tagContainer);
+
+                // Find the TextMeshPro child inside the prefab and set the word
+                TextMeshProUGUI badgeText = newBadge.GetComponentInChildren<TextMeshProUGUI>();
+                if (badgeText != null)
+                {
+                    badgeText.text = flag.ToString();
+                }
+            }
         }
     }
 
