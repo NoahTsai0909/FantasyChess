@@ -17,15 +17,7 @@ public class UnitHoverUI : MonoBehaviour
     [SerializeField] private Sprite backgroundRare;
     [SerializeField] private Sprite backgroundEpic;
 
-    [SerializeField] private StatWidget statWidgetPrefab;
-    [SerializeField] private Transform statsContainer;
-
-    [SerializeField] private Sprite attackIcon;
-    [SerializeField] private Sprite shieldIcon;
-    [SerializeField] private Sprite healIcon;
-    [SerializeField] private Sprite poisonIcon;
-    [SerializeField] private Sprite burnIcon;
-    [SerializeField] private Sprite critIcon;
+    [SerializeField] private TextMeshProUGUI statText;
 
     [SerializeField] private HealthBarUI healthBar;
     [SerializeField] private CooldownBarUI cooldownBar;
@@ -89,17 +81,17 @@ public class UnitHoverUI : MonoBehaviour
         SetRarityBackground(unit.CurrentRarity);
         cooldownBar.SetVisuals(unit.CurrentRarity);
 
-        // Clear and repopulate stat widgets
-        foreach (Transform child in statsContainer)
-            Destroy(child.gameObject);
-
         StatBlock stats = unit.Stats;
-        if (stats.Attack > 0) AddStatWidget(attackIcon, stats.Attack);
-        if (stats.Shield > 0) AddStatWidget(shieldIcon, stats.Shield);
-        if (stats.Heal > 0) AddStatWidget(healIcon, stats.Heal);
-        if (stats.Poison > 0) AddStatWidget(poisonIcon, stats.Poison);
-        if (stats.Burn > 0) AddStatWidget(burnIcon, stats.Burn);
-        if (stats.CritChance != 0) AddStatWidget(critIcon, stats.CritChance, true);
+
+        string allStats = "";
+        if (unit.Definition.isEnergy && stats.maxEnergy > 0) allStats += TextIconUtility.FormatEnergy(stats.maxEnergy) + "   ";
+        if (stats.Attack > 0) allStats += TextIconUtility.FormatAttack(stats.Attack) + "   ";
+        if (stats.Shield > 0) allStats += TextIconUtility.FormatShield(stats.Shield) + "   ";
+        if (stats.Heal > 0) allStats += TextIconUtility.FormatHeal(stats.Heal) + "   ";
+        if (stats.Poison > 0) allStats += TextIconUtility.FormatPoison(stats.Poison) + "   ";
+        if (stats.Burn > 0) allStats += TextIconUtility.FormatBurn(stats.Burn) + "   ";
+        if (stats.CritChance > 0) allStats += TextIconUtility.FormatCrit(stats.CritChance) + "   ";
+        statText.SetText(allStats);
 
         if (unit.Definition.isPassive)
         {
@@ -284,12 +276,6 @@ public class UnitHoverUI : MonoBehaviour
             case Rarity.Rare: backgroundImage.sprite = backgroundRare; break;
             case Rarity.Epic: backgroundImage.sprite = backgroundEpic; break;
         }
-    }
-
-    private void AddStatWidget(Sprite icon, int value, bool isCrit = false)
-    {
-        StatWidget widget = Instantiate(statWidgetPrefab, statsContainer);
-        widget.Set(icon, value, isCrit);
     }
 
     private void UpdateDynamicValues()
