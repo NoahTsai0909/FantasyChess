@@ -90,12 +90,12 @@ public class UnitHoverUI : MonoBehaviour
 
         string allStats = "";
         if (unit.Definition.isEnergy) allStats += TextIconUtility.FormatEnergy(stats.maxEnergy) + "  ";
-        if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Damage)) allStats += TextIconUtility.FormatAttack(stats.Attack) + "  ";
-        if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Shield)) allStats += TextIconUtility.FormatShield(stats.Shield) + "  ";
-        if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Heal)) allStats += TextIconUtility.FormatHeal(stats.Heal) + "  ";
-        if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Poison)) allStats += TextIconUtility.FormatPoison(stats.Poison) + "  ";
-        if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Burn)) allStats += TextIconUtility.FormatBurn(stats.Burn) + "  ";
-        if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Crit)) allStats += TextIconUtility.FormatCrit(stats.CritChance) + "  ";
+        if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Damage) && stats.Attack > 0) allStats += TextIconUtility.FormatAttack(stats.Attack) + "  ";
+        if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Shield) && stats.Shield > 0) allStats += TextIconUtility.FormatShield(stats.Shield) + "  ";
+        if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Heal) && stats.Heal > 0) allStats += TextIconUtility.FormatHeal(stats.Heal) + "  ";
+        if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Poison) && stats.Poison > 0) allStats += TextIconUtility.FormatPoison(stats.Poison) + "  ";
+        if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Burn) && stats.Burn > 0) allStats += TextIconUtility.FormatBurn(stats.Burn) + "  ";
+        if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Crit) && stats.CritChance > 0) allStats += TextIconUtility.FormatCrit(stats.CritChance) + "  ";
         statText.SetText(allStats);
 
         if (unit.Definition.isPassive)

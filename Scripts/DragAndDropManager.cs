@@ -28,6 +28,7 @@ public class DragAndDropManager : MonoBehaviour
             Debug.LogError("DragAndDropManager: Grid references not set!");
         if (provisionManager == null)
             provisionManager = FindFirstObjectByType<ProvisionManager>();
+        if (battleGrid != null) battleGrid.RefreshAllAuras();
     }
 
     void Update()
@@ -246,6 +247,9 @@ public class DragAndDropManager : MonoBehaviour
 
         if (provisionManager != null)
             provisionManager.CalculateCurrentProvision();
+
+        if (battleGrid != null) battleGrid.RefreshAllAuras();
+        if (benchGrid != null) benchGrid.RefreshAllAuras();
     }
 
     void RevertDrag()
@@ -359,6 +363,9 @@ public class DragAndDropManager : MonoBehaviour
 
         // Destroy the unit GameObject
         Destroy(draggedUnit.gameObject);
+
+        if (battleGrid != null) battleGrid.RefreshAllAuras();
+        if (benchGrid != null) benchGrid.RefreshAllAuras();
     }
 
     void RemoveFromRunManager(UnitInstance unit, UnitPlacement placement)

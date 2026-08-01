@@ -65,13 +65,14 @@ public class UnitInstance : MonoBehaviour
     public int row;
     public int col;
     public bool isPlayer;
-    private GridManager myGrid;
+    public GridManager myGrid;
     public RunManager.UnitPlacement myPlacement;
     private TargetingSystem targetingSystem;
     public UnitVisualController Visuals { get; private set; }
 
     public bool isSpawnedUnit = false;  // Track if this is a spawned unit
     public UnitInstance spawnSource;
+    protected List<UnitInstance> auraTargets = new List<UnitInstance>();
 
     private bool isCastingSequence;
     private float castRecovery = 0.3f;
@@ -484,7 +485,6 @@ public class UnitInstance : MonoBehaviour
 
     public void TemporaryStatModify(ModifiableStats modifiableStats, int bonus)
     {
-
         if (modifiableStats == ModifiableStats.Burn)
         {
             temporaryStats.burnBonus += bonus;
@@ -548,6 +548,13 @@ public class UnitInstance : MonoBehaviour
     {
         cooldownTimer = Mathf.Max(cooldownTimer - seconds, 0f);
     
+    }
+
+    public virtual void ApplyAuras() { }
+
+    public virtual void RemoveAuras()
+    {
+        auraTargets.Clear(); 
     }
 
     /* =========================
@@ -625,44 +632,20 @@ public class UnitInstance : MonoBehaviour
 
     protected List<UnitInstance> FindAdjacentAllies()
     {
-        if (targetingSystem == null) return new List<UnitInstance>();
-
-        var allies = targetingSystem.GetAllies();
-        var adjacentAllies = new List<UnitInstance>();
-
-        foreach (var ally in allies)
-        {
-            if (ally == this) continue;
-            if (IsAdjacent(ally))
-            {
-                adjacentAllies.Add(ally);
-            }
-        }
-        return adjacentAllies;
+        if (myGrid != null) return myGrid.GetAdjacentUnits(this);
+        return new List<UnitInstance>();
     }
 
     protected List<UnitInstance> FindSideAllies()
     {
-        if (targetingSystem == null) return new List<UnitInstance>();
-
-        var allies = targetingSystem.GetAllies();
-        var sideAllies = new List<UnitInstance>();
-
-        foreach (var ally in allies)
-        {
-            if (ally == this) continue;
-            if (IsSide(ally))
-            {
-                sideAllies.Add(ally);
-            }
-        }
-        return sideAllies;
+        if (myGrid != null) return myGrid.GetSideUnits(this);
+        return new List<UnitInstance>();
     }
 
     protected List<UnitInstance> FindAllAllies()
     {
-        if (targetingSystem == null) return new List<UnitInstance>();
-        return targetingSystem.GetAllies();
+        if (myGrid != null) return myGrid.GetAllUnits();
+        return new List<UnitInstance>();
     }
 
     protected List<UnitInstance> FindAllEnemies()

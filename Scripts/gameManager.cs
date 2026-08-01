@@ -56,6 +56,8 @@ public class gameManager : MonoBehaviour
     {
         if (type == CombatEventBus.CombatEventType.UnitDied && combatActive)
         {
+            playerGrid.RefreshAllAuras();
+            enemyGrid.RefreshAllAuras();
             // Check combat state when a unit dies
             StartCoroutine(CheckCombatEndDelayed(0.1f)); // Small delay to let grid update
         }
@@ -174,10 +176,12 @@ public class gameManager : MonoBehaviour
         foreach (var playerUnit in playerGrid.GetAllUnits())
         {
             playerUnit.CombatStartEffect();
+            playerGrid.RefreshAllAuras();
         }
         foreach (var enemyUnit in enemyGrid.GetAllUnits())
         {
             enemyUnit.CombatStartEffect();
+            enemyGrid.RefreshAllAuras();
         }
         unitReward = enemyGrid.GetRandomUnit();
 

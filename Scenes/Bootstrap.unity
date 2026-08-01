@@ -154,7 +154,7 @@ MonoBehaviour:
   playerBenchPlacements: []
   defaultUnits:
   - unitData:
-      definition: {fileID: 11400000, guid: 04008bd19c1794f438d65cb978421cf9, type: 2}
+      definition: {fileID: 11400000, guid: 5467cd0d052e12d46a69750eb406f9a0, type: 2}
       rarity: 3
       provisionCost: 0
       provisionModifier: 0
@@ -162,21 +162,13 @@ MonoBehaviour:
     row: 1
     col: 1
   - unitData:
-      definition: {fileID: 11400000, guid: d3b948c569f95704da5a9a3e71be6b13, type: 2}
+      definition: {fileID: 11400000, guid: 55d06f28e335bb04a991d53bf9245a3a, type: 2}
       rarity: 3
       provisionCost: 0
       provisionModifier: 0
       valueModifier: 0
     row: 0
     col: 1
-  - unitData:
-      definition: {fileID: 11400000, guid: 5f1b78a5fffe29a418f8723f751630c9, type: 2}
-      rarity: 3
-      provisionCost: 0
-      provisionModifier: 0
-      valueModifier: 0
-    row: 0
-    col: 0
   benchSize: 8
   regularEventsCompleted: 0
   isBattlePhase: 0

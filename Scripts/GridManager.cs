@@ -15,7 +15,6 @@ public class GridManager : MonoBehaviour
     private UnitInstance[,] unitInstances;
     private Vector2 unitVisualOffset = new Vector2(0f, 1f);
 
-
     void Awake()
     {
         worldPositions = new Vector2[rows, cols];
@@ -55,7 +54,6 @@ public class GridManager : MonoBehaviour
             {
                 if (tilePrefab == null)
                 {
-                    Debug.LogWarning("Tile prefab is not assigned in GridManager.");
                     return;
                 }
                 GameObject tile = Instantiate(tilePrefab, transform);
@@ -103,6 +101,7 @@ public class GridManager : MonoBehaviour
 
         instance.myPlacement = placement;
 
+        instance.myGrid = this;
         // Set player side
         instance.SetPlayerSide(isPlayer);
 
@@ -120,6 +119,8 @@ public class GridManager : MonoBehaviour
         instance.SetPlayerSide(isPlayer);
 
         unitInstances[r, c] = instance;
+
+        instance.myGrid = this;
 
         return true;
     }
@@ -293,5 +294,73 @@ public class GridManager : MonoBehaviour
             return null;
 
         return unitInstances[row, col];
+    }
+
+    public void RefreshAllAuras()
+    {
+        List<UnitInstance> allUnits = GetAllUnits();
+        // 1. Wipe the slate clean
+        foreach (var unit in allUnits)
+        {
+            unit.RemoveAuras();
+        }
+
+        // 2. Re-apply based on current exact positions
+        foreach (var unit in allUnits)
+        {
+            unit.ApplyAuras();
+        }
+    }
+
+    public List<UnitInstance> GetAdjacentUnits(UnitInstance unit)
+    {
+        List<UnitInstance> units = new List<UnitInstance>();
+        Vector2Int pos = GetUnitPosition(unit);
+
+        if (pos.x == -1) return units;
+
+        // Up, Down, Left, Right
+        Vector2Int[] directions = {
+            new Vector2Int(0, 1),
+            new Vector2Int(0, -1),
+            new Vector2Int(-1, 0),
+            new Vector2Int(1, 0)
+        };
+
+        foreach (var dir in directions)
+        {
+            UnitInstance neighbor = GetUnitAt(pos.x + dir.x, pos.y + dir.y);
+
+            // Assuming all units on this specific grid are on the same team
+            if (neighbor != null && neighbor != unit)
+            {
+                units.Add(neighbor);
+            }
+        }
+        return units;
+    }
+
+    public List<UnitInstance> GetSideUnits(UnitInstance unit)
+    {
+        List<UnitInstance> units = new List<UnitInstance>();
+        Vector2Int pos = GetUnitPosition(unit);
+
+        if (pos.x == -1) return units;
+
+        // Based on your original IsSide logic: Mathf.Abs(row - other.row) == 1 && col == other.col
+        Vector2Int[] directions = {
+            new Vector2Int(-1, 0), // Row - 1
+            new Vector2Int(1, 0)   // Row + 1
+        };
+
+        foreach (var dir in directions)
+        {
+            UnitInstance neighbor = GetUnitAt(pos.x + dir.x, pos.y + dir.y);
+            if (neighbor != null && neighbor != unit)
+            {
+                units.Add(neighbor);
+            }
+        }
+        return units;
     }
 }

@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 public class Torch : UnitInstance
 {
-
-    private List<UnitInstance> adjacentAllies;
     private int burnBuff;
 
     public override void InitializeFromSaveData(UnitSaveData data)
@@ -31,33 +29,41 @@ public class Torch : UnitInstance
             _ => 1
         };
     }
-    public override void CombatStartEffect()
-    {
-        Debug.Log("Torch combat start effect");
-        adjacentAllies = FindAdjacentAllies();
-
-        Debug.Log($"Found {adjacentAllies.Count} adjacent allies");
-
-        foreach (UnitInstance adjacentAlly in adjacentAllies)
-        {
-            
-            adjacentAlly.TemporaryStatModify(ModifiableStats.Burn, burnBuff);
-        }
-    }
-
-    public override void Die()
-    {
-        Debug.Log($"Torch.Die() called at frame {Time.frameCount}");
-        foreach (UnitInstance adjacentAlly in adjacentAllies)
-        {
-            adjacentAlly.TemporaryStatModify(ModifiableStats.Burn, -burnBuff);
-        }
-        base.Die();
-    }
 
     public override string GetPassiveDescription()
     {
-        return ($"Combat Start: Adjacent allies have [c_burn]+{burnBuff}[/c] [BURN].");
+        return ($"Aura: Adjacent allies have [c_burn]+{burnBuff}[/c] [BURN].");
     }
+
+    public override void RemoveAuras()
+    {
+        foreach (UnitInstance target in auraTargets)
+        {
+            if (target != null)
+            {
+                target.TemporaryStatModify(ModifiableStats.Burn, -burnBuff);
+            }
+        }
+        base.RemoveAuras(); // Clears the list
+    }
+
+    public override void ApplyAuras()
+    {
+
+        if (myGrid == null) return;
+
+        auraTargets = FindAdjacentAllies();
+
+        if (auraTargets == null) return;
+
+        foreach (UnitInstance target in auraTargets)
+        {
+            if (target != null)
+            {
+                target.TemporaryStatModify(ModifiableStats.Burn, burnBuff);
+            }
+        }
+    }
+
 
 }
