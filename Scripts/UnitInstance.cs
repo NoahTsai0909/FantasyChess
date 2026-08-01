@@ -33,7 +33,7 @@ public class UnitInstance : MonoBehaviour
     public bool inCombat = false;
 
     private int currentHP;
-    protected int currentEnergy;
+    public int currentEnergy;
     private int currentShield;
     public int GetCurrentHP() => currentHP;
 
@@ -156,6 +156,8 @@ public class UnitInstance : MonoBehaviour
 
         RecalculateStats();
 
+        currentEnergy = stats.maxEnergy;
+
         Visuals?.UpdateRarityOutline(CurrentRarity);
     }
 
@@ -180,6 +182,8 @@ public class UnitInstance : MonoBehaviour
         temporaryStats = new TemporaryStats();
 
         RecalculateStats();
+
+        currentEnergy = stats.maxEnergy;
 
         Visuals?.UpdateRarityOutline(CurrentRarity);
     }

@@ -89,7 +89,8 @@ public class UnitHoverUI : MonoBehaviour
         StatBlock stats = unit.Stats;
 
         string allStats = "";
-        if (unit.Definition.isEnergy) allStats += TextIconUtility.FormatEnergy(stats.maxEnergy) + "  ";
+        int displayEnergy = unit.inCombat ? unit.currentEnergy : stats.maxEnergy;
+        if (unit.Definition.isEnergy) allStats += TextIconUtility.FormatEnergy(displayEnergy) + "/" + stats.maxEnergy + "  ";
         if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Damage) && stats.Attack > 0) allStats += TextIconUtility.FormatAttack(stats.Attack) + "  ";
         if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Shield) && stats.Shield > 0) allStats += TextIconUtility.FormatShield(stats.Shield) + "  ";
         if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Heal) && stats.Heal > 0) allStats += TextIconUtility.FormatHeal(stats.Heal) + "  ";

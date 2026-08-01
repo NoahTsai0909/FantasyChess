@@ -4,7 +4,6 @@ using System.Collections.Generic;
 public class AncientTome : UnitInstance
 {
     private int energyBuff;
-    List<UnitInstance> targets;
 
     public override void InitializeFromSaveData(UnitSaveData data)
     {
@@ -29,28 +28,38 @@ public class AncientTome : UnitInstance
         };
     }
 
-    public override void CombatStartEffect()
-    {
-        targets = FindSideAllies();
-
-        foreach (UnitInstance target in targets)
-        {
-
-            target.TemporaryStatModify(ModifiableStats.MaxEnergy, energyBuff);
-        }
-    }
-
-    public override void Die()
-    {
-        foreach (UnitInstance target in targets)
-        {
-            target.TemporaryStatModify(ModifiableStats.MaxEnergy, -energyBuff);
-        }
-        base.Die();
-    }
-
     public override string GetPassiveDescription()
     {
         return ($"Side allies have [c_energy]+{energyBuff}[/c] max [ENERGY].");
+    }
+
+    public override void RemoveAuras()
+    {
+        foreach (UnitInstance target in auraTargets)
+        {
+            if (target != null)
+            {
+                target.TemporaryStatModify(ModifiableStats.MaxEnergy, -energyBuff);
+            }
+        }
+        base.RemoveAuras(); // Clears the list
+    }
+
+    public override void ApplyAuras()
+    {
+
+        if (myGrid == null) return;
+
+        auraTargets = FindSideAllies();
+
+        if (auraTargets == null) return;
+
+        foreach (UnitInstance target in auraTargets)
+        {
+            if (target != null)
+            {
+                target.TemporaryStatModify(ModifiableStats.MaxEnergy, energyBuff);
+            }
+        }
     }
 }

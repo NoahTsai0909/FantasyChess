@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ArcaneAugurSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Arcane Augur
-  maxHP: 60
+  maxHP: 120
   attack: 15
   heal: 0
   shield: 0
