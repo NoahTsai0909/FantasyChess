@@ -19,4 +19,8 @@ public enum UnitTagFlags
     Demon = 1 << 14,
     Elemental = 1 << 15,
     Plant = 1 << 16,
+    BurnRef = 1 << 17,
+    PoisonRef = 1 << 18,
+    DamageRef = 1 << 19,
+    HealRef = 1 << 20,
 }

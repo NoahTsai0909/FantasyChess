@@ -37,6 +37,7 @@ public class UnitHoverUI : MonoBehaviour
     [Header("Behavior")]
     [SerializeField] private bool isPermanentUI = false;
 
+    private int lastEnergy, lastAttack, lastShield, lastHeal, lastPoison, lastBurn, lastCrit;
 
     private Canvas canvas;
     private RectTransform rectTransform;
@@ -66,10 +67,14 @@ public class UnitHoverUI : MonoBehaviour
 
     void Update()
     {
-        if (currentUnit == null)
+        if(currentUnit == null)
+        {
+            Hide();
             return;
+        }
 
         UpdateDynamicValues();
+        UpdateDynamicStats();
         UpdatePosition();
     }
 
@@ -111,6 +116,9 @@ public class UnitHoverUI : MonoBehaviour
         provisionText.text = unit.Definition.provisionCost.ToString();
         valueText.text = stats.Value.ToString();
 
+        lastEnergy = -1;
+
+        UpdateDynamicStats();
         // Show and position
         gameObject.SetActive(true);
         if (!useFixedPosition)
@@ -331,5 +339,45 @@ public class UnitHoverUI : MonoBehaviour
             healthBar.SetTextVisible(true);
             cooldownBar.SetValues(currentUnit.Stats.Cooldown, currentUnit.Stats.Cooldown);
         }
+    }
+
+    private void UpdateDynamicStats()
+    {
+        StatBlock stats = currentUnit.Stats;
+        int currentEnergy = currentUnit.inCombat ? currentUnit.currentEnergy : stats.maxEnergy;
+
+        // 1. PERFORMANCE CHECK: Did anything actually change?
+        if (lastEnergy == currentEnergy &&
+            lastAttack == stats.Attack &&
+            lastShield == stats.Shield &&
+            lastHeal == stats.Heal &&
+            lastPoison == stats.Poison &&
+            lastBurn == stats.Burn &&
+            lastCrit == stats.CritChance)
+        {
+            return; // Nothing changed, skip expensive string rebuilding!
+        }
+
+        // 2. UPDATE CACHE
+        lastEnergy = currentEnergy;
+        lastAttack = stats.Attack;
+        lastShield = stats.Shield;
+        lastHeal = stats.Heal;
+        lastPoison = stats.Poison;
+        lastBurn = stats.Burn;
+        lastCrit = stats.CritChance;
+
+        // 3. REBUILD STRING (Only runs when a stat fluctuates)
+        string allStats = "";
+
+        if (currentUnit.Definition.isEnergy) allStats += TextIconUtility.FormatEnergy(currentEnergy) + "/" + stats.maxEnergy + "  ";
+        if (currentUnit.Definition.tagFlags.HasFlag(UnitTagFlags.Damage) && stats.Attack > 0) allStats += TextIconUtility.FormatAttack(stats.Attack) + "  ";
+        if (currentUnit.Definition.tagFlags.HasFlag(UnitTagFlags.Shield) && stats.Shield > 0) allStats += TextIconUtility.FormatShield(stats.Shield) + "  ";
+        if (currentUnit.Definition.tagFlags.HasFlag(UnitTagFlags.Heal) && stats.Heal > 0) allStats += TextIconUtility.FormatHeal(stats.Heal) + "  ";
+        if (currentUnit.Definition.tagFlags.HasFlag(UnitTagFlags.Poison) && stats.Poison > 0) allStats += TextIconUtility.FormatPoison(stats.Poison) + "  ";
+        if (currentUnit.Definition.tagFlags.HasFlag(UnitTagFlags.Burn) && stats.Burn > 0) allStats += TextIconUtility.FormatBurn(stats.Burn) + "  ";
+        if (currentUnit.Definition.tagFlags.HasFlag(UnitTagFlags.Crit) && stats.CritChance > 0) allStats += TextIconUtility.FormatCrit(stats.CritChance) + "  ";
+
+        statText.SetText(allStats);
     }
 }

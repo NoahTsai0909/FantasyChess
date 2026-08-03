@@ -86,7 +86,6 @@ public class ShopSceneController : MonoBehaviour
         var pageUnits = shopState.offeredUnits
             .Skip(shopState.currentPage * shopEvent.unitsPerPage)
             .Take(shopEvent.unitsPerPage)
-            .Where(u => !shopState.purchasedUnits.Contains(u.definition))
             .ToList();
 
         for (int i = 0; i < pageUnits.Count; i++)
@@ -97,18 +96,27 @@ public class ShopSceneController : MonoBehaviour
 
     void SpawnShopCard(UnitSaveData unitData)
     {
-        // 1. Spawn the invisible dummy unit to calculate abilities
+        // 1. Spawn the UI Card (We always need a card for the layout footprint)
+        ShopUnitCard card = Instantiate(shopUnitCardPrefab, shopUIAnchor);
+
+        // 2. Check if this unit was already bought during a previous visit to this scene
+        if (shopState.purchasedUnits.Contains(unitData.definition))
+        {
+            card.MarkAsPurchased();
+            spawnedCards.Add(card);
+            return; // Skip spawning the dummy unit and setting up the buy logic!
+        }
+
+        // 3. (Normal Setup) Spawn the invisible dummy unit to calculate abilities
         UnitInstance dummyUnit = Instantiate(unitData.definition.unitPrefab, hiddenUnitAnchor);
         dummyUnit.InitializeFromSaveData(unitData);
         dummyUnit.isPlayer = true;
-        dummyUnit.gameObject.SetActive(false); // Keep it invisible!
+        dummyUnit.gameObject.SetActive(false);
         spawnedDummies.Add(dummyUnit);
 
-        // 2. Spawn the UI Card
-        ShopUnitCard card = Instantiate(shopUnitCardPrefab, shopUIAnchor);
         int unitCost = GetPurchasePrice(unitData);
 
-        // 3. Initialize the card with the dummy unit and the Purchase logic
+        // 4. Initialize the card with the dummy unit and the Purchase logic
         card.Initialize(dummyUnit, unitCost, () =>
         {
             if (RunManager.Instance.Stats.CurrentGold < unitCost)
@@ -117,17 +125,17 @@ public class ShopSceneController : MonoBehaviour
                 return;
             }
 
-            // Deduct Gold and Acquire Unit
             RunManager.Instance.Stats.CurrentGold -= unitCost;
             PlayerUnitManager.Instance.TryAcquireUnit(unitData.definition, unitData.rarity);
+
+            // Mark as purchased in the central state
             shopState.purchasedUnits.Add(unitData.definition);
 
-            // Clean up the invisible dummy unit to free memory
+            // Clean up dummy unit
             spawnedDummies.Remove(dummyUnit);
             Destroy(dummyUnit.gameObject);
 
-            // INSTEAD of destroying the card, just hide it!
-            // Do NOT remove it from spawnedCards so ClearSpawnedUnits() still finds it later.
+            // Turn into ghost footprint
             card.MarkAsPurchased();
         });
 

@@ -369,7 +369,8 @@ public class RunManager : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-            var rarity = RollRarityForDay(Stats.CurrentDay);
+            // Roll the standard rarity for the current day
+            var rolledRarity = RollRarityForDay(Stats.CurrentDay);
 
             UnitDefinition def = null;
             int attempts = 0;
@@ -379,10 +380,10 @@ public class RunManager : MonoBehaviour
                 attempts++;
 
                 var candidate = UnitDatabase.Instance.GetRandomUnit(
-                    rarity,
+                    rolledRarity,
                     region,
                     unitTags,
-                    minProvision,  // Add provision filtering
+                    minProvision,
                     maxProvision
                 );
 
@@ -395,17 +396,28 @@ public class RunManager : MonoBehaviour
             if (def != null)
             {
                 usedDefinitions.Add(def);
+
+                // NEW: Intercept and override rarity if the player owns the unit
+                Rarity finalRarity = rolledRarity;
+                Rarity? ownedLowestRarity = GetOwnedUnitLowestRarity(def);
+
+                if (ownedLowestRarity.HasValue)
+                {
+                    finalRarity = ownedLowestRarity.Value;
+                    Debug.Log($"[Shop] Rarity Override! {def.unitName} changed from {rolledRarity} to {finalRarity} to match player inventory.");
+                }
+
                 result.Add(new UnitSaveData
                 {
                     definition = def,
-                    rarity = rarity
+                    rarity = finalRarity
                 });
 
-                Debug.Log($"Generated: {def.unitName} (Provision: {def.provisionCost}, Rarity: {rarity})");
+                Debug.Log($"Generated: {def.unitName} (Provision: {def.provisionCost}, Rarity: {finalRarity})");
             }
             else
             {
-                Debug.LogWarning($"Could not find unique unit for rarity {rarity} with provision {minProvision}-{maxProvision}");
+                Debug.LogWarning($"Could not find unique unit for rarity {rolledRarity} with provision {minProvision}-{maxProvision}");
             }
         }
 
@@ -431,6 +443,36 @@ public class RunManager : MonoBehaviour
         return RarityDistributionTable.RollRarity(dist);
     }
 
+    private Rarity? GetOwnedUnitLowestRarity(UnitDefinition targetDef)
+    {
+        Rarity? lowestRarity = null;
+
+        // 1. Check Battle Grid
+        foreach (var placement in playerTeamPlacements)
+        {
+            if (placement.unitData != null && placement.unitData.definition == targetDef)
+            {
+                if (lowestRarity == null || placement.unitData.rarity < lowestRarity.Value)
+                {
+                    lowestRarity = placement.unitData.rarity;
+                }
+            }
+        }
+
+        // 2. Check Bench Grid
+        foreach (var placement in playerBenchPlacements)
+        {
+            if (placement.unitData != null && placement.unitData.definition == targetDef)
+            {
+                if (lowestRarity == null || placement.unitData.rarity < lowestRarity.Value)
+                {
+                    lowestRarity = placement.unitData.rarity;
+                }
+            }
+        }
+
+        return lowestRarity;
+    }
 
     public void ResetRun()
     {
