@@ -10,34 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a16e02b8c37b3f43ac55682dba29a26, type: 3}
-  m_Name: FarmerSO
+  m_Name: IronmoonCocoonSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
-  unitName: Farmer
-  maxHP: 40
-  attack: 5
+  unitName: Ironmoon Cocoon
+  maxHP: 130
+  attack: 0
   heal: 0
-  shield: 0
+  shield: 25
   burn: 0
   poison: 0
   slow: 0
   haste: 0
   critChance: 0
-  cooldown: 4
-  isPassive: 0
+  cooldown: 0
+  isPassive: 1
   isEnergy: 0
   maxEnergy: 0
   multicast: 1
-  unitSprite: {fileID: 21300000, guid: 0685d299f0bdf6c4d992a3159cdd64ad, type: 3}
-  defaultProjectile:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  cost: 2
-  region: 0
+  unitSprite: {fileID: 21300000, guid: b689c41a40f563d459281b300fd561aa, type: 3}
+  defaultProjectile: []
+  cost: 0
+  region: 4
   rarity: 0
-  startingRarity: 0
-  provisionCost: 1
-  isMelee: 1
-  unitPrefab: {fileID: 2576259255534838855, guid: 186e76a3dba96124cabb4905964506ca, type: 3}
+  startingRarity: 2
+  provisionCost: 2
+  isMelee: 0
+  unitPrefab: {fileID: 4214850520464972520, guid: 75fb1c8f039333944aec82dbd7ce0304, type: 3}
   spawnDefinition: {fileID: 0}
-  tagFlags: 1024
+  tagFlags: 16642

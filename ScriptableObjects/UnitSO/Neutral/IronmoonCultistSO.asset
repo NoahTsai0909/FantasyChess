@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a16e02b8c37b3f43ac55682dba29a26, type: 3}
-  m_Name: FarmerSO
+  m_Name: IronmoonCultistSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
-  unitName: Farmer
-  maxHP: 40
-  attack: 5
+  unitName: Ironmoon Cultist
+  maxHP: 120
+  attack: 0
   heal: 0
-  shield: 0
+  shield: 35
   burn: 0
   poison: 0
   slow: 0
@@ -27,17 +27,14 @@ MonoBehaviour:
   isEnergy: 0
   maxEnergy: 0
   multicast: 1
-  unitSprite: {fileID: 21300000, guid: 0685d299f0bdf6c4d992a3159cdd64ad, type: 3}
-  defaultProjectile:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  cost: 2
-  region: 0
+  unitSprite: {fileID: 21300000, guid: 4bd1d892499e01642af5145d2c611eee, type: 3}
+  defaultProjectile: []
+  cost: 0
+  region: 4
   rarity: 0
-  startingRarity: 0
+  startingRarity: 2
   provisionCost: 1
-  isMelee: 1
-  unitPrefab: {fileID: 2576259255534838855, guid: 186e76a3dba96124cabb4905964506ca, type: 3}
+  isMelee: 0
+  unitPrefab: {fileID: 7785511312984008611, guid: 56d55f29afd676244a8b6763b01a4b63, type: 3}
   spawnDefinition: {fileID: 0}
-  tagFlags: 1024
+  tagFlags: 256

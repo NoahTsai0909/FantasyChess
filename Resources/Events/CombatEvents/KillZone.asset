@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8920a2a2659eb4f45baf49db4d32ce91, type: 3}
+  m_Name: KillZone
+  m_EditorClassIdentifier: Assembly-CSharp::CombatEventSO
+  eventName: Kill Zone
+  description: 
+  eventIcon: {fileID: 21300000, guid: 277a3539fdd297840bd0c9d19fbe4dd7, type: 3}
+  eventBackgroundImage: {fileID: 0}
+  portalGlowColor: {r: 1, g: 1, b: 1, a: 1}
+  minDayRequired: 9
+  maxDayRequired: 10
+  selectionWeight: 1
+  targetScene: 2
+  encounter: {fileID: 11400000, guid: b63b895bce4bc9b4d99de20d72423edf, type: 2}
+  goldReward: 2
+  reputationReward: 2

@@ -50,6 +50,12 @@ public class UnitInstance : MonoBehaviour
         TemporaryStatModify(ModifiableStats.MaxHP, delta);
     }
     public int GetCurrentShield() => currentShield;
+    public int SetCurrentShield(int newShield)
+    {
+        currentShield = Mathf.Max(newShield, 0);
+        RefreshUI();
+        return currentShield;
+    }
 
     public float GetCooldownTimer() => cooldownTimer;  
 
