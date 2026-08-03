@@ -21,14 +21,6 @@ MonoBehaviour:
       provisionModifier: 0
       valueModifier: 0
     row: 0
-    col: 0
-  - unitData:
-      definition: {fileID: 11400000, guid: 5467cd0d052e12d46a69750eb406f9a0, type: 2}
-      rarity: 2
-      provisionCost: 0
-      provisionModifier: 0
-      valueModifier: 0
-    row: 0
     col: 1
   - unitData:
       definition: {fileID: 11400000, guid: 5467cd0d052e12d46a69750eb406f9a0, type: 2}
@@ -62,14 +54,6 @@ MonoBehaviour:
       valueModifier: 0
     row: 1
     col: 2
-  - unitData:
-      definition: {fileID: 11400000, guid: 5467cd0d052e12d46a69750eb406f9a0, type: 2}
-      rarity: 2
-      provisionCost: 0
-      provisionModifier: 0
-      valueModifier: 0
-    row: 2
-    col: 0
   - unitData:
       definition: {fileID: 11400000, guid: 5467cd0d052e12d46a69750eb406f9a0, type: 2}
       rarity: 2

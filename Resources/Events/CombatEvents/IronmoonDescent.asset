@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8920a2a2659eb4f45baf49db4d32ce91, type: 3}
   m_Name: IronmoonDescent
   m_EditorClassIdentifier: Assembly-CSharp::CombatEventSO
-  eventName: 
-  description: 
-  eventIcon: {fileID: 0}
+  eventName: Ironmoon Descent
+  description: The ironmoon descends
+  eventIcon: {fileID: 21300000, guid: f2f8b2f7c8f1d934dbee773fe15c7e5f, type: 3}
   eventBackgroundImage: {fileID: 0}
-  portalGlowColor: {r: 1, g: 1, b: 1, a: 1}
-  minDayRequired: 0
-  maxDayRequired: 0
+  portalGlowColor: {r: 0.042917524, g: 0.24892062, b: 0.44025147, a: 1}
+  minDayRequired: 11
+  maxDayRequired: 12
   selectionWeight: 1
-  targetScene: 0
-  encounter: {fileID: 0}
-  goldReward: 0
-  reputationReward: 0
+  targetScene: 2
+  encounter: {fileID: 11400000, guid: 35e8525c4e8dd4849bcd90e1b52f1045, type: 2}
+  goldReward: 3
+  reputationReward: 3

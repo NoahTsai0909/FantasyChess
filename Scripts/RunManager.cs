@@ -387,7 +387,7 @@ public class RunManager : MonoBehaviour
                     maxProvision
                 );
 
-                if (candidate != null && !usedDefinitions.Contains(candidate))
+                if (candidate != null && !usedDefinitions.Contains(candidate) && !IsMaxRarityOwned(candidate))
                 {
                     def = candidate;
                 }
@@ -424,6 +424,32 @@ public class RunManager : MonoBehaviour
         return result;
     }
 
+    private bool IsMaxRarityOwned(UnitDefinition targetDef)
+    {
+        // 1. Check Battle Grid
+        foreach (var placement in playerTeamPlacements)
+        {
+            if (placement.unitData != null &&
+                placement.unitData.definition == targetDef &&
+                placement.unitData.rarity == Rarity.Epic)
+            {
+                return true;
+            }
+        }
+
+        // 2. Check Bench Grid
+        foreach (var placement in playerBenchPlacements)
+        {
+            if (placement.unitData != null &&
+                placement.unitData.definition == targetDef &&
+                placement.unitData.rarity == Rarity.Epic)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public Rarity RollRarityForDay(int day)
     {
