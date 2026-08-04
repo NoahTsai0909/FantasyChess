@@ -90,6 +90,8 @@ public class PortalArtifactUI : MonoBehaviour, IPointerEnterHandler, IPointerExi
     public void OnPointerEnter(PointerEventData eventData)
     {
         isHovered = true;
+        if (MapController.Instance == null) return;
+        if (currentEvent == null) return;
         MapController.Instance.ShowEventInfo(currentEvent.eventName, currentEvent.description, transform.position);
     }
 

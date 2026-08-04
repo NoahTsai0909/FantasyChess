@@ -5,7 +5,6 @@ public class SolemnPriest : UnitInstance
     protected override void UseAbility()
     {
         base.UseAbility();
-        // Use parent's FindNearestEnemy() method
         UnitInstance target = FindLowestHealthAlly();
 
         if (target != null)

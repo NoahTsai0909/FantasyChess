@@ -346,14 +346,14 @@ public class RunManager : MonoBehaviour
         return stats;
     }
 
-
     public void InitializeShop(int count, Region region, UnitTagFlags unitTags, int minProvision = 0, int maxProvision = -1)
     {
         if (shopState != null) return;
 
         shopState = new ShopState
         {
-            offeredUnits = GenerateShopUnits(count, region, unitTags, minProvision, maxProvision),
+            // NEW: Delegate the heavy lifting to the static service!
+            offeredUnits = UnitGenerationService.GenerateShopUnits(count, region, unitTags, minProvision, maxProvision),
             purchasedUnits = new(),
             currentPage = 0,
             hasRefreshed = false,
@@ -362,142 +362,21 @@ public class RunManager : MonoBehaviour
         };
     }
 
-    private List<UnitSaveData> GenerateShopUnits(int count, Region region, UnitTagFlags unitTags, int minProvision = 0, int maxProvision = -1)
-    {
-        var result = new List<UnitSaveData>();
-        var usedDefinitions = new HashSet<UnitDefinition>();
-
-        for (int i = 0; i < count; i++)
-        {
-            // Roll the standard rarity for the current day
-            var rolledRarity = RollRarityForDay(Stats.CurrentDay);
-
-            UnitDefinition def = null;
-            int attempts = 0;
-
-            while (def == null && attempts < 100)
-            {
-                attempts++;
-
-                var candidate = UnitDatabase.Instance.GetRandomUnit(
-                    rolledRarity,
-                    region,
-                    unitTags,
-                    minProvision,
-                    maxProvision
-                );
-
-                if (candidate != null && !usedDefinitions.Contains(candidate) && !IsMaxRarityOwned(candidate))
-                {
-                    def = candidate;
-                }
-            }
-
-            if (def != null)
-            {
-                usedDefinitions.Add(def);
-
-                // NEW: Intercept and override rarity if the player owns the unit
-                Rarity finalRarity = rolledRarity;
-                Rarity? ownedLowestRarity = GetOwnedUnitLowestRarity(def);
-
-                if (ownedLowestRarity.HasValue)
-                {
-                    finalRarity = ownedLowestRarity.Value;
-                    Debug.Log($"[Shop] Rarity Override! {def.unitName} changed from {rolledRarity} to {finalRarity} to match player inventory.");
-                }
-
-                result.Add(new UnitSaveData
-                {
-                    definition = def,
-                    rarity = finalRarity
-                });
-
-                Debug.Log($"Generated: {def.unitName} (Provision: {def.provisionCost}, Rarity: {finalRarity})");
-            }
-            else
-            {
-                Debug.LogWarning($"Could not find unique unit for rarity {rolledRarity} with provision {minProvision}-{maxProvision}");
-            }
-        }
-
-        return result;
-    }
-
-    private bool IsMaxRarityOwned(UnitDefinition targetDef)
-    {
-        // 1. Check Battle Grid
-        foreach (var placement in playerTeamPlacements)
-        {
-            if (placement.unitData != null &&
-                placement.unitData.definition == targetDef &&
-                placement.unitData.rarity == Rarity.Epic)
-            {
-                return true;
-            }
-        }
-
-        // 2. Check Bench Grid
-        foreach (var placement in playerBenchPlacements)
-        {
-            if (placement.unitData != null &&
-                placement.unitData.definition == targetDef &&
-                placement.unitData.rarity == Rarity.Epic)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
 
     public Rarity RollRarityForDay(int day)
     {
         if (rarityDistributionTable == null)
         {
-            Debug.LogError("RarityDistributionTable not assigned!");
             return Rarity.Common; // fallback
         }
 
         var dist = rarityDistributionTable.GetForDay(day);
         if (dist == null)
         {
-            Debug.LogError($"No rarity distribution for day {day}");
             return Rarity.Common;
         }
 
         return RarityDistributionTable.RollRarity(dist);
-    }
-
-    private Rarity? GetOwnedUnitLowestRarity(UnitDefinition targetDef)
-    {
-        Rarity? lowestRarity = null;
-
-        // 1. Check Battle Grid
-        foreach (var placement in playerTeamPlacements)
-        {
-            if (placement.unitData != null && placement.unitData.definition == targetDef)
-            {
-                if (lowestRarity == null || placement.unitData.rarity < lowestRarity.Value)
-                {
-                    lowestRarity = placement.unitData.rarity;
-                }
-            }
-        }
-
-        // 2. Check Bench Grid
-        foreach (var placement in playerBenchPlacements)
-        {
-            if (placement.unitData != null && placement.unitData.definition == targetDef)
-            {
-                if (lowestRarity == null || placement.unitData.rarity < lowestRarity.Value)
-                {
-                    lowestRarity = placement.unitData.rarity;
-                }
-            }
-        }
-
-        return lowestRarity;
     }
 
     public void ResetRun()

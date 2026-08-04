@@ -348,6 +348,7 @@ public class UnitInstance : MonoBehaviour
 
     public virtual void Die()
     {
+        RemoveAuras();
         if (myGrid != null)
         {
             myGrid.RemoveUnit(row, col, false);
