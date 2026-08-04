@@ -1,13 +1,33 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Ranger : UnitInstance
 {
-    protected override void Awake()
+    private int critBuff;
+
+    public override void InitializeFromSaveData(UnitSaveData data)
     {
-        base.Awake();
-        Debug.Log("Ranger deployed");
+        base.InitializeFromSaveData(data);
+        critBuff = findCritBuff(CurrentRarity);
     }
 
+    public override void InitializeEnemy(UnitDefinition def, Rarity rarity)
+    {
+        base.InitializeEnemy(def, rarity);
+        critBuff = findCritBuff(rarity);
+    }
+
+    private int findCritBuff(Rarity rarity)
+    {
+        return rarity switch
+        {
+            Rarity.Common => 25,
+            Rarity.Uncommon => 50,
+            Rarity.Rare => 75,
+            Rarity.Epic => 100,
+            _ => 25
+        };
+    }
     protected override void UseAbility()
     {
         base.UseAbility();
@@ -20,7 +40,7 @@ public class Ranger : UnitInstance
                 {
                     type = CombatActionType.Damage,
                     source = this,
-                    target = target,
+                    target = target,    
                     amount = stats.Attack,
                     reason = "Ranger attack",
                     isCrit = abilityCrit
@@ -35,8 +55,18 @@ public class Ranger : UnitInstance
         }
     }
 
+    public override void CombatStartEffect()
+    {
+        this.TemporaryStatModify(ModifiableStats.CritChance, critBuff);
+    }
+
     public override string GetActiveDescription()
     {
         return ($"[c_attack]Attack[/c] the farthest enemy for [ATK] {stats.Attack}.");
+    }
+
+    public override string GetPassiveDescription()
+    {
+        return ($"Combat Start: Gain [c_crit]{critBuff}[/c] [CRIT].");
     }
 }

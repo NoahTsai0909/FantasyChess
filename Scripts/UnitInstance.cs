@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 using static CombatEventBus;
+using static Unity.VisualScripting.Member;
 
 public class UnitInstance : MonoBehaviour
 {
@@ -63,7 +65,8 @@ public class UnitInstance : MonoBehaviour
 
     protected float cooldownTimer;
     protected bool abilityCrit;
-    public int burnStacks = 0;
+    public Dictionary<Guid, int> burnSources = new Dictionary<Guid, int>();
+    public int TotalBurnStacks => burnSources.Values.Sum();
     public int slowStacks = 0;
     public int hasteStacks = 0;
 
@@ -91,6 +94,7 @@ public class UnitInstance : MonoBehaviour
 
     protected virtual void Awake()
     {
+        id = Guid.NewGuid();
         temporaryStats = new TemporaryStats();
         Visuals = GetComponent<UnitVisualController>();
     }
@@ -178,9 +182,8 @@ public class UnitInstance : MonoBehaviour
         // Core identity
         definition = data.definition;
         CurrentRarity = data.rarity;
-        id = data.id;
         isPassive = definition.isPassive;
-
+        id = data.id;
         // Permanent progression (keyed by GUID, not definition long-term)
         permanentStats = RunManager.Instance.GetPermanentStatsForUnit(id)?? RunManager.Instance.CreatePermanentStatsForUnit(id);
 
@@ -405,10 +408,44 @@ public class UnitInstance : MonoBehaviour
         RefreshUI();
     }
 
-    public void ApplyBurn(int stacks)
+    public void ApplyBurn(int amount, Guid sourceId)
     {
-        burnStacks += stacks;
-        CombatEventBus.PublishStatusChanged(this, StatusEffectType.Burn, burnStacks);
+        if (burnSources.ContainsKey(sourceId))
+        {
+            burnSources[sourceId] += amount;
+        }
+        else
+        {
+            burnSources[sourceId] = amount;
+        }
+        CombatEventBus.PublishStatusChanged(this, StatusEffectType.Burn, TotalBurnStacks);
+    }
+
+    public void DecayBurn()
+    {
+        if (burnSources.Count == 0) return;
+
+        Guid maxKey = Guid.Empty;
+        int maxVal = -1;
+        bool keyFound = false; //Use a bool to track if we found a key
+
+        foreach (var kvp in burnSources)
+        {
+            if (kvp.Value > maxVal)
+            {
+                maxVal = kvp.Value;
+                maxKey = kvp.Key;
+                keyFound = true;
+            }
+        }
+        if (keyFound) // Fix: Trust the boolean, don't check for Guid.Empty!
+        {
+            burnSources[maxKey]--;
+            if (burnSources[maxKey] <= 0)
+            {
+                burnSources.Remove(maxKey);
+            }
+        }
     }
 
     public void ApplySlow(int stacks)

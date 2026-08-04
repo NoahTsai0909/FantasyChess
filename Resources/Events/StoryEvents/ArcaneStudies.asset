@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bff6408a3a17924b9fb916c32996ac3, type: 3}
   m_Name: ArcaneStudies
   m_EditorClassIdentifier: Assembly-CSharp::StoryEventSO
-  eventName: The Armory
-  description: Get a random construct.
+  eventName: Arcane Studies
+  description: Get a random mage.
   eventIcon: {fileID: 21300000, guid: 277a3539fdd297840bd0c9d19fbe4dd7, type: 3}
   eventBackgroundImage: {fileID: 21300000, guid: 95f87df34ec49df49b816b29856fa078, type: 3}
   portalGlowColor: {r: 1, g: 1, b: 1, a: 1}
@@ -21,13 +21,13 @@ MonoBehaviour:
   maxDayRequired: 4
   selectionWeight: 1
   targetScene: 5
-  promptText: You feel the presence of a powerful construct drawing near..
+  promptText: You feel the presence of a powerful mage drawing near..
   choices:
   - buttonText: Take the help.
     previewUnit: {fileID: 0}
     generateRandomUnitPreview: 1
     randomRegion: 0
-    preferredTags: 2
+    preferredTags: 4
     outcome: {fileID: 11400000, guid: b366ba16ae9ce304a898a413b7dcbef5, type: 2}
     condition: {fileID: 0}
   - buttonText: Leave.

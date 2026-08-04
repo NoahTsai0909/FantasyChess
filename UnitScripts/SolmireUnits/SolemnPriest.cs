@@ -2,6 +2,31 @@ using UnityEngine;
 
 public class SolemnPriest : UnitInstance
 {
+    private int maxhealthBuff;
+
+    public override void InitializeFromSaveData(UnitSaveData data)
+    {
+        base.InitializeFromSaveData(data);
+        maxhealthBuff = findShieldBuff(CurrentRarity);
+    }
+
+    public override void InitializeEnemy(UnitDefinition def, Rarity rarity)
+    {
+        base.InitializeEnemy(def, rarity);
+        maxhealthBuff = findShieldBuff(rarity);
+    }
+
+    private int findShieldBuff(Rarity rarity)
+    {
+        return rarity switch
+        {
+            Rarity.Common => 5,
+            Rarity.Uncommon => 10,
+            Rarity.Rare => 20,
+            Rarity.Epic => 40,
+            _ => 5
+        };
+    }
     protected override void UseAbility()
     {
         base.UseAbility();
@@ -20,7 +45,7 @@ public class SolemnPriest : UnitInstance
                     isCrit = abilityCrit
                 }
             );
-            Debug.Log($"{unitName} heals {target.unitName} for {stats.Heal} damage!");
+            target.TemporaryStatModify(ModifiableStats.MaxHP, maxhealthBuff);
 
         }
         else
@@ -31,6 +56,6 @@ public class SolemnPriest : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"[c_heal]Heal[/c] the lowest health ally for [HEAL] {stats.Heal}.");
+        return ($"[c_heal]Heal[/c] the lowest health ally for [HEAL] {stats.Heal}. It gains [c_maxhealth]{maxhealthBuff}[/c] [MAXHEALTH].");
     }
 }

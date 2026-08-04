@@ -75,6 +75,6 @@ public class Sharpshooter : UnitInstance
 
     public override string GetPassiveDescription()
     {
-        return ($"When an ally [c_crits]crits[/c], this gains [c_attack]{attackBuff}[/c] [ATK].");
+        return ($"When an ally [c_crit]crits[/c], this gains [c_attack]{attackBuff}[/c] [ATK].");
     }
 }

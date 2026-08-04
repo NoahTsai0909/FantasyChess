@@ -225,7 +225,7 @@ public class BattleUIManager : MonoBehaviour
 
     private void HandleActionResolved(CombatAction action)
     {
-        if (action.target == null)
+        if (action.target == null || action.isSilent)
             return;
 
         float spawnTime = Time.time;

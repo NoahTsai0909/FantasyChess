@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public enum CombatActionType
 {
@@ -24,11 +25,15 @@ public class CombatAction
     public CombatActionType type;
     public UnitInstance source;
     public UnitInstance target;
+    public Guid sourceId;//Persistent IDs for stat tracking
+    public Guid targetId;
     public int amount;
     public bool isCrit;
     public string reason; // optional (ability name, etc)
     public bool isPassive; // optional (for passive abilities)
     public GameObject projectileOverride; // Optional override
+    public bool isSilent = false; // Optional flag for no floating combat text UI (for instance, individually attributed burn ticks)
+    public bool isVisualOnly = false; // Optional flag for no stat tracking or combat log (for instance, consolidated burn damage)
 }
 
 public class CombatManager : MonoBehaviour
@@ -49,6 +54,8 @@ public class CombatManager : MonoBehaviour
 
     public void ExecuteAction(CombatAction action)
     {
+        if (action.source != null) action.sourceId = action.source.id;
+        if (action.target != null) action.targetId = action.target.id;
         // Target redirection hook
         action.target = ResolveTargetRedirects(action);
 
@@ -90,7 +97,7 @@ public class CombatManager : MonoBehaviour
                 break;
 
             case CombatActionType.ApplyBurn:
-                action.target.ApplyBurn(action.amount);
+                action.target.ApplyBurn(action.amount, action.sourceId);
                 break;
 
             case CombatActionType.ApplySlow:
@@ -128,28 +135,49 @@ public class CombatManager : MonoBehaviour
     {
         foreach (var unit in GetAllUnitsInCombat())
         {
-            if (unit.burnStacks != 0)
+            if (unit.burnSources.Count > 0)
             {
-                CombatAction action = new CombatAction
+                int totalBurnDamage = unit.TotalBurnStacks;
+
+                unit.TakeDamage(totalBurnDamage);
+
+                CombatAction visualTracker = new CombatAction
                 {
                     type = CombatActionType.BurnTick,
-                    source = unit, // or burn applier
                     target = unit,
-                    amount = unit.burnStacks,
-                    reason = "Burn"
+                    targetId = unit.id,
+                    amount = totalBurnDamage,
+                    reason = "Burn tick", // do not log the consolidated damage!,
+                    isVisualOnly = true // The stat tracker will completely ignore this!
+
                 };
+                CombatEventBus.PublishActionResolved(visualTracker);
 
-                ExecuteAction(action);
+                //Stat Tracking: Broadcast split logs silently for the Stats Tracker
+                foreach (var kvp in unit.burnSources)
+                {
+                    CombatAction statTracker = new CombatAction
+                    {
+                        type = CombatActionType.BurnTick,
+                        sourceId = kvp.Key,
+                        target = unit,
+                        targetId = unit.id,
+                        amount = kvp.Value,
+                        reason = "Burn",
+                        isSilent = true // The UI will completely ignore this!
+                    };
+                    combatLog.Add(statTracker);
+                    CombatEventBus.PublishActionResolved(statTracker);
+                }
 
-                unit.burnStacks--;
+                //Decay the largest stack
+                unit.DecayBurn();
 
-                if (unit.burnStacks <= 0)
-                    unit.burnStacks = 0;
-
+                //Update the UI using the new helper property
                 CombatEventBus.PublishStatusChanged(
                     unit,
                     StatusEffectType.Burn,
-                    unit.burnStacks
+                    unit.TotalBurnStacks
                 );
             }
 
