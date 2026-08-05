@@ -11,20 +11,36 @@ public class StatsUIWindow : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private Transform rowContainer;
     [SerializeField] private StatRowUI rowPrefab;
+    [SerializeField] private ScrollRect scrollRect;
 
     [Header("Tab Buttons")]
     [SerializeField] private Button damageButton;
     [SerializeField] private Button mitigationButton;
     [SerializeField] private Button utilityButton;
 
+    [Header("Colors - Damage")]
+    public Color directDmgColor = new Color(0.8f, 0.2f, 0.2f); // Red
+    public Color burnDmgColor = new Color(1f, 0.5f, 0f);       // Orange
+    public Color poisonDmgColor = new Color(0.2f, 0.8f, 0.2f); // Green
+
+    [Header("Colors - Mitigation")]
+    public Color dmgTakenColor = new Color(0.5f, 0.5f, 0.5f);  // Gray
+    public Color healColor = new Color(0.2f, 0.8f, 0.2f);      // Green
+    public Color shieldColor = new Color(0.2f, 0.6f, 1f);      // Blue
+
+    [Header("Colors - Utility")]
+    public Color slowColor = new Color(0.6f, 0.8f, 1f);        // Ice Blue
+    public Color hasteColor = new Color(1f, 0.8f, 0.2f);       // Yellow
+    public Color advanceColor = new Color(0.8f, 0.2f, 0.8f);
+
     private StatTab currentTab = StatTab.Damage;
     private Dictionary<Guid, StatRowUI> activeRows = new Dictionary<Guid, StatRowUI>();
 
     private void Awake()
     {
-        damageButton.onClick.AddListener(() => { currentTab = StatTab.Damage; RefreshUI(); });
-        mitigationButton.onClick.AddListener(() => { currentTab = StatTab.Mitigation; RefreshUI(); });
-        utilityButton.onClick.AddListener(() => { currentTab = StatTab.Utility; RefreshUI(); });
+        damageButton.onClick.AddListener(() => { currentTab = StatTab.Damage; RefreshUI(); ResetScroll(); });
+        mitigationButton.onClick.AddListener(() => { currentTab = StatTab.Mitigation; RefreshUI(); ResetScroll(); });
+        utilityButton.onClick.AddListener(() => { currentTab = StatTab.Utility; RefreshUI(); ResetScroll(); });
     }
     private void Start()
     {
@@ -46,13 +62,12 @@ public class StatsUIWindow : MonoBehaviour
     private void RefreshUI()
     {
         if (CombatStatsTracker.Instance == null) return;
+
         var allStats = CombatStatsTracker.Instance.GetAllStats().Values.ToList();
         if (allStats.Count == 0) return;
 
-        // 1. Sort the list based on the currently selected tab
         allStats.Sort((a, b) => GetPrimaryStatForTab(b).CompareTo(GetPrimaryStatForTab(a)));
 
-        // 2. Find the highest value to scale the fill bars correctly
         int maxValue = 0;
         foreach (var stat in allStats)
         {
@@ -60,12 +75,10 @@ public class StatsUIWindow : MonoBehaviour
             if (val > maxValue) maxValue = val;
         }
 
-        // 3. Update or Instantiate rows
         for (int i = 0; i < allStats.Count; i++)
         {
             var stat = allStats[i];
 
-            // If we haven't created a row for this unit yet, make one
             if (!activeRows.ContainsKey(stat.UnitId))
             {
                 StatRowUI newRow = Instantiate(rowPrefab, rowContainer);
@@ -73,12 +86,30 @@ public class StatsUIWindow : MonoBehaviour
             }
 
             StatRowUI row = activeRows[stat.UnitId];
-
-            // Force the layout to respect the sorted order
             row.transform.SetSiblingIndex(i);
 
-            // Update the text and the bar
-            row.UpdateRow(stat.UnitIcon, GetPrimaryStatForTab(stat), maxValue, stat.IsPlayer);
+            // Package the segmented data based on the current tab
+            List<(int, Color)> segments = new List<(int, Color)>();
+            if (currentTab == StatTab.Damage)
+            {
+                segments.Add((stat.DirectDamageDealt, directDmgColor));
+                segments.Add((stat.BurnDamageDealt, burnDmgColor));
+                segments.Add((stat.PoisonDamageDealt, poisonDmgColor));
+            }
+            else if (currentTab == StatTab.Mitigation)
+            {
+                segments.Add((stat.DamageTaken, dmgTakenColor));
+                segments.Add((stat.HealingDone, healColor));
+                segments.Add((stat.ShieldingDone, shieldColor));
+            }
+            else if (currentTab == StatTab.Utility)
+            {
+                segments.Add((stat.SlowsApplied, slowColor));
+                segments.Add((stat.HastesApplied, hasteColor));
+                segments.Add((stat.AdvancesGiven, advanceColor));
+            }
+
+            row.UpdateRow(stat.UnitIcon, GetPrimaryStatForTab(stat), maxValue, segments);
         }
     }
 
@@ -88,17 +119,24 @@ public class StatsUIWindow : MonoBehaviour
         {
             case StatTab.Damage:
                 return stats.TotalDamageDealt;
-
             case StatTab.Mitigation:
-                // You could change this to display Healing/Shielding instead based on sub-tabs
-                return stats.DamageTaken;
-
+                // Summing these ensures the bar reflects TOTAL mitigation activity
+                return stats.DamageTaken + stats.HealingDone + stats.ShieldingDone;
             case StatTab.Utility:
-                // Combining them for a general "Utility Score" or you can isolate one
                 return stats.SlowsApplied + stats.HastesApplied + stats.AdvancesGiven;
-
             default:
                 return 0;
+        }
+    }
+
+    private void ResetScroll()
+    {
+        // FORCE UNITY TO CALCULATE SIZES BEFORE SCROLLING!
+        Canvas.ForceUpdateCanvases();
+
+        if (scrollRect != null)
+        {
+            scrollRect.verticalNormalizedPosition = 1f;
         }
     }
 }

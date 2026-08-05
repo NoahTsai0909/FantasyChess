@@ -152,7 +152,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RunManager
   playerTeamPlacements: []
   playerBenchPlacements: []
-  defaultUnits: []
+  defaultUnits:
+  - unitData:
+      definition: {fileID: 11400000, guid: ede77293b613b784bafd796375b40877, type: 2}
+      rarity: 3
+      provisionCost: 0
+      provisionModifier: 0
+      valueModifier: 0
+    row: 0
+    col: 0
   benchSize: 8
   regularEventsCompleted: 0
   isBattlePhase: 0
