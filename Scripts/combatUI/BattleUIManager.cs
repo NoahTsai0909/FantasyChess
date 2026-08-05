@@ -150,67 +150,6 @@ public class BattleUIManager : MonoBehaviour
         return new Vector3(0, -3.25f, 0);
     }
 
-    private Image FindHealthBarImage(GameObject healthBar)
-    {
-        // Look for Canvas/Bar first (your prefab structure)
-        Transform barTransform = healthBar.transform.Find("Canvas/Bar");
-        if (barTransform == null)
-        {
-            // Alternative search
-            barTransform = healthBar.transform.Find("Bar");
-        }
-
-        if (barTransform != null)
-        {
-            return barTransform.GetComponent<Image>();
-        }
-        else
-        {
-            // Fallback
-            return healthBar.GetComponentInChildren<Image>();
-        }
-    }
-
-    private Image FindCooldownBarImage(GameObject cooldownBar)
-    {
-        // Look for Canvas/CooldownBar first
-        Transform barTransform = cooldownBar.transform.Find("Canvas/CooldownBar");
-        if (barTransform == null)
-        {
-            barTransform = cooldownBar.transform.Find("CooldownBar");
-        }
-
-        if (barTransform != null)
-        {
-            return barTransform.GetComponent<Image>();
-        }
-        else
-        {
-            return cooldownBar.GetComponentInChildren<Image>();
-        }
-    }
-
-    private Image FindShieldBarImage(GameObject healthBar)
-    {
-        // Look for Canvas/Bar first (your prefab structure)
-        Transform barTransform = healthBar.transform.Find("Canvas/ShieldBar");
-        if (barTransform == null)
-        {
-            // Alternative search
-            barTransform = healthBar.transform.Find("ShieldBar");
-        }
-
-        if (barTransform != null)
-        {
-            return barTransform.GetComponent<Image>();
-        }
-        else
-        {
-            // Fallback
-            return healthBar.GetComponentInChildren<Image>();
-        }
-    }
-
     private void OnEnable()
     {
         CombatEventBus.OnActionResolved += HandleActionResolved;

@@ -4,7 +4,7 @@ using UnityEngine;
 public class Meowdic : UnitInstance
 {
     private int advanceCount = 1;
-    public override void EnterCombat(GridManager grid, int row, int col, bool isPlayer)
+    public override void EnterCombat(GridManager grid, int row, int col, bool isPlayer, bool startCombat = true)
     {
         base.EnterCombat(grid, row, col, isPlayer);
 

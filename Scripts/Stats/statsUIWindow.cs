@@ -17,6 +17,7 @@ public class StatsUIWindow : MonoBehaviour
     [SerializeField] private Button damageButton;
     [SerializeField] private Button mitigationButton;
     [SerializeField] private Button utilityButton;
+    [SerializeField] private Button returnButton;
 
     [Header("Colors - Damage")]
     public Color directDmgColor = new Color(0.8f, 0.2f, 0.2f); // Red
@@ -41,6 +42,7 @@ public class StatsUIWindow : MonoBehaviour
         damageButton.onClick.AddListener(() => { currentTab = StatTab.Damage; RefreshUI(); ResetScroll(); });
         mitigationButton.onClick.AddListener(() => { currentTab = StatTab.Mitigation; RefreshUI(); ResetScroll(); });
         utilityButton.onClick.AddListener(() => { currentTab = StatTab.Utility; RefreshUI(); ResetScroll(); });
+        returnButton.onClick.AddListener(() => { this.gameObject.SetActive(false); });
     }
     private void Start()
     {

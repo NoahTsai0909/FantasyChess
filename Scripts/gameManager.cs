@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using static CombatEventBus;
 using static SceneLoader;
 using static UnityEngine.Rendering.DebugUI.Table;
@@ -16,6 +17,9 @@ public class gameManager : MonoBehaviour
 
     [Header("UI Manager")]
     [SerializeField] private BattleUIManager battleUIManager;
+    [SerializeField] private Button inspectStatsButton;
+    [SerializeField] private Button continueButton;
+    [SerializeField] private GameObject unitStatsWindowObject;
 
     [Header("Combat Settings")]
     [SerializeField] private float endCombatDelay = 1.0f;
@@ -30,6 +34,18 @@ public class gameManager : MonoBehaviour
 
     void Start()
     {
+        if (inspectStatsButton != null) inspectStatsButton.gameObject.SetActive(true);
+        if (continueButton != null) continueButton.gameObject.SetActive(false);
+        if (unitStatsWindowObject != null) unitStatsWindowObject.SetActive(false);
+
+        if (inspectStatsButton != null)
+        {
+            inspectStatsButton.onClick.AddListener(() =>
+            {
+                if (unitStatsWindowObject != null) unitStatsWindowObject.SetActive(true);
+            });
+        }
+
         TeamDefinition playerTeam = RunManager.Instance.GetTeamForCombat();
         EncounterDefinition currentEncounter = RunManager.Instance.currentEncounter;
         if (playerTeam != null && currentEncounter != null)
@@ -140,23 +156,33 @@ public class gameManager : MonoBehaviour
     private IEnumerator TransitionAfterDelay(bool playerWon)
     {
         yield return new WaitForSeconds(endCombatDelay);
+        ResetBattlefieldToStasis();
+        if (continueButton != null)
+        {
+            continueButton.gameObject.SetActive(true);
 
-        if (playerWon || RunManager.Instance.Stats.PlayerHealth > 0)
-        {
-            // Go to map scene to continue run
-            Time.timeScale = 1f;
-            SceneLoader.Instance.LoadScene(GameScene.MapScene);
-        }
-        else
-        {
-            // Player lost - go to main menu or run summary
-            Time.timeScale = 1f;
-            SceneLoader.Instance.LoadScene(GameScene.MainMenuScene);
-            RunManager.Instance.ResetRun();
+            // Clear any old clicks and add the scene transition logic
+            continueButton.onClick.RemoveAllListeners();
+            continueButton.onClick.AddListener(() =>
+            {
+                Time.timeScale = 1f;
+
+                if (playerWon || RunManager.Instance.Stats.PlayerHealth > 0)
+                {
+                    // Go to map scene to continue run
+                    SceneLoader.Instance.LoadScene(GameScene.MapScene);
+                }
+                else
+                {
+                    // Player lost - go to main menu or run summary
+                    SceneLoader.Instance.LoadScene(GameScene.MainMenuScene);
+                    RunManager.Instance.ResetRun();
+                }
+            });
         }
     }
 
-    public void InitializeBattlefield(TeamDefinition playerTeam, EncounterDefinition encounter)
+    public void InitializeBattlefield(TeamDefinition playerTeam, EncounterDefinition encounter, bool startCombat = true)
     {
         // Player team
         foreach (var placement in playerTeam.units)
@@ -164,54 +190,81 @@ public class gameManager : MonoBehaviour
             if (placement.unitData == null)
                 continue;
 
-            SpawnPlayerUnit(placement, playerGrid);
+            SpawnPlayerUnit(placement, playerGrid, startCombat);
         }
 
         // Enemies (still definition-based)
         foreach (var enemyPlacement in encounter.enemyUnits)
         {
-            SpawnEnemyUnit(enemyPlacement, enemyGrid);
+            SpawnEnemyUnit(enemyPlacement, enemyGrid, startCombat);
         }
 
-        foreach (var playerUnit in playerGrid.GetAllUnits())
+        if (startCombat)
         {
-            playerUnit.CombatStartEffect();
-            playerGrid.RefreshAllAuras();
-        }
-        foreach (var enemyUnit in enemyGrid.GetAllUnits())
-        {
-            enemyUnit.CombatStartEffect();
-            enemyGrid.RefreshAllAuras();
+            foreach (var playerUnit in playerGrid.GetAllUnits())
+            {
+                playerUnit.CombatStartEffect();
+                playerGrid.RefreshAllAuras();
+            }
+            foreach (var enemyUnit in enemyGrid.GetAllUnits())
+            {
+                enemyUnit.CombatStartEffect();
+                enemyGrid.RefreshAllAuras();
+            }
         }
         unitReward = enemyGrid.GetRandomUnit();
 
     }
 
 
-    private UnitInstance SpawnPlayerUnit(RunManager.UnitPlacement placement, GridManager grid)
+    private UnitInstance SpawnPlayerUnit(RunManager.UnitPlacement placement, GridManager grid, bool startCombat)
     {
-        // Spawn visual from prefab
         UnitInstance unit = Instantiate(placement.unitData.definition.unitPrefab);
-
-        // Initialize stats from the saved data
         unit.InitializeFromSaveData(placement.unitData);
 
-        // Set placement reference and enter combat
-        unit.EnterCombat(grid, placement.row, placement.col, true);
+        // Pass the bool down to the unit!
+        unit.EnterCombat(grid, placement.row, placement.col, true, startCombat);
 
         return unit;
     }
 
-    private UnitInstance SpawnEnemyUnit(RunManager.UnitPlacement placement, GridManager grid)
+    private UnitInstance SpawnEnemyUnit(RunManager.UnitPlacement placement, GridManager grid, bool startCombat)
     {
         UnitInstance unit = Instantiate(placement.unitData.definition.unitPrefab);
-
-
         unit.InitializeEnemy(placement.unitData.definition, placement.unitData.rarity);
 
-        unit.EnterCombat(grid, placement.row, placement.col, false);
+        // Pass the bool down to the unit!
+        unit.EnterCombat(grid, placement.row, placement.col, false, startCombat);
 
         return unit;
+    }
+
+    private void ResetBattlefieldToStasis()
+    {
+        if (battleUIManager != null)
+        {
+            foreach (var unit in playerGrid.GetAllUnits())
+            {
+                battleUIManager.RemoveUnitUI(unit);
+            }
+            foreach (var unit in enemyGrid.GetAllUnits())
+            {
+                battleUIManager.RemoveUnitUI(unit);
+            }
+        }
+        // Wipe both grids clean (this destroys the existing GameObjects)
+        playerGrid.ClearAllUnits();
+        enemyGrid.ClearAllUnits();
+
+        // Get the teams again
+        TeamDefinition playerTeam = RunManager.Instance.GetTeamForCombat();
+        EncounterDefinition currentEncounter = RunManager.Instance.currentEncounter;
+
+        // Respawn them, but pass "false" to tell them NOT to fight
+        if (playerTeam != null && currentEncounter != null)
+        {
+            InitializeBattlefield(playerTeam, currentEncounter, false);
+        }
     }
 
 }

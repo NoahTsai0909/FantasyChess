@@ -4,7 +4,7 @@ using static CombatEventBus;
 public class Ballista : UnitInstance
 {
 
-    public override void EnterCombat(GridManager grid, int row, int col, bool isPlayer)
+    public override void EnterCombat(GridManager grid, int row, int col, bool isPlayer, bool startCombat = true)
     {
         base.EnterCombat(grid, row, col, isPlayer);
 

@@ -213,7 +213,7 @@ public class UnitInstance : MonoBehaviour
         Visuals?.SetDirection(isPlayer);
     }
 
-    public virtual void EnterCombat(GridManager grid, int row, int col, bool isPlayer)
+    public virtual void EnterCombat(GridManager grid, int row, int col, bool isPlayer, bool startCombat=true)
     {
         this.row = row;
         this.col = col;
@@ -226,7 +226,7 @@ public class UnitInstance : MonoBehaviour
         SetupTargeting();
         SetupCombatUI();
 
-        inCombat = true;
+        inCombat = startCombat;
     }
 
     public void InitializeCombatState()
