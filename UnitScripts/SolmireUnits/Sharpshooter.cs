@@ -48,7 +48,7 @@ public class Sharpshooter : UnitInstance
 
     public override void EnterCombat(GridManager grid, int row, int col, bool isPlayer, bool startCombat = true)
     {
-        base.EnterCombat(grid, row, col, isPlayer);
+        base.EnterCombat(grid, row, col, isPlayer, startCombat);
 
         CombatEventBus.OnActionResolved += HandleActionResolved;
 

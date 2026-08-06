@@ -224,7 +224,10 @@ public class UnitInstance : MonoBehaviour
         SetPlayerSide(isPlayer);
         InitializeCombatState();
         SetupTargeting();
-        SetupCombatUI();
+        if (startCombat)
+        {
+            SetupCombatUI();
+        }
 
         inCombat = startCombat;
     }
@@ -248,7 +251,7 @@ public class UnitInstance : MonoBehaviour
         );
     }
 
-    private void SetupCombatUI()
+    public void SetupCombatUI()
     {
         uiManager = FindFirstObjectByType<BattleUIManager>();
         if (uiManager == null) return;

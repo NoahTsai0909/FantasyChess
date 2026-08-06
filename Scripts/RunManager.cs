@@ -35,7 +35,7 @@ public class RunManager : MonoBehaviour
 
     [Header("Default Unit")]
     [SerializeField] private List<UnitPlacement> defaultUnits;
-    [SerializeField] private int benchSize = 8;
+    [SerializeField] private int benchSize = 9;
 
     public int regularEventsCompleted = 0;
     public const int REGULAR_EVENTS_PER_DAY = 3;
@@ -55,7 +55,7 @@ public class RunManager : MonoBehaviour
 
 
     private Dictionary<Guid, PermanentStats> permanentStatsMap = new();
-
+    public Dictionary<Guid, UnitLifetimeStats> masterUnitStats = new Dictionary<Guid, UnitLifetimeStats>();
     [SerializeField] public RarityDistributionTable rarityDistributionTable;
 
     private void Awake()
@@ -133,7 +133,6 @@ public class RunManager : MonoBehaviour
             if (placement.unitData != null &&
                 placement.unitData.definition == null)
             {
-                Debug.LogWarning($"Sanitizing invalid bench slot {i}");
                 placement.unitData = null;
             }
         }
@@ -194,14 +193,12 @@ public class RunManager : MonoBehaviour
         currentDailyEvents.Clear();
 
         GenerateDailyEvents();
-        Debug.Log($"Day {Stats.CurrentDay} started!");
     }
 
     public void CompleteRegularEvent()
     {
         regularEventsCompleted++;
         Stats.Experience++;
-        Debug.Log($"Regular event completed: {regularEventsCompleted}/{REGULAR_EVENTS_PER_DAY}");
 
         // Move to next regular event phase
         currentEventPhase++;
@@ -231,17 +228,11 @@ public class RunManager : MonoBehaviour
         currentEventPhase = 0;
         allDayEvents.Clear();
 
-        Debug.Log($"Battle completed! Day {Stats.CurrentDay} is complete.");
-
-        // Check if run is complete (7 days)
         if (Stats.CurrentDay >= TOTAL_DAYS)
         {
-            Debug.Log($"RUN COMPLETE! Finished all {TOTAL_DAYS} days!");
-            SceneLoader.Instance.LoadScene(GameScene.MainMenuScene);
+            SceneLoader.Instance.LoadScene(GameScene.RunSummaryScene);
             return;
         }
-
-        // Start the next day
         StartNewDay();
     }
 
@@ -384,6 +375,7 @@ public class RunManager : MonoBehaviour
         Debug.Log("=== RESETTING RUN ===");
 
         Stats.Initialize();
+        masterUnitStats.Clear();
         regularEventsCompleted = 0;
         isBattlePhase = false;
         currentEventPhase = 0;

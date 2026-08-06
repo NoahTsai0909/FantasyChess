@@ -169,27 +169,4 @@ public class PrepSceneManager : MonoBehaviour
     }
 
 
-    void ClearGrid(GridManager grid)
-    {
-        Debug.Log($"Clearing grid: {grid.name}");
-
-        // Use the new ClearAllUnits method
-        grid.ClearAllUnits();
-
-        // Find all UnitInstance objects in the scene
-        // Use FindObjectsByType with FindObjectsSortMode.None
-        UnitInstance[] allUnitsInScene = FindObjectsByType<UnitInstance>(FindObjectsSortMode.None);
-
-        foreach (UnitInstance unit in allUnitsInScene)
-        {
-            if (unit != null && !spawnedUnits.Contains(unit))
-            {
-                Debug.Log($"Destroying stray unit: {unit.name}");
-                Destroy(unit.gameObject);
-            }
-        }
-    }
-
-
-
 }

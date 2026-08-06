@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using static CombatEventBus;
 using static SceneLoader;
 using static UnityEngine.Rendering.DebugUI.Table;
+using System;
 
 public class gameManager : MonoBehaviour
 {
@@ -14,12 +15,18 @@ public class gameManager : MonoBehaviour
     [Header("Grids")]
     public GridManager playerGrid;
     public GridManager enemyGrid;
+    public GridManager benchGrid;
 
     [Header("UI Manager")]
     [SerializeField] private BattleUIManager battleUIManager;
     [SerializeField] private Button inspectStatsButton;
     [SerializeField] private Button continueButton;
     [SerializeField] private GameObject unitStatsWindowObject;
+
+    [Header("UI & Drag Managers")]
+    [SerializeField] private DragAndDropManager dragManager; 
+    [SerializeField] private ProvisionManager provisionManager; 
+    [SerializeField] private Button startCombatButton;
 
     [Header("Combat Settings")]
     [SerializeField] private float endCombatDelay = 1.0f;
@@ -46,11 +53,21 @@ public class gameManager : MonoBehaviour
             });
         }
 
+        if (startCombatButton != null)
+        {
+            startCombatButton.onClick.AddListener(() =>
+            {
+                StartActualCombat();
+            });
+        }
+
+        combatActive = false;
         TeamDefinition playerTeam = RunManager.Instance.GetTeamForCombat();
         EncounterDefinition currentEncounter = RunManager.Instance.currentEncounter;
         if (playerTeam != null && currentEncounter != null)
         {
-            InitializeBattlefield(playerTeam, currentEncounter);
+            InitializeBattlefield(playerTeam, currentEncounter, false);
+            InitializeBench();
         }
         if (!HasLivingUnits(playerGrid))
         {
@@ -121,6 +138,8 @@ public class gameManager : MonoBehaviour
         CombatEventBus.PublishCombatEnd();
         combatActive = false;
 
+        TransferCombatStatsToRunManager();
+
         if (disasterManager != null)
             disasterManager.StopDisaster();
 
@@ -174,9 +193,7 @@ public class gameManager : MonoBehaviour
                 }
                 else
                 {
-                    // Player lost - go to main menu or run summary
-                    SceneLoader.Instance.LoadScene(GameScene.MainMenuScene);
-                    RunManager.Instance.ResetRun();
+                    SceneLoader.Instance.LoadScene(GameScene.RunSummaryScene);
                 }
             });
         }
@@ -184,16 +201,14 @@ public class gameManager : MonoBehaviour
 
     public void InitializeBattlefield(TeamDefinition playerTeam, EncounterDefinition encounter, bool startCombat = true)
     {
-        // Player team
         foreach (var placement in playerTeam.units)
         {
-            if (placement.unitData == null)
+            if (placement.unitData == null || placement.unitData.definition == null || placement.unitData.definition.unitPrefab == null)
                 continue;
 
             SpawnPlayerUnit(placement, playerGrid, startCombat);
         }
 
-        // Enemies (still definition-based)
         foreach (var enemyPlacement in encounter.enemyUnits)
         {
             SpawnEnemyUnit(enemyPlacement, enemyGrid, startCombat);
@@ -213,7 +228,6 @@ public class gameManager : MonoBehaviour
             }
         }
         unitReward = enemyGrid.GetRandomUnit();
-
     }
 
 
@@ -221,8 +235,7 @@ public class gameManager : MonoBehaviour
     {
         UnitInstance unit = Instantiate(placement.unitData.definition.unitPrefab);
         unit.InitializeFromSaveData(placement.unitData);
-
-        // Pass the bool down to the unit!
+        unit.myPlacement = placement;
         unit.EnterCombat(grid, placement.row, placement.col, true, startCombat);
 
         return unit;
@@ -232,8 +245,6 @@ public class gameManager : MonoBehaviour
     {
         UnitInstance unit = Instantiate(placement.unitData.definition.unitPrefab);
         unit.InitializeEnemy(placement.unitData.definition, placement.unitData.rarity);
-
-        // Pass the bool down to the unit!
         unit.EnterCombat(grid, placement.row, placement.col, false, startCombat);
 
         return unit;
@@ -267,4 +278,138 @@ public class gameManager : MonoBehaviour
         }
     }
 
+    private void StartActualCombat()
+    {
+        if (provisionManager != null && !provisionManager.IsProvisionValid())
+        {
+            return;
+        }
+
+        if (startCombatButton != null) startCombatButton.gameObject.SetActive(false);
+        if (dragManager != null) dragManager.enabled = false;
+
+        // 1. Save the final dragged formation
+        SaveFormationToRunManager();
+
+        // 2. Hide and wipe the Bench Grid
+        if (benchGrid != null)
+        {
+            benchGrid.gameObject.SetActive(false);
+            benchGrid.ClearAllUnits(); // Physically destroy the bench units
+        }
+
+        // 3. Safely wipe all UI and active units
+        if (battleUIManager != null)
+        {
+            foreach (var unit in playerGrid.GetAllUnits()) battleUIManager.RemoveUnitUI(unit);
+            foreach (var unit in enemyGrid.GetAllUnits()) battleUIManager.RemoveUnitUI(unit);
+        }
+        playerGrid.ClearAllUnits();
+        enemyGrid.ClearAllUnits();
+
+        // 4. Reload the freshly saved team and start the fight!
+        combatActive = true;
+        TeamDefinition playerTeam = RunManager.Instance.GetTeamForCombat();
+        EncounterDefinition currentEncounter = RunManager.Instance.currentEncounter;
+
+        if (playerTeam != null && currentEncounter != null)
+        { 
+            InitializeBattlefield(playerTeam, currentEncounter, true);
+        }
+    }
+
+    private void SaveFormationToRunManager()
+    {
+        if (RunManager.Instance == null) return;
+
+        // Save Battle Grid
+        List<RunManager.UnitPlacement> battleTeam = new List<RunManager.UnitPlacement>();
+        foreach (UnitInstance unit in playerGrid.GetAllUnits())
+        {
+            if (unit.myPlacement != null)
+            {
+                unit.myPlacement.row = playerGrid.GetUnitPosition(unit).x;
+                unit.myPlacement.col = playerGrid.GetUnitPosition(unit).y;
+                battleTeam.Add(unit.myPlacement);
+            }
+        }
+        RunManager.Instance.playerTeamPlacements = battleTeam;
+
+        // Save Bench
+        if (benchGrid != null)
+        {
+            List<UnitInstance> benchUnits = benchGrid.GetAllUnits();
+            for (int i = 0; i < RunManager.Instance.playerBenchPlacements.Count; i++)
+            {
+                if (i < benchUnits.Count)
+                {
+                    RunManager.Instance.playerBenchPlacements[i].unitData = benchUnits[i].myPlacement.unitData;
+                    RunManager.Instance.playerBenchPlacements[i].row = -1;
+                    RunManager.Instance.playerBenchPlacements[i].col = -1;
+                }
+                else
+                {
+                    RunManager.Instance.playerBenchPlacements[i].unitData = null;
+                }
+            }
+        }
+    }
+
+    private void InitializeBench()
+    {
+        if (benchGrid == null) return;
+
+        benchGrid.gameObject.SetActive(true);
+
+        TeamDefinition benchTeam = RunManager.Instance.GetTeamForBench();
+        if (benchTeam != null && benchTeam.units != null)
+        {
+            int col = 0;
+            foreach (var placement in benchTeam.units)
+            {
+                if (placement.unitData != null && placement.unitData.definition != null && placement.unitData.definition.unitPrefab != null)
+                {
+                    UnitInstance unit = Instantiate(placement.unitData.definition.unitPrefab);
+                    unit.InitializeFromSaveData(placement.unitData);
+                    unit.myPlacement = placement;
+                    unit.EnterCombat(benchGrid, 0, col, true, false);
+                }
+                col++;
+            }
+        }
+    }
+
+    private void TransferCombatStatsToRunManager()
+    {
+        if (CombatStatsTracker.Instance == null || RunManager.Instance == null) return;
+
+        // Retrieve the stats from the active combat scene tracker
+        Dictionary<Guid, UnitCombatStats> currentFightStats = CombatStatsTracker.Instance.GetAllStats();
+
+        foreach (var kvp in currentFightStats)
+        {
+            Guid unitId = kvp.Key;
+            UnitCombatStats fightStats = kvp.Value;
+
+            // If this unit isn't in the master dictionary yet, initialize them
+            if (!RunManager.Instance.masterUnitStats.ContainsKey(unitId))
+            {
+                RunManager.Instance.masterUnitStats[unitId] = new UnitLifetimeStats
+                {
+                    unitName = fightStats.UnitName
+                };
+            }
+            UnitLifetimeStats lifetime = RunManager.Instance.masterUnitStats[unitId];
+            lifetime.id = unitId;
+            lifetime.totalDirectDamageDealt += fightStats.DirectDamageDealt;
+            lifetime.totalBurnDamageDealt += fightStats.BurnDamageDealt;
+            lifetime.totalPoisonDamageDealt += fightStats.PoisonDamageDealt;
+            lifetime.totalDamageTaken += fightStats.DamageTaken;
+            lifetime.totalHealingDone += fightStats.HealingDone;
+            lifetime.totalShieldingDone += fightStats.ShieldingDone;
+            lifetime.totalSlowsApplied += fightStats.SlowsApplied;
+            lifetime.totalHastesApplied += fightStats.HastesApplied;
+            lifetime.totalAdvancesGiven += fightStats.AdvancesGiven;
+        }
+    }
 }

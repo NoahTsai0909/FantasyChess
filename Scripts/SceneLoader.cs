@@ -13,6 +13,7 @@ public class SceneLoader : MonoBehaviour
         MainMenuScene,
         EventScene,
         ShopScene,
+        RunSummaryScene
     }
 
     public static SceneLoader Instance { get; private set; }

@@ -81,3 +81,44 @@ public class RunStats
         ProvisionCap = 4;
     }
 }
+
+[System.Serializable]
+public class UnitLifetimeStats
+{
+    public Guid id;
+    public string unitName;
+    public int totalDirectDamageDealt;
+    public int totalBurnDamageDealt;
+    public int totalPoisonDamageDealt;
+    public int totalDamageTaken;
+    public int totalHealingDone;
+    public int totalShieldingDone;
+    public int totalSlowsApplied;
+    public int totalHastesApplied;
+    public int totalAdvancesGiven;
+
+    public float ContributionScore
+    {
+        get
+        {
+            float score = 0f;
+
+            // Damage (Weight: 1.0)
+            score += (totalDirectDamageDealt + totalBurnDamageDealt + totalPoisonDamageDealt) * 1.0f;
+
+            // Mitigation (Weight: 1.5 - Healing is usually harder to output than damage)
+            score += (totalHealingDone + totalShieldingDone) * 1.5f;
+
+            // Tanking (Weight: 0.5 - Absorbing hits is good, but usually passive)
+            score += totalDamageTaken * 0.5f;
+
+            // Utility (Weight: 20.0 - Status effects are rare but highly impactful)
+            score += (totalSlowsApplied + totalHastesApplied) * 20.0f;
+
+            // Heavy Utility (Weight: 50.0 - Giving free turns is incredibly strong)
+            score += totalAdvancesGiven * 50.0f;
+
+            return score;
+        }
+    }
+}
