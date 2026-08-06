@@ -169,9 +169,6 @@ public class RunManager : MonoBehaviour
 
         foreach (var placement in playerBenchPlacements)
         {
-            if (placement.unitData == null)
-                continue;
-
             benchTeam.units.Add(new UnitPlacement
             {
                 unitData = placement.unitData,

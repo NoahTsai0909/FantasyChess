@@ -335,22 +335,23 @@ public class gameManager : MonoBehaviour
         }
         RunManager.Instance.playerTeamPlacements = battleTeam;
 
-        // Save Bench
         if (benchGrid != null)
         {
-            List<UnitInstance> benchUnits = benchGrid.GetAllUnits();
             for (int i = 0; i < RunManager.Instance.playerBenchPlacements.Count; i++)
             {
-                if (i < benchUnits.Count)
+ 
+                UnitInstance unitInSlot = benchGrid.GetUnitAtPosition(0, i);
+
+                if (unitInSlot != null && unitInSlot.myPlacement != null)
                 {
-                    RunManager.Instance.playerBenchPlacements[i].unitData = benchUnits[i].myPlacement.unitData;
-                    RunManager.Instance.playerBenchPlacements[i].row = -1;
-                    RunManager.Instance.playerBenchPlacements[i].col = -1;
+                    RunManager.Instance.playerBenchPlacements[i].unitData = unitInSlot.myPlacement.unitData;
                 }
                 else
                 {
                     RunManager.Instance.playerBenchPlacements[i].unitData = null;
                 }
+                RunManager.Instance.playerBenchPlacements[i].row = -1;
+                RunManager.Instance.playerBenchPlacements[i].col = -1;
             }
         }
     }

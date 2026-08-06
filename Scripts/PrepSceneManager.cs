@@ -94,24 +94,23 @@ public class PrepSceneManager : MonoBehaviour
         int col = 0;
         foreach (var placement in benchTeam.units)
         {
-            if (placement.unitData == null || placement.unitData.definition == null || placement.unitData.definition.unitPrefab == null)
+            if (placement.unitData != null && placement.unitData.definition != null && placement.unitData.definition.unitPrefab != null)
             {
-                Debug.LogWarning($"Skipping bench placement with missing prefab/definition");
-                continue;
+                // Place bench unit with isPlayer = true
+                benchGrid.PlaceUnit(placement, 0, col, null, true);
+
+                UnitInstance spawned = benchGrid.GetUnitAtPosition(0, col);
+                if (spawned == null)
+                {
+                    Debug.LogError($"Failed to get UnitInstance at bench column {col}");
+                }
+                else
+                {
+                    spawned.myPlacement = placement;
+                    spawnedUnits.Add(spawned);
+                }
             }
 
-            // Place bench unit with isPlayer = true
-            benchGrid.PlaceUnit(placement, 0, col, null, true);
-
-            UnitInstance spawned = benchGrid.GetUnitAtPosition(0, col);
-            if (spawned == null)
-            {
-                Debug.LogError($"Failed to get UnitInstance at bench column {col}");
-                continue;
-            }
-
-            spawned.myPlacement = placement;
-            spawnedUnits.Add(spawned);
             col++;
         }
     }
@@ -142,24 +141,25 @@ public class PrepSceneManager : MonoBehaviour
 
         RunManager.Instance.playerTeamPlacements = battleTeam;
 
-        // ------------------ Save Bench Units ------------------
-        List<UnitInstance> benchUnits = benchGrid.GetAllUnits();
-
-        for (int i = 0; i < RunManager.Instance.playerBenchPlacements.Count; i++)
+        if (benchGrid != null)
         {
-            if (i < benchUnits.Count)
+            for (int i = 0; i < RunManager.Instance.playerBenchPlacements.Count; i++)
             {
-                UnitInstance unit = benchUnits[i];
-                RunManager.Instance.playerBenchPlacements[i].unitData = unit.myPlacement.unitData;
+                // Query the specific slot on the physical grid (Row 0, Column i)
+                UnitInstance unitInSlot = benchGrid.GetUnitAtPosition(0, i);
 
-                // Indicate bench by row/col = -1
-                RunManager.Instance.playerBenchPlacements[i].row = -1;
-                RunManager.Instance.playerBenchPlacements[i].col = -1;
-            }
-            else
-            {
-                // Empty slot
-                RunManager.Instance.playerBenchPlacements[i].unitData = null;
+                if (unitInSlot != null && unitInSlot.myPlacement != null)
+                {
+                    // Unit exists here! Save its data.
+                    RunManager.Instance.playerBenchPlacements[i].unitData = unitInSlot.myPlacement.unitData;
+                }
+                else
+                {
+                    // Slot is empty. Save as null.
+                    RunManager.Instance.playerBenchPlacements[i].unitData = null;
+                }
+
+                // Hardcode bench coordinates
                 RunManager.Instance.playerBenchPlacements[i].row = -1;
                 RunManager.Instance.playerBenchPlacements[i].col = -1;
             }
