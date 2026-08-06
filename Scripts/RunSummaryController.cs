@@ -20,7 +20,7 @@ public class RunSummaryController : MonoBehaviour
     void Start()
     {
         if (mainMenuButton != null) mainMenuButton.gameObject.SetActive(true);
-
+        RunHUDManager.Instance?.Hide();
         if (mainMenuButton != null)
         {
             mainMenuButton.onClick.AddListener(() =>
@@ -69,17 +69,12 @@ public class RunSummaryController : MonoBehaviour
 
     private void DisplaySortedUnitStats()
     {
-        // 1. Get all the GUIDs of the surviving units
         List<System.Guid> survivingGuids = new List<System.Guid>();
         foreach (var placement in RunManager.Instance.playerTeamPlacements)
         {
-            if (placement.unitData != null)
-            {
-                survivingGuids.Add(placement.unitData.id); // Assuming UnitSaveData has the GUID
-            }
+            if (placement.unitData != null) survivingGuids.Add(placement.unitData.id);
         }
 
-        // 2. Filter the master stats dictionary to only include survivors
         var survivingStats = new List<UnitLifetimeStats>();
         foreach (var guid in survivingGuids)
         {
@@ -89,18 +84,29 @@ public class RunSummaryController : MonoBehaviour
             }
         }
 
-        // 3. Sort them descending by your new ContributionScore!
         var sortedStats = survivingStats.OrderByDescending(stat => stat.ContributionScore).ToList();
 
-        // 4. Spawn a UI block for each one in the scroll view
         for (int i = 0; i < sortedStats.Count; i++)
         {
             var statData = sortedStats[i];
 
-            // Instantiate your UI prefab into the scroll view
-            GameObject statBlock = Instantiate(unitStatBlockPrefab, unitStatsContentParent);
+            Sprite unitSprite = null;
+            var placement = RunManager.Instance.playerTeamPlacements.FirstOrDefault(p => p.unitData != null && p.unitData.id == statData.id);
 
-            // E.g., statBlock.GetComponent<UnitStatUI>().Setup(statData, rank: i + 1);
+            if (placement != null && placement.unitData.definition != null)
+            {
+                unitSprite = placement.unitData.definition.unitSprite;
+            }
+
+            // Instantiate and Setup
+            GameObject statBlock = Instantiate(unitStatBlockPrefab, unitStatsContentParent);
+            UnitStatBlockUI uiComponent = statBlock.GetComponent<UnitStatBlockUI>();
+
+            if (uiComponent != null)
+            {
+                // If i == 0, they are the MVP!
+                uiComponent.Setup(statData, unitSprite, isMVP: i == 0);
+            }
         }
     }
 }

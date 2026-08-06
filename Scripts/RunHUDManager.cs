@@ -6,6 +6,8 @@ using static SceneLoader;
 
 public class RunHUDManager : MonoBehaviour
 {
+    public static RunHUDManager Instance { get; private set; }
+
     [Header("UI References")]
     [SerializeField] private TMP_Text dayText;
     [SerializeField] private TMP_Text playerHealthText;
@@ -16,6 +18,29 @@ public class RunHUDManager : MonoBehaviour
 
     [Header("XP Settings")]
     [SerializeField] private int maxReputation = 10; // Max reputation for level up
+
+    [Header("References")]
+    [SerializeField] private GameObject runHUD;
+    [SerializeField] private CanvasGroup runHUDCanvasGroup; // optional fallback
+
+    [Header("Behavior")]
+    [SerializeField] private bool dontDestroyOnLoad = false;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+
+        if (dontDestroyOnLoad)
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+    }
 
     private void OnEnable()
     {
@@ -103,5 +128,44 @@ public class RunHUDManager : MonoBehaviour
     {
         if (provisionCapText != null)
             provisionCapText.text = cap.ToString();
+    }
+
+    /// <summary>
+    /// Hides the run HUD. Prefer disabling the GameObject; fall back to CanvasGroup if provided.
+    /// Safe to call from other scripts using the null-conditional pattern: RunHUDManager.Instance?.Hide();
+    /// </summary>
+    public void Hide()
+    {
+        if (runHUD != null)
+        {
+            runHUD.SetActive(false);
+            return;
+        }
+
+        if (runHUDCanvasGroup != null)
+        {
+            runHUDCanvasGroup.alpha = 0f;
+            runHUDCanvasGroup.interactable = false;
+            runHUDCanvasGroup.blocksRaycasts = false;
+        }
+    }
+
+    /// <summary>
+    /// Shows the run HUD (reverse of Hide).
+    /// </summary>
+    public void Show()
+    {
+        if (runHUD != null)
+        {
+            runHUD.SetActive(true);
+            return;
+        }
+
+        if (runHUDCanvasGroup != null)
+        {
+            runHUDCanvasGroup.alpha = 1f;
+            runHUDCanvasGroup.interactable = true;
+            runHUDCanvasGroup.blocksRaycasts = true;
+        }
     }
 }

@@ -74,7 +74,7 @@ public class RunStats
     public void Initialize()
     {
         CurrentGold = 10;
-        PlayerHealth = 12;
+        PlayerHealth = 1;
         CurrentDay = 1;
         PlayerLevel = 1;
         Experience = 0;
