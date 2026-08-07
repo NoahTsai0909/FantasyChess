@@ -22,6 +22,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] private Button inspectStatsButton;
     [SerializeField] private Button continueButton;
     [SerializeField] private GameObject unitStatsWindowObject;
+    [SerializeField] private CombatResultUI combatResultUI;
 
     [Header("UI & Drag Managers")]
     [SerializeField] private DragAndDropManager dragManager; 
@@ -176,6 +177,10 @@ public class gameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(endCombatDelay);
         ResetBattlefieldToStasis();
+        if (combatResultUI != null)
+        {
+            combatResultUI.ShowResult(playerWon);
+        }
         if (continueButton != null)
         {
             continueButton.gameObject.SetActive(true);
@@ -252,6 +257,11 @@ public class gameManager : MonoBehaviour
 
     private void ResetBattlefieldToStasis()
     {
+        if (RunHUDManager.Instance != null)
+        {
+            RunHUDManager.Instance.ResetAndShow();
+        }
+
         if (battleUIManager != null)
         {
             foreach (var unit in playerGrid.GetAllUnits())
@@ -288,17 +298,18 @@ public class gameManager : MonoBehaviour
         if (startCombatButton != null) startCombatButton.gameObject.SetActive(false);
         if (dragManager != null) dragManager.enabled = false;
 
-        // 1. Save the final dragged formation
         SaveFormationToRunManager();
 
-        // 2. Hide and wipe the Bench Grid
         if (benchGrid != null)
         {
-            benchGrid.gameObject.SetActive(false);
-            benchGrid.ClearAllUnits(); // Physically destroy the bench units
+            StartCoroutine(SlideBenchOutRoutine(0.5f));
         }
 
-        // 3. Safely wipe all UI and active units
+        if (RunHUDManager.Instance != null)
+        {
+            RunHUDManager.Instance.SlideOutAndHide(0.5f);
+        }
+
         if (battleUIManager != null)
         {
             foreach (var unit in playerGrid.GetAllUnits()) battleUIManager.RemoveUnitUI(unit);
@@ -307,15 +318,50 @@ public class gameManager : MonoBehaviour
         playerGrid.ClearAllUnits();
         enemyGrid.ClearAllUnits();
 
-        // 4. Reload the freshly saved team and start the fight!
         combatActive = true;
         TeamDefinition playerTeam = RunManager.Instance.GetTeamForCombat();
         EncounterDefinition currentEncounter = RunManager.Instance.currentEncounter;
 
         if (playerTeam != null && currentEncounter != null)
-        { 
+        {
             InitializeBattlefield(playerTeam, currentEncounter, true);
         }
+    }
+
+    private IEnumerator SlideBenchOutRoutine(float duration)
+    {
+        Transform benchTransform = benchGrid.transform;
+        Vector3 originalBenchPos = benchTransform.position;
+        Vector3 targetBenchPos = originalBenchPos + new Vector3(0, -10f, 0);
+
+        List<UnitInstance> units = benchGrid.GetAllUnits();
+        List<Vector3> originalUnitPos = new List<Vector3>();
+        foreach (var u in units)
+        {
+            originalUnitPos.Add(u != null ? u.transform.position : Vector3.zero);
+        }
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+
+            benchTransform.position = Vector3.Lerp(originalBenchPos, targetBenchPos, t);
+
+            for (int i = 0; i < units.Count; i++)
+            {
+                if (units[i] != null)
+                {
+                    units[i].transform.position = Vector3.Lerp(originalUnitPos[i], originalUnitPos[i] + new Vector3(0, -10f, 0), t);
+                }
+            }
+            yield return null;
+        }
+
+        benchGrid.gameObject.SetActive(false);
+        benchGrid.ClearAllUnits();
+        benchTransform.position = originalBenchPos;
     }
 
     private void SaveFormationToRunManager()

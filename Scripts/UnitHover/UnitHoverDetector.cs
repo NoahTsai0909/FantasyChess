@@ -21,26 +21,24 @@ public class UnitHoverDetector : MonoBehaviour
         mainCamera = Camera.main;
         mouse = Mouse.current;
 
-        // Find the Screen Space - Overlay canvas (or the one you want)
         Canvas[] canvases = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
         Canvas targetCanvas = null;
 
+        // 1. Specifically look for our persistent Battle UI Canvas
         foreach (Canvas canvas in canvases)
         {
-            // Choose based on render mode
-            if (canvas.renderMode == RenderMode.ScreenSpaceOverlay)
+            if (canvas.gameObject.name == "BattleUICanvas")
             {
                 targetCanvas = canvas;
-                Debug.Log($"Found Screen Space Canvas: {canvas.name}");
                 break;
             }
         }
 
-        // Fallback to first canvas if none found
+        // 2. Fallback to any canvas if BattleUICanvas isn't found
         if (targetCanvas == null && canvases.Length > 0)
         {
             targetCanvas = canvases[0];
-            Debug.LogWarning($"No Screen Space canvas found, using: {targetCanvas.name}");
+            Debug.LogWarning($"BattleUICanvas not found, falling back to: {targetCanvas.name}");
         }
 
         if (targetCanvas == null)
@@ -58,6 +56,27 @@ public class UnitHoverDetector : MonoBehaviour
     void Update()
     {
         if (mouse == null) return;
+
+        // DEBUGGER: Press SPACE while hovering over a unit during combat to see what is blocking it
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            Vector3 debugPos = GetMouseWorldPosition();
+            Collider2D[] allHits = Physics2D.OverlapPointAll(debugPos);
+
+            Debug.Log($"--- HOVER DEBUG REPORT ---");
+            Debug.Log($"Mouse World Pos: {debugPos}");
+            Debug.Log($"Colliders found at pixel: {allHits.Length}");
+
+            foreach (var c in allHits)
+            {
+                Debug.Log($"Hit Object: {c.gameObject.name} | Layer: {LayerMask.LayerToName(c.gameObject.layer)} | isTrigger: {c.isTrigger} | Enabled: {c.enabled}");
+                if (c.GetComponent<UnitInstance>() != null)
+                {
+                    Debug.Log($"-> SUCCESS: UnitInstance component found on {c.gameObject.name}!");
+                }
+            }
+            Debug.Log($"--------------------------");
+        }
 
         // Do not show hover while dragging
         if (mouse.leftButton.isPressed)

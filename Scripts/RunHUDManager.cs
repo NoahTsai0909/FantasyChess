@@ -19,6 +19,10 @@ public class RunHUDManager : MonoBehaviour
     [Header("XP Settings")]
     [SerializeField] private int maxReputation = 10; // Max reputation for level up
 
+    [Header("Animation Settings")]
+    private RectTransform hudRect;
+    private Vector2 originalAnchoredPos;
+
     [Header("References")]
     [SerializeField] private GameObject runHUD;
     [SerializeField] private CanvasGroup runHUDCanvasGroup; // optional fallback
@@ -42,6 +46,19 @@ public class RunHUDManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        if (runHUD != null)
+        {
+            hudRect = runHUD.GetComponent<RectTransform>();
+            if (hudRect != null)
+            {
+                originalAnchoredPos = hudRect.anchoredPosition;
+            }
+        }
+        StartCoroutine(InitializeFromRunManager());
+    }
+
     private void OnEnable()
     {
         // Subscribe to all events
@@ -62,12 +79,6 @@ public class RunHUDManager : MonoBehaviour
         RunStatsEventBus.OnLevelChanged -= UpdateLevel;
         RunStatsEventBus.OnReputationChanged -= UpdateReputation;
         RunStatsEventBus.OnProvisionCapChanged -= UpdateProvisionCap;
-    }
-
-    private void Start()
-    {
-        // Initialize with current values if RunManager exists
-        StartCoroutine(InitializeFromRunManager());
     }
 
     private IEnumerator InitializeFromRunManager()
@@ -167,5 +178,43 @@ public class RunHUDManager : MonoBehaviour
             runHUDCanvasGroup.interactable = true;
             runHUDCanvasGroup.blocksRaycasts = true;
         }
+    }
+
+    public void SlideOutAndHide(float duration = 0.5f)
+    {
+        if (gameObject.activeInHierarchy && hudRect != null)
+        {
+            StartCoroutine(SlideOutRoutine(duration));
+        }
+        else
+        {
+            Hide();
+        }
+    }
+
+    private IEnumerator SlideOutRoutine(float duration)
+    {
+        Vector2 startPos = hudRect.anchoredPosition;
+        Vector2 endPos = startPos + new Vector2(0, 300f); // Slide up by 300 pixels
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            hudRect.anchoredPosition = Vector2.Lerp(startPos, endPos, elapsed / duration);
+            yield return null;
+        }
+
+        hudRect.anchoredPosition = endPos;
+        Hide();
+    }
+
+    public void ResetAndShow()
+    {
+        if (hudRect != null)
+        {
+            hudRect.anchoredPosition = originalAnchoredPos; // Snap back instantly
+        }
+        Show();
     }
 }

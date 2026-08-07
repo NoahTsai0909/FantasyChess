@@ -220,7 +220,7 @@ public class UnitInstance : MonoBehaviour
         this.myGrid = grid;
 
         grid.PlaceUnit(row, col, this, isPlayer);
-
+        GetComponent<Collider2D>().isTrigger = true;
         SetPlayerSide(isPlayer);
         InitializeCombatState();
         SetupTargeting();
