@@ -292,10 +292,12 @@ public class gameManager : MonoBehaviour
     {
         if (provisionManager != null && !provisionManager.IsProvisionValid())
         {
+            UniversalPopupManager.ShowPopup($"Provision exceeded provision cap!\nProvision cap: {RunManager.Instance.Stats.ProvisionCap}");
             return;
         }
 
         if (startCombatButton != null) startCombatButton.gameObject.SetActive(false);
+        if (provisionManager != null) provisionManager.HideProvisionText();
         if (dragManager != null) dragManager.enabled = false;
 
         SaveFormationToRunManager();

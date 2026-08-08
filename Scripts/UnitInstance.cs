@@ -277,7 +277,14 @@ public class UnitInstance : MonoBehaviour
         Rarity old = CurrentRarity;
         CurrentRarity = RarityScaling.GetNextRarity(CurrentRarity);
 
+        // NEW: Save the updated rarity back to the persistent data!
+        if (myPlacement != null && myPlacement.unitData != null)
+        {
+            myPlacement.unitData.rarity = CurrentRarity;
+        }
+
         RecalculateStats();
+        Visuals?.UpdateRarityOutline(CurrentRarity); // Ensure the border updates immediately!
 
         Debug.Log($"{definition.unitName} upgraded {old} to {CurrentRarity}");
     }

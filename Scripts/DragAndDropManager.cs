@@ -166,6 +166,7 @@ public class DragAndDropManager : MonoBehaviour
                 {
                     if (provisionManager != null && !provisionManager.CanAddUnitToBattleGrid(draggedUnit))
                     {
+                        UniversalPopupManager.ShowPopup($"Provision exceeded provision cap!\nProvision cap: {RunManager.Instance.Stats.ProvisionCap}");
                         RevertDrag();
                         return;
                     }

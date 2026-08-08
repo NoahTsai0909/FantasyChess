@@ -92,4 +92,12 @@ public class ProvisionManager : MonoBehaviour
     {
         CalculateCurrentProvision();
     }
+
+    public void HideProvisionText()
+    {
+               if (provisionText != null)
+        {
+            provisionText.gameObject.SetActive(false);
+        }
+    }
 }
