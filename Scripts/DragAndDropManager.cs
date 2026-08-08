@@ -130,33 +130,30 @@ public class DragAndDropManager : MonoBehaviour
                     return;
                 }
 
-                // Optional: prevent consuming across grids if you want
-                // if (targetGrid != sourceGrid) { RevertDrag(); return; }
+                // Attempt to apply the consume effect and store the result
+                bool consumeSuccessful = consumable.OnConsume(targetUnit);
 
-                // Apply consume effect
-                consumable.OnConsume(targetUnit);
+                if (consumeSuccessful)
+                {
+                    // Success! Remove from grid, run manager, and destroy
+                    sourceGrid.ClearUnitReference(draggedPlacement);
+                    RemoveFromRunManager(draggedUnit, draggedPlacement);
+                    Destroy(draggedUnit.gameObject);
 
-                // Remove from grid reference
-                sourceGrid.ClearUnitReference(draggedPlacement);
+                    SetUnitDragVisuals(draggedUnit, false);
+                    if (sellZone != null) sellZone.Highlight(false);
 
-                // Remove from RunManager
-                RemoveFromRunManager(draggedUnit, draggedPlacement);
+                    draggedUnit = null;
+                    draggedPlacement = null;
+                    sourceGrid = null;
 
-                // Destroy object
-                Destroy(draggedUnit.gameObject);
-
-                // Cleanup drag visuals/state
-                SetUnitDragVisuals(draggedUnit, false);
-
-                if (sellZone != null)
-                    sellZone.Highlight(false);
-
-                draggedUnit = null;
-                draggedPlacement = null;
-                sourceGrid = null;
-
-                if (provisionManager != null)
-                    provisionManager.CalculateCurrentProvision();
+                    if (provisionManager != null) provisionManager.CalculateCurrentProvision();
+                }
+                else
+                {
+                    // Failed! (e.g., wrong rarity tier). Bounce it back to its original slot.
+                    RevertDrag();
+                }
 
                 return;
             }

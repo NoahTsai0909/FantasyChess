@@ -161,7 +161,7 @@ MonoBehaviour:
       valueModifier: 0
     row: 0
     col: 0
-  benchSize: 8
+  benchSize: 9
   regularEventsCompleted: 0
   isBattlePhase: 0
   currentEventPhase: 0
@@ -439,7 +439,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1536d60d51475f34b82d8112ea67bb7b, type: 2}
+  - {fileID: 2100000, guid: 5a6db85ebb9466f4b90af9ebdd3c4fdc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

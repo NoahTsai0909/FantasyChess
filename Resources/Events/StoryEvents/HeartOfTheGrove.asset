@@ -21,19 +21,22 @@ MonoBehaviour:
   maxDayRequired: 6
   selectionWeight: 1
   targetScene: 5
-  promptText: Beneath the oldest tree, crystalline roots cradle a shimmering elixir.
-    One sip fills your heart with the forest's eternal vigor.
-  choices:
-  - buttonText: Take the Spiritroot Elixir.
-    previewUnit: {fileID: 11400000, guid: 73ecacf8bd3f2a64f8fb880afcdb1268, type: 2}
-    generateRandomUnitPreview: 0
-    randomRegion: 0
-    preferredTags: 0
-    outcome: {fileID: 11400000, guid: 271b3a5826eea5d4688e6552aacf17fd, type: 2}
-  - buttonText: Leave.
-    previewUnit: {fileID: 0}
-    generateRandomUnitPreview: 0
-    randomRegion: 0
-    preferredTags: 0
-    outcome: {fileID: 11400000, guid: f55e49cdda5c02c43a443ab2b5264be3, type: 2}
+  pages:
+  - promptText: Beneath the oldest tree, crystalline roots cradle a shimmering elixir.
+      One sip fills your heart with the forest's eternal vigor.
+    choices:
+    - buttonText: Take the spiritroot elixir.
+      previewUnit: {fileID: 11400000, guid: 73ecacf8bd3f2a64f8fb880afcdb1268, type: 2}
+      generateRandomUnitPreview: 0
+      randomRegion: 0
+      preferredTags: 0
+      outcome: {fileID: 11400000, guid: 271b3a5826eea5d4688e6552aacf17fd, type: 2}
+      condition: {fileID: 0}
+    - buttonText: 'Leave. '
+      previewUnit: {fileID: 0}
+      generateRandomUnitPreview: 0
+      randomRegion: 0
+      preferredTags: 0
+      outcome: {fileID: 11400000, guid: f55e49cdda5c02c43a443ab2b5264be3, type: 2}
+      condition: {fileID: 0}
   eventIllustration: {fileID: 21300000, guid: 778df92cb4c7be64398adcb3a096c79d, type: 3}

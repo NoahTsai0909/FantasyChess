@@ -8006,8 +8006,9 @@ MonoBehaviour:
   victoryBannerRect: {fileID: 1713415400}
   defeatBannerRect: {fileID: 2116648559}
   sparksParticles: {fileID: 1881166442}
+  globalVolume: {fileID: 1535534065}
   popDuration: 0.4
-  lingerDuration: 2
+  lingerDuration: 1.5
   floatSpeed: 2
   floatAmplitude: 15
 --- !u!222 &2109803853

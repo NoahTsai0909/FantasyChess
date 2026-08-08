@@ -21,31 +21,33 @@ MonoBehaviour:
   maxDayRequired: 12
   selectionWeight: 1
   targetScene: 5
-  promptText: A desperate village pleads for your aid. A band of ruthless marauders
-    has descended upon their homes, leaving fear and ruin in their wake. Lucky for
-    them, you handily cast out these barbarians. The villagers approach you to offer
-    thanks.
-  choices:
-  - buttonText: Spreading my feats far and wide will suffice as thanks! (Gain 1 experience)
-    previewUnit: {fileID: 0}
-    generateRandomUnitPreview: 0
-    randomRegion: 0
-    preferredTags: 0
-    outcome: {fileID: 11400000, guid: ec2bd3a307c5a0346a76e2ef83dbeea4, type: 2}
-    condition: {fileID: 0}
-  - buttonText: Oh, I wouldn't say freed. More like, under new management. (Lose
-      1 experience, gain 10 gold)
-    previewUnit: {fileID: 0}
-    generateRandomUnitPreview: 0
-    randomRegion: 0
-    preferredTags: 0
-    outcome: {fileID: 11400000, guid: 25ef23a86f0dd124690c4c3c59f2d43c, type: 2}
-    condition: {fileID: 11400000, guid: 0735d7dcc1c494543a193e96a9920258, type: 2}
-  - buttonText: Leave.
-    previewUnit: {fileID: 0}
-    generateRandomUnitPreview: 0
-    randomRegion: 0
-    preferredTags: 0
-    outcome: {fileID: 11400000, guid: f55e49cdda5c02c43a443ab2b5264be3, type: 2}
-    condition: {fileID: 0}
+  pages:
+  - promptText: A desperate village pleads for your aid. A band of ruthless marauders
+      has descended upon their homes, leaving fear and ruin in their wake. Lucky
+      for them, you handily cast out these barbarians. The villagers approach you
+      to offer thanks.
+    choices:
+    - buttonText: Spreading my feats far and wide will suffice as thanks! (Gain 1
+        experience).
+      previewUnit: {fileID: 0}
+      generateRandomUnitPreview: 0
+      randomRegion: 0
+      preferredTags: 0
+      outcome: {fileID: 11400000, guid: ec2bd3a307c5a0346a76e2ef83dbeea4, type: 2}
+      condition: {fileID: 0}
+    - buttonText: Oh, I wouldn't say freed. More like, under new management. (Lose
+        1 experience, gain 10 gold).
+      previewUnit: {fileID: 0}
+      generateRandomUnitPreview: 0
+      randomRegion: 0
+      preferredTags: 0
+      outcome: {fileID: 11400000, guid: 25ef23a86f0dd124690c4c3c59f2d43c, type: 2}
+      condition: {fileID: 11400000, guid: 0735d7dcc1c494543a193e96a9920258, type: 2}
+    - buttonText: 'Leave. '
+      previewUnit: {fileID: 0}
+      generateRandomUnitPreview: 0
+      randomRegion: 0
+      preferredTags: 0
+      outcome: {fileID: 11400000, guid: f55e49cdda5c02c43a443ab2b5264be3, type: 2}
+      condition: {fileID: 0}
   eventIllustration: {fileID: 0}

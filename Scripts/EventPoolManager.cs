@@ -13,6 +13,8 @@ public class EventPoolManager : MonoBehaviour
     private List<BaseEventSO> combatEvents = new List<BaseEventSO>();
     private List<BaseEventSO> regularEvents = new List<BaseEventSO>();
 
+    private Dictionary<string, int> eventAppearanceCounts = new Dictionary<string, int>();
+
     private void Awake()
     {
         if (Instance == null)
@@ -89,7 +91,6 @@ public class EventPoolManager : MonoBehaviour
         List<BaseEventSO> selectedEvents = new List<BaseEventSO>();
         List<BaseEventSO> tempPool = new List<BaseEventSO>(pool);
 
-        // If we need more events than available, allow duplicates
         bool allowDuplicates = (tempPool.Count < count);
 
         for (int i = 0; i < count; i++)
@@ -98,18 +99,20 @@ public class EventPoolManager : MonoBehaviour
             {
                 if (allowDuplicates)
                 {
-                    // Refill from original pool
                     tempPool = new List<BaseEventSO>(pool);
                 }
                 else
                 {
-                    break; // Not enough unique events
+                    break;
                 }
             }
 
             // Weighted random selection
             BaseEventSO selected = SelectWeightedRandom(tempPool);
             selectedEvents.Add(selected);
+
+            // NEW: Record the appearance the moment it is drafted for the map!
+            RecordEventAppearance(selected.name);
 
             if (!allowDuplicates)
                 tempPool.Remove(selected);
@@ -180,4 +183,20 @@ public class EventPoolManager : MonoBehaviour
     {
         CategorizeEvents();
     }
+
+    public int GetAppearanceCount(string eventName)
+    {
+        if (eventAppearanceCounts.TryGetValue(eventName, out int count)) return count;
+        return 0;
+    }
+
+    public void RecordEventAppearance(string eventName)
+    {
+        if (eventAppearanceCounts.ContainsKey(eventName))
+            eventAppearanceCounts[eventName]++;
+        else
+            eventAppearanceCounts[eventName] = 1;
+    }
+
+
 }

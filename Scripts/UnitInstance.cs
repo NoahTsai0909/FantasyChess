@@ -530,7 +530,7 @@ public class UnitInstance : MonoBehaviour
         else if (CurrentRarity == Rarity.Epic) rarityMultiplier = 4;
         else rarityMultiplier = 1;
 
-        return rarityMultiplier * definition.provisionCost;
+        return definition.provisionCost != 0 ? rarityMultiplier * definition.provisionCost : rarityMultiplier;
 
     }
 

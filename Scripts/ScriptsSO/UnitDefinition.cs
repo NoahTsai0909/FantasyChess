@@ -36,6 +36,8 @@ public class UnitDefinition : ScriptableObject, IStatSource
     public Rarity startingRarity;
     public int provisionCost;
     public bool isMelee;
+    [Tooltip("If true, this item will NEVER be randomly generated in standard loot pools.")]
+    public bool isEventExclusive = false;
 
     [Header("Prefab Reference")]
     public UnitInstance unitPrefab;

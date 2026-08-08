@@ -17,6 +17,9 @@ public abstract class BaseEventSO : ScriptableObject
     public int maxDayRequired;
     public float selectionWeight = 1.0f;
 
+    [Tooltip("Max times this event can appear on the map per run. (0 = infinite)")]
+    public int maxAppearancesPerRun = 0;
+
     [Header("Scene Management")]
     public GameScene targetScene;
 
@@ -49,6 +52,17 @@ public abstract class BaseEventSO : ScriptableObject
     public virtual bool IsAvailable()
     {
         int day = RunManager.Instance.Stats.CurrentDay;
-        return day >= minDayRequired && day <= maxDayRequired;
+        bool isDayValid = day >= minDayRequired && day <= maxDayRequired;
+
+        if (maxAppearancesPerRun > 0 && EventPoolManager.Instance != null)
+        {
+            int currentCount = EventPoolManager.Instance.GetAppearanceCount(name);
+            if (currentCount >= maxAppearancesPerRun)
+            {
+                return false;
+            }
+        }
+
+        return isDayValid;
     }
 }

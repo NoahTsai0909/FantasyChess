@@ -29,11 +29,12 @@ public class EssenceofWrath : UnitInstance, IConsumable
         }
     }
 
-    public void OnConsume(UnitInstance target)
+    public bool OnConsume(UnitInstance target)
     {
-        if (target == null) return;
+        if (target == null) return false;
         RunManager.Instance.GetPermanentStatsForUnit(target.id).bonusAttack += attackModifier;
         target.RecalculateStats();
+        return true;
     }
 
     public override string GetActiveDescription()

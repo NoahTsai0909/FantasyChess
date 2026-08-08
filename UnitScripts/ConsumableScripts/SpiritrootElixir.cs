@@ -29,11 +29,12 @@ public class SpiritrootElixir : UnitInstance, IConsumable
         }
     }
 
-    public void OnConsume(UnitInstance target)
+    public bool OnConsume(UnitInstance target)
     {
-        if (target == null) return;
+        if (target == null) return false;
         RunManager.Instance.GetPermanentStatsForUnit(target.id).bonusMaxHP += healthModifier;
         target.RecalculateStats();
+        return true;
     }
 
     public override string GetActiveDescription()

@@ -21,34 +21,24 @@ public class UnitHoverDetector : MonoBehaviour
         mainCamera = Camera.main;
         mouse = Mouse.current;
 
-        Canvas[] canvases = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
-        Canvas targetCanvas = null;
+        // 1. Create a bulletproof, dedicated canvas just for tooltips
+        GameObject tooltipCanvasObj = new GameObject("TooltipCanvas");
+        Canvas tooltipCanvas = tooltipCanvasObj.AddComponent<Canvas>();
 
-        // 1. Specifically look for our persistent Battle UI Canvas
-        foreach (Canvas canvas in canvases)
-        {
-            if (canvas.gameObject.name == "BattleUICanvas")
-            {
-                targetCanvas = canvas;
-                break;
-            }
-        }
+        // 2. Force it to be an overlay with a massive sorting order
+        tooltipCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        tooltipCanvas.sortingOrder = 30000;
 
-        // 2. Fallback to any canvas if BattleUICanvas isn't found
-        if (targetCanvas == null && canvases.Length > 0)
-        {
-            targetCanvas = canvases[0];
-            Debug.LogWarning($"BattleUICanvas not found, falling back to: {targetCanvas.name}");
-        }
+        // 3. Add and CONFIGURE the CanvasScaler so it matches your game's resolution
+        UnityEngine.UI.CanvasScaler scaler = tooltipCanvasObj.AddComponent<UnityEngine.UI.CanvasScaler>();
+        scaler.uiScaleMode = UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        scaler.referenceResolution = new Vector2(1920, 1080);
+        scaler.matchWidthOrHeight = 0.5f;
 
-        if (targetCanvas == null)
-        {
-            Debug.LogError("No canvas found in scene! Unit hover UI cannot be created.");
-            return;
-        }
+        tooltipCanvasObj.AddComponent<UnityEngine.UI.GraphicRaycaster>();
 
-        // Instantiate the prefab as a child of the target canvas
-        hoverUIInstance = Instantiate(hoverUIPrefab, targetCanvas.transform);
+        // 4. Instantiate the prefab as a child of this new top-level canvas
+        hoverUIInstance = Instantiate(hoverUIPrefab, tooltipCanvas.transform);
         hoverUIInstance.gameObject.SetActive(false);
         hoverUIInstance.name = "UnitUI (Dynamic)";
     }

@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IConsumable
 {
-    public void OnConsume(UnitInstance target);
+    bool OnConsume(UnitInstance target);
 }

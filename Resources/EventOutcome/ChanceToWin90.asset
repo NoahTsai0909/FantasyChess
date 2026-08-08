@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c85a2f147162ead41bdd81025ab4383c, type: 3}
+  m_Name: ChanceToWin90
+  m_EditorClassIdentifier: Assembly-CSharp::ChanceOutcomeSO
+  successChance: 0.9
+  successOutcome: {fileID: 11400000, guid: 2b1b36731bd687f458acd1eb18434faa, type: 2}
+  failureOutcome: {fileID: 11400000, guid: a7224caba9c682b4ab0bb3d14db3dedf, type: 2}

@@ -45,28 +45,59 @@ public class EventSceneController : MonoBehaviour
     {
         if (currentEvent is StoryEventSO storyEvent)
         {
-            descriptionText.text = storyEvent.promptText;
+            // The illustration usually stays the same across pages, so load it once here
             if (storyEvent.eventIllustration != null)
             {
                 SpawnEventIllustration(storyEvent.eventIllustration);
             }
-            foreach (EventChoice choice in storyEvent.choices)
+
+            // Start the event on the first page
+            LoadEventPage(0);
+        }
+    }
+
+    public void LoadEventPage(int pageIndex)
+    {
+        if (currentEvent is StoryEventSO storyEvent)
+        {
+            if (pageIndex < 0 || pageIndex >= storyEvent.pages.Count)
+            {
+                Debug.LogError($"Event {storyEvent.eventName} does not have a page at index {pageIndex}!");
+                return;
+            }
+
+            EventPage currentPage = storyEvent.pages[pageIndex];
+
+            // 1. Update narrative text
+            descriptionText.text = currentPage.promptText;
+
+            // 2. Clear old buttons and old previews
+            foreach (Transform child in contentParent)
+            {
+                Destroy(child.gameObject);
+            }
+            // Ensure we destroy the physical unit instances so they don't pile up in memory
+            foreach (var preview in spawnedPreviews)
+            {
+                if (preview != null) Destroy(preview.gameObject);
+            }
+            spawnedPreviews.Clear();
+
+            // 3. Spawn new choices
+            foreach (EventChoice choice in currentPage.choices)
             {
                 Button newButton = Instantiate(choiceButtonPrefab, contentParent);
-
                 TextMeshProUGUI btnText = newButton.GetComponentInChildren<TextMeshProUGUI>();
 
                 string displayText = choice.buttonText;
                 bool isInteractable = true;
 
-                // 2. Check if a condition exists and evaluate it
+                // Evaluate conditions
                 if (choice.condition != null)
                 {
                     isInteractable = choice.condition.IsMet();
-
                     if (!isInteractable)
                     {
-                        // Append the red requirement text using Rich Text
                         displayText += $"\n<size=70%><color=#FF4444>({choice.condition.GetRequirementText()})</color></size>";
                     }
                 }
@@ -74,22 +105,15 @@ public class EventSceneController : MonoBehaviour
                 if (btnText != null) btnText.text = displayText;
                 newButton.interactable = isInteractable;
 
-                // NEW: Create a context for this specific choice
                 EventContext choiceContext = new EventContext();
+                choiceContext.uiController = this; // NEW: Pass a reference to this UI controller into the context!
 
-                // 1. Check if we need to generate a completely random unit
                 if (choice.generateRandomUnitPreview)
                 {
-                    // CHANGE: Pass choice.preferredTags instead of UnitTagFlags.None
-                    UnitSaveData randomData = UnitGenerationService.GenerateUnit(
-                        choice.randomRegion,
-                        choice.preferredTags
-                    );
-
+                    UnitSaveData randomData = UnitGenerationService.GenerateUnit(choice.randomRegion, choice.preferredTags);
                     choiceContext.generatedUnit = randomData;
                     SpawnUnitOnButton(randomData, newButton);
                 }
-                // 2. Otherwise, check if we have a specific unit to preview
                 else if (choice.previewUnit != null)
                 {
                     int day = RunManager.Instance.Stats.CurrentDay;
@@ -106,10 +130,25 @@ public class EventSceneController : MonoBehaviour
                     SpawnUnitOnButton(generatedData, newButton);
                 }
 
-                // Pass the unique context into the click event
                 newButton.onClick.AddListener(() => ExecutePlayerChoice(choice, choiceContext));
             }
         }
+    }
+
+    private void ExecutePlayerChoice(EventChoice selectedChoice, EventContext context)
+    {
+        if (selectedChoice.outcome != null)
+        {
+            selectedChoice.outcome.ExecuteOutcome(context);
+
+            // Look at the flag instead of the class type!
+            if (context.keepEventOpen)
+            {
+                return; // The event continues, do not call CompleteEvent()
+            }
+        }
+
+        CompleteEvent();
     }
 
     // Notice we pass UnitSaveData now instead of UnitDefinition
@@ -133,16 +172,6 @@ public class EventSceneController : MonoBehaviour
         if (renderer != null) renderer.sortingOrder = 100;
 
         spawnedPreviews.Add(preview);
-    }
-
-    private void ExecutePlayerChoice(EventChoice selectedChoice, EventContext context)
-    {
-        if (selectedChoice.outcome != null)
-        {
-            // Pass the context into the logic!
-            selectedChoice.outcome.ExecuteOutcome(context);
-        }
-        CompleteEvent();
     }
 
     private void SpawnEventIllustration(Sprite artwork)

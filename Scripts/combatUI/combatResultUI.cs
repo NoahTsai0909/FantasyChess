@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class CombatResultUI : MonoBehaviour
 {
@@ -9,36 +11,47 @@ public class CombatResultUI : MonoBehaviour
     [SerializeField] private RectTransform defeatBannerRect;
     [SerializeField] private ParticleSystem sparksParticles;
 
+    [Header("Atmosphere References")]
+    [SerializeField] private Volume globalVolume; // Drop your Global Volume here
+
     [Header("Animation Settings")]
     [SerializeField] private float popDuration = 0.2f;
-    [SerializeField] private float lingerDuration = 1.5f;
+    [SerializeField] private float lingerDuration = 2.0f;
     [SerializeField] private float floatSpeed = 3f;
     [SerializeField] private float floatAmplitude = 10f;
 
     private RectTransform activeBannerRect;
     private Vector2 originalBannerPos;
     private bool isFloating = false;
+    private bool isVictoryResult = false;
+
+    private ColorAdjustments colorAdjustments;
 
     private void Awake()
     {
-        // Ensure starting state is hidden
         panelCanvasGroup.alpha = 0f;
-
         victoryBannerRect.gameObject.SetActive(false);
         defeatBannerRect.gameObject.SetActive(false);
+
+        // Cache the Color Adjustments override if the volume exists
+        if (globalVolume != null && globalVolume.profile.TryGet(out colorAdjustments))
+        {
+            colorAdjustments.saturation.value = 0f;
+        }
     }
 
     public void ShowResult(bool isVictory)
     {
         gameObject.SetActive(true);
+        isVictoryResult = isVictory;
 
-        // Choose the correct banner
         victoryBannerRect.gameObject.SetActive(isVictory);
         defeatBannerRect.gameObject.SetActive(!isVictory);
 
         activeBannerRect = isVictory ? victoryBannerRect : defeatBannerRect;
 
-        activeBannerRect.localScale = Vector3.zero;
+        // Start defeat banner massive, start victory banner at 0
+        activeBannerRect.localScale = isVictory ? Vector3.zero : Vector3.one * 3f;
         originalBannerPos = activeBannerRect.anchoredPosition;
 
         StartCoroutine(AnimateBannerSequence());
@@ -46,6 +59,7 @@ public class CombatResultUI : MonoBehaviour
 
     private IEnumerator AnimateBannerSequence()
     {
+        // 1. Fast Background Fade
         float elapsed = 0f;
         while (elapsed < 0.15f)
         {
@@ -54,26 +68,53 @@ public class CombatResultUI : MonoBehaviour
             yield return null;
         }
 
-        if (sparksParticles != null) sparksParticles.Play();
+        // Only play sparks on Victory
+        if (isVictoryResult && sparksParticles != null) sparksParticles.Play();
 
+        // 2. The Pop or Slam Animation
         elapsed = 0f;
         while (elapsed < popDuration)
         {
             elapsed += Time.deltaTime;
             float t = elapsed / popDuration;
 
-            float scale = Mathf.Sin(t * Mathf.PI * 0.6f) * 1.15f;
-            if (t > 0.6f) scale = Mathf.Lerp(1.15f, 1.0f, (t - 0.6f) * 2.5f);
+            if (isVictoryResult)
+            {
+                // Bouncy Pop
+                float scale = Mathf.Sin(t * Mathf.PI * 0.6f) * 1.15f;
+                if (t > 0.6f) scale = Mathf.Lerp(1.15f, 1.0f, (t - 0.6f) * 2.5f);
+                activeBannerRect.localScale = new Vector3(scale, scale, 1f);
+            }
+            else
+            {
+                // Heavy Slam (from 3.0 scale down to 1.0)
+                float easeOut = 1f - (1f - t) * (1f - t) * (1f - t);
+                float scale = Mathf.Lerp(3f, 1f, easeOut);
+                activeBannerRect.localScale = new Vector3(scale, scale, 1f);
+            }
 
-            activeBannerRect.localScale = new Vector3(scale, scale, 1f);
             yield return null;
         }
         activeBannerRect.localScale = Vector3.one;
 
+        // 3. Linger and Color Drain
         isFloating = true;
-        yield return new WaitForSeconds(lingerDuration);
+        float lingerElapsed = 0f;
+        while (lingerElapsed < lingerDuration)
+        {
+            lingerElapsed += Time.deltaTime;
+
+            // Plunge saturation to -100 over the first 0.5 seconds of the linger
+            if (!isVictoryResult && colorAdjustments != null)
+            {
+                colorAdjustments.saturation.value = Mathf.Lerp(0f, -100f, lingerElapsed / 0.5f);
+            }
+
+            yield return null;
+        }
         isFloating = false;
 
+        // 4. Vanish and Restore Color
         elapsed = 0f;
         while (elapsed < 0.15f)
         {
@@ -83,9 +124,18 @@ public class CombatResultUI : MonoBehaviour
 
             activeBannerRect.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, easeIn);
             panelCanvasGroup.alpha = Mathf.Lerp(0.8f, 0f, t);
+
+            // Snap the color back to reality as the banner vanishes
+            if (!isVictoryResult && colorAdjustments != null)
+            {
+                colorAdjustments.saturation.value = Mathf.Lerp(-100f, 0f, t);
+            }
+
             yield return null;
         }
 
+        // Safety check to ensure color is perfectly reset
+        if (colorAdjustments != null) colorAdjustments.saturation.value = 0f;
         gameObject.SetActive(false);
     }
 

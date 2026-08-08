@@ -21,20 +21,21 @@ MonoBehaviour:
   maxDayRequired: 4
   selectionWeight: 1
   targetScene: 5
-  promptText: You feel the presence of a powerful mage drawing near..
-  choices:
-  - buttonText: Take the help.
-    previewUnit: {fileID: 0}
-    generateRandomUnitPreview: 1
-    randomRegion: 0
-    preferredTags: 4
-    outcome: {fileID: 11400000, guid: b366ba16ae9ce304a898a413b7dcbef5, type: 2}
-    condition: {fileID: 0}
-  - buttonText: Leave.
-    previewUnit: {fileID: 0}
-    generateRandomUnitPreview: 0
-    randomRegion: 0
-    preferredTags: 0
-    outcome: {fileID: 11400000, guid: f55e49cdda5c02c43a443ab2b5264be3, type: 2}
-    condition: {fileID: 0}
+  pages:
+  - promptText: You feel the presence of a powerful mage drawing near..
+    choices:
+    - buttonText: Take the help.
+      previewUnit: {fileID: 0}
+      generateRandomUnitPreview: 1
+      randomRegion: 0
+      preferredTags: 4
+      outcome: {fileID: 11400000, guid: 51f5b4292a2b92742af2804be6bc6bf4, type: 2}
+      condition: {fileID: 0}
+    - buttonText: Leave.
+      previewUnit: {fileID: 0}
+      generateRandomUnitPreview: 0
+      randomRegion: 0
+      preferredTags: 0
+      outcome: {fileID: 11400000, guid: f55e49cdda5c02c43a443ab2b5264be3, type: 2}
+      condition: {fileID: 0}
   eventIllustration: {fileID: 0}

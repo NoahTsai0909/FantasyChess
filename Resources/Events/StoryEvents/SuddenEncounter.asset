@@ -21,19 +21,22 @@ MonoBehaviour:
   maxDayRequired: 6
   selectionWeight: 1
   targetScene: 5
-  promptText: Fortune smiles upon you. An unexpected encounter leaves you with a
-    strengthened battalion.
-  choices:
-  - buttonText: Take the help that has been offered.
-    previewUnit: {fileID: 0}
-    generateRandomUnitPreview: 1
-    randomRegion: 0
-    preferredTags: 0
-    outcome: {fileID: 11400000, guid: 2f943e4602e65db47bc585d9aeaaafd1, type: 2}
-  - buttonText: Leave.
-    previewUnit: {fileID: 0}
-    generateRandomUnitPreview: 0
-    randomRegion: 0
-    preferredTags: 0
-    outcome: {fileID: 11400000, guid: f55e49cdda5c02c43a443ab2b5264be3, type: 2}
+  pages:
+  - promptText: Fortune smiles upon you. An unexpected encounter leaves you with
+      a strengthened battalion.
+    choices:
+    - buttonText: Take the help.
+      previewUnit: {fileID: 0}
+      generateRandomUnitPreview: 1
+      randomRegion: 0
+      preferredTags: 0
+      outcome: {fileID: 11400000, guid: 2f943e4602e65db47bc585d9aeaaafd1, type: 2}
+      condition: {fileID: 0}
+    - buttonText: Leave.
+      previewUnit: {fileID: 0}
+      generateRandomUnitPreview: 0
+      randomRegion: 0
+      preferredTags: 0
+      outcome: {fileID: 11400000, guid: f55e49cdda5c02c43a443ab2b5264be3, type: 2}
+      condition: {fileID: 0}
   eventIllustration: {fileID: 21300000, guid: 1438876de26984b45a3ee3c844586904, type: 3}

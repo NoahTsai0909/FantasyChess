@@ -32,6 +32,8 @@ public class UnitDatabase : ScriptableObject
         // IMPORTANT: rarity eligibility rule
         pool = pool.Where(u => u.startingRarity <= rolledRarity);
 
+        pool = pool.Where(u => u.isEventExclusive == false); // Exclude event-exclusive units
+
         if (region.HasValue)
             pool = pool.Where(u => u.region == region.Value);
 
