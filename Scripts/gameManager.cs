@@ -92,15 +92,8 @@ public class gameManager : MonoBehaviour
         {
             playerGrid.RefreshAllAuras();
             enemyGrid.RefreshAllAuras();
-            // Check combat state when a unit dies
-            StartCoroutine(CheckCombatEndDelayed(0.1f)); // Small delay to let grid update
+            CheckCombatEnd();
         }
-    }
-
-    private IEnumerator CheckCombatEndDelayed(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        CheckCombatEnd();
     }
 
     private void CheckCombatEnd()
@@ -138,6 +131,15 @@ public class gameManager : MonoBehaviour
     {
         CombatEventBus.PublishCombatEnd();
         combatActive = false;
+
+        foreach (var unit in playerGrid.GetAllUnits())
+        {
+            if (unit != null) unit.inCombat = false;
+        }
+        foreach (var unit in enemyGrid.GetAllUnits())
+        {
+            if (unit != null) unit.inCombat = false;
+        }
 
         TransferCombatStatsToRunManager();
 

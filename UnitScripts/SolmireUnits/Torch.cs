@@ -65,5 +65,11 @@ public class Torch : UnitInstance
         }
     }
 
+    protected override void OnTierUpgraded()
+    {
+        base.OnTierUpgraded();
+        burnBuff = findBurnBuff(CurrentRarity);
+    }
+
 
 }

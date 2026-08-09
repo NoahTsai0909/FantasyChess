@@ -247,6 +247,7 @@ GameObject:
   - component: {fileID: 4889518940962624129}
   - component: {fileID: 100111941216233579}
   - component: {fileID: 2664442436126617658}
+  - component: {fileID: 6414414875206361306}
   m_Layer: 5
   m_Name: UnitPriceText
   m_TagString: Untagged
@@ -393,6 +394,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &6414414875206361306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4343174058621242564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd570a24f40170c4e909966a255eb7f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TMPLinkHandler
 --- !u!1 &8810533976883800218
 GameObject:
   m_ObjectHideFlags: 0
@@ -764,6 +777,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6648359609508161601, guid: 4d2b61aea4631544bba6ec3ec45928d5, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6671050367278241637, guid: 4d2b61aea4631544bba6ec3ec45928d5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -810,6 +827,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8250874470532156182, guid: 4d2b61aea4631544bba6ec3ec45928d5, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8826165802877133004, guid: 4d2b61aea4631544bba6ec3ec45928d5, type: 3}
+      propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

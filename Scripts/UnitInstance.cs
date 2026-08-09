@@ -2,13 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.UI;
 using static CombatEventBus;
-using static Unity.VisualScripting.Member;
 
 public class UnitInstance : MonoBehaviour
 {
@@ -276,20 +271,21 @@ public class UnitInstance : MonoBehaviour
     {
         if (!CanUpgradeTier())
             return;
-
+        RemoveAuras();
         Rarity old = CurrentRarity;
         CurrentRarity = RarityScaling.GetNextRarity(CurrentRarity);
-
-        // NEW: Save the updated rarity back to the persistent data!
         if (myPlacement != null && myPlacement.unitData != null)
         {
             myPlacement.unitData.rarity = CurrentRarity;
         }
-
         RecalculateStats();
-        Visuals?.UpdateRarityOutline(CurrentRarity); // Ensure the border updates immediately!
-
-        Debug.Log($"{definition.unitName} upgraded {old} to {CurrentRarity}");
+        OnTierUpgraded();
+        ApplyAuras();
+        Visuals?.UpdateRarityOutline(CurrentRarity);
+    }
+    protected virtual void OnTierUpgraded()
+    {
+        // Derived classes can override this to update cached variables (like Torch's burnBuff)
     }
 
     /* =========================

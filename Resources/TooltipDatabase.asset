@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e70ba62dc9b7eb944b69285eeb6884c4, type: 3}
+  m_Name: TooltipDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::TooltipDatabaseSO
+  entries:
+  - id: attack
+    title: Attack
+    description: Deals damage to the target's health or shield.
+  - id: burn
+    title: Burn
+    description: Deals damage equal to the number of Burn stacks every second. Loses
+      1 stack after each tick of damage.
+  - id: poison
+    title: Poison
+    description: 'Deals damage equal to the number of Poison stacks every 2 seconds. '
+  - id: shield
+    title: Shield
+    description: Grants temporary health that absorbs incoming damage.
+  - id: heal
+    title: Heal
+    description: Restores missing health up to the target's maximum health.
+  - id: slow
+    title: Slow
+    description: Reduces cooldown speed by 50%. Each stack lasts 1 second.
+  - id: haste
+    title: Haste
+    description: Increases cooldown speed by 50%. Each stack lasts 1 second.
+  - id: gold
+    title: Gold
+    description: Primary currency for purchasing.
+  - id: energy
+    title: Energy
+    description: Units with energy require expending energy to use abilities.
+  - id: maxhealth
+    title: Max Health
+    description: The maximum amount of health a unit can have.
+  - id: crit
+    title: Crit
+    description: The % chance for an active ability to critically strike, dealing
+      double damage or applying double the damaging status effects.
+  - id: provision
+    title: Provision
+    description: The cost to field this unit in combat.
+  - id: maxprovision
+    title: Max Provision
+    description: The maximum total Provision allowed in combat.
+  - id: multicast
+    title: Multicast
+    description: The number of times an active ability repeats when used.

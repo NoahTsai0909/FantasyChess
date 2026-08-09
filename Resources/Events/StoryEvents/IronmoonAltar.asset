@@ -55,4 +55,4 @@ MonoBehaviour:
       preferredTags: 0
       outcome: {fileID: 11400000, guid: f55e49cdda5c02c43a443ab2b5264be3, type: 2}
       condition: {fileID: 0}
-  eventIllustration: {fileID: 0}
+  eventIllustration: {fileID: 21300000, guid: 956f61b22615bf547838e27dcdf4855e, type: 3}
