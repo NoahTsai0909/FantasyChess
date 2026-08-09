@@ -33,6 +33,7 @@ public class UnitInstance : MonoBehaviour
      * ========================= */
 
     public bool inCombat = false;
+    protected bool combatFrozen = false;
 
     private int currentHP;
     public int currentEnergy;
@@ -114,7 +115,7 @@ public class UnitInstance : MonoBehaviour
 
     private void Update()
     {
-        if (!inCombat || isPassive)
+        if (!inCombat || isPassive || combatFrozen)
             return;
 
         if (isEnergy && currentEnergy <= 0)
@@ -229,6 +230,8 @@ public class UnitInstance : MonoBehaviour
             SetupCombatUI();
         }
 
+        combatFrozen = false;
+        CombatEventBus.OnCombatEnd += FreezeUnit;
         inCombat = startCombat;
     }
 
@@ -307,8 +310,7 @@ public class UnitInstance : MonoBehaviour
 
     public virtual void TakeDamage(int dmg)
     {
-        if (this == null) return;
-
+        if (this == null || combatFrozen) return;
         if (dmg <= 0)
             return;
 
@@ -390,11 +392,22 @@ public class UnitInstance : MonoBehaviour
         // Override in derived classes for death effects
     }
 
+    private void FreezeUnit()
+    {
+        combatFrozen = true;
+    }
+
+    private void OnDestroy()
+    {
+        // Always unsubscribe to prevent memory leaks!
+        CombatEventBus.OnCombatEnd -= FreezeUnit;
+    }
+
     public void TakeDisasterDamage(int damage)
     {
         if (damage <= 0)
             return;
-
+        if (this == null || combatFrozen) return;
         int remainingDamage = damage;
 
         if (currentShield > 0)
