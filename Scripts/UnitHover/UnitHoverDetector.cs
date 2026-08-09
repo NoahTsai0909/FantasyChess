@@ -16,6 +16,8 @@ public class UnitHoverDetector : MonoBehaviour
 
     private UnitHoverUI hoverUIInstance;
 
+    private bool isPinned = false;
+
     void Start()
     {
         mainCamera = Camera.main;
@@ -45,27 +47,24 @@ public class UnitHoverDetector : MonoBehaviour
 
     void Update()
     {
-        if (mouse == null) return;
+        if (mouse == null || Keyboard.current == null) return;
 
-        // DEBUGGER: Press SPACE while hovering over a unit during combat to see what is blocking it
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        if (isPinned)
         {
-            Vector3 debugPos = GetMouseWorldPosition();
-            Collider2D[] allHits = Physics2D.OverlapPointAll(debugPos);
-
-            Debug.Log($"--- HOVER DEBUG REPORT ---");
-            Debug.Log($"Mouse World Pos: {debugPos}");
-            Debug.Log($"Colliders found at pixel: {allHits.Length}");
-
-            foreach (var c in allHits)
+            if (Keyboard.current.tKey.wasPressedThisFrame ||
+                Keyboard.current.escapeKey.wasPressedThisFrame ||
+                mouse.leftButton.wasPressedThisFrame ||
+                mouse.rightButton.wasPressedThisFrame)
             {
-                Debug.Log($"Hit Object: {c.gameObject.name} | Layer: {LayerMask.LayerToName(c.gameObject.layer)} | isTrigger: {c.isTrigger} | Enabled: {c.enabled}");
-                if (c.GetComponent<UnitInstance>() != null)
-                {
-                    Debug.Log($"-> SUCCESS: UnitInstance component found on {c.gameObject.name}!");
-                }
+                isPinned = false;
+                CancelHover();
             }
-            Debug.Log($"--------------------------");
+            return;
+        }
+        if (currentHoveredUnit != null && Keyboard.current.tKey.wasPressedThisFrame)
+        {
+            isPinned = true;
+            return;
         }
 
         // Do not show hover while dragging
@@ -118,6 +117,8 @@ public class UnitHoverDetector : MonoBehaviour
 
     void CancelHover()
     {
+        if (isPinned) return;
+
         if (hoverRoutine != null)
             StopCoroutine(hoverRoutine);
 

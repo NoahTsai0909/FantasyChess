@@ -57,4 +57,14 @@ public class TMPLinkHandler : MonoBehaviour, IPointerMoveHandler, IPointerExitHa
             TooltipUIManager.Instance.Hide();
         }
     }
+
+    private void OnDisable()
+    {
+        // Automatically hide the tooltip if the text object is disabled while we are hovering it
+        currentLinkIndex = -1;
+        if (TooltipUIManager.Instance != null)
+        {
+            TooltipUIManager.Instance.Hide();
+        }
+    }
 }
