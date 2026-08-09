@@ -166,17 +166,27 @@ public class RunHUDManager : MonoBehaviour
     /// </summary>
     public void Show()
     {
+        // 1. Turn the UI back on
         if (runHUD != null)
         {
             runHUD.SetActive(true);
-            return;
         }
-
-        if (runHUDCanvasGroup != null)
+        else if (runHUDCanvasGroup != null)
         {
             runHUDCanvasGroup.alpha = 1f;
             runHUDCanvasGroup.interactable = true;
             runHUDCanvasGroup.blocksRaycasts = true;
+        }
+
+        // 2. Force a visual refresh to catch any stats gained while the HUD was hidden!
+        if (RunManager.Instance != null)
+        {
+            UpdateGold(RunManager.Instance.Stats.CurrentGold);
+            UpdateHealth(RunManager.Instance.Stats.PlayerHealth);
+            UpdateDay(RunManager.Instance.Stats.CurrentDay);
+            UpdateLevel(RunManager.Instance.Stats.PlayerLevel);
+            UpdateReputation(RunManager.Instance.Stats.Experience);
+            UpdateProvisionCap(RunManager.Instance.Stats.ProvisionCap);
         }
     }
 

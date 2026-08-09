@@ -28,6 +28,7 @@ MonoBehaviour:
     choices:
     - buttonText: 'Take the Unstable Crown. '
       previewUnit: {fileID: 11400000, guid: ef7083235406d9d458d5a087297227ec, type: 2}
+      rollRandomRarity: 0
       previewRarity: 1
       generateRandomUnitPreview: 0
       randomRegion: 4
@@ -36,6 +37,7 @@ MonoBehaviour:
       condition: {fileID: 0}
     - buttonText: Leave.
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
       previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0

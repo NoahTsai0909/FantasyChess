@@ -7,6 +7,7 @@ public class GainRandomUnitOutcomeSO : EventOutcomeSO
 
     // NEW: Add a fallback tag 
     public UnitTagFlags fallbackTags = UnitTagFlags.None;
+    public bool bypassExclusivity = false; // NEW: Add a flag to bypass exclusivity
 
     public override void ExecuteOutcome(EventContext context)
     {
@@ -16,7 +17,7 @@ public class GainRandomUnitOutcomeSO : EventOutcomeSO
         }
         else
         {
-            UnitSaveData unit = UnitGenerationService.GenerateUnit(fallbackRegion, fallbackTags);
+            UnitSaveData unit = UnitGenerationService.GenerateUnit(fallbackRegion, fallbackTags, bypassExclusivity);
             PlayerUnitManager.Instance.TryAcquireUnit(unit.definition, unit.rarity);
         }
     }

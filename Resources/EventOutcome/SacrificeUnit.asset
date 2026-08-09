@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 086d30cd9b1b3684aa9b1610ca571f98, type: 3}
-  m_Name: GoldCondition5
-  m_EditorClassIdentifier: Assembly-CSharp::GoldConditionSO
-  requiredGold: 5
+  m_Script: {fileID: 11500000, guid: f86891381f8b4c8498b2ed405ecfd25b, type: 3}
+  m_Name: SacrificeUnit
+  m_EditorClassIdentifier: Assembly-CSharp::SacrificeUnitEffectSO

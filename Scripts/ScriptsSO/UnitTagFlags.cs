@@ -23,4 +23,5 @@ public enum UnitTagFlags
     PoisonRef = 1 << 18,
     DamageRef = 1 << 19,
     HealRef = 1 << 20,
+    Mythic = 1 << 21,
 }

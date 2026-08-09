@@ -16,6 +16,11 @@ public class EventSceneController : MonoBehaviour
     [SerializeField] private Transform eventSpriteAnchor;
     [SerializeField] private Button choiceButtonPrefab;
 
+    [Header("Unit Selector UI")]
+    [SerializeField] private GameObject unitSelectorPanel;
+    [SerializeField] private Transform unitSelectorContentParent;
+    [SerializeField] private Button closeSelectorButton;
+
     private BaseEventSO currentEvent;
 
     // We now track a LIST of previews, since there can be multiple on screen
@@ -116,14 +121,24 @@ public class EventSceneController : MonoBehaviour
                 }
                 else if (choice.previewUnit != null)
                 {
-                    int day = RunManager.Instance.Stats.CurrentDay;
-                    DayRarityEntry dist = RunManager.Instance.rarityDistributionTable.GetForDay(day);
-                    Rarity rolledRarity = RarityDistributionTable.RollRarity(dist);
+                    Rarity finalRarity;
+
+                    // Check the new flag to determine how we get the rarity
+                    if (choice.rollRandomRarity)
+                    {
+                        int day = RunManager.Instance.Stats.CurrentDay;
+                        DayRarityEntry dist = RunManager.Instance.rarityDistributionTable.GetForDay(day);
+                        finalRarity = RarityDistributionTable.RollRarity(dist);
+                    }
+                    else
+                    {
+                        finalRarity = choice.previewRarity;
+                    }
 
                     UnitSaveData generatedData = new UnitSaveData
                     {
                         definition = choice.previewUnit,
-                        rarity = rolledRarity
+                        rarity = finalRarity
                     };
 
                     choiceContext.generatedUnit = generatedData;
@@ -193,6 +208,79 @@ public class EventSceneController : MonoBehaviour
         spawnedIllustration.transform.localPosition = Vector3.zero;
         //universally scale these images up or down
         spawnedIllustration.transform.localScale = Vector3.one * 7f;
+    }
+
+    // Notice the new parameters!
+    public void ShowUnitSelectorPanel(UnitTargetEffectSO effectToApply, EventOutcomeSO onSuccessOutcome, EventContext context)
+    {
+        unitSelectorPanel.SetActive(true);
+
+        // Hide the main event choices so their sprites don't bleed through!
+        contentParent.gameObject.SetActive(false);
+
+        // 1. Clear old buttons from the selector panel
+        foreach (Transform child in unitSelectorContentParent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // 2. Setup a cancel button in case they change their mind
+        closeSelectorButton.onClick.RemoveAllListeners();
+        closeSelectorButton.onClick.AddListener(() =>
+        {
+            unitSelectorPanel.SetActive(false);
+            contentParent.gameObject.SetActive(true); // Bring the choices back if they cancel!
+        });
+
+        // 3. Helper action to populate the list
+        System.Action<RunManager.UnitPlacement> CreateUnitButton = (placement) =>
+        {
+            // Strictly ensure the unit definition actually exists before building the button
+            if (placement == null || placement.unitData == null || placement.unitData.definition == null) return;
+
+            Button newButton = Instantiate(choiceButtonPrefab, unitSelectorContentParent);
+            TextMeshProUGUI btnText = newButton.GetComponentInChildren<TextMeshProUGUI>();
+
+            if (btnText != null)
+                btnText.text = $"Select {placement.unitData.definition.unitName} (Tier {placement.unitData.rarity})";
+
+            // Spawn the visual preview using your existing method
+            SpawnUnitOnButton(placement.unitData, newButton);
+
+            // Grab the sprite we just spawned and force it to render ABOVE the panel!
+            SpriteRenderer sr = newButton.GetComponentInChildren<SpriteRenderer>();
+            if (sr != null) sr.sortingOrder = 205;
+
+            // When clicked, apply the effect, grant the reward, and finish!
+            newButton.onClick.AddListener(() =>
+            {
+                // 1. Apply the Sacrifice
+                effectToApply.ApplyEffect(placement);
+
+                // 2. Grant the Cultist Reward (if one exists)
+                if (onSuccessOutcome != null)
+                {
+                    context.keepEventOpen = false; // Allow the reward to close the event if needed
+                    onSuccessOutcome.ExecuteOutcome(context);
+                }
+
+                // 3. Clean up
+                unitSelectorPanel.SetActive(false);
+                CompleteEvent();
+            });
+        };
+
+        // 4. Populate Battle Grid Units
+        foreach (var placement in RunManager.Instance.playerTeamPlacements)
+        {
+            CreateUnitButton(placement);
+        }
+
+        // 5. Populate Bench Units
+        foreach (var placement in RunManager.Instance.playerBenchPlacements)
+        {
+            CreateUnitButton(placement);
+        }
     }
 
 

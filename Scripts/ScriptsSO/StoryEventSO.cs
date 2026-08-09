@@ -45,6 +45,7 @@ public class EventChoice
     [Header("Preview Settings")]
     [Tooltip("The specific unit to preview next to this button (optional)")]
     public UnitDefinition previewUnit;
+    public bool rollRandomRarity = true; // NEW FLAG
     public Rarity previewRarity;
 
     [Tooltip("Check this to ignore previewUnit and generate a random unit instead")]

@@ -28,6 +28,7 @@ MonoBehaviour:
     choices:
     - buttonText: 'Take the Refined Crown. '
       previewUnit: {fileID: 11400000, guid: b09d2ec188e02894285b1d89c03b7828, type: 2}
+      rollRandomRarity: 0
       previewRarity: 2
       generateRandomUnitPreview: 0
       randomRegion: 4
@@ -36,6 +37,7 @@ MonoBehaviour:
       condition: {fileID: 0}
     - buttonText: Leave.
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
       previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0

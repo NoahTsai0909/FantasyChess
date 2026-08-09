@@ -131,6 +131,14 @@ PrefabInstance:
       propertyPath: runHUD
       value: 
       objectReference: {fileID: 58248545}
+    - target: {fileID: 2450454668892009620, guid: 06de7af3a5ce2e048a3363f01987cc76, type: 3}
+      propertyPath: dontDestroyOnLoad
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2450454668892009620, guid: 06de7af3a5ce2e048a3363f01987cc76, type: 3}
+      propertyPath: runHUDCanvasGroup
+      value: 
+      objectReference: {fileID: 58248546}
     - target: {fileID: 3751676385476915670, guid: 06de7af3a5ce2e048a3363f01987cc76, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -178,13 +186,28 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5777369037020479147, guid: 06de7af3a5ce2e048a3363f01987cc76, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 58248546}
   m_SourcePrefab: {fileID: 100100000, guid: 06de7af3a5ce2e048a3363f01987cc76, type: 3}
 --- !u!1 &58248545 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5777369037020479147, guid: 06de7af3a5ce2e048a3363f01987cc76, type: 3}
   m_PrefabInstance: {fileID: 58248544}
   m_PrefabAsset: {fileID: 0}
+--- !u!225 &58248546
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58248545}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &297496498
 GameObject:
   m_ObjectHideFlags: 0

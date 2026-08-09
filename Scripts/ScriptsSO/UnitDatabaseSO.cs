@@ -25,14 +25,21 @@ public class UnitDatabase : ScriptableObject
         }
     }
 
-    public UnitDefinition GetRandomUnit(Rarity rolledRarity, Region? region = null, UnitTagFlags requiredTags = UnitTagFlags.None, int minProvision = 0, int maxProvision = -1)
+    public UnitDefinition GetRandomUnit(Rarity rolledRarity, Region? region = null, UnitTagFlags requiredTags = UnitTagFlags.None, int minProvision = 0, int maxProvision = -1, bool byPassExclusivity = false)
     {
         IEnumerable<UnitDefinition> pool = allUnits;
 
         // IMPORTANT: rarity eligibility rule
         pool = pool.Where(u => u.startingRarity <= rolledRarity);
 
-        pool = pool.Where(u => u.isEventExclusive == false); // Exclude event-exclusive units
+        if (!byPassExclusivity)
+        {
+            pool = pool.Where(u => u.isEventExclusive == false); // Exclude event-exclusive units
+        }
+        else
+        {
+            pool = pool.Where(u => u.isEventExclusive == true); // Include only event-exclusive units
+        }
 
         if (region.HasValue)
             pool = pool.Where(u => u.region == region.Value);

@@ -328,6 +328,7 @@ public class gameManager : MonoBehaviour
         {
             InitializeBattlefield(playerTeam, currentEncounter, true);
         }
+        CheckCombatEnd();
     }
 
     private IEnumerator SlideBenchOutRoutine(float duration)

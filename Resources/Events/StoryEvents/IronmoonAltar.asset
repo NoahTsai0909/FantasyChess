@@ -10,32 +10,43 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9bff6408a3a17924b9fb916c32996ac3, type: 3}
-  m_Name: PerfectedEvolution
+  m_Name: IronmoonAltar
   m_EditorClassIdentifier: Assembly-CSharp::StoryEventSO
-  eventName: Perfected Evolution
-  description: Get a consumable that upgrades an rare unit.
+  eventName: Ironmoon Altar
+  description: 'Sacrifice a unit or 30 gold for rewards. '
   eventIcon: {fileID: 21300000, guid: 277a3539fdd297840bd0c9d19fbe4dd7, type: 3}
   eventBackgroundImage: {fileID: 21300000, guid: 95f87df34ec49df49b816b29856fa078, type: 3}
   portalGlowColor: {r: 1, g: 1, b: 1, a: 1}
-  minDayRequired: 7
+  minDayRequired: 8
   maxDayRequired: 12
-  selectionWeight: 1
+  selectionWeight: 10
   maxAppearancesPerRun: 1
   targetScene: 5
   pages:
-  - promptText: Perfected power flows through the crown, unlocking the full potential
-      of its bearer.
+  - promptText: Looming in absolute stillness, a gargantuan dark blue cocoon laced
+      with yellow gold bears a frozen, eerie smile of jagged white teeth. It awaits
+      your offering with a terrifying patience, hungering for a heavy tribute of
+      coin or the sacrificial flesh of a loyal companion."
     choices:
-    - buttonText: 'Take the Refined Crown. '
-      previewUnit: {fileID: 11400000, guid: 898f27d0e6084ad47b441b8cfe6d6588, type: 2}
+    - buttonText: Sacrifice a unit to get an Ironmoon Cultist
+      previewUnit: {fileID: 11400000, guid: e1861f78880b9ca42a34ea6f72787037, type: 2}
       rollRandomRarity: 0
-      previewRarity: 3
+      previewRarity: 2
       generateRandomUnitPreview: 0
       randomRegion: 4
       preferredTags: 0
-      outcome: {fileID: 11400000, guid: ece5622ebdcd60c43b185923c7d0c416, type: 2}
+      outcome: {fileID: 11400000, guid: ad75b575183a9ed4bb757e61399955a1, type: 2}
       condition: {fileID: 0}
-    - buttonText: Leave.
+    - buttonText: Pay 30 gold to get a random mythic.
+      previewUnit: {fileID: 0}
+      rollRandomRarity: 1
+      previewRarity: 0
+      generateRandomUnitPreview: 0
+      randomRegion: 0
+      preferredTags: 0
+      outcome: {fileID: 11400000, guid: 21790a72579ce664d953342cefed12b5, type: 2}
+      condition: {fileID: 11400000, guid: 10b259c7abdf602488a9e9c4c50d9645, type: 2}
+    - buttonText: 'Escape. '
       previewUnit: {fileID: 0}
       rollRandomRarity: 1
       previewRarity: 0

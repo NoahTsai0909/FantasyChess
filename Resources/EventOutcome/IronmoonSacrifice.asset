@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0bf93521559ad14a8d79fe0bb50f05c, type: 3}
+  m_Name: IronmoonSacrifice
+  m_EditorClassIdentifier: Assembly-CSharp::OpenUnitSelectorOutcomeSO
+  effectToApply: {fileID: 11400000, guid: 7c4c686a78e500a4aa3103258e8abe59, type: 2}
+  onSuccessOutcome: {fileID: 11400000, guid: 38dfb952901f1c94bb6e94de1ed7f0b0, type: 2}
