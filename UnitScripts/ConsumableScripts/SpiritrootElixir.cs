@@ -9,23 +9,23 @@ public class SpiritrootElixir : UnitInstance, IConsumable
         base.InitializeFromSaveData(data);
         if (CurrentRarity == Rarity.Common)
         {
-            healthModifier = 4;
+            healthModifier = 10;
         }
         if (CurrentRarity == Rarity.Uncommon)
         {
-            healthModifier = 6;
+            healthModifier = 20;
         }
         else if (CurrentRarity == Rarity.Rare)
         {
-            healthModifier = 16;
+            healthModifier = 40;
         }
         else if (CurrentRarity == Rarity.Epic)
         {
-            healthModifier = 32;
+            healthModifier = 80;
         }
         else
         {
-            healthModifier = 4;
+            healthModifier = 10;
         }
     }
 

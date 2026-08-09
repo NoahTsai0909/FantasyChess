@@ -35,27 +35,26 @@ public static class TextIconUtility
     private const string ColorMaxHealth = "#088A06";
 
     // Standardized formatters for stats (useful for UI elements like price tags)
-    public static string FormatGold(int amount) => $"{GoldIcon} <color={ColorGold}>{amount}</color>";
-    public static string FormatAttack(int amount) => $"{AttackIcon} <color={ColorAttack}>{amount}</color>";
-    public static string FormatShield(int amount) => $"{ShieldIcon} <color={ColorShield}>{amount}</color>";
-    public static string FormatBurn(int amount) => $"{BurnIcon} <color={ColorBurn}>{amount}</color>";
-    public static string FormatHaste(int amount) => $"{HasteIcon} <color={ColorHaste}>{amount}</color>";
-    public static string FormatPoison(int amount) => $"{PoisonIcon} <color={ColorPoison}>{amount}</color>";
-    public static string FormatSlow(int amount) => $"{SlowIcon} <color={ColorSlow}>{amount}</color>";
+    public static string FormatGold(int amount) => $"<nobr>{GoldIcon} <color={ColorGold}>{amount}</color></nobr>";
+    public static string FormatAttack(int amount) => $"<nobr>{AttackIcon} <color={ColorAttack}>{amount}</color></nobr>";
+    public static string FormatShield(int amount) => $"<nobr>{ShieldIcon} <color={ColorShield}>{amount}</color></nobr>";
+    public static string FormatBurn(int amount) => $"<nobr>{BurnIcon} <color={ColorBurn}>{amount}</color></nobr>";
+    public static string FormatHaste(int amount) => $"<nobr>{HasteIcon} <color={ColorHaste}>{amount}</color></nobr>";
+    public static string FormatPoison(int amount) => $"<nobr>{PoisonIcon} <color={ColorPoison}>{amount}</color></nobr>";
+    public static string FormatSlow(int amount) => $"<nobr>{SlowIcon} <color={ColorSlow}>{amount}</color></nobr>";
 
-    public static string FormatHeal(int amount) => $"{HealIcon} <color={ColorHeal}>{amount}</color>";
+    public static string FormatHeal(int amount) => $"<nobr>{HealIcon} <color={ColorHeal}>{amount}</color></nobr>";
 
-    public static string FormatEnergy(int amount) => $"{EnergyIcon} <color={ColorEnergy}>{amount}</color>";
+    public static string FormatEnergy(int amount) => $"<nobr>{EnergyIcon} <color={ColorEnergy}>{amount}</color></nobr>";
 
-    public static string FormatCrit(int amount) => $"{CritIcon} <color={ColorCrit}>{amount}</color>";
+    public static string FormatCrit(int amount) => $"<nobr>{CritIcon} <color={ColorCrit}>{amount}</color></nobr>";
 
-    public static string FormatMaxHealth(int amount) => $"{MaxHealthIcon} <color={ColorMaxHealth}>{amount}</color>";
+    public static string FormatMaxHealth(int amount) => $"<nobr>{MaxHealthIcon} <color={ColorMaxHealth}>{amount}</color></nobr>";   
+    public static string FormatMulticast(int amount) => $"<nobr>{MulticastIcon} <color={ColorMulticast}>{amount}</color></nobr>";
 
-    public static string FormatMulticast(int amount) => $"{MulticastIcon} <color={ColorMulticast}>{amount}</color>";
+    public static string FormatProvision(int amount) => $"<nobr>{ProvisionIcon} <color={ColorProvision}>{amount}</color></nobr>";
 
-    public static string FormatProvision(int amount) => $"{ProvisionIcon} <color={ColorProvision}>{amount}</color>";
-
-    public static string FormatMaxProvision(int amount) => $"{MaxProvisionIcon} <color={ColorMaxProvision}>{amount}</color>";
+    public static string FormatMaxProvision(int amount) => $"<nobr>{MaxProvisionIcon} <color={ColorMaxProvision}>{amount}</color></nobr>";
     public static string ParseDescription(string rawDescription)
     {
         if (string.IsNullOrEmpty(rawDescription)) return "";
@@ -65,20 +64,20 @@ public static class TextIconUtility
         // How Regex works here:
         // @"\[ATK\]\s*(\d+)" looks for "[ATK]", any amount of space, and then a number.
         // It replaces it with the icon, the color tag, the number ($1), and the closing color tag.
-        parsedText = Regex.Replace(parsedText, @"\[GOLD\]\s*(\d+)", $"{GoldIcon} <color={ColorGold}>$1</color>");
-        parsedText = Regex.Replace(parsedText, @"\[ATK\]\s*(\d+)", $"{AttackIcon} <color={ColorAttack}>$1</color>");
-        parsedText = Regex.Replace(parsedText, @"\[SHIELD\]\s*(\d+)", $"{ShieldIcon} <color={ColorShield}>$1</color>");
-        parsedText = Regex.Replace(parsedText, @"\[HEAL\]\s*(\d+)", $"{HealIcon} <color={ColorHeal}>$1</color>");
-        parsedText = Regex.Replace(parsedText, @"\[BURN\]\s*(\d+)", $"{BurnIcon} <color={ColorBurn}>$1</color>");
-        parsedText = Regex.Replace(parsedText, @"\[HASTE\]\s*(\d+)", $"{HasteIcon} <color={ColorHaste}>$1</color>");
-        parsedText = Regex.Replace(parsedText, @"\[POISON\]\s*(\d+)", $"{PoisonIcon} <color={ColorPoison}>$1</color>");
-        parsedText = Regex.Replace(parsedText, @"\[SLOW\]\s*(\d+)", $"{SlowIcon} <color={ColorSlow}>$1</color>");
-        parsedText = Regex.Replace(parsedText, @"\[MAXHEALTH\]\s*(\d+)", $"{MaxHealthIcon} <color={ColorMaxHealth}>$1</color>");
-        parsedText = Regex.Replace(parsedText, @"\[ENERGY\]\s*(\d+)", $"{EnergyIcon} <color={ColorEnergy}>$1</color>");
-        parsedText = Regex.Replace(parsedText, @"\[CRIT\]\s*(\d+)", $"{CritIcon} <color={ColorCrit}>$1</color>");
-        parsedText = Regex.Replace(parsedText, @"\[MULTICAST\]\s*(\d+)", $"{MulticastIcon} <color={ColorMulticast}>$1</color>");
-        parsedText = Regex.Replace(parsedText, @"\[PROVISION\]\s*(\d+)", $"{ProvisionIcon} <color={ColorProvision}>$1</color>");
-        parsedText = Regex.Replace(parsedText, @"\[MAXPROVISION\]\s*(\d+)", $"{MaxProvisionIcon} <color={ColorMaxProvision}>$1</color>");
+        parsedText = Regex.Replace(parsedText, @"\[GOLD\]\s*(\d+)", $"<nobr>{GoldIcon} <color={ColorGold}>$1</color></nobr>");
+        parsedText = Regex.Replace(parsedText, @"\[ATK\]\s*(\d+)", $"<nobr>{AttackIcon} <color={ColorAttack}>$1</color></nobr>");
+        parsedText = Regex.Replace(parsedText, @"\[SHIELD\]\s*(\d+)", $"<nobr>{ShieldIcon} <color={ColorShield}>$1</color></nobr>");
+        parsedText = Regex.Replace(parsedText, @"\[HEAL\]\s*(\d+)", $"<nobr>{HealIcon} <color={ColorHeal}>$1</color></nobr>");
+        parsedText = Regex.Replace(parsedText, @"\[BURN\]\s*(\d+)", $"<nobr>{BurnIcon} <color={ColorBurn}>$1</color></nobr>");
+        parsedText = Regex.Replace(parsedText, @"\[HASTE\]\s*(\d+)", $"<nobr>{HasteIcon} <color={ColorHaste}>$1</color></nobr>");
+        parsedText = Regex.Replace(parsedText, @"\[POISON\]\s*(\d+)", $"<nobr>{PoisonIcon} <color={ColorPoison}>$1</color></nobr>");
+        parsedText = Regex.Replace(parsedText, @"\[SLOW\]\s*(\d+)", $"<nobr>{SlowIcon} <color={ColorSlow}>$1</color></nobr>");
+        parsedText = Regex.Replace(parsedText, @"\[MAXHEALTH\]\s*(\d+)", $"<nobr>{MaxHealthIcon} <color={ColorMaxHealth}>$1</color></nobr>");
+        parsedText = Regex.Replace(parsedText, @"\[ENERGY\]\s*(\d+)", $"<nobr>{EnergyIcon} <color={ColorEnergy}>$1</color></nobr>");
+        parsedText = Regex.Replace(parsedText, @"\[CRIT\]\s*(\d+)", $"<nobr>{CritIcon} <color={ColorCrit}>$1</color></nobr>");
+        parsedText = Regex.Replace(parsedText, @"\[MULTICAST\]\s*(\d+)", $"<nobr>{MulticastIcon} <color={ColorMulticast}>$1</color></nobr>");
+        parsedText = Regex.Replace(parsedText, @"\[PROVISION\]\s*(\d+)", $"<nobr>{ProvisionIcon} <color={ColorProvision}>$1</color></nobr>");
+        parsedText = Regex.Replace(parsedText, @"\[MAXPROVISION\]\s*(\d+)", $"<nobr>{MaxProvisionIcon} <color={ColorMaxProvision}>$1</color></nobr>");
 
         // Fallback: If you just type [ATK] without a number after it, just replace the icon
         parsedText = parsedText.Replace("[GOLD]", GoldIcon)

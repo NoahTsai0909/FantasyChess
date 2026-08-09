@@ -2,30 +2,30 @@ using UnityEngine;
 
 public class EssenceofWrath : UnitInstance, IConsumable
 {
-    private int attackModifier = 2;
+    private int attackModifier = 4;
 
     public override void InitializeFromSaveData(UnitSaveData data)
     {
         base.InitializeFromSaveData(data);
         if (CurrentRarity == Rarity.Common)
         {
-            attackModifier = 2;
+            attackModifier = 4;
         }
         if (CurrentRarity == Rarity.Uncommon)
         {
-            attackModifier = 4;
+            attackModifier = 8;
         }
         else if (CurrentRarity == Rarity.Rare)
         {
-            attackModifier = 8;
+            attackModifier = 16;
         }
         else if (CurrentRarity == Rarity.Epic)
         {
-            attackModifier = 16;
+            attackModifier = 32;
         }
         else
         {
-            attackModifier = 2;
+            attackModifier = 4;
         }
     }
 
