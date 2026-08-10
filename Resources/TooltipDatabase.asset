@@ -56,4 +56,4 @@ MonoBehaviour:
     description: The maximum total Provision allowed in combat.
   - id: multicast
     title: Multicast
-    description: The number of times an active ability repeats when used.
+    description: The total number of times an active ability casts when used

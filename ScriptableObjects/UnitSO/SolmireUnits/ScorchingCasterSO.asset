@@ -25,7 +25,7 @@ MonoBehaviour:
   cooldown: 4
   isPassive: 0
   isEnergy: 1
-  maxEnergy: 1
+  maxEnergy: 2
   multicast: 2
   unitSprite: {fileID: 21300000, guid: 4f3db3eeeb4535a48b938c9fecd902bd, type: 3}
   defaultProjectile: []
@@ -35,6 +35,7 @@ MonoBehaviour:
   startingRarity: 1
   provisionCost: 2
   isMelee: 0
+  isEventExclusive: 0
   unitPrefab: {fileID: 6056702208597906296, guid: 1a153b76ba0bb66449f25a26562b6982, type: 3}
   spawnDefinition: {fileID: 0}
   tagFlags: 1572

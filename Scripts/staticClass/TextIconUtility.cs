@@ -29,7 +29,7 @@ public static class TextIconUtility
     private const string ColorSlow = "#8C6633";
     private const string ColorEnergy = "#EF1DAA";
     private const string ColorCrit = "#FE8500";
-    private const string ColorMulticast = "#FF4444";
+    private const string ColorMulticast = "#BCBCBC";
     private const string ColorProvision = "#AA55CB";
     private const string ColorMaxProvision = "#AA55CB";
     private const string ColorMaxHealth = "#088A06";

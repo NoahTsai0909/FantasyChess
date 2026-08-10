@@ -16,6 +16,10 @@ public class ShopEventSO : BaseEventSO
     public int maxProvisionCost = -1;  // -1 means no filter, will add later
     public int minProvisionCost = 0;
 
+    [Header("Rarity Filtering")]
+    public bool forceRarity = false;
+    public Rarity designatedRarity = Rarity.Common;
+
     public override void OnCompleted()
     {
         RunManager.Instance.shopState = null;

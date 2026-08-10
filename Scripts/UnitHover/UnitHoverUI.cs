@@ -18,6 +18,8 @@ public class UnitHoverUI : MonoBehaviour
     [SerializeField] private Sprite backgroundEpic;
 
     [SerializeField] private TextMeshProUGUI statText;
+    [SerializeField] private GameObject multicastContainer;
+    [SerializeField] private TextMeshProUGUI multicastText;
 
     [SerializeField] private HealthBarUI healthBar;
     [SerializeField] private CooldownBarUI cooldownBar;
@@ -37,7 +39,7 @@ public class UnitHoverUI : MonoBehaviour
     [Header("Behavior")]
     [SerializeField] private bool isPermanentUI = false;
 
-    private int lastEnergy, lastAttack, lastShield, lastHeal, lastPoison, lastBurn, lastCrit;
+    private int lastEnergy, lastAttack, lastShield, lastHeal, lastPoison, lastBurn, lastCrit, lastMulticast;
 
     private Canvas canvas;
     private RectTransform rectTransform;
@@ -113,8 +115,10 @@ public class UnitHoverUI : MonoBehaviour
             cooldownBar.gameObject.SetActive(true);
         }
 
-        provisionText.text = unit.Definition.provisionCost.ToString();
-        valueText.text = stats.Value.ToString();
+        provisionText.SetText(TextIconUtility.FormatProvision(unit.Definition.provisionCost));
+        valueText.SetText(TextIconUtility.FormatGold(stats.Value));
+        multicastContainer.SetActive(stats.Multicast > 1);
+        multicastText.SetText(TextIconUtility.FormatMulticast(stats.Multicast));
 
         lastEnergy = -1;
 
@@ -353,7 +357,8 @@ public class UnitHoverUI : MonoBehaviour
             lastHeal == stats.Heal &&
             lastPoison == stats.Poison &&
             lastBurn == stats.Burn &&
-            lastCrit == stats.CritChance)
+            lastCrit == stats.CritChance &&
+            lastMulticast == stats.Multicast)
         {
             return; // Nothing changed, skip expensive string rebuilding!
         }
@@ -366,6 +371,7 @@ public class UnitHoverUI : MonoBehaviour
         lastPoison = stats.Poison;
         lastBurn = stats.Burn;
         lastCrit = stats.CritChance;
+        lastMulticast = stats.Multicast;
 
         // 3. REBUILD STRING (Only runs when a stat fluctuates)
         string allStats = "";
@@ -377,6 +383,7 @@ public class UnitHoverUI : MonoBehaviour
         if (currentUnit.Definition.tagFlags.HasFlag(UnitTagFlags.Poison) && stats.Poison > 0) allStats += TextIconUtility.FormatPoison(stats.Poison) + "  ";
         if (currentUnit.Definition.tagFlags.HasFlag(UnitTagFlags.Burn) && stats.Burn > 0) allStats += TextIconUtility.FormatBurn(stats.Burn) + "  ";
         if (currentUnit.GetActiveDescription() != "" && stats.CritChance > 0) allStats += TextIconUtility.FormatCrit(stats.CritChance) + "  ";
+        if (stats.Multicast > 1) multicastText.SetText(TextIconUtility.FormatMulticast(stats.Multicast)); else multicastContainer.SetActive(false);
 
         statText.SetText(allStats);
     }

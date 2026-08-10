@@ -334,19 +334,19 @@ public class RunManager : MonoBehaviour
         return stats;
     }
 
-    public void InitializeShop(int count, Region region, UnitTagFlags unitTags, int minProvision = 0, int maxProvision = -1)
+    public void InitializeShop(int count, Region region, UnitTagFlags unitTags, int minProvision = 0, int maxProvision = -1, bool forceRarity = false, Rarity designatedRarity = Rarity.Common)
     {
         if (shopState != null) return;
 
         shopState = new ShopState
         {
-            // NEW: Delegate the heavy lifting to the static service!
-            offeredUnits = UnitGenerationService.GenerateShopUnits(count, region, unitTags, minProvision, maxProvision),
+            // Pass the new rarity parameters into the service
+            offeredUnits = UnitGenerationService.GenerateShopUnits(count, region, unitTags, minProvision, maxProvision, forceRarity, designatedRarity),
             purchasedUnits = new(),
             currentPage = 0,
             hasRefreshed = false,
             minProvisionFilter = minProvision,
-            maxProvisionFilter = maxProvision
+            maxProvisionFilter = maxProvision,
         };
     }
 

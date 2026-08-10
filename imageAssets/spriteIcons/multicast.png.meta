@@ -103,10 +103,10 @@ TextureImporter:
       name: multicast_0
       rect:
         serializedVersion: 2
-        x: 60
-        y: 63
-        width: 212
-        height: 197
+        x: 45
+        y: 60
+        width: 230
+        height: 205
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

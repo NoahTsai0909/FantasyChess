@@ -25,14 +25,14 @@ public static class UnitGenerationService
         };
     }
 
-    public static List<UnitSaveData> GenerateShopUnits(int count, Region region, UnitTagFlags unitTags, int minProvision = 0, int maxProvision = -1)
+    public static List<UnitSaveData> GenerateShopUnits(int count, Region region, UnitTagFlags unitTags, int minProvision = 0, int maxProvision = -1, bool forceRarity = false, Rarity designatedRarity = Rarity.Common)
     {
         var result = new List<UnitSaveData>();
         var usedDefinitions = new HashSet<UnitDefinition>();
 
         for (int i = 0; i < count; i++)
         {
-            var rolledRarity = RunManager.Instance.RollRarityForDay(RunManager.Instance.Stats.CurrentDay);
+            var rolledRarity = forceRarity ? designatedRarity : RunManager.Instance.RollRarityForDay(RunManager.Instance.Stats.CurrentDay);
             UnitDefinition def = null;
             int attempts = 0;
 
@@ -48,9 +48,31 @@ public static class UnitGenerationService
                     maxProvision
                 );
 
-                if (candidate != null && !usedDefinitions.Contains(candidate) && !IsMaxRarityOwned(candidate))
+                if (candidate != null && !usedDefinitions.Contains(candidate))
                 {
-                    def = candidate;
+                    // 1. Get the lowest rarity the player owns (returns null if they don't own it)
+                    Rarity? lowestOwnedRarity = GetOwnedUnitLowestRarity(candidate);
+
+                    bool isValid = true;
+
+                    if (lowestOwnedRarity.HasValue)
+                    {
+                        // Rule A: The lowest they own is Epic (meaning they ONLY own Epics). They cannot upgrade this unit anymore. Reject it.
+                        if (lowestOwnedRarity.Value == Rarity.Epic)
+                        {
+                            isValid = false;
+                        }
+                        // Rule B: It's a Forced Rarity Shop, but the rarity they need to merge doesn't match what the shop is allowed to sell. Reject it.
+                        else if (forceRarity && lowestOwnedRarity.Value != designatedRarity)
+                        {
+                            isValid = false;
+                        }
+                    }
+
+                    if (isValid)
+                    {
+                        def = candidate;
+                    }
                 }
             }
 
@@ -58,13 +80,16 @@ public static class UnitGenerationService
             {
                 usedDefinitions.Add(def);
 
+                // 2. Set the final rarity
                 Rarity finalRarity = rolledRarity;
-                Rarity? ownedLowestRarity = GetOwnedUnitLowestRarity(def);
+                Rarity? lowestOwnedRarity = GetOwnedUnitLowestRarity(def);
 
-                if (ownedLowestRarity.HasValue)
+                // Rule C: If they own the unit, universally override the shop's rolled rarity 
+                // to match their lowest owned copy so they can merge it.
+                if (lowestOwnedRarity.HasValue)
                 {
-                    finalRarity = ownedLowestRarity.Value;
-                    Debug.Log($"[Shop] Rarity Override! {def.unitName} changed to {finalRarity} to match player inventory.");
+                    finalRarity = lowestOwnedRarity.Value;
+                    Debug.Log($"[Shop] Rarity Override! {def.unitName} locked to {finalRarity} to match player inventory.");
                 }
 
                 result.Add(new UnitSaveData
@@ -77,7 +102,6 @@ public static class UnitGenerationService
 
         return result;
     }
-
     private static Rarity? GetOwnedUnitLowestRarity(UnitDefinition targetDef)
     {
         Rarity? lowestRarity = null;

@@ -38,7 +38,9 @@ public class ShopSceneController : MonoBehaviour
             shopEvent.region,
             shopEvent.allowedTags,
             shopEvent.minProvisionCost,
-            shopEvent.maxProvisionCost
+            shopEvent.maxProvisionCost,
+            shopEvent.forceRarity,
+            shopEvent.designatedRarity
         );
 
         shopState = RunManager.Instance.shopState;

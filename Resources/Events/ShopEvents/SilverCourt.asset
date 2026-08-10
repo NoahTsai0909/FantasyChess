@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e39388689547afc41b1d6c2e3aab8c61, type: 3}
+  m_Name: SilverCourt
+  m_EditorClassIdentifier: Assembly-CSharp::ShopEventSO
+  eventName: 
+  description: 
+  eventIcon: {fileID: 0}
+  eventBackgroundImage: {fileID: 0}
+  portalGlowColor: {r: 1, g: 1, b: 1, a: 1}
+  minDayRequired: 0
+  maxDayRequired: 0
+  selectionWeight: 1
+  maxAppearancesPerRun: 0
+  targetScene: 0
+  totalUnitsGenerated: 6
+  unitsPerPage: 3
+  refreshCost: 2
+  discount: 0
+  allowedTags: 0
+  region: 0
+  maxProvisionCost: -1
+  minProvisionCost: 0
+  forceRarity: 0
+  designatedRarity: 0

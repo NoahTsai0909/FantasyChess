@@ -91,8 +91,8 @@ MonoBehaviour:
       m_Width: 200
       m_Height: 200
       m_HorizontalBearingX: -60
-      m_HorizontalBearingY: 160
-      m_HorizontalAdvance: 160
+      m_HorizontalBearingY: 140
+      m_HorizontalAdvance: 120
     m_GlyphRect:
       m_X: 0
       m_Y: 0
