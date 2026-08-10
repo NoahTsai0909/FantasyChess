@@ -7,6 +7,7 @@ public class PortalArtifactUI : MonoBehaviour, IPointerEnterHandler, IPointerExi
     [Header("UI References")]
     [SerializeField] private Image eventIcon;
     [SerializeField] private Button invisibleSelectButton;
+    [SerializeField] private Button previewButton; // NEW: The Eyeball button!
 
     [Header("Portal Visuals")]
     [SerializeField] private RectTransform artifactRoot;
@@ -41,6 +42,29 @@ public class PortalArtifactUI : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
         invisibleSelectButton.onClick.RemoveAllListeners();
         invisibleSelectButton.onClick.AddListener(OnEventSelected);
+
+        // NEW: Handle the Preview Eyeball button logic
+        if (previewButton != null)
+        {
+            previewButton.onClick.RemoveAllListeners();
+
+            // If this is a combat event, show the eyeball and wire it up
+            if (eventSO is CombatEventSO combatEvent && combatEvent.encounter != null)
+            {
+                previewButton.gameObject.SetActive(true);
+                previewButton.onClick.AddListener(() =>
+                {
+                    // Clean up the map tooltip before opening the preview overlay
+                    MapController.Instance.HideEventInfo();
+                    MapController.Instance.PreviewEncounter(combatEvent.encounter);
+                });
+            }
+            else
+            {
+                // Not a combat event (or no encounter defined), hide the eyeball
+                previewButton.gameObject.SetActive(false);
+            }
+        }
     }
 
     public void SetElevation(float yOffset)
@@ -63,25 +87,19 @@ public class PortalArtifactUI : MonoBehaviour, IPointerEnterHandler, IPointerExi
         shadowTransform.localScale = originalShadowScale * shadowScale;
 
         // 2. Continuous Breathing Glow
-        // Maps a sine wave from -1 to 1 into a smooth 0 to 1 range
         float breathingMath = (Mathf.Sin(Time.time * pulseSpeed) + 1f) / 2f;
-
-        // If hovered, blast it to 1.0 (100%). If idle, pulse smoothly between Min and Max.
         float targetGlow = isHovered ? 1f : Mathf.Lerp(idleGlowMin, idleGlowMax, breathingMath);
 
         Color ringColor = baseColor;
         ringColor.a = Mathf.Lerp(energyRing.color.a, targetGlow, Time.deltaTime * 10f);
-
-        // Apply the color to both rings, but make the blurry outer ring slightly softer
         energyRing.color = ringColor;
 
         if (outerGlow != null)
         {
             Color outerColor = ringColor;
-            outerColor.a *= 0.6f; // The blur is 60% as intense as the sharp core
+            outerColor.a *= 0.6f;
             outerGlow.color = outerColor;
 
-            // Bonus: Slightly expand the blurry light when hovered!
             float scaleTarget = isHovered ? 1.15f : 1.0f;
             outerGlow.rectTransform.localScale = Vector3.Lerp(outerGlow.rectTransform.localScale, Vector3.one * scaleTarget, Time.deltaTime * 10f);
         }
@@ -105,17 +123,12 @@ public class PortalArtifactUI : MonoBehaviour, IPointerEnterHandler, IPointerExi
     {
         if (currentEvent != null && !MapController.Instance.isTransitioning)
         {
-            // Lock out all other portals on the map
             MapController.Instance.isTransitioning = true;
-
-            // Lock this specific portal's Update loop
             isTransitioning = true;
 
-            // Hide the UI text and disable this button
             MapController.Instance.HideEventInfo();
             invisibleSelectButton.interactable = false;
 
-            // Start the cinematic zoom!
             StartCoroutine(ZoomIntoVoidTransition());
         }
     }
@@ -133,7 +146,6 @@ public class PortalArtifactUI : MonoBehaviour, IPointerEnterHandler, IPointerExi
         Vector3 startScale = artifactRoot.localScale;
         Vector3 targetScale = Vector3.one * 50f;
 
-        // Reset the overlay to 0% via the MapController
         MapController.Instance.SetOverlayAlpha(0f);
 
         while (elapsed < duration)
@@ -144,13 +156,11 @@ public class PortalArtifactUI : MonoBehaviour, IPointerEnterHandler, IPointerExi
             artifactRoot.position = Vector3.Lerp(startPos, targetPos, t);
             artifactRoot.localScale = Vector3.Lerp(startScale, targetScale, t);
 
-            // Tell the MapController to fade the screen!
             MapController.Instance.SetOverlayAlpha(t);
 
             yield return null;
         }
 
-        // The screen is now 100% pitch black. Execute the load!
         currentEvent.OnSelected();
     }
 }

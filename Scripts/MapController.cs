@@ -25,6 +25,10 @@ public class MapController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI infoTitleText;
     [SerializeField] private TextMeshProUGUI infoDescText;
 
+    [Header("Encounter Preview")]
+    [SerializeField] private GameObject previewOverlay; // The dark UI panel
+    [SerializeField] private Button closePreviewButton;
+    [SerializeField] private GridManager previewGrid;
 
     [Header("Transition Overlay")]
     [SerializeField] private Image blackScreenOverlay;
@@ -63,6 +67,13 @@ public class MapController : MonoBehaviour
             inspectTeam();
         });
 
+        if (closePreviewButton != null)
+        {
+            closePreviewButton.onClick.AddListener(ClosePreview);
+        }
+
+        if (previewOverlay != null) previewOverlay.SetActive(false);
+
     }
 
     void Update()
@@ -83,7 +94,7 @@ public class MapController : MonoBehaviour
             return;
         }
 
-        // 2. If the info panel is visible (currently hovered) and T is pressed, pin it!
+        // 2. Just regular pinning for the main panel!
         if (eventInfoPanel.activeSelf && Keyboard.current.tKey.wasPressedThisFrame)
         {
             isPinned = true;
@@ -203,6 +214,47 @@ public class MapController : MonoBehaviour
 
             blackScreenOverlay.color = new Color(0, 0, 0, alpha);
         }
+    }
+
+    public void PreviewEncounter(EncounterDefinition encounter)
+    {
+        if (encounter == null) return;
+
+        // 1. Show the dark overlay to hide the map
+        if (previewOverlay != null) previewOverlay.SetActive(true);
+
+        // NEW: Hide the UI portals so they don't block the world-space grid!
+        if (eventButtonContainer != null) eventButtonContainer.gameObject.SetActive(false);
+        if (closePreviewButton != null) closePreviewButton.gameObject.SetActive(true);
+        if (previewGrid != null)
+        {
+            previewGrid.gameObject.SetActive(true);
+        }
+        // 2. Ensure the grid is clean
+        previewGrid.ClearAllUnits();
+
+        // 3. Spawn the enemies just like the GameManager does
+        foreach (var placement in encounter.enemyUnits)
+        {
+            if (placement.unitData == null || placement.unitData.definition == null) continue;
+
+            UnitInstance unit = Instantiate(placement.unitData.definition.unitPrefab);
+            unit.InitializeEnemy(placement.unitData.definition, placement.unitData.rarity);
+
+            unit.EnterCombat(previewGrid, placement.row, placement.col, false, false);
+        }
+    }
+
+    public void ClosePreview()
+    {
+        // Wipe the dummy units and hide the overlay
+        previewGrid.ClearAllUnits();
+        previewGrid.gameObject.SetActive(false);
+        if (closePreviewButton != null) closePreviewButton.gameObject.SetActive(false);
+        if (previewOverlay != null) previewOverlay.SetActive(false);
+
+        // NEW: Bring the portals back!
+        if (eventButtonContainer != null) eventButtonContainer.gameObject.SetActive(true);
     }
 
 }
