@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TargetPractice
   m_EditorClassIdentifier: Assembly-CSharp::StoryEventSO
   eventName: Target Practice
-  description: 'Give units permanent crit or energy. '
+  description: 'Give units permanent [CRIT], [ENERGY], or [SHIELD]. '
   eventIcon: {fileID: 21300000, guid: 277a3539fdd297840bd0c9d19fbe4dd7, type: 3}
   eventBackgroundImage: {fileID: 21300000, guid: 95f87df34ec49df49b816b29856fa078, type: 3}
   portalGlowColor: {r: 1, g: 1, b: 1, a: 1}
@@ -28,6 +28,7 @@ MonoBehaviour:
     choices:
     - buttonText: Give all units +5 crit permanently.
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
       previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
@@ -36,6 +37,7 @@ MonoBehaviour:
       condition: {fileID: 0}
     - buttonText: Give all units +1 max energy permanently.
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
       previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
@@ -44,6 +46,7 @@ MonoBehaviour:
       condition: {fileID: 0}
     - buttonText: Pay 5 gold to double the buffs.
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
       previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
@@ -55,6 +58,7 @@ MonoBehaviour:
     choices:
     - buttonText: Give all units +10 crit permanently.
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
       previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
@@ -63,6 +67,7 @@ MonoBehaviour:
       condition: {fileID: 0}
     - buttonText: Give all units +2 max energy permanently.
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
       previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0

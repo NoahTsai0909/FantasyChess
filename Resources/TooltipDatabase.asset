@@ -57,3 +57,30 @@ MonoBehaviour:
   - id: multicast
     title: Multicast
     description: The total number of times an active ability casts when used
+  - id: common
+    title: Common
+    description: 'Rarity of a unit. From lowest to highest, the order of rarities
+      is: Common, Uncommon, Rare, Epic.'
+  - id: uncommon
+    title: Uncommon
+    description: 'Rarity of a unit. From lowest to highest, the order of rarities
+      is: Common, Uncommon, Rare, Epic.'
+  - id: rare
+    title: Rare
+    description: 'Rarity of a unit. From lowest to highest, the order of rarities
+      is: Common, Uncommon, Rare, Epic.'
+  - id: epic
+    title: Epic
+    description: 'Rarity of a unit. From lowest to highest, the order of rarities
+      is: Common, Uncommon, Rare, Epic.'
+  - id: playerhealth
+    title: Player Health
+    description: Once this reaches 0, the expedition ends!
+  - id: day
+    title: Day
+    description: Each day consists of 3 events and 1 mandatory combat. Reach 12 days
+      to successfully finish the expedition!
+  - id: level
+    title: Level
+    description: Level up every time you reach 10 experience. Leveling up yields
+      important rewards!

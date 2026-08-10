@@ -24,7 +24,7 @@ public class UnitHoverDetector : MonoBehaviour
         mouse = Mouse.current;
 
         // 1. Create a bulletproof, dedicated canvas just for tooltips
-        GameObject tooltipCanvasObj = new GameObject("TooltipCanvas");
+        GameObject tooltipCanvasObj = new GameObject("UnitHoverCanvas");
         Canvas tooltipCanvas = tooltipCanvasObj.AddComponent<Canvas>();
 
         // 2. Force it to be an overlay with a massive sorting order

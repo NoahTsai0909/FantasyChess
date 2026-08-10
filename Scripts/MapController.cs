@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using static SceneLoader;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class MapController : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class MapController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI infoTitleText;
     [SerializeField] private TextMeshProUGUI infoDescText;
 
+
     [Header("Transition Overlay")]
     [SerializeField] private Image blackScreenOverlay;
 
@@ -33,6 +35,7 @@ public class MapController : MonoBehaviour
     public static MapController Instance { get; private set; }
 
     public bool isTransitioning = false;
+    private bool isPinned = false;
 
     void Awake()
     {
@@ -62,7 +65,30 @@ public class MapController : MonoBehaviour
 
     }
 
+    void Update()
+    {
+        if (Keyboard.current == null || Mouse.current == null) return;
 
+        // 1. If currently pinned, listen for unpin triggers
+        if (isPinned)
+        {
+            if (Keyboard.current.tKey.wasPressedThisFrame ||
+                Keyboard.current.escapeKey.wasPressedThisFrame ||
+                Mouse.current.leftButton.wasPressedThisFrame ||
+                Mouse.current.rightButton.wasPressedThisFrame)
+            {
+                isPinned = false;
+                HideEventInfo(); // Force it to hide once unpinned
+            }
+            return;
+        }
+
+        // 2. If the info panel is visible (currently hovered) and T is pressed, pin it!
+        if (eventInfoPanel.activeSelf && Keyboard.current.tKey.wasPressedThisFrame)
+        {
+            isPinned = true;
+        }
+    }
 
     public void UpdateUI()
     {
@@ -97,7 +123,7 @@ public class MapController : MonoBehaviour
 
     void OnEnable()
     {
-
+        isPinned = false;
         // Always clear the event in progress flag when returning to map
         if (RunManager.Instance != null)
         {
@@ -144,8 +170,10 @@ public class MapController : MonoBehaviour
 
     public void ShowEventInfo(string eventName, string eventDescription, Vector3 targetPosition)
     {
+        if (isPinned) return; // Ignore new hover attempts if one is already pinned
+
         infoTitleText.text = eventName;
-        infoDescText.text = eventDescription;
+        infoDescText.SetText(TextIconUtility.ParseDescription(eventDescription));
 
         Canvas canvas = eventInfoPanel.GetComponentInParent<Canvas>();
         float scale = canvas != null ? canvas.scaleFactor : 1f;
@@ -158,6 +186,8 @@ public class MapController : MonoBehaviour
 
     public void HideEventInfo()
     {
+        if (isPinned) return; // Refuse to close if the player pinned it
+
         eventInfoPanel.SetActive(false);
     }
 

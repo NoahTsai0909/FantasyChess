@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RefinedEvolution
   m_EditorClassIdentifier: Assembly-CSharp::StoryEventSO
   eventName: Refined Evolution
-  description: Get a consumable that upgrades an uncommon unit.
+  description: Get a consumable that upgrades an [c_uncommon]uncommon[/c] unit.
   eventIcon: {fileID: 21300000, guid: 277a3539fdd297840bd0c9d19fbe4dd7, type: 3}
   eventBackgroundImage: {fileID: 21300000, guid: 95f87df34ec49df49b816b29856fa078, type: 3}
   portalGlowColor: {r: 1, g: 1, b: 1, a: 1}

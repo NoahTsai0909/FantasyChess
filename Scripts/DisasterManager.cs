@@ -27,6 +27,8 @@ public class DisasterManager : MonoBehaviour
     {
         if (combatManager == null) return;
 
+        if (!combatManager.isCombatActive()) return;
+
         combatTimer += Time.deltaTime;
 
         // Start disaster when time reached

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5357608921630088330}
   - component: {fileID: 5007190308290889378}
   - component: {fileID: 8814198839598140713}
+  - component: {fileID: 6229080658459529479}
   m_Layer: 0
   m_Name: LevelText
   m_TagString: Untagged
@@ -139,6 +140,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6229080658459529479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584578299609273917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd570a24f40170c4e909966a255eb7f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TMPLinkHandler
 --- !u!1 &1548111476027262565
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,6 +163,7 @@ GameObject:
   - component: {fileID: 2087621640375067262}
   - component: {fileID: 8192435479968787540}
   - component: {fileID: 4413428909851662718}
+  - component: {fileID: 6503814552833561782}
   m_Layer: 0
   m_Name: playerHealthText
   m_TagString: Untagged
@@ -276,6 +290,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6503814552833561782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548111476027262565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd570a24f40170c4e909966a255eb7f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TMPLinkHandler
 --- !u!1 &2682939125782735000
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,6 +574,9 @@ MonoBehaviour:
   provisionCapText: {fileID: 8120894586631699096}
   goldText: {fileID: 2154123048613695469}
   maxReputation: 10
+  runHUD: {fileID: 0}
+  runHUDCanvasGroup: {fileID: 0}
+  dontDestroyOnLoad: 0
 --- !u!1 &2778865927955378251
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,6 +588,7 @@ GameObject:
   - component: {fileID: 3981369580170116211}
   - component: {fileID: 6609417987719284912}
   - component: {fileID: 8120894586631699096}
+  - component: {fileID: 1550819372186781108}
   m_Layer: 0
   m_Name: ProvisionCapText
   m_TagString: Untagged
@@ -685,6 +715,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1550819372186781108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2778865927955378251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd570a24f40170c4e909966a255eb7f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TMPLinkHandler
 --- !u!1 &2920544686492325175
 GameObject:
   m_ObjectHideFlags: 0
@@ -744,7 +786,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1095,6 +1137,7 @@ GameObject:
   - component: {fileID: 319283500246380870}
   - component: {fileID: 2148593646866910458}
   - component: {fileID: 3901328094233171128}
+  - component: {fileID: 1203006782791800892}
   m_Layer: 0
   m_Name: DayText
   m_TagString: Untagged
@@ -1221,6 +1264,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1203006782791800892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6760961526473299061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd570a24f40170c4e909966a255eb7f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TMPLinkHandler
 --- !u!1 &6790774096953068959
 GameObject:
   m_ObjectHideFlags: 0
@@ -1277,6 +1332,7 @@ GameObject:
   - component: {fileID: 1908517801055730818}
   - component: {fileID: 6634180113291741175}
   - component: {fileID: 2154123048613695469}
+  - component: {fileID: 3244360706187392719}
   m_Layer: 0
   m_Name: playerGoldText
   m_TagString: Untagged
@@ -1403,6 +1459,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3244360706187392719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8680102814035381657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd570a24f40170c4e909966a255eb7f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TMPLinkHandler
 --- !u!1 &9150403784252714214
 GameObject:
   m_ObjectHideFlags: 0

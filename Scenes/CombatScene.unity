@@ -7579,7 +7579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 429d283cf1f058c4496aa60632166945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DisasterManager
-  disasterStartTime: 40
+  disasterStartTime: 60
   disasterTickInterval: 1
   disasterInitialDamage: 1
   screenOverlay: {fileID: 1903860173}
@@ -7595,7 +7595,7 @@ Transform:
   m_GameObject: {fileID: 1995609289}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 779.75433, y: 297.2831, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -34,6 +34,15 @@ public static class TextIconUtility
     private const string ColorMaxProvision = "#AA55CB";
     private const string ColorMaxHealth = "#088A06";
 
+    // NEW: Text-only keyword colors
+    private const string ColorCommon = "#B0B0B0";     // Gray
+    private const string ColorUncommon = "#4CAF50";   // Green
+    private const string ColorRare = "#2196F3";       // Blue
+    private const string ColorEpic = "#9C27B0";       // Purple
+    private const string ColorMythic = "#FFD700";     // Gold
+    private const string ColorLevel = "#FFEB3B";      // Yellow
+    private const string ColorPlayerHealth = "#E53935";
+
     // Standardized formatters for stats (useful for UI elements like price tags)
     public static string FormatGold(int amount) => $"<nobr><link=\"gold\">{GoldIcon} <color={ColorGold}>{amount}</color></link></nobr>";
     public static string FormatAttack(int amount) => $"<nobr><link=\"attack\">{AttackIcon} <color={ColorAttack}>{amount}</color></link></nobr>";
@@ -103,6 +112,14 @@ public static class TextIconUtility
                                .Replace("[c_provision]", $"<link=\"provision\"><color={ColorProvision}>")
                                .Replace("[c_maxprovision]", $"<link=\"maxprovision\"><color={ColorMaxProvision}>")
 
+                               .Replace("[c_common]", $"<link=\"common\"><color={ColorCommon}>")
+                               .Replace("[c_uncommon]", $"<link=\"uncommon\"><color={ColorUncommon}>")
+                               .Replace("[c_rare]", $"<link=\"rare\"><color={ColorRare}>")
+                               .Replace("[c_epic]", $"<link=\"epic\"><color={ColorEpic}>")
+                               .Replace("[c_mythic]", $"<link=\"mythic\"><color={ColorMythic}>")
+                               .Replace("[c_level]", $"<link=\"level\"><color={ColorLevel}>")
+                               .Replace("[c_playerhealth]", $"<link=\"playerhealth\"><color={ColorPlayerHealth}>")
+                               .Replace("[c_day]", $"<link=\"day\"><color={ColorLevel}>")
                                // 4. Close BOTH the color and the link tag
                                .Replace("[/c]", "</color></link>");
 

@@ -101,25 +101,25 @@ public class RunHUDManager : MonoBehaviour
     private void UpdateGold(int gold)
     {
         if (goldText != null)
-            goldText.text = gold.ToString();
+            goldText.SetText(TextIconUtility.ParseDescription("[c_gold]" + gold.ToString() + "[/c]")); 
     }
 
     private void UpdateHealth(int health)
     {
         if (playerHealthText != null)
-            playerHealthText.text = health.ToString();
+            playerHealthText.SetText(TextIconUtility.ParseDescription("[c_playerhealth]" + health.ToString() + "[/c]"));
     }
 
     private void UpdateDay(int day)
     {
         if (dayText != null)
-            dayText.text = "Day \n" +day.ToString();
+            dayText.SetText(TextIconUtility.ParseDescription("Day \n" + "[c_day]" + day.ToString() + "[/c]"));
     }
 
     private void UpdateLevel(int level)
     {
         if (playerXPText != null)
-            playerXPText.text = level.ToString();
+            playerXPText.SetText(TextIconUtility.ParseDescription("[c_level]" + level.ToString() + "[/c]"));
     }
 
     private void UpdateReputation(int reputation)
@@ -138,7 +138,7 @@ public class RunHUDManager : MonoBehaviour
     private void UpdateProvisionCap(int cap)
     {
         if (provisionCapText != null)
-            provisionCapText.text = cap.ToString();
+            provisionCapText.SetText(TextIconUtility.ParseDescription("[c_maxprovision]" + cap.ToString() + "[/c]"));
     }
 
     /// <summary>

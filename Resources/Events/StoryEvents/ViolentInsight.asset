@@ -13,19 +13,22 @@ MonoBehaviour:
   m_Name: ViolentInsight
   m_EditorClassIdentifier: Assembly-CSharp::StoryEventSO
   eventName: Violent Insight
-  description: Get a consumable that grants attack permanently.
+  description: Get a consumable that grants [ATK] permanently.
   eventIcon: {fileID: 21300000, guid: 277a3539fdd297840bd0c9d19fbe4dd7, type: 3}
   eventBackgroundImage: {fileID: 21300000, guid: 95f87df34ec49df49b816b29856fa078, type: 3}
   portalGlowColor: {r: 1, g: 0.7058824, b: 0.12941177, a: 1}
   minDayRequired: 1
   maxDayRequired: 6
   selectionWeight: 1
+  maxAppearancesPerRun: 0
   targetScene: 5
   pages:
   - promptText: You feel a surge of power welling up within you...
     choices:
     - buttonText: Take the Essence of Wrath.
       previewUnit: {fileID: 11400000, guid: 22a7614f1d79235418176ea49184ae77, type: 2}
+      rollRandomRarity: 1
+      previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
@@ -33,6 +36,8 @@ MonoBehaviour:
       condition: {fileID: 0}
     - buttonText: Leave.
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
+      previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0

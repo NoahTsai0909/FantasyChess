@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BountyBoard
   m_EditorClassIdentifier: Assembly-CSharp::ShopEventSO
   eventName: Bounty Board
-  description: Recruit units of provision cost 2
+  description: Recruit units of [PROVISION] 2.
   eventIcon: {fileID: 21300000, guid: 277a3539fdd297840bd0c9d19fbe4dd7, type: 3}
   eventBackgroundImage: {fileID: 21300000, guid: a570aa1129e76564ab230823437ce925, type: 3}
   portalGlowColor: {r: 1, g: 1, b: 1, a: 1}
@@ -30,3 +30,5 @@ MonoBehaviour:
   region: 0
   maxProvisionCost: 2
   minProvisionCost: 2
+  forceRarity: 0
+  designatedRarity: 0
