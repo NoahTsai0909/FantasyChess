@@ -28,7 +28,7 @@ public class MapController : MonoBehaviour
     [SerializeField] private Image blackScreenOverlay;
 
     [Tooltip("How far from the portal should the HUD appear?")]
-    [SerializeField] private Vector3 hoverOffset = new Vector3(0, 200f, 0);
+    [SerializeField] private Vector3 hoverOffset = new Vector3(0, 100f, 0);
 
     public static MapController Instance { get; private set; }
 
@@ -147,8 +147,11 @@ public class MapController : MonoBehaviour
         infoTitleText.text = eventName;
         infoDescText.text = eventDescription;
 
-        // Move the panel to the portal's position + the offset
-        eventInfoPanel.transform.position = targetPosition + hoverOffset;
+        Canvas canvas = eventInfoPanel.GetComponentInParent<Canvas>();
+        float scale = canvas != null ? canvas.scaleFactor : 1f;
+
+        // Apply the scaled offset
+        eventInfoPanel.transform.position = targetPosition + (hoverOffset * scale);
 
         eventInfoPanel.SetActive(true);
     }

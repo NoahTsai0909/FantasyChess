@@ -1765,15 +1765,15 @@ MonoBehaviour:
   mitigationButton: {fileID: 1588283614293615893}
   utilityButton: {fileID: 8760394698921789595}
   returnButton: {fileID: 2449747581985914062}
-  directDmgColor: {r: 0.8, g: 0.2, b: 0.2, a: 1}
-  burnDmgColor: {r: 1, g: 0.5, b: 0, a: 1}
-  poisonDmgColor: {r: 0.2, g: 0.8, b: 0.2, a: 1}
+  directDmgColor: {r: 1, g: 0.26666668, b: 0.26666668, a: 1}
+  burnDmgColor: {r: 1, g: 0.53333336, b: 0, a: 1}
+  poisonDmgColor: {r: 0.6, g: 0.2, b: 0.8, a: 1}
   dmgTakenColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  healColor: {r: 0.2, g: 0.8, b: 0.2, a: 1}
-  shieldColor: {r: 0.2, g: 0.6, b: 1, a: 1}
-  slowColor: {r: 0.6, g: 0.8, b: 1, a: 1}
-  hasteColor: {r: 1, g: 0.8, b: 0.2, a: 1}
-  advanceColor: {r: 0.8, g: 0.2, b: 0.8, a: 1}
+  healColor: {r: 0.007843138, g: 0.8901961, b: 0.007843138, a: 1}
+  shieldColor: {r: 0.6784314, g: 0.44313726, b: 0, a: 1}
+  slowColor: {r: 0.54901963, g: 0.4, b: 0.2, a: 1}
+  hasteColor: {r: 0.4, g: 1, b: 0.90588236, a: 1}
+  advanceColor: {r: 0.83962256, g: 0.9169795, b: 1, a: 1}
 --- !u!114 &6637020818274148330
 MonoBehaviour:
   m_ObjectHideFlags: 0

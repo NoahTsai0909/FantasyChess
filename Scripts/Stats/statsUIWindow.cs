@@ -20,14 +20,14 @@ public class StatsUIWindow : MonoBehaviour
     [SerializeField] private Button returnButton;
 
     [Header("Colors - Damage")]
-    public Color directDmgColor = new Color(0.8f, 0.2f, 0.2f); // Red
-    public Color burnDmgColor = new Color(1f, 0.5f, 0f);       // Orange
-    public Color poisonDmgColor = new Color(0.2f, 0.8f, 0.2f); // Green
+    public Color directDmgColor = new Color(255,68,68); // Red
+    public Color burnDmgColor = new Color(255,136,0);       // Orange
+    public Color poisonDmgColor = new Color(153, 51, 204); // Purple
 
     [Header("Colors - Mitigation")]
     public Color dmgTakenColor = new Color(0.5f, 0.5f, 0.5f);  // Gray
-    public Color healColor = new Color(0.2f, 0.8f, 0.2f);      // Green
-    public Color shieldColor = new Color(0.2f, 0.6f, 1f);      // Blue
+    public Color healColor = new Color(2,227,2);      // Green
+    public Color shieldColor = new Color(173,113,0);      // Blue
 
     [Header("Colors - Utility")]
     public Color slowColor = new Color(0.6f, 0.8f, 1f);        // Ice Blue

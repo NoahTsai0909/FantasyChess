@@ -2980,7 +2980,7 @@ MonoBehaviour:
   infoTitleText: {fileID: 1904649487}
   infoDescText: {fileID: 1612472577}
   blackScreenOverlay: {fileID: 2056231996}
-  hoverOffset: {x: 0, y: 600, z: 0}
+  hoverOffset: {x: 0, y: 350, z: 0}
   isTransitioning: 0
 --- !u!4 &2080573237
 Transform:

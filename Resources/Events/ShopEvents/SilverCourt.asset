@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39388689547afc41b1d6c2e3aab8c61, type: 3}
   m_Name: SilverCourt
   m_EditorClassIdentifier: Assembly-CSharp::ShopEventSO
-  eventName: 
-  description: 
-  eventIcon: {fileID: 0}
-  eventBackgroundImage: {fileID: 0}
+  eventName: Silver Court
+  description: Recruit units of uncommon rarity
+  eventIcon: {fileID: 21300000, guid: 277a3539fdd297840bd0c9d19fbe4dd7, type: 3}
+  eventBackgroundImage: {fileID: 21300000, guid: 95f87df34ec49df49b816b29856fa078, type: 3}
   portalGlowColor: {r: 1, g: 1, b: 1, a: 1}
-  minDayRequired: 0
-  maxDayRequired: 0
-  selectionWeight: 1
+  minDayRequired: 3
+  maxDayRequired: 12
+  selectionWeight: 2
   maxAppearancesPerRun: 0
-  targetScene: 0
+  targetScene: 6
   totalUnitsGenerated: 6
   unitsPerPage: 3
   refreshCost: 2
@@ -30,5 +30,5 @@ MonoBehaviour:
   region: 0
   maxProvisionCost: -1
   minProvisionCost: 0
-  forceRarity: 0
-  designatedRarity: 0
+  forceRarity: 1
+  designatedRarity: 1
