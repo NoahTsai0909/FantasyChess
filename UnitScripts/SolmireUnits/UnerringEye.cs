@@ -102,11 +102,11 @@ public class UnerringEye : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"[c_haste]Haste[/c] adjacent allies for [HASTE] {stats.Haste}.");
+        return ($"[c_haste]Haste[/c] [c_adjacent]adjacent[/c] allies for [HASTE] {stats.Haste}.");
     }
 
     public override string GetPassiveDescription()
     {
-        return ($"Adjacent allies have [c_crit]+{critModifier}[/c] [CRIT].");
+        return ($"[c_adjacent]Adjacent[/c] allies have [c_crit]+{critModifier}[/c] [CRIT].");
     }
 }

@@ -78,7 +78,7 @@ public class ClumsyKnight : UnitInstance
 
     public override string GetPassiveDescription()
     {
-        return ($"Combat Start: [c_shield]shield[/c] this for [SHIELD] {shieldBuff} for each adjacent ally.");
+        return ($"Combat Start: [c_shield]shield[/c] this for [SHIELD] {shieldBuff} for each [c_adjacent]adjacent[/c] ally.");
     }
 
 }

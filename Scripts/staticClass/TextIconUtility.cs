@@ -120,6 +120,9 @@ public static class TextIconUtility
                                .Replace("[c_level]", $"<link=\"level\"><color={ColorLevel}>")
                                .Replace("[c_playerhealth]", $"<link=\"playerhealth\"><color={ColorPlayerHealth}>")
                                .Replace("[c_day]", $"<link=\"day\"><color={ColorLevel}>")
+                               .Replace("[c_adjacent]", $"<link=\"adjacent\"><color={ColorLevel}>")
+                               .Replace("[c_side]", $"<link=\"side\"><color={ColorLevel}>")
+                               .Replace("[c_advance],", $"<link=\"advance\"><color={ColorLevel}>")
                                // 4. Close BOTH the color and the link tag
                                .Replace("[/c]", "</color></link>");
 

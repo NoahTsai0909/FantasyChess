@@ -89,7 +89,13 @@ public class MapController : MonoBehaviour
                 Mouse.current.rightButton.wasPressedThisFrame)
             {
                 isPinned = false;
+
+                // Turn raycasts back off so it doesn't cause glitches when it unpins!
+                CanvasGroup cg = eventInfoPanel.GetComponent<CanvasGroup>();
+                if (cg != null) cg.blocksRaycasts = false;
+
                 HideEventInfo(); // Force it to hide once unpinned
+                if (TooltipUIManager.Instance != null) TooltipUIManager.Instance.Hide();
             }
             return;
         }
@@ -98,6 +104,10 @@ public class MapController : MonoBehaviour
         if (eventInfoPanel.activeSelf && Keyboard.current.tKey.wasPressedThisFrame)
         {
             isPinned = true;
+
+            // NEW: The moment it is pinned, make it solid so the player can hover the text links!
+            CanvasGroup cg = eventInfoPanel.GetComponent<CanvasGroup>();
+            if (cg != null) cg.blocksRaycasts = true;
         }
     }
 
@@ -191,6 +201,10 @@ public class MapController : MonoBehaviour
 
         // Apply the scaled offset
         eventInfoPanel.transform.position = targetPosition + (hoverOffset * scale);
+
+        // NEW: Ensure it behaves like a ghost while just normally hovering
+        CanvasGroup cg = eventInfoPanel.GetComponent<CanvasGroup>();
+        if (cg != null) cg.blocksRaycasts = false;
 
         eventInfoPanel.SetActive(true);
     }

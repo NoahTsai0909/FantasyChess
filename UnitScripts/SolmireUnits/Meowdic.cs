@@ -59,11 +59,11 @@ public class Meowdic : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"[c_heal]Heals[/c] side allies for [HEAL] {stats.Heal}.");
+        return ($"[c_heal]Heals[/c] [c_side]side[/c] allies for [HEAL] {stats.Heal}.");
     }
 
     public override string GetPassiveDescription()
     {
-        return ("Whenever an ally is [c_heal]healed[/c], advance this 1 second.");
+        return ("When an ally is [c_heal]healed[/c], advance this 1 second.");
     }
 }

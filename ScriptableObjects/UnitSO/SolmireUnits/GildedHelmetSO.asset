@@ -10,33 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a16e02b8c37b3f43ac55682dba29a26, type: 3}
-  m_Name: TorchSO
+  m_Name: GildedHelmetSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
-  unitName: Torch
-  maxHP: 40
+  unitName: Gilded Helmet
+  maxHP: 120
   attack: 0
   heal: 0
-  shield: 0
+  shield: 40
   burn: 0
   poison: 0
   slow: 0
   haste: 0
   critChance: 0
-  cooldown: 0
-  isPassive: 1
+  cooldown: 10
+  isPassive: 0
   isEnergy: 0
   maxEnergy: 0
   multicast: 1
-  unitSprite: {fileID: 21300000, guid: f7dc34d5661890a46a0d9a68546b497d, type: 3}
-  defaultProjectile:
-  - {fileID: 0}
+  unitSprite: {fileID: 21300000, guid: 66c3bef550a7ca04b92c10fff596edaf, type: 3}
+  defaultProjectile: []
   cost: 0
   region: 0
   rarity: 0
-  startingRarity: 0
-  provisionCost: 1
-  isMelee: 0
+  startingRarity: 2
+  provisionCost: 3
+  isMelee: 1
   isEventExclusive: 0
-  unitPrefab: {fileID: 2364721893941919278, guid: a2ea65bd891c61948950cc6d3a23c91f, type: 3}
+  unitPrefab: {fileID: 3134932352647854194, guid: a84d05636710e504f96ded1f5dad8881, type: 3}
   spawnDefinition: {fileID: 0}
-  tagFlags: 131074
+  tagFlags: 1280

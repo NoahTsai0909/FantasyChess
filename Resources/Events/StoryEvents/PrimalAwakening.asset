@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StoryEventSO
   eventName: Primal Awakening
   description: Give all units a permanent buff.
-  eventIcon: {fileID: 21300000, guid: 277a3539fdd297840bd0c9d19fbe4dd7, type: 3}
+  eventIcon: {fileID: 21300000, guid: d3e49c22ac0f4484bab16cf120bfe708, type: 3}
   eventBackgroundImage: {fileID: 21300000, guid: 95f87df34ec49df49b816b29856fa078, type: 3}
   portalGlowColor: {r: 1, g: 1, b: 1, a: 1}
   minDayRequired: 6
@@ -28,6 +28,7 @@ MonoBehaviour:
     choices:
     - buttonText: Give all units +5 attack permanently.
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
       previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
@@ -36,6 +37,7 @@ MonoBehaviour:
       condition: {fileID: 0}
     - buttonText: Give all units +5 shield permanently.
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
       previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
@@ -44,6 +46,7 @@ MonoBehaviour:
       condition: {fileID: 0}
     - buttonText: Give all units +10 max health permanently.
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
       previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
@@ -52,6 +55,7 @@ MonoBehaviour:
       condition: {fileID: 0}
     - buttonText: Give all units +2 burn permanently.
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
       previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
@@ -60,6 +64,7 @@ MonoBehaviour:
       condition: {fileID: 0}
     - buttonText: Give all units +2 poison permanently.
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
       previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
@@ -68,6 +73,7 @@ MonoBehaviour:
       condition: {fileID: 0}
     - buttonText: Pay 5 gold to double the buffs.
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
       previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
@@ -79,6 +85,7 @@ MonoBehaviour:
     choices:
     - buttonText: Give all unis +10 attack permanently.
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
       previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
@@ -87,6 +94,7 @@ MonoBehaviour:
       condition: {fileID: 0}
     - buttonText: Give all unis +10 shield permanently.
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
       previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
@@ -95,6 +103,7 @@ MonoBehaviour:
       condition: {fileID: 0}
     - buttonText: Give all unis +20 max health permanently.
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
       previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
@@ -103,6 +112,7 @@ MonoBehaviour:
       condition: {fileID: 0}
     - buttonText: Give all unis +4 burn permanently.
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
       previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
@@ -111,6 +121,7 @@ MonoBehaviour:
       condition: {fileID: 0}
     - buttonText: Give all unis +4 poison permanently.
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
       previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0

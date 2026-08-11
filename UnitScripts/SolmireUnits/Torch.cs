@@ -32,7 +32,7 @@ public class Torch : UnitInstance
 
     public override string GetPassiveDescription()
     {
-        return ($"Adjacent allies have [c_burn]+{burnBuff}[/c] [BURN].");
+        return ($"[c_adjacent]Adjacent[/c] allies have [c_burn]+{burnBuff}[/c] [BURN].");
     }
 
     public override void RemoveAuras()

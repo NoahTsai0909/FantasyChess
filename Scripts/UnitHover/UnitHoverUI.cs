@@ -185,6 +185,11 @@ public class UnitHoverUI : MonoBehaviour
                 continue;
             }
 
+            if (flag == UnitTagFlags.BurnRef || flag == UnitTagFlags.PoisonRef || flag == UnitTagFlags.DamageRef || flag == UnitTagFlags.HealRef)
+            {
+                continue;
+            }
+
             // 4. Check if the unit actually has this specific flag
             if (unitTags.HasFlag(flag))
             {

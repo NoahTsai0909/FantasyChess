@@ -36,6 +36,6 @@ public class Jester : UnitInstance
 
     public override string GetPassiveDescription()
     {
-        return ($"Combat start: If this has no side allies, get +1 [MULTICAST].");
+        return ($"Combat start: If this has no [c_side]side[/c] allies, get +1 [MULTICAST].");
     }
 }

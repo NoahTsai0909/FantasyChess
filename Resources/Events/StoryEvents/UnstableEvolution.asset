@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StoryEventSO
   eventName: Unstable Evolution
   description: Get a consumable that upgrades a [c_common]common[/c] unit.
-  eventIcon: {fileID: 21300000, guid: 277a3539fdd297840bd0c9d19fbe4dd7, type: 3}
+  eventIcon: {fileID: 21300000, guid: d3e49c22ac0f4484bab16cf120bfe708, type: 3}
   eventBackgroundImage: {fileID: 21300000, guid: 95f87df34ec49df49b816b29856fa078, type: 3}
   portalGlowColor: {r: 1, g: 1, b: 1, a: 1}
   minDayRequired: 1

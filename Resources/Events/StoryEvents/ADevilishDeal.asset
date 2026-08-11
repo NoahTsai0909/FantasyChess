@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StoryEventSO
   eventName: A Devilish Deal
   description: A wicked gamble.
-  eventIcon: {fileID: 21300000, guid: 277a3539fdd297840bd0c9d19fbe4dd7, type: 3}
+  eventIcon: {fileID: 21300000, guid: d3e49c22ac0f4484bab16cf120bfe708, type: 3}
   eventBackgroundImage: {fileID: 21300000, guid: 95f87df34ec49df49b816b29856fa078, type: 3}
   portalGlowColor: {r: 1, g: 1, b: 1, a: 1}
   minDayRequired: 1
   maxDayRequired: 12
   selectionWeight: 1
+  maxAppearancesPerRun: 0
   targetScene: 5
   pages:
   - promptText: A tempting offer lies before you. Each wager promises greater riches,
@@ -27,6 +28,8 @@ MonoBehaviour:
     choices:
     - buttonText: 'Pay 3 gold to play the game. (90% chance to win). '
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
+      previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
@@ -34,6 +37,8 @@ MonoBehaviour:
       condition: {fileID: 11400000, guid: f6f375abc8df11041aa45e99bd2a20a2, type: 2}
     - buttonText: 'Leave. '
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
+      previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
@@ -43,6 +48,8 @@ MonoBehaviour:
     choices:
     - buttonText: Keep playing. (60% chance to win).
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
+      previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
@@ -50,6 +57,8 @@ MonoBehaviour:
       condition: {fileID: 0}
     - buttonText: Leave with winnings (1 experience + 6 gold).
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
+      previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
@@ -59,6 +68,8 @@ MonoBehaviour:
     choices:
     - buttonText: 'Keep playing. (25% chance to win). '
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
+      previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
@@ -66,6 +77,8 @@ MonoBehaviour:
       condition: {fileID: 0}
     - buttonText: Leave with winnings (1 experience + 12 gold).
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
+      previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
@@ -75,6 +88,8 @@ MonoBehaviour:
     choices:
     - buttonText: Leave with winnings (1 experience + 12 gold + 3 random units).
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
+      previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
@@ -84,6 +99,8 @@ MonoBehaviour:
     choices:
     - buttonText: Leave.
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
+      previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0

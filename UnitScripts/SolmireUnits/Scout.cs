@@ -44,6 +44,6 @@ public class Scout : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"Side allies gain [c_crit]{critBuff}[/c] [CRIT].");
+        return ($"[c_side]Side[/c] allies gain [c_crit]{critBuff}[/c] [CRIT].");
     }
 }

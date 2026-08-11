@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StoryEventSO
   eventName: Unearthed Curio
   description: Get a random consumable.
-  eventIcon: {fileID: 21300000, guid: 277a3539fdd297840bd0c9d19fbe4dd7, type: 3}
+  eventIcon: {fileID: 21300000, guid: d3e49c22ac0f4484bab16cf120bfe708, type: 3}
   eventBackgroundImage: {fileID: 21300000, guid: 95f87df34ec49df49b816b29856fa078, type: 3}
   portalGlowColor: {r: 1, g: 0.7058824, b: 0.12941177, a: 1}
   minDayRequired: 1
   maxDayRequired: 12
   selectionWeight: 1
+  maxAppearancesPerRun: 0
   targetScene: 5
   pages:
   - promptText: 'Your search turns up a peculiar trinket. Whatever its purpose once
@@ -27,6 +28,8 @@ MonoBehaviour:
     choices:
     - buttonText: Take the consumable.
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
+      previewRarity: 0
       generateRandomUnitPreview: 1
       randomRegion: 4
       preferredTags: 2048
@@ -34,6 +37,8 @@ MonoBehaviour:
       condition: {fileID: 0}
     - buttonText: Leave.
       previewUnit: {fileID: 0}
+      rollRandomRarity: 1
+      previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0

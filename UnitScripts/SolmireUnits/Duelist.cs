@@ -3,6 +3,39 @@ using UnityEngine;
 
 public class Duelist : UnitInstance
 {
+    private int advanceCount = 1;
+
+    public override void EnterCombat(GridManager grid, int row, int col, bool isPlayer, bool startCombat = true)
+    {
+        base.EnterCombat(grid, row, col, isPlayer, startCombat);
+
+        CombatEventBus.OnActionResolved += HandleActionResolved;
+
+    }
+
+    private void OnDestroy()
+    {
+        CombatEventBus.OnActionResolved -= HandleActionResolved;
+    }
+
+    private void HandleActionResolved(CombatAction action)
+    {
+
+        if (action.type != CombatActionType.Shield) return;
+        if (action.target != this) return;
+
+        CombatManager.Instance.ExecuteAction(
+            new CombatAction
+            {
+                type = CombatActionType.Advance,
+                source = this,
+                target = this,
+                amount = advanceCount,
+                reason = "Duelist Passive"
+            }
+        );
+    }
+
     protected override void UseAbility()
     {
         base.UseAbility();
@@ -36,5 +69,10 @@ public class Duelist : UnitInstance
     public override string GetActiveDescription()
     {
         return ($"[c_attack]Attack[/c] the nearest enemy for [ATK] {stats.Attack} damage. [c_shield]Shield[/c] this for [SHIELD] {stats.Shield}.");
+    }
+
+    public override string GetPassiveDescription()
+    {
+        return ($"When this is [c_shield]shielded[/c], advance this {advanceCount}.");
     }
 }

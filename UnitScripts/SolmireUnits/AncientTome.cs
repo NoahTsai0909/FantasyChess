@@ -30,7 +30,7 @@ public class AncientTome : UnitInstance
 
     public override string GetPassiveDescription()
     {
-        return ($"Side allies have [c_energy]+{energyBuff}[/c] max [ENERGY].");
+        return ($"[c_side]Side[/c] allies have [c_energy]+{energyBuff}[/c] max [ENERGY].");
     }
 
     public override void RemoveAuras()
