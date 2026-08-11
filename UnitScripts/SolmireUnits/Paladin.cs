@@ -28,6 +28,11 @@ public class Paladin : UnitInstance
             _ => 10
         };
     }
+    protected override void OnTierUpgraded()
+    {
+        base.OnTierUpgraded();
+        attackModifier = findBuff(CurrentRarity);
+    }
 
     public override void EnterCombat(GridManager grid, int row, int col, bool isPlayer, bool startCombat = true)
     {

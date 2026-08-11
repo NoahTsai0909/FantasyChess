@@ -28,6 +28,13 @@ public class Ranger : UnitInstance
             _ => 25
         };
     }
+
+    protected override void OnTierUpgraded()
+    {
+        base.OnTierUpgraded();
+        critBuff = findCritBuff(CurrentRarity);
+    }
+
     protected override void UseAbility()
     {
         base.UseAbility();

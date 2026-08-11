@@ -28,6 +28,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] private DragAndDropManager dragManager; 
     [SerializeField] private ProvisionManager provisionManager; 
     [SerializeField] private Button startCombatButton;
+    [SerializeField] private SellZone sellZone;
 
     [Header("Combat Settings")]
     [SerializeField] private float endCombatDelay = 1.0f;
@@ -301,6 +302,7 @@ public class gameManager : MonoBehaviour
         if (startCombatButton != null) startCombatButton.gameObject.SetActive(false);
         if (provisionManager != null) provisionManager.HideProvisionText();
         if (dragManager != null) dragManager.enabled = false;
+        if (sellZone != null) sellZone.gameObject.SetActive(false);
 
         SaveFormationToRunManager();
 

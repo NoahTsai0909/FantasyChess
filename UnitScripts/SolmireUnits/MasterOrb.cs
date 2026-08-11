@@ -5,33 +5,66 @@ using static UnityEngine.EventSystems.EventTrigger;
 
 public class MasterOrb : UnitInstance
 {
-    List<UnitInstance> allies = new List<UnitInstance>();
-    public override void CombatStartEffect()
+    private int energyBuff = 3;
+
+    public override void InitializeFromSaveData(UnitSaveData data)
+    {
+        base.InitializeFromSaveData(data);
+        energyBuff = findEnergyBuff(CurrentRarity);
+    }
+
+    public override void InitializeEnemy(UnitDefinition def, Rarity rarity)
+    {
+        base.InitializeEnemy(def, rarity);
+        energyBuff = findEnergyBuff(rarity);
+    }
+
+    private int findEnergyBuff(Rarity rarity)
+    {
+        return rarity switch
+        {
+            Rarity.Rare => 3,
+            Rarity.Epic => 4,
+            _ => 3
+        };
+    }
+
+    public override void RemoveAuras()
+    {
+        foreach (UnitInstance target in auraTargets)
+        {
+            if (target != null)
+            {
+                target.TemporaryStatModify(ModifiableStats.MaxEnergy, -energyBuff);
+            }
+        }
+        base.RemoveAuras(); // Clears the list
+    }
+
+    public override void ApplyAuras()
     {
 
-        allies = FindAllAllies();
+        if (myGrid == null) return;
 
+        auraTargets = FindAdjacentAllies();
 
-        foreach (UnitInstance ally in allies)
+        if (auraTargets == null) return;
+
+        foreach (UnitInstance target in auraTargets)
         {
-            if (ally.isEnergy)
+            if (target != null)
             {
-                ally.TemporaryStatModify(ModifiableStats.MaxEnergy, 4);
+                target.TemporaryStatModify(ModifiableStats.MaxEnergy, energyBuff);
             }
         }
     }
 
-    public override void Die()
+    protected override void OnTierUpgraded()
     {
-        foreach (UnitInstance ally in allies)
-        {
-            if (ally.isEnergy)
-            {
-                ally.TemporaryStatModify(ModifiableStats.MaxEnergy, -4);
-            }
-        }
-        base.Die();
+        base.OnTierUpgraded();
+        energyBuff = findEnergyBuff(CurrentRarity);
     }
+
 
     public override void EnterCombat(GridManager grid, int row, int col, bool isPlayer, bool startCombat = true)
     {
@@ -67,6 +100,6 @@ public class MasterOrb : UnitInstance
 
     public override string GetPassiveDescription()
     {
-        return ("Combat Start: Allies have [c_energy]+4[/c] [ENERGY]. Whenever a [ENERGY] is used, [c_attack]attack[/c] the farthest enemy by [ATK] {stats.Attack}.");
+        return ($"Allies have [c_energy]+{energyBuff}[/c] [ENERGY]. When an ally uses [ENERGY], [c_attack]attack[/c] the farthest enemy by [ATK] {stats.Attack}.");
     }
 }

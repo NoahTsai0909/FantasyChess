@@ -17,7 +17,7 @@ public class UnstableCrown : UnitInstance, IConsumable
 
     public override string GetActiveDescription()
     {
-        return "Consume this to upgrade the tier of a common unit.";
+        return "Consume this to upgrade the tier of a [c_common]common[/c] unit.";
     }
 }
 

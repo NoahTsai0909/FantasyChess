@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SearingHaloSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Searing Halo
-  maxHP: 260
+  maxHP: 120
   attack: 0
   heal: 30
   shield: 0
@@ -22,7 +22,7 @@ MonoBehaviour:
   slow: 0
   haste: 0
   critChance: 0
-  cooldown: 6
+  cooldown: 8
   isPassive: 0
   isEnergy: 0
   maxEnergy: 0
@@ -35,6 +35,7 @@ MonoBehaviour:
   startingRarity: 3
   provisionCost: 3
   isMelee: 0
+  isEventExclusive: 0
   unitPrefab: {fileID: 969266158289036265, guid: 50b3943a0c43ecc46becf0ce57417129, type: 3}
   spawnDefinition: {fileID: 0}
   tagFlags: 40

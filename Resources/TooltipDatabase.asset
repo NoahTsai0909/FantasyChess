@@ -84,3 +84,6 @@ MonoBehaviour:
     title: Level
     description: Level up every time you reach 10 experience. Leveling up yields
       important rewards!
+  - id: preview
+    title: Preview
+    description: Scout ahead and inspect the enemy formations!

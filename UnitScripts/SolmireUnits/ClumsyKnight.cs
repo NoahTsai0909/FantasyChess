@@ -65,6 +65,12 @@ public class ClumsyKnight : UnitInstance
         );
     }
 
+    protected override void OnTierUpgraded()
+    {
+        base.OnTierUpgraded();
+        shieldBuff = findShieldBuff(CurrentRarity);
+    }
+
     public override string GetActiveDescription()
     {
         return ($"[c_attack]Attack[/c] the nearest enemy for [ATK] {stats.Attack}.");

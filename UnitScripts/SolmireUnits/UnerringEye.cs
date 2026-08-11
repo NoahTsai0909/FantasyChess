@@ -5,7 +5,6 @@ public class UnerringEye : UnitInstance
 {
     private int hasteModifier = 0;
     private int critModifier = 25;
-    private List<UnitInstance> allies;
     public override void InitializeFromSaveData(UnitSaveData data)
     {
         base.InitializeFromSaveData(data);
@@ -46,32 +45,6 @@ public class UnerringEye : UnitInstance
     }
 
 
-    public override void CombatStartEffect()
-    {
-
-        allies = FindAdjacentAllies();
-
-
-        foreach (UnitInstance ally in allies)
-        {
-            
-               ally.TemporaryStatModify(ModifiableStats.CritChance, critModifier);
-            
-        }
-    }
-
-    public override void Die()
-    {
-        foreach (UnitInstance ally in allies)
-        {
-
-            
-            ally.TemporaryStatModify(ModifiableStats.CritChance, -critModifier);
-            
-        }
-        base.Die();
-    }
-
     protected override void UseAbility()
     {
         base.UseAbility();
@@ -91,6 +64,41 @@ public class UnerringEye : UnitInstance
             );
         }
     }
+    public override void RemoveAuras()
+    {
+        foreach (UnitInstance target in auraTargets)
+        {
+            if (target != null)
+            {
+                target.TemporaryStatModify(ModifiableStats.CritChance, -critModifier);
+            }
+        }
+        base.RemoveAuras(); // Clears the list
+    }
+
+    public override void ApplyAuras()
+    {
+
+        if (myGrid == null) return;
+
+        auraTargets = FindAdjacentAllies();
+
+        if (auraTargets == null) return;
+
+        foreach (UnitInstance target in auraTargets)
+        {
+            if (target != null)
+            {
+                target.TemporaryStatModify(ModifiableStats.CritChance, critModifier);
+            }
+        }
+    }
+
+    protected override void OnTierUpgraded()
+    {
+        base.OnTierUpgraded();
+        critModifier = findCritBuff(CurrentRarity);
+    }
 
     public override string GetActiveDescription()
     {
@@ -99,6 +107,6 @@ public class UnerringEye : UnitInstance
 
     public override string GetPassiveDescription()
     {
-        return ($"Combat Start: Adjacent allies have [c_crit]+{critModifier}[/c] [CRIT].");
+        return ($"Adjacent allies have [c_crit]+{critModifier}[/c] [CRIT].");
     }
 }

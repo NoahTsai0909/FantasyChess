@@ -20,8 +20,22 @@ public class Jester : UnitInstance
             }
         );
     }
+
+    public override void CombatStartEffect()
+    {
+        if (FindSideAllies().Count == 0)
+        {
+            this.TemporaryStatModify(ModifiableStats.Multicast, 1);
+        }
+    }
+
     public override string GetActiveDescription()
     {
         return ($"[c_attack]Attack[/c] a random enemy for [ATK] {stats.Attack}.");
+    }
+
+    public override string GetPassiveDescription()
+    {
+        return ($"Combat start: If this has no side allies, get +1 [MULTICAST].");
     }
 }

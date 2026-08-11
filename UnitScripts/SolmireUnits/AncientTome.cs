@@ -62,4 +62,12 @@ public class AncientTome : UnitInstance
             }
         }
     }
+
+    protected override void OnTierUpgraded()
+    {
+        base.OnTierUpgraded();
+        energyBuff = findBuff(CurrentRarity);
+    }
+
+
 }

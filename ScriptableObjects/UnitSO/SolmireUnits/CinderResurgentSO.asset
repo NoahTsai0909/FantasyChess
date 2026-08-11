@@ -22,7 +22,7 @@ MonoBehaviour:
   slow: 0
   haste: 0
   critChance: 0
-  cooldown: 5
+  cooldown: 7
   isPassive: 0
   isEnergy: 0
   maxEnergy: 0
@@ -35,6 +35,7 @@ MonoBehaviour:
   startingRarity: 3
   provisionCost: 3
   isMelee: 0
+  isEventExclusive: 0
   unitPrefab: {fileID: 628482665392837094, guid: 8f0252badc3fb5446b00ae06e4c67178, type: 3}
   spawnDefinition: {fileID: 11400000, guid: a9e8c8e7ae413934f8e4aad2a1ffa015, type: 2}
   tagFlags: 1056

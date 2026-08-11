@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BulwarkSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Bulwark
-  maxHP: 70
+  maxHP: 75
   attack: 0
   heal: 10
   shield: 10
@@ -35,6 +35,7 @@ MonoBehaviour:
   startingRarity: 1
   provisionCost: 2
   isMelee: 0
+  isEventExclusive: 0
   unitPrefab: {fileID: 5429032608279930861, guid: 673291c84c758d94cb4ba1764dcb160e, type: 3}
   spawnDefinition: {fileID: 0}
   tagFlags: 265

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TitanicCrusherSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Titanic Crusher
-  maxHP: 260
+  maxHP: 120
   attack: 0
   heal: 0
   shield: 0
@@ -32,9 +32,10 @@ MonoBehaviour:
   cost: 0
   region: 0
   rarity: 0
-  startingRarity: 3
+  startingRarity: 2
   provisionCost: 3
   isMelee: 1
+  isEventExclusive: 0
   unitPrefab: {fileID: 6604508876743058789, guid: 239d8f918d371874aafce0ab77346f8b, type: 3}
   spawnDefinition: {fileID: 0}
   tagFlags: 5120

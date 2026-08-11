@@ -26,6 +26,12 @@ public class Farmer : UnitInstance
             _ => 1
         };
     }
+    protected override void OnTierUpgraded()
+    {
+        base.OnTierUpgraded();
+        goldReward = findGoldReward(CurrentRarity);
+    }
+
 
     public override void EnterCombat(GridManager grid, int row, int col, bool isPlayer, bool startCombat = true)
     {

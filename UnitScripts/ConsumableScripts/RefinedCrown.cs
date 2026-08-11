@@ -17,6 +17,6 @@ public class RefinedCrown : UnitInstance, IConsumable
 
     public override string GetActiveDescription()
     {
-        return "Consume this to upgrade the tier of an uncommon unit.";
+        return "Consume this to upgrade the tier of an [c_uncommon]uncommon[/c] unit.";
     }
 }

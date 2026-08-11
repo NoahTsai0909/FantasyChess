@@ -660,6 +660,16 @@ public class UnitInstance : MonoBehaviour
         return targetingSystem.FindUnit(criteria, transform.position);
     }
 
+    protected List<UnitInstance> FindFarthestEnemies(int count)
+    {
+        if (targetingSystem == null) return new List<UnitInstance>();
+        var criteria = new TargetingSystem.TargetCriteria(
+            TargetingSystem.TargetTeam.Enemy,
+            TargetingSystem.SortMethod.Farthest
+        );
+        return targetingSystem.FindMultipleUnits(criteria, count, transform.position);
+    }
+
     protected UnitInstance FindLowestHealthAlly()
     {
         if (targetingSystem == null) return null;
@@ -670,6 +680,15 @@ public class UnitInstance : MonoBehaviour
         return targetingSystem.FindUnit(criteria, transform.position);
     }
 
+    protected List<UnitInstance> FindLowestHealthAllies(int count)
+    {
+        if (targetingSystem == null) return new List<UnitInstance>();
+        var criteria = new TargetingSystem.TargetCriteria(
+            TargetingSystem.TargetTeam.Ally,
+            TargetingSystem.SortMethod.LowestHealth
+        );
+        return targetingSystem.FindMultipleUnits(criteria, count, transform.position);
+    }
     protected UnitInstance FindRandomEnemy()
     {
         if (targetingSystem == null) return null;
