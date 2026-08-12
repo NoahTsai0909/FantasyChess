@@ -26,14 +26,15 @@ MonoBehaviour:
   - promptText: Perfected power flows through the crown, unlocking the full potential
       of its bearer.
     choices:
-    - buttonText: 'Take the Refined Crown. '
+    - buttonText: 'Take the Perfected Crown. '
       previewUnit: {fileID: 11400000, guid: 898f27d0e6084ad47b441b8cfe6d6588, type: 2}
       rollRandomRarity: 0
       previewRarity: 3
       generateRandomUnitPreview: 0
       randomRegion: 4
       preferredTags: 0
-      outcome: {fileID: 11400000, guid: ece5622ebdcd60c43b185923c7d0c416, type: 2}
+      outcomes:
+      - {fileID: 11400000, guid: d18ebcaabe5d90042ace566d1c825824, type: 2}
       condition: {fileID: 0}
     - buttonText: Leave.
       previewUnit: {fileID: 0}
@@ -42,6 +43,7 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
-      outcome: {fileID: 11400000, guid: f55e49cdda5c02c43a443ab2b5264be3, type: 2}
+      outcomes:
+      - {fileID: 11400000, guid: f55e49cdda5c02c43a443ab2b5264be3, type: 2}
       condition: {fileID: 0}
   eventIllustration: {fileID: 0}

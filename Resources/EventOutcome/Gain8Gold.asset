@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a61b43f4b3c8364182706fa0e211f13, type: 3}
   m_Name: Gain8Gold
   m_EditorClassIdentifier: Assembly-CSharp::GainGoldOutcomeSO
-  amount: 0
+  amount: 8

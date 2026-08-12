@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff5f06a4ad849d44954abedadf3f27d, type: 3}
   m_Name: Solmire1
   m_EditorClassIdentifier: Assembly-CSharp::LevelUpEventSO
-  eventName: 
+  eventName: LEVEL UP!
   description: 
   eventIcon: {fileID: 0}
   eventBackgroundImage: {fileID: 0}
@@ -32,7 +32,8 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
-      outcome: {fileID: 11400000, guid: 648ff3cb3cbdc8241bccc2290842861c, type: 2}
+      outcomes:
+      - {fileID: 11400000, guid: 648ff3cb3cbdc8241bccc2290842861c, type: 2}
       condition: {fileID: 0}
     - buttonText: + [MAXPROVISION] 1 + Unstable Crown
       previewUnit: {fileID: 11400000, guid: ef7083235406d9d458d5a087297227ec, type: 2}
@@ -41,7 +42,9 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
-      outcome: {fileID: 11400000, guid: ee33f38311df95143b2bae82c4e45ce0, type: 2}
+      outcomes:
+      - {fileID: 11400000, guid: 0024d3ca326952e4392240a113055cdc, type: 2}
+      - {fileID: 11400000, guid: d18ebcaabe5d90042ace566d1c825824, type: 2}
       condition: {fileID: 0}
     - buttonText: + [MAXPROVISION] 1 + Random beast
       previewUnit: {fileID: 0}
@@ -50,7 +53,9 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
-      outcome: {fileID: 11400000, guid: 428dfbe1a029b7b4ba93b8d328a4602c, type: 2}
+      outcomes:
+      - {fileID: 11400000, guid: 0024d3ca326952e4392240a113055cdc, type: 2}
+      - {fileID: 11400000, guid: b366ba16ae9ce304a898a413b7dcbef5, type: 2}
       condition: {fileID: 0}
-  eventIllustration: {fileID: 0}
+  eventIllustration: {fileID: 21300000, guid: e15c05d1ea92fd844a010314f01b9bba, type: 3}
   xpRequired: 10

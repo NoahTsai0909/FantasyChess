@@ -33,7 +33,8 @@ MonoBehaviour:
       generateRandomUnitPreview: 1
       randomRegion: 4
       preferredTags: 2048
-      outcome: {fileID: 11400000, guid: 2f943e4602e65db47bc585d9aeaaafd1, type: 2}
+      outcomes:
+      - {fileID: 11400000, guid: 9815444895d24be47a73792fc3d852e3, type: 2}
       condition: {fileID: 0}
     - buttonText: Leave.
       previewUnit: {fileID: 0}
@@ -42,6 +43,7 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
-      outcome: {fileID: 11400000, guid: f55e49cdda5c02c43a443ab2b5264be3, type: 2}
+      outcomes:
+      - {fileID: 11400000, guid: f55e49cdda5c02c43a443ab2b5264be3, type: 2}
       condition: {fileID: 0}
   eventIllustration: {fileID: 21300000, guid: 969a2e987df2fdf4998ff39c7e3bd249, type: 3}

@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acf0b7c42f766cd4f86f9ca8fc1b1576, type: 3}
   m_Name: Prov210Gold
   m_EditorClassIdentifier: Assembly-CSharp::CompositeOutcomeSO
-  outcomes: []
+  outcomes:
+  - {fileID: 11400000, guid: 648ff3cb3cbdc8241bccc2290842861c, type: 2}
+  - {fileID: 11400000, guid: 265a4d9f7e77c2945b4143b80228e616, type: 2}

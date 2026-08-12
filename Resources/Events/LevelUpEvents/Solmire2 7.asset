@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff5f06a4ad849d44954abedadf3f27d, type: 3}
   m_Name: Solmire2 7
   m_EditorClassIdentifier: Assembly-CSharp::LevelUpEventSO
-  eventName: 
+  eventName: LEVEL UP!
   description: 
   eventIcon: {fileID: 0}
   eventBackgroundImage: {fileID: 0}
@@ -32,7 +32,7 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
-      outcome: {fileID: 0}
+      outcomes: []
       condition: {fileID: 0}
     - buttonText: 
       previewUnit: {fileID: 0}
@@ -41,7 +41,7 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
-      outcome: {fileID: 0}
+      outcomes: []
       condition: {fileID: 0}
     - buttonText: 
       previewUnit: {fileID: 0}
@@ -50,7 +50,7 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
-      outcome: {fileID: 0}
+      outcomes: []
       condition: {fileID: 0}
-  eventIllustration: {fileID: 0}
+  eventIllustration: {fileID: 21300000, guid: e15c05d1ea92fd844a010314f01b9bba, type: 3}
   xpRequired: 10

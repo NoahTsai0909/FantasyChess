@@ -15,3 +15,7 @@ MonoBehaviour:
   regionName: 0
   levelNodes:
   - {fileID: 11400000, guid: 89ece008d78e4484d826e3f10553add0, type: 2}
+  - {fileID: 11400000, guid: 6b611bf4f9e422e4186781f4fb7e3f16, type: 2}
+  - {fileID: 11400000, guid: f22d3b8fb8617e94eb5d690ddd3fab19, type: 2}
+  - {fileID: 11400000, guid: 6400b2d5404e2074e9eaee533870b5d6, type: 2}
+  - {fileID: 11400000, guid: b38e538d6098ea8498724812a5c2782b, type: 2}

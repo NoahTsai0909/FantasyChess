@@ -36,7 +36,8 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
-      outcome: {fileID: 11400000, guid: ec2bd3a307c5a0346a76e2ef83dbeea4, type: 2}
+      outcomes:
+      - {fileID: 11400000, guid: ec2bd3a307c5a0346a76e2ef83dbeea4, type: 2}
       condition: {fileID: 0}
     - buttonText: Oh, I wouldn't say freed. More like, under new management. (Lose
         1 experience, gain 10 gold).
@@ -46,7 +47,8 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
-      outcome: {fileID: 11400000, guid: 25ef23a86f0dd124690c4c3c59f2d43c, type: 2}
+      outcomes:
+      - {fileID: 11400000, guid: 25ef23a86f0dd124690c4c3c59f2d43c, type: 2}
       condition: {fileID: 11400000, guid: 0735d7dcc1c494543a193e96a9920258, type: 2}
     - buttonText: 'Leave. '
       previewUnit: {fileID: 0}
@@ -55,6 +57,7 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
-      outcome: {fileID: 11400000, guid: f55e49cdda5c02c43a443ab2b5264be3, type: 2}
+      outcomes:
+      - {fileID: 11400000, guid: f55e49cdda5c02c43a443ab2b5264be3, type: 2}
       condition: {fileID: 0}
   eventIllustration: {fileID: 0}

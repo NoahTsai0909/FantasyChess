@@ -33,7 +33,8 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
-      outcome: {fileID: 11400000, guid: 7c0bfff97e991fc429f96dbe31a9a9f1, type: 2}
+      outcomes:
+      - {fileID: 11400000, guid: 7c0bfff97e991fc429f96dbe31a9a9f1, type: 2}
       condition: {fileID: 0}
     - buttonText: Give all units +5 shield permanently.
       previewUnit: {fileID: 0}
@@ -42,7 +43,8 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
-      outcome: {fileID: 11400000, guid: 5c2ae33d7e31a214799e5d54ea295faf, type: 2}
+      outcomes:
+      - {fileID: 11400000, guid: 5c2ae33d7e31a214799e5d54ea295faf, type: 2}
       condition: {fileID: 0}
     - buttonText: Give all units +10 max health permanently.
       previewUnit: {fileID: 0}
@@ -51,7 +53,8 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
-      outcome: {fileID: 11400000, guid: a19bce7a09a84eb44afdcb7c02d973da, type: 2}
+      outcomes:
+      - {fileID: 11400000, guid: a19bce7a09a84eb44afdcb7c02d973da, type: 2}
       condition: {fileID: 0}
     - buttonText: Give all units +2 burn permanently.
       previewUnit: {fileID: 0}
@@ -60,7 +63,8 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
-      outcome: {fileID: 11400000, guid: ca76fff542cb95643bb4533c30ecb3db, type: 2}
+      outcomes:
+      - {fileID: 11400000, guid: ca76fff542cb95643bb4533c30ecb3db, type: 2}
       condition: {fileID: 0}
     - buttonText: Give all units +2 poison permanently.
       previewUnit: {fileID: 0}
@@ -69,7 +73,8 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
-      outcome: {fileID: 11400000, guid: 215e67894cc0b2c4183e65c811b8da46, type: 2}
+      outcomes:
+      - {fileID: 11400000, guid: 215e67894cc0b2c4183e65c811b8da46, type: 2}
       condition: {fileID: 0}
     - buttonText: Pay 5 gold to double the buffs.
       previewUnit: {fileID: 0}
@@ -78,7 +83,9 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
-      outcome: {fileID: 11400000, guid: 15a1578984c536c4492c2ff55cbada6c, type: 2}
+      outcomes:
+      - {fileID: 11400000, guid: 816b150deae03e149ac3bc300ef3e5ca, type: 2}
+      - {fileID: 11400000, guid: 2b1b36731bd687f458acd1eb18434faa, type: 2}
       condition: {fileID: 11400000, guid: a5d5186322b814f43a0fb156d907679d, type: 2}
   - promptText: An ancient force stirs within you. One by one, your allies awaken
       to the primal power of Everborn.
@@ -90,7 +97,8 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
-      outcome: {fileID: 11400000, guid: 94bb49b5afedaed4786630f75c7cbd48, type: 2}
+      outcomes:
+      - {fileID: 11400000, guid: 94bb49b5afedaed4786630f75c7cbd48, type: 2}
       condition: {fileID: 0}
     - buttonText: Give all unis +10 shield permanently.
       previewUnit: {fileID: 0}
@@ -99,7 +107,8 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
-      outcome: {fileID: 11400000, guid: 7f988eeb1403f8b48aa7e5d92478bd25, type: 2}
+      outcomes:
+      - {fileID: 11400000, guid: 7f988eeb1403f8b48aa7e5d92478bd25, type: 2}
       condition: {fileID: 0}
     - buttonText: Give all unis +20 max health permanently.
       previewUnit: {fileID: 0}
@@ -108,7 +117,8 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
-      outcome: {fileID: 11400000, guid: 77e7bff8e0c879e41bf401c1799ff011, type: 2}
+      outcomes:
+      - {fileID: 11400000, guid: 77e7bff8e0c879e41bf401c1799ff011, type: 2}
       condition: {fileID: 0}
     - buttonText: Give all unis +4 burn permanently.
       previewUnit: {fileID: 0}
@@ -117,7 +127,8 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
-      outcome: {fileID: 11400000, guid: 378a0373aa44b6246996fc4790a824f5, type: 2}
+      outcomes:
+      - {fileID: 11400000, guid: 378a0373aa44b6246996fc4790a824f5, type: 2}
       condition: {fileID: 0}
     - buttonText: Give all unis +4 poison permanently.
       previewUnit: {fileID: 0}
@@ -126,6 +137,7 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
-      outcome: {fileID: 11400000, guid: 4c637e5ca9a151c4984e3bff870952d4, type: 2}
+      outcomes:
+      - {fileID: 11400000, guid: 4c637e5ca9a151c4984e3bff870952d4, type: 2}
       condition: {fileID: 0}
   eventIllustration: {fileID: 0}

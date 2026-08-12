@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff5f06a4ad849d44954abedadf3f27d, type: 3}
   m_Name: Solmire4
   m_EditorClassIdentifier: Assembly-CSharp::LevelUpEventSO
-  eventName: 
+  eventName: LEVEL UP!
   description: 
   eventIcon: {fileID: 0}
   eventBackgroundImage: {fileID: 0}
@@ -25,32 +25,37 @@ MonoBehaviour:
   pages:
   - promptText: 
     choices:
-    - buttonText: 
+    - buttonText: + [MAXPROVISION] 2
       previewUnit: {fileID: 0}
       rollRandomRarity: 0
       previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
-      outcome: {fileID: 0}
+      outcomes:
+      - {fileID: 11400000, guid: 648ff3cb3cbdc8241bccc2290842861c, type: 2}
       condition: {fileID: 0}
-    - buttonText: 
+    - buttonText: + [MAXPROVISION] 1 + Refined Crown
+      previewUnit: {fileID: 11400000, guid: b09d2ec188e02894285b1d89c03b7828, type: 2}
+      rollRandomRarity: 0
+      previewRarity: 2
+      generateRandomUnitPreview: 0
+      randomRegion: 0
+      preferredTags: 0
+      outcomes:
+      - {fileID: 11400000, guid: 0024d3ca326952e4392240a113055cdc, type: 2}
+      - {fileID: 11400000, guid: d18ebcaabe5d90042ace566d1c825824, type: 2}
+      condition: {fileID: 0}
+    - buttonText: + [MAXPROVISION] 1 + random mage
       previewUnit: {fileID: 0}
       rollRandomRarity: 0
       previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
-      outcome: {fileID: 0}
+      outcomes:
+      - {fileID: 11400000, guid: 0024d3ca326952e4392240a113055cdc, type: 2}
+      - {fileID: 11400000, guid: 51f5b4292a2b92742af2804be6bc6bf4, type: 2}
       condition: {fileID: 0}
-    - buttonText: 
-      previewUnit: {fileID: 0}
-      rollRandomRarity: 0
-      previewRarity: 0
-      generateRandomUnitPreview: 0
-      randomRegion: 0
-      preferredTags: 0
-      outcome: {fileID: 0}
-      condition: {fileID: 0}
-  eventIllustration: {fileID: 0}
+  eventIllustration: {fileID: 21300000, guid: e15c05d1ea92fd844a010314f01b9bba, type: 3}
   xpRequired: 10

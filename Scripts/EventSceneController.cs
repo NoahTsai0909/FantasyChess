@@ -152,14 +152,18 @@ public class EventSceneController : MonoBehaviour
 
     private void ExecutePlayerChoice(EventChoice selectedChoice, EventContext context)
     {
-        if (selectedChoice.outcome != null)
+        if (selectedChoice.outcomes != null && selectedChoice.outcomes.Count > 0)
         {
-            selectedChoice.outcome.ExecuteOutcome(context);
-
-            // Look at the flag instead of the class type!
+            foreach (var outcome in selectedChoice.outcomes)
+            {
+                if (outcome != null)
+                {
+                    outcome.ExecuteOutcome(context);
+                }
+            }
             if (context.keepEventOpen)
             {
-                return; // The event continues, do not call CompleteEvent()
+                return;
             }
         }
 
@@ -207,7 +211,7 @@ public class EventSceneController : MonoBehaviour
 
         spawnedIllustration.transform.localPosition = Vector3.zero;
         //universally scale these images up or down
-        spawnedIllustration.transform.localScale = Vector3.one * 7f;
+        spawnedIllustration.transform.localScale = Vector3.one * 10f;
     }
 
     // Notice the new parameters!

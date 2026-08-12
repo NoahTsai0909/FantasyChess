@@ -53,6 +53,7 @@ public class EventChoice
     public Region randomRegion;
     public UnitTagFlags preferredTags = UnitTagFlags.None;
 
-    public EventOutcomeSO outcome;
+    [Header("Outcomes")]
+    public List<EventOutcomeSO> outcomes = new List<EventOutcomeSO>();
     public ChoiceConditionSO condition;
 }
