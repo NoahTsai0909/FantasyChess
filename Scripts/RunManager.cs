@@ -57,6 +57,9 @@ public class RunManager : MonoBehaviour
     private Dictionary<Guid, PermanentStats> permanentStatsMap = new();
     public Dictionary<Guid, UnitLifetimeStats> masterUnitStats = new Dictionary<Guid, UnitLifetimeStats>();
     [SerializeField] public RarityDistributionTable rarityDistributionTable;
+    [Header("Region Progression")]
+    [SerializeField] public Region playerRegion;
+    [SerializeField] public RegionLevelTreeSO currentRegionTree;
 
     private void Awake()
     {

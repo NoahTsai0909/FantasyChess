@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Jester
   maxHP: 50
-  attack: 15
+  attack: 10
   heal: 0
   shield: 0
   burn: 0

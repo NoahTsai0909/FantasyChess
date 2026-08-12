@@ -107,7 +107,7 @@ public class EventSceneController : MonoBehaviour
                     }
                 }
 
-                if (btnText != null) btnText.text = displayText;
+                if (btnText != null) btnText.SetText(TextIconUtility.ParseDescription(displayText));
                 newButton.interactable = isInteractable;
 
                 EventContext choiceContext = new EventContext();

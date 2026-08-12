@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eff5f06a4ad849d44954abedadf3f27d, type: 3}
+  m_Name: Solmire3
+  m_EditorClassIdentifier: Assembly-CSharp::LevelUpEventSO
+  eventName: 
+  description: 
+  eventIcon: {fileID: 0}
+  eventBackgroundImage: {fileID: 0}
+  portalGlowColor: {r: 1, g: 1, b: 1, a: 1}
+  minDayRequired: 0
+  maxDayRequired: 0
+  selectionWeight: 1
+  maxAppearancesPerRun: 0
+  targetScene: 0
+  pages:
+  - promptText: 
+    choices:
+    - buttonText: 
+      previewUnit: {fileID: 0}
+      rollRandomRarity: 0
+      previewRarity: 0
+      generateRandomUnitPreview: 0
+      randomRegion: 0
+      preferredTags: 0
+      outcome: {fileID: 0}
+      condition: {fileID: 0}
+    - buttonText: 
+      previewUnit: {fileID: 0}
+      rollRandomRarity: 0
+      previewRarity: 0
+      generateRandomUnitPreview: 0
+      randomRegion: 0
+      preferredTags: 0
+      outcome: {fileID: 0}
+      condition: {fileID: 0}
+    - buttonText: 
+      previewUnit: {fileID: 0}
+      rollRandomRarity: 0
+      previewRarity: 0
+      generateRandomUnitPreview: 0
+      randomRegion: 0
+      preferredTags: 0
+      outcome: {fileID: 0}
+      condition: {fileID: 0}
+  eventIllustration: {fileID: 0}
+  xpRequired: 10

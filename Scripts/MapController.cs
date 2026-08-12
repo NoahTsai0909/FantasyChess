@@ -48,7 +48,10 @@ public class MapController : MonoBehaviour
 
     void Start()
     {
-        CheckLevelUp();
+        // If we leveled up, CheckLevelUp() triggers a scene load. 
+        // We return instantly so we don't waste power generating the map.
+        if (CheckLevelUp()) return;
+
         UpdateUI();
         if (RunManager.Instance.currentDailyEvents.Count == 0 &&
             !RunManager.Instance.eventInProgress)
@@ -73,7 +76,6 @@ public class MapController : MonoBehaviour
         }
 
         if (previewOverlay != null) previewOverlay.SetActive(false);
-
     }
 
     void Update()
@@ -169,24 +171,27 @@ public class MapController : MonoBehaviour
         SceneLoader.Instance.LoadScene(GameScene.PrepScene);
     }
 
-    private void CheckLevelUp()
+    private bool CheckLevelUp()
     {
-        if (RunManager.Instance == null) return;
-        if (RunManager.Instance.Stats.Experience >= 10)
+        if (RunManager.Instance == null || RunManager.Instance.currentRegionTree == null) return false;
+
+        int targetIndex = RunManager.Instance.Stats.PlayerLevel - 1;
+        int safeIndex = Mathf.Clamp(targetIndex, 0, RunManager.Instance.currentRegionTree.levelNodes.Count - 1);
+
+        if (RunManager.Instance.currentRegionTree.levelNodes.Count == 0) return false;
+
+        LevelUpEventSO nextLevelEvent = RunManager.Instance.currentRegionTree.levelNodes[safeIndex];
+
+        if (RunManager.Instance.Stats.Experience >= nextLevelEvent.xpRequired)
         {
-            RunManager.Instance.Stats.Experience -= 10;
+            RunManager.Instance.Stats.Experience -= nextLevelEvent.xpRequired;
             RunManager.Instance.Stats.PlayerLevel++;
 
-            levelUpOverlay.SetActive(true);
-            levelText.text = $"Level {RunManager.Instance.Stats.PlayerLevel}";
-            rewardText.text = "+2 Provision";
-
-            continueButton.onClick.AddListener(() =>
-            {
-                levelUpOverlay.SetActive(false);
-                RunManager.Instance.Stats.ProvisionCap += 2;
-            });
+            nextLevelEvent.OnSelected();
+            return true; 
         }
+
+        return false;
     }
 
     public void ShowEventInfo(string eventName, string eventDescription, Vector3 targetPosition)

@@ -62,3 +62,11 @@ MonoBehaviour:
       valueModifier: 0
     row: 0
     col: 2
+  - unitData:
+      definition: {fileID: 11400000, guid: 4d6c6be4606f6c149a844d382f204467, type: 2}
+      rarity: 2
+      provisionCost: 0
+      provisionModifier: 0
+      valueModifier: 0
+    row: 1
+    col: 2

@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CombatEventSO
   eventName: Village Guard
   description: Shieldmate and 2 farmers
-  eventIcon: {fileID: 21300000, guid: 277a3539fdd297840bd0c9d19fbe4dd7, type: 3}
+  eventIcon: {fileID: 21300000, guid: 7336b8d2c39383b48b5c2b9c6d1ab012, type: 3}
   eventBackgroundImage: {fileID: 0}
   portalGlowColor: {r: 1, g: 1, b: 1, a: 1}
   minDayRequired: 1
   maxDayRequired: 1
   selectionWeight: 1
+  maxAppearancesPerRun: 0
   targetScene: 2
   encounter: {fileID: 11400000, guid: 0ab0dfa65ba37b142b08480b4a44484a, type: 2}
   goldReward: 2

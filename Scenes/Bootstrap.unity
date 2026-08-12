@@ -362,7 +362,7 @@ MonoBehaviour:
   playerBenchPlacements: []
   defaultUnits:
   - unitData:
-      definition: {fileID: 11400000, guid: 4d6c6be4606f6c149a844d382f204467, type: 2}
+      definition: {fileID: 11400000, guid: 49265a2fcef4d1d498afa64030ec1851, type: 2}
       rarity: 2
       provisionCost: 0
       provisionModifier: 0
@@ -379,6 +379,8 @@ MonoBehaviour:
   currentEncounter: {fileID: 0}
   eventInProgress: 0
   rarityDistributionTable: {fileID: 11400000, guid: 4761c31200eefbd48a888347da7c49bf, type: 2}
+  playerRegion: 0
+  currentRegionTree: {fileID: 11400000, guid: abee08e9888d73f4883aa2306824939c, type: 2}
 --- !u!4 &221976165
 Transform:
   m_ObjectHideFlags: 0

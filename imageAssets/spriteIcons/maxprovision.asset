@@ -83,16 +83,16 @@ MonoBehaviour:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 0
-    m_Scale: 1
+    m_Scale: 2
     m_Name: maxprovision
   m_GlyphTable:
   - m_Index: 0
     m_Metrics:
       m_Width: 200
       m_Height: 200
-      m_HorizontalBearingX: -100
-      m_HorizontalBearingY: 100
-      m_HorizontalAdvance: 200
+      m_HorizontalBearingX: -30
+      m_HorizontalBearingY: 130
+      m_HorizontalAdvance: 150
     m_GlyphRect:
       m_X: 0
       m_Y: 0

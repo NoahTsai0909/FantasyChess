@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CombatEventSO
   eventName: Hunting Party
   description: A wandering battalion of soldiers
-  eventIcon: {fileID: 21300000, guid: 277a3539fdd297840bd0c9d19fbe4dd7, type: 3}
+  eventIcon: {fileID: 21300000, guid: 7336b8d2c39383b48b5c2b9c6d1ab012, type: 3}
   eventBackgroundImage: {fileID: 0}
   portalGlowColor: {r: 1, g: 1, b: 1, a: 1}
   minDayRequired: 2
   maxDayRequired: 2
   selectionWeight: 1
+  maxAppearancesPerRun: 0
   targetScene: 2
   encounter: {fileID: 11400000, guid: 351bdef2bce433b41856f84ac1105b9c, type: 2}
   goldReward: 2

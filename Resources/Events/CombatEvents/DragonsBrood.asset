@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CombatEventSO
   eventName: Dragon's Brood
   description: 
-  eventIcon: {fileID: 21300000, guid: 277a3539fdd297840bd0c9d19fbe4dd7, type: 3}
+  eventIcon: {fileID: 21300000, guid: a8e6f6dd0413e96469064b0c93988601, type: 3}
   eventBackgroundImage: {fileID: 0}
   portalGlowColor: {r: 1, g: 1, b: 1, a: 1}
   minDayRequired: 9
   maxDayRequired: 10
   selectionWeight: 1
+  maxAppearancesPerRun: 0
   targetScene: 2
   encounter: {fileID: 11400000, guid: c344b4735803e2744bf0359b66bbb941, type: 2}
   goldReward: 3

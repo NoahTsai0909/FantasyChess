@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CombatEventSO
   eventName: Assault Squad
   description: Quickblade * 2 + Ballista * 2 + Warhorn
-  eventIcon: {fileID: 21300000, guid: 277a3539fdd297840bd0c9d19fbe4dd7, type: 3}
+  eventIcon: {fileID: 21300000, guid: a8e6f6dd0413e96469064b0c93988601, type: 3}
   eventBackgroundImage: {fileID: 0}
   portalGlowColor: {r: 1, g: 1, b: 1, a: 1}
   minDayRequired: 5
   maxDayRequired: 6
   selectionWeight: 1
+  maxAppearancesPerRun: 0
   targetScene: 2
   encounter: {fileID: 11400000, guid: 40a9882ad94c86f45bfbb5a45c823123, type: 2}
   goldReward: 3

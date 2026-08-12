@@ -20,6 +20,7 @@ MonoBehaviour:
   minDayRequired: 11
   maxDayRequired: 12
   selectionWeight: 1
+  maxAppearancesPerRun: 0
   targetScene: 2
   encounter: {fileID: 11400000, guid: 35e8525c4e8dd4849bcd90e1b52f1045, type: 2}
   goldReward: 3
