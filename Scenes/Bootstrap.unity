@@ -381,6 +381,8 @@ MonoBehaviour:
   rarityDistributionTable: {fileID: 11400000, guid: 4761c31200eefbd48a888347da7c49bf, type: 2}
   playerRegion: 0
   currentRegionTree: {fileID: 11400000, guid: abee08e9888d73f4883aa2306824939c, type: 2}
+  allRegionTrees:
+  - {fileID: 11400000, guid: abee08e9888d73f4883aa2306824939c, type: 2}
 --- !u!4 &221976165
 Transform:
   m_ObjectHideFlags: 0

@@ -58,8 +58,10 @@ public class RunManager : MonoBehaviour
     public Dictionary<Guid, UnitLifetimeStats> masterUnitStats = new Dictionary<Guid, UnitLifetimeStats>();
     [SerializeField] public RarityDistributionTable rarityDistributionTable;
     [Header("Region Progression")]
-    [SerializeField] public Region playerRegion;
-    [SerializeField] public RegionLevelTreeSO currentRegionTree;
+    public Region playerRegion;
+    public RegionLevelTreeSO currentRegionTree;
+    [Tooltip("Drag all your specific RegionLevelTreeSO assets into this list!")]
+    [SerializeField] private List<RegionLevelTreeSO> allRegionTrees = new List<RegionLevelTreeSO>();
 
     private void Awake()
     {
@@ -67,6 +69,7 @@ public class RunManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            AssignRegionTree();
 
             if (playerTeamPlacements.Count == 0)
                 InitializeDefaultTeam();
@@ -83,6 +86,23 @@ public class RunManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void AssignRegionTree()
+    {
+        currentRegionTree = null; // Clear any old data
+
+        foreach (var tree in allRegionTrees)
+        {
+            if (tree.regionName == playerRegion)
+            {
+                currentRegionTree = tree;
+                Debug.Log($"Successfully loaded Level Tree for region: {playerRegion}");
+                return;
+            }
+        }
+
+        Debug.LogWarning($"Could not find a RegionLevelTreeSO for the region: {playerRegion}!");
     }
 
     void InitializeDefaultTeam()
@@ -396,7 +416,7 @@ public class RunManager : MonoBehaviour
         // Reset bench
         playerBenchPlacements.Clear();
         InitializeBench();
-
+        AssignRegionTree();
 
         // Clear any other run-specific data
         Debug.Log("Run reset complete!");
