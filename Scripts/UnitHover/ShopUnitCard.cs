@@ -2,40 +2,42 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Events;
-using UnityEngine.EventSystems; // Required for Pointer interfaces
+using UnityEngine.EventSystems;
 
-// Add the Pointer interfaces to detect hover and click natively
 public class ShopUnitCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [Header("UI References")]
+    [Tooltip("The native UI Image that will display the unit's sprite")]
     [SerializeField] private Image unitPortrait;
-    [SerializeField] private UnitHoverUI innerUnitUI;
     [SerializeField] private TextMeshProUGUI priceText;
 
     [Header("Hover Glow Settings")]
-    [SerializeField] private CanvasGroup hoverGlowGroup; // The backdrop image we will fade in/out
+    [SerializeField] private CanvasGroup hoverGlowGroup;
     [SerializeField] private float pulseSpeed = 4f;
     [SerializeField] private float minAlpha = 0.3f;
     [SerializeField] private float maxAlpha = 0.8f;
 
+    private UnitInstance assignedUnit;
     private UnityAction onBuyClicked;
     private bool isHovered = false;
 
     public void Initialize(UnitInstance dummyUnit, int price, UnityAction onBuyClicked)
     {
-        UIUnitVisualController visualController = unitPortrait.GetComponent<UIUnitVisualController>();
-        if (visualController != null)
+        assignedUnit = dummyUnit;
+
+        // Restore the breathing and rarity outline animations
+        if (assignedUnit != null && unitPortrait != null)
         {
-            // Pass in the definition and the specific rarity so it knows what color to pulse!
-            visualController.InitializeVisuals(dummyUnit.Definition, dummyUnit.CurrentRarity);
+            UIUnitVisualController visualController = unitPortrait.GetComponent<UIUnitVisualController>();
+            if (visualController != null)
+            {
+                visualController.InitializeVisuals(assignedUnit.Definition, assignedUnit.CurrentRarity);
+            }
         }
 
-        // 2. Data setup
-        innerUnitUI.Show(dummyUnit);
         priceText.text = $"{TextIconUtility.FormatGold(price)}";
         this.onBuyClicked = onBuyClicked;
 
-        // 3. Ensure the glow is fully invisible when the card is first created
         if (hoverGlowGroup != null)
         {
             hoverGlowGroup.alpha = 0f;
@@ -44,46 +46,47 @@ public class ShopUnitCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     void Update()
     {
-        // If hovered, calculate a sine wave to smoothly ping-pong the alpha value
         if (isHovered && hoverGlowGroup != null)
         {
-            float sineWave = (Mathf.Sin(Time.time * pulseSpeed) + 1f) / 2f; // Returns a value between 0 and 1
+            float sineWave = (Mathf.Sin(Time.time * pulseSpeed) + 1f) / 2f;
             hoverGlowGroup.alpha = Mathf.Lerp(minAlpha, maxAlpha, sineWave);
         }
     }
 
-    // Triggered the moment the mouse enters the card's RectTransform
     public void OnPointerEnter(PointerEventData eventData)
     {
         isHovered = true;
-        hoverGlowGroup.gameObject.SetActive(true); // Ensure the glow is active when hovered
+        hoverGlowGroup.gameObject.SetActive(true);
+
+        if (UnitHoverDetector.Instance != null && assignedUnit != null)
+        {
+            // Pass this card's RectTransform as the anchor!
+            UnitHoverDetector.Instance.ShowTooltipFromUI(assignedUnit);
+        }
     }
 
-    // Triggered the moment the mouse leaves the card's RectTransform
     public void OnPointerExit(PointerEventData eventData)
     {
         isHovered = false;
-        if (hoverGlowGroup != null)
+        hoverGlowGroup.alpha = 0f;
+        hoverGlowGroup.gameObject.SetActive(false);
+
+        // HIDE THE TOOLTIP!
+        if (UnitHoverDetector.Instance != null)
         {
-            hoverGlowGroup.alpha = 0f; // Instantly hide the glow when the mouse leaves
+            UnitHoverDetector.Instance.HideTooltipFromUI();
         }
-        hoverGlowGroup.gameObject.SetActive(false); // Deactivate the glow when not hovered
     }
 
-    // Triggered when the user clicks anywhere on this card
     public void OnPointerClick(PointerEventData eventData)
     {
         onBuyClicked?.Invoke();
     }
 
-    // The method we made earlier to hide the card without breaking the layout
     public void MarkAsPurchased()
     {
         CanvasGroup cg = GetComponent<CanvasGroup>();
-        if (cg == null)
-        {
-            cg = gameObject.AddComponent<CanvasGroup>();
-        }
+        if (cg == null) cg = gameObject.AddComponent<CanvasGroup>();
 
         cg.alpha = 0f;
         cg.interactable = false;

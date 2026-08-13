@@ -10,7 +10,7 @@ public class ShopEventSO : BaseEventSO
     public int refreshCost = 2;  // Add this line
     public bool discount = false;
     public UnitTagFlags allowedTags = UnitTagFlags.None;
-    public Region region = RunManager.Instance.playerRegion;
+    public Region region;
 
     [Header("Provision Filtering")]
     public int maxProvisionCost = -1;  // -1 means no filter, will add later

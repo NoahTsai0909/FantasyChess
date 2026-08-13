@@ -35,7 +35,7 @@ public class ShopSceneController : MonoBehaviour
 
         RunManager.Instance.InitializeShop(
             shopEvent.totalUnitsGenerated,
-            shopEvent.region,
+            RunManager.Instance.playerRegion,
             shopEvent.allowedTags,
             shopEvent.minProvisionCost,
             shopEvent.maxProvisionCost,
