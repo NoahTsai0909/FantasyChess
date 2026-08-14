@@ -142,7 +142,7 @@ public class BattleUIManager : MonoBehaviour
 
     private Vector3 GetCooldownBarOffset(bool isPlayer)
     {
-        return new Vector3(-2f, -2.5f, 0); // Changed to be more visible
+        return new Vector3(-1.75f, -2.5f, 0); // Changed to be more visible
     }
 
     private Vector3 GetStatusBarOffset(bool isPlayer)

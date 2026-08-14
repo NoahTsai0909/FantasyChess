@@ -14,6 +14,7 @@ public class RunManager : MonoBehaviour
 
     public List<UnitPlacement> playerTeamPlacements = new();
     public List<UnitPlacement> playerBenchPlacements = new();
+    public List<TacticPlacement> playerTactics = new();
 
     [System.Serializable]
     public class UnitPlacement
@@ -21,6 +22,22 @@ public class RunManager : MonoBehaviour
         public UnitSaveData unitData;
         public int row;
         public int col;
+    }
+
+    [System.Serializable]
+    public class TacticSaveData
+    {
+        // We will create TacticDefinition later, similar to UnitDefinition
+        public TacticDefinition definition;
+        public Rarity rarity;
+        public Guid id = Guid.NewGuid();
+    }
+
+    [System.Serializable]
+    public class TacticPlacement
+    {
+        public TacticSaveData tacticData;
+        public int orderIndex; // Their place in the timeline (0 to N)
     }
     public class ShopState
     {
@@ -417,6 +434,7 @@ public class RunManager : MonoBehaviour
         playerBenchPlacements.Clear();
         InitializeBench();
         AssignRegionTree();
+        playerTactics.Clear();
 
         // Clear any other run-specific data
         Debug.Log("Run reset complete!");

@@ -16,6 +16,9 @@ public class gameManager : MonoBehaviour
     public GridManager playerGrid;
     public GridManager enemyGrid;
     public GridManager benchGrid;
+    [Header("Tactic Bars")]
+    public TacticBarManager playerTacticBarManager;
+    public TacticBarManager enemyTacticBarManager;
 
     [Header("UI Manager")]
     [SerializeField] private BattleUIManager battleUIManager;
@@ -70,6 +73,8 @@ public class gameManager : MonoBehaviour
         {
             InitializeBattlefield(playerTeam, currentEncounter, false);
             InitializeBench();
+            InitializeTacticsBar();
+            InitializeEnemyTacticsBar(currentEncounter);
         }
         if (!HasLivingUnits(playerGrid))
         {
@@ -131,6 +136,8 @@ public class gameManager : MonoBehaviour
     private void EndCombat(bool playerWon, bool isDraw)
     {
         CombatEventBus.PublishCombatEnd();
+        if (playerTacticBarManager != null) playerTacticBarManager.StopCombat();
+        if (enemyTacticBarManager != null) enemyTacticBarManager.StopCombat();
         combatActive = false;
 
         foreach (var unit in playerGrid.GetAllUnits())
@@ -288,6 +295,8 @@ public class gameManager : MonoBehaviour
         if (playerTeam != null && currentEncounter != null)
         {
             InitializeBattlefield(playerTeam, currentEncounter, false);
+            InitializeTacticsBar();
+            InitializeEnemyTacticsBar(currentEncounter);
         }
     }
 
@@ -332,6 +341,8 @@ public class gameManager : MonoBehaviour
         {
             InitializeBattlefield(playerTeam, currentEncounter, true);
         }
+        if (playerTacticBarManager != null) playerTacticBarManager.StartCombat();
+        if (enemyTacticBarManager != null) enemyTacticBarManager.StartCombat();
         CheckCombatEnd();
     }
 
@@ -407,6 +418,20 @@ public class gameManager : MonoBehaviour
                 RunManager.Instance.playerBenchPlacements[i].col = -1;
             }
         }
+
+        if (playerTacticBarManager != null)
+        {
+            RunManager.Instance.playerTactics.Clear();
+            var activeTactics = playerTacticBarManager.GetAllTactics();
+            for (int i = 0; i < activeTactics.Count; i++)
+            {
+                if (activeTactics[i].myPlacement != null)
+                {
+                    activeTactics[i].myPlacement.orderIndex = i;
+                    RunManager.Instance.playerTactics.Add(activeTactics[i].myPlacement);
+                }
+            }
+        }
     }
 
     private void InitializeBench()
@@ -429,6 +454,55 @@ public class gameManager : MonoBehaviour
                     unit.EnterCombat(benchGrid, 0, col, true, false);
                 }
                 col++;
+            }
+        }
+    }
+
+    private void InitializeTacticsBar()
+    {
+        if (playerTacticBarManager == null) return;
+
+        playerTacticBarManager.ClearAllTactics();
+
+        // Ensure tactics are sorted by their saved orderIndex
+        var sortedTactics = RunManager.Instance.playerTactics;
+        sortedTactics.Sort((a, b) => a.orderIndex.CompareTo(b.orderIndex));
+
+        foreach (var placement in sortedTactics)
+        {
+            if (placement.tacticData == null || placement.tacticData.definition == null) continue;
+
+            // Spawn the tactic prefab
+            TacticInstance tactic = Instantiate(placement.tacticData.definition.tacticPrefab);
+            tactic.InitializeFromSaveData(placement.tacticData);
+            tactic.myPlacement = placement;
+
+            // Add it to the bar
+            playerTacticBarManager.AddTactic(tactic);
+        }
+    }
+
+    private void InitializeEnemyTacticsBar(EncounterDefinition encounter)
+    {
+        if (enemyTacticBarManager == null || encounter == null) return;
+
+        enemyTacticBarManager.ClearAllTactics();
+
+        // Assuming you add 'enemyTactics' to your EncounterDefinition
+        if (encounter.enemyTactics != null)
+        {
+            foreach (var placement in encounter.enemyTactics)
+            {
+                if (placement.tacticData == null || placement.tacticData.definition == null) continue;
+
+                TacticInstance tactic = Instantiate(placement.tacticData.definition.tacticPrefab);
+
+                // You may want to add an InitializeEnemy method to TacticInstance later, 
+                // but this works exactly like units for now!
+                tactic.InitializeFromSaveData(placement.tacticData);
+                tactic.myPlacement = placement;
+
+                enemyTacticBarManager.AddTactic(tactic);
             }
         }
     }

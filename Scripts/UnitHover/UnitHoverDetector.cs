@@ -18,7 +18,7 @@ public class UnitHoverDetector : MonoBehaviour
     private CanvasGroup hoverUICanvasGroup; // ADDED: To control raycasts dynamically
 
     private bool isPinned = false;
-
+    private bool isUIHoverDriven = false;
     public static UnitHoverDetector Instance { get; private set; }
 
     void Awake()
@@ -68,7 +68,7 @@ public class UnitHoverDetector : MonoBehaviour
                 mouse.rightButton.wasPressedThisFrame)
             {
                 isPinned = false;
-                if (hoverUICanvasGroup != null) hoverUICanvasGroup.blocksRaycasts = false; // Turn OFF raycasts
+                if (hoverUICanvasGroup != null) hoverUICanvasGroup.blocksRaycasts = false;
                 CancelHover();
             }
             return;
@@ -78,14 +78,12 @@ public class UnitHoverDetector : MonoBehaviour
         if (currentHoveredUnit != null && Keyboard.current.tKey.wasPressedThisFrame)
         {
             isPinned = true;
-            if (hoverUICanvasGroup != null) hoverUICanvasGroup.blocksRaycasts = true; // Turn ON raycasts for links!
+            if (hoverUICanvasGroup != null) hoverUICanvasGroup.blocksRaycasts = true;
             return;
         }
 
-        if (UnityEngine.EventSystems.EventSystem.current != null && UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
-        {
-            return;
-        }
+        // ADD THIS: If the Shop Card is currently driving the tooltip, skip the physics raycast entirely!
+        if (isUIHoverDriven) return;
 
         if (mouse.leftButton.isPressed)
         {
@@ -134,6 +132,8 @@ public class UnitHoverDetector : MonoBehaviour
     {
         if (isPinned) return;
 
+        isUIHoverDriven = false; // Add this safeguard just in case!
+
         if (hoverRoutine != null) StopCoroutine(hoverRoutine);
         hoverRoutine = null;
         pendingHoverUnit = null;
@@ -165,15 +165,16 @@ public class UnitHoverDetector : MonoBehaviour
         CancelHover();
         currentHoveredUnit = unit;
 
-        // Ensure raycasts are OFF so the Shop Card doesn't flicker!
+        isUIHoverDriven = true; // Tell the Update loop to back off!
+
         if (hoverUICanvasGroup != null) hoverUICanvasGroup.blocksRaycasts = false;
 
         hoverUIInstance.Show(unit);
     }
 
-    // Called by the ShopUnitCard
     public void HideTooltipFromUI()
     {
+        isUIHoverDriven = false; // Release control back to the physics loop
         if (!isPinned) CancelHover();
     }
 }

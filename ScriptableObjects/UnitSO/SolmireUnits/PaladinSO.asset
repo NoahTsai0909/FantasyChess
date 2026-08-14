@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PaladinSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Paladin
-  maxHP: 90
+  maxHP: 100
   attack: 10
   heal: 0
   shield: 0

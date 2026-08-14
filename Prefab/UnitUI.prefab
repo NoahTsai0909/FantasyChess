@@ -132,7 +132,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.5, y: -0.6}
+  m_AnchoredPosition: {x: 1, y: -1.2}
   m_SizeDelta: {x: 50, y: 40}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &9062200511390098265
@@ -2180,6 +2180,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3820663071237042237, guid: 66b688aa4f9a85f43a9765cb27d8ca9e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4750065992612106831, guid: 66b688aa4f9a85f43a9765cb27d8ca9e, type: 3}
       propertyPath: m_Name
       value: CooldownBar
@@ -2206,11 +2210,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6085240135156657310, guid: 66b688aa4f9a85f43a9765cb27d8ca9e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6085240135156657310, guid: 66b688aa4f9a85f43a9765cb27d8ca9e, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6085240135156657310, guid: 66b688aa4f9a85f43a9765cb27d8ca9e, type: 3}
       propertyPath: m_LocalScale.x
@@ -2250,7 +2254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6085240135156657310, guid: 66b688aa4f9a85f43a9765cb27d8ca9e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -20
+      value: -70
       objectReference: {fileID: 0}
     - target: {fileID: 6085240135156657310, guid: 66b688aa4f9a85f43a9765cb27d8ca9e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2267,6 +2271,14 @@ PrefabInstance:
     - target: {fileID: 6085240135156657310, guid: 66b688aa4f9a85f43a9765cb27d8ca9e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8151981968615388822, guid: 66b688aa4f9a85f43a9765cb27d8ca9e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9100569500427185547, guid: 66b688aa4f9a85f43a9765cb27d8ca9e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

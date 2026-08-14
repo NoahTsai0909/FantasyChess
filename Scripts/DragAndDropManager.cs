@@ -10,10 +10,16 @@ public class DragAndDropManager : MonoBehaviour
     [SerializeField] private SellZone sellZone;
     [SerializeField] private ProvisionManager provisionManager;
 
+    [SerializeField] private TacticBarManager playerTacticBar;
+
     private UnitInstance draggedUnit;
     private RunManager.UnitPlacement draggedPlacement;
     private GridManager sourceGrid;
     private Vector2Int sourcePos;
+
+    // NEW: Tactic Drag State
+    private TacticInstance draggedTactic;
+    private RunManager.TacticPlacement draggedTacticPlacement;
 
     private Camera mainCamera;
     private Mouse mouse;
@@ -37,17 +43,15 @@ public class DragAndDropManager : MonoBehaviour
 
         bool isMouseDown = mouse.leftButton.isPressed;
 
-        // Update sell zone highlight based on mouse position
+        // 1. Update sell zone highlight (ONLY if dragging a unit)
         if (draggedUnit != null)
         {
             Vector3 worldPos = GetMouseWorldPosition();
             bool overSellZone = IsInSellZone(worldPos);
 
-            // Highlight the sell zone visual
             if (sellZone != null)
                 sellZone.Highlight(overSellZone);
 
-            // Change unit color when over sell zone
             SpriteRenderer sr = draggedUnit.GetComponent<SpriteRenderer>();
             if (sr != null)
             {
@@ -55,40 +59,130 @@ public class DragAndDropManager : MonoBehaviour
             }
         }
 
+        // 2. Start Drag
         if (isMouseDown && !wasMouseDown)
             TryStartDrag();
 
-        if (!isMouseDown && wasMouseDown && draggedUnit != null)
-            StopDrag();
+        // 3. Stop Drag
+        if (!isMouseDown && wasMouseDown)
+        {
+            if (draggedUnit != null) StopDrag();
+            else if (draggedTactic != null) StopDragTactic();
+        }
 
-        if (draggedUnit != null && isMouseDown)
-            draggedUnit.transform.position = GetMouseWorldPosition();
+        // 4. Update Position
+        if (isMouseDown)
+        {
+            if (draggedUnit != null)
+                draggedUnit.transform.position = GetMouseWorldPosition();
+            else if (draggedTactic != null)
+                draggedTactic.transform.position = GetMouseWorldPosition();
+        }
 
         wasMouseDown = isMouseDown;
     }
 
+
     void TryStartDrag()
     {
+        // REMOVED: IsPointerOverGameObject check that was causing "DRAG FAILED"
+
         Vector3 worldPos = GetMouseWorldPosition();
-        Collider2D hit = Physics2D.OverlapPoint(worldPos);
+        Collider2D[] hits = Physics2D.OverlapPointAll(worldPos);
 
-        if (hit == null) return;
+        foreach (var hit in hits)
+        {
+            UnitInstance unit = hit.GetComponentInParent<UnitInstance>();
+            if (unit != null && unit.myPlacement != null)
+            {
+                GridManager grid = GetUnitGrid(unit);
+                if (grid != null)
+                {
+                    StartDrag(unit, grid);
+                    return;
+                }
+            }
 
-        UnitInstance unit = hit.GetComponent<UnitInstance>();
-        if (unit == null || unit.myPlacement == null) return;
-
-        GridManager grid = GetUnitGrid(unit);
-        if (grid == null) return;
-
-        StartDrag(unit, grid);
+            TacticInstance tactic = hit.GetComponentInParent<TacticInstance>();
+            if (tactic != null && tactic.myPlacement != null && playerTacticBar != null)
+            {
+                if (tactic.myBar == playerTacticBar)
+                {
+                    StartDragTactic(tactic);
+                    return;
+                }
+            }
+        }
     }
+
+    /* =========================================
+     * TACTIC DRAG LOGIC
+     * ========================================= */
+
+    void StartDragTactic(TacticInstance tactic)
+    {
+        draggedTactic = tactic;
+        draggedTacticPlacement = tactic.myPlacement;
+
+        // Remove it from the bar's visual layout, but keep the GameObject alive
+        playerTacticBar.RemoveTactic(tactic, destroyVisual: false);
+
+        SetTacticDragVisuals(tactic, true);
+    }
+
+    void StopDragTactic()
+    {
+        Vector3 dropPos = GetMouseWorldPosition();
+
+        // Find where in the timeline it was dropped based on X coordinate
+        int insertIndex = playerTacticBar.GetInsertIndexFromPosition(dropPos);
+
+        // Re-insert it into the bar
+        playerTacticBar.InsertTactic(insertIndex, draggedTactic);
+
+        // Sync the new order to the RunManager so it saves perfectly
+        SyncTacticPlacements();
+
+        SetTacticDragVisuals(draggedTactic, false);
+
+        // Clear state
+        draggedTactic = null;
+        draggedTacticPlacement = null;
+    }
+
+    void SyncTacticPlacements()
+    {
+        var allTactics = playerTacticBar.GetAllTactics();
+        RunManager.Instance.playerTactics.Clear();
+
+        for (int i = 0; i < allTactics.Count; i++)
+        {
+            var placement = allTactics[i].myPlacement;
+            placement.orderIndex = i; // Update its position
+            RunManager.Instance.playerTactics.Add(placement);
+        }
+    }
+
+    void SetTacticDragVisuals(TacticInstance tactic, bool isDragging)
+    {
+        SpriteRenderer sr = tactic.GetComponent<SpriteRenderer>();
+        if (sr != null)
+        {
+            Color c = sr.color;
+            c.a = isDragging ? 0.6f : 1f;
+            sr.color = c;
+            sr.sortingOrder = isDragging ? 100 : 0;
+        }
+    }
+
+    /* =========================================
+     * EXISTING UNIT DRAG LOGIC
+     * ========================================= */
 
     GridManager GetUnitGrid(UnitInstance unit)
     {
-        if (battleGrid.GetUnitPosition(unit) != new Vector2Int(-1, -1))
-            return battleGrid;
-        if (benchGrid.GetUnitPosition(unit) != new Vector2Int(-1, -1))
-            return benchGrid;
+        if (battleGrid.GetUnitPosition(unit) != new Vector2Int(-1, -1)) return battleGrid;
+        if (benchGrid.GetUnitPosition(unit) != new Vector2Int(-1, -1)) return benchGrid;
         return null;
     }
 
@@ -99,9 +193,7 @@ public class DragAndDropManager : MonoBehaviour
         sourceGrid = grid;
         sourcePos = grid.GetUnitPosition(unit);
 
-        // Remove unit from source grid, but don't destroy visual
         sourceGrid.RemoveUnit(sourcePos.x, sourcePos.y, destroyVisual: false);
-
         SetUnitDragVisuals(unit, true);
     }
 
@@ -117,29 +209,23 @@ public class DragAndDropManager : MonoBehaviour
         {
             GridManager targetGrid = GetClosestGrid(dropPos);
             Vector2Int targetPos = targetGrid.GetNearestGridPosition(dropPos);
-
-            // Get target unit if any
             UnitInstance targetUnit = targetGrid.GetUnitAtPosition(targetPos.x, targetPos.y);
 
             if (targetUnit != null && draggedUnit is IConsumable consumable)
             {
-                // Prevent self-consume
                 if (targetUnit == draggedUnit)
                 {
                     RevertDrag();
                     return;
                 }
 
-                // Attempt to apply the consume effect and store the result
                 bool consumeSuccessful = consumable.OnConsume(targetUnit);
 
                 if (consumeSuccessful)
                 {
-                    // Success! Remove from grid, run manager, and destroy
                     sourceGrid.ClearUnitReference(draggedPlacement);
                     RemoveFromRunManager(draggedUnit, draggedPlacement);
                     Destroy(draggedUnit.gameObject);
-
                     SetUnitDragVisuals(draggedUnit, false);
                     if (sellZone != null) sellZone.Highlight(false);
 
@@ -151,17 +237,13 @@ public class DragAndDropManager : MonoBehaviour
                 }
                 else
                 {
-                    // Failed! (e.g., wrong rarity tier). Bounce it back to its original slot.
                     RevertDrag();
                 }
-
                 return;
             }
 
-            // CASE 1: Moving to empty cell
             if (targetUnit == null)
             {
-                // Only check provision if moving TO battle grid FROM bench
                 if (targetGrid == battleGrid && sourceGrid == benchGrid)
                 {
                     if (provisionManager != null && !provisionManager.CanAddUnitToBattleGrid(draggedUnit))
@@ -171,27 +253,16 @@ public class DragAndDropManager : MonoBehaviour
                         return;
                     }
                 }
-                // If moving within same grid or from battle to bench, no provision check needed
             }
-            // CASE 2: Swapping units
             else
             {
-                // Determine the grid relationship
-                bool sameGrid = sourceGrid == targetGrid;
                 bool movingToBattle = targetGrid == battleGrid;
                 bool movingToBench = targetGrid == benchGrid;
                 bool fromBattle = sourceGrid == battleGrid;
                 bool fromBench = sourceGrid == benchGrid;
 
-                // Different provision scenarios:
-                if (sameGrid)
+                if (movingToBattle && fromBench)
                 {
-                    // Swapping within same grid - no provision change needed
-                    // (Total provision stays the same)
-                }
-                else if (movingToBattle && fromBench)
-                {
-                    // Swapping bench unit for battle unit
                     if (provisionManager != null && !provisionManager.CanSwapUnits(targetUnit, draggedUnit))
                     {
                         RevertDrag();
@@ -200,7 +271,6 @@ public class DragAndDropManager : MonoBehaviour
                 }
                 else if (movingToBench && fromBattle)
                 {
-                    // Swapping battle unit for bench unit
                     if (provisionManager != null && !provisionManager.CanSwapUnits(draggedUnit, targetUnit))
                     {
                         RevertDrag();
@@ -211,65 +281,42 @@ public class DragAndDropManager : MonoBehaviour
 
             RunManager.UnitPlacement targetPlacement = targetUnit != null ? targetUnit.myPlacement : null;
 
-            // Case 1: target cell occupied = swap
             if (targetUnit != null)
             {
-                // Put target unit into source cell
                 sourceGrid.PlaceUnit(targetPlacement, sourcePos.x, sourcePos.y, targetUnit);
                 targetPlacement.row = sourcePos.x;
                 targetPlacement.col = sourcePos.y;
             }
 
-            // Update dragged unit placement
             draggedPlacement.row = targetPos.x;
             draggedPlacement.col = targetPos.y;
 
-            // Case 2: moving between grids or within same grid
-            // Remove dragged unit from source grid reference (visual already gone in StartDrag)
             sourceGrid.ClearUnitReference(draggedPlacement);
-
-            // Place dragged unit in target grid
             targetGrid.PlaceUnit(draggedPlacement, targetPos.x, targetPos.y, draggedUnit);
         }
 
         SetUnitDragVisuals(draggedUnit, false);
 
-        // Reset sell zone highlight
-        if (sellZone != null)
-            sellZone.Highlight(false);
+        if (sellZone != null) sellZone.Highlight(false);
 
-        // Clear drag state
         draggedUnit = null;
         draggedPlacement = null;
         sourceGrid = null;
 
-        if (provisionManager != null)
-            provisionManager.CalculateCurrentProvision();
-
+        if (provisionManager != null) provisionManager.CalculateCurrentProvision();
         if (battleGrid != null) battleGrid.RefreshAllAuras();
         if (benchGrid != null) benchGrid.RefreshAllAuras();
     }
 
     void RevertDrag()
     {
-        // Return unit to source position
         sourceGrid.PlaceUnit(draggedPlacement, sourcePos.x, sourcePos.y, draggedUnit);
         draggedPlacement.row = sourcePos.x;
         draggedPlacement.col = sourcePos.y;
 
-        // Reset visuals
         SetUnitDragVisuals(draggedUnit, false);
-
-        SpriteRenderer sr = draggedUnit.GetComponent<SpriteRenderer>();
-        if (sr != null)
-        {
-            sr.sortingOrder = 0;
-        }
-
-        // Show feedback
         StartCoroutine(ShowProvisionWarning());
 
-        // Clear drag state
         draggedUnit = null;
         draggedPlacement = null;
         sourceGrid = null;
@@ -289,20 +336,11 @@ public class DragAndDropManager : MonoBehaviour
 
     GridManager GetClosestGrid(Vector3 worldPos)
     {
-        // Calculate distance to grid centers instead of nearest empty cell
         float distToBattle = Vector2.Distance(worldPos, battleGrid.transform.position);
         float distToBench = Vector2.Distance(worldPos, benchGrid.transform.position);
 
-        // Or use a weighted distance that considers grid bounds
-        float battleDist = Mathf.Min(
-            distToBattle,
-            battleGrid.DistanceToNearestEmptyCell(worldPos)
-        );
-
-        float benchDist = Mathf.Min(
-            distToBench,
-            benchGrid.DistanceToNearestEmptyCell(worldPos)
-        );
+        float battleDist = Mathf.Min(distToBattle, battleGrid.DistanceToNearestEmptyCell(worldPos));
+        float benchDist = Mathf.Min(distToBench, benchGrid.DistanceToNearestEmptyCell(worldPos));
 
         return (battleDist < benchDist) ? battleGrid : benchGrid;
     }
@@ -322,7 +360,6 @@ public class DragAndDropManager : MonoBehaviour
             Color c = sr.color;
             c.a = isDragging ? 0.6f : 1f;
             sr.color = c;
-
             sr.sortingOrder = isDragging ? 100 : 0;
         }
     }
@@ -330,36 +367,19 @@ public class DragAndDropManager : MonoBehaviour
     bool IsInSellZone(Vector3 worldPos)
     {
         if (sellZone == null) return false;
-
         Collider2D sellCollider = sellZone.GetComponent<Collider2D>();
-        if (sellCollider == null) return false;
-
-        return sellCollider.OverlapPoint(worldPos);
+        return sellCollider != null && sellCollider.OverlapPoint(worldPos);
     }
 
     void SellUnit()
     {
         if (draggedUnit == null || draggedPlacement == null) return;
 
-        Debug.Log($"Selling unit: {draggedUnit.unitName}");
-
-        // Calculate sell price
         int sellPrice = draggedUnit.Stats.Value;
-
-        // Add gold to player
         RunManager.Instance.Stats.CurrentGold += sellPrice;
-        Debug.Log($"Gained {sellPrice} gold. Total: {RunManager.Instance.Stats.CurrentGold}");
 
-        // Remove from source grid
-        if (sourceGrid != null)
-        {
-            sourceGrid.RemoveUnit(sourcePos.x, sourcePos.y, destroyVisual: true);
-        }
-
-        // Remove from RunManager's data
+        if (sourceGrid != null) sourceGrid.RemoveUnit(sourcePos.x, sourcePos.y, destroyVisual: true);
         RemoveFromRunManager(draggedUnit, draggedPlacement);
-
-        // Destroy the unit GameObject
         Destroy(draggedUnit.gameObject);
 
         if (battleGrid != null) battleGrid.RefreshAllAuras();
@@ -369,19 +389,14 @@ public class DragAndDropManager : MonoBehaviour
     void RemoveFromRunManager(UnitInstance unit, UnitPlacement placement)
     {
         if (RunManager.Instance == null) return;
-
-        // Check if unit is in battle grid or bench
         bool isInBattleGrid = sourceGrid == battleGrid;
 
         if (isInBattleGrid)
         {
-            // Remove from playerTeamPlacements
-            RunManager.Instance.playerTeamPlacements.RemoveAll(p =>
-                p.unitData == placement.unitData);
+            RunManager.Instance.playerTeamPlacements.RemoveAll(p => p.unitData == placement.unitData);
         }
         else
         {
-            // Remove from playerBenchPlacements
             foreach (var benchPlacement in RunManager.Instance.playerBenchPlacements)
             {
                 if (benchPlacement.unitData == placement.unitData)

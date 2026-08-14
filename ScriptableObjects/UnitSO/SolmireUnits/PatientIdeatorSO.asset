@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a16e02b8c37b3f43ac55682dba29a26, type: 3}
-  m_Name: PlatedFlamespitterSO
+  m_Name: PatientIdeatorSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
-  unitName: Plated Flamespitter
-  maxHP: 100
+  unitName: Patient Ideator
+  maxHP: 110
   attack: 0
   heal: 0
-  shield: 10
-  burn: 3
+  shield: 0
+  burn: 0
   poison: 0
   slow: 0
   haste: 0
@@ -27,7 +27,7 @@ MonoBehaviour:
   isEnergy: 0
   maxEnergy: 0
   multicast: 1
-  unitSprite: {fileID: 21300000, guid: 13d4c6843534c15448e69c8db1c523e6, type: 3}
+  unitSprite: {fileID: 21300000, guid: 3d7e3ae7997712e49b204bf148510e82, type: 3}
   defaultProjectile: []
   cost: 0
   region: 0
@@ -36,6 +36,6 @@ MonoBehaviour:
   provisionCost: 2
   isMelee: 0
   isEventExclusive: 0
-  unitPrefab: {fileID: 8706290825402064065, guid: eb1a872ebe6712044b0290b7af1723b3, type: 3}
+  unitPrefab: {fileID: 7200824552541013126, guid: 454dd48ff6ef6fa4ab5c98273c03bafe, type: 3}
   spawnDefinition: {fileID: 0}
-  tagFlags: 290
+  tagFlags: 1052674
