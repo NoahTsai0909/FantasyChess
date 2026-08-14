@@ -39,7 +39,21 @@ public class TacticInstance : MonoBehaviour
     protected virtual void Awake()
     {
         id = Guid.NewGuid();
-        // Visuals = GetComponent<TacticVisualController>();
+        if (fillIcon == null || backgroundIcon == null)
+        {
+            UnityEngine.UI.Image[] images = GetComponentsInChildren<UnityEngine.UI.Image>(true);
+            foreach (var img in images)
+            {
+                if (img.gameObject.name.Equals("fillIcon", StringComparison.OrdinalIgnoreCase))
+                {
+                    fillIcon = img;
+                }
+                else if (img.gameObject.name.Equals("BackgroundIcon", StringComparison.OrdinalIgnoreCase))
+                {
+                    backgroundIcon = img;
+                }
+            }
+        }
     }
 
     private void Start()
@@ -48,7 +62,7 @@ public class TacticInstance : MonoBehaviour
         {
             tacticName = definition.tacticName;
             isPassive = definition.isPassive;
-            // Visuals?.InitializeVisuals(definition);
+            UpdateVisuals();
         }
     }
 
@@ -60,8 +74,24 @@ public class TacticInstance : MonoBehaviour
         CurrentRarity = data.rarity;
         isPassive = definition.isPassive;
         id = data.id;
+        UpdateVisuals();
+    }
 
-        // Visuals?.UpdateRarityOutline(CurrentRarity);
+    private void UpdateVisuals()
+    {
+        if (definition != null && definition.tacticSprite != null)
+        {
+            if (fillIcon != null)
+            {
+                fillIcon.sprite = definition.tacticSprite;
+            }
+
+            if (backgroundIcon != null)
+            {
+                backgroundIcon.sprite = definition.tacticSprite;
+                backgroundIcon.color = new Color(0.2f, 0.2f, 0.2f, 1f);
+            }
+        }
     }
 
     public void EnterCombat()

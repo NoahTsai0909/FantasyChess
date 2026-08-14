@@ -12,6 +12,7 @@ public class UnitInstance : MonoBehaviour
     public UnitDefinition Definition => definition;
 
     public Rarity CurrentRarity { get; private set; }
+    public StatusEffectController Status { get; private set; }
 
     protected PermanentStats permanentStats;
     protected TemporaryStats temporaryStats;
@@ -61,10 +62,6 @@ public class UnitInstance : MonoBehaviour
 
     protected float cooldownTimer;
     protected bool abilityCrit;
-    public Dictionary<Guid, int> burnSources = new Dictionary<Guid, int>();
-    public int TotalBurnStacks => burnSources.Values.Sum();
-    public int slowStacks = 0;
-    public int hasteStacks = 0;
 
     public Guid id;
     public int row;
@@ -93,6 +90,7 @@ public class UnitInstance : MonoBehaviour
         id = Guid.NewGuid();
         temporaryStats = new TemporaryStats();
         Visuals = GetComponent<UnitVisualController>();
+        Status = gameObject.AddComponent<StatusEffectController>();
     }
 
     private void Start()
@@ -235,6 +233,7 @@ public class UnitInstance : MonoBehaviour
         currentHP = stats.MaxHP;
         currentEnergy = stats.maxEnergy;
         cooldownTimer = stats.Cooldown;
+        Status.ClearAllStatusEffects();
     }
 
     private void SetupTargeting()
@@ -360,6 +359,7 @@ public class UnitInstance : MonoBehaviour
     public virtual void Die()
     {
         RemoveAuras();
+        Status.ClearAllStatusEffects();
         if (myGrid != null)
         {
             myGrid.RemoveUnit(row, col, false);
@@ -427,57 +427,9 @@ public class UnitInstance : MonoBehaviour
         RefreshUI();
     }
 
-    public void ApplyBurn(int amount, Guid sourceId)
-    {
-        if (burnSources.ContainsKey(sourceId))
-        {
-            burnSources[sourceId] += amount;
-        }
-        else
-        {
-            burnSources[sourceId] = amount;
-        }
-        CombatEventBus.PublishStatusChanged(this, StatusEffectType.Burn, TotalBurnStacks);
-    }
-
-    public void DecayBurn()
-    {
-        if (burnSources.Count == 0) return;
-
-        Guid maxKey = Guid.Empty;
-        int maxVal = -1;
-        bool keyFound = false; //Use a bool to track if we found a key
-
-        foreach (var kvp in burnSources)
-        {
-            if (kvp.Value > maxVal)
-            {
-                maxVal = kvp.Value;
-                maxKey = kvp.Key;
-                keyFound = true;
-            }
-        }
-        if (keyFound) // Fix: Trust the boolean, don't check for Guid.Empty!
-        {
-            burnSources[maxKey]--;
-            if (burnSources[maxKey] <= 0)
-            {
-                burnSources.Remove(maxKey);
-            }
-        }
-    }
-
-    public void ApplySlow(int stacks)
-    {
-        slowStacks += stacks;
-        CombatEventBus.PublishStatusChanged(this, StatusEffectType.Slow, slowStacks);
-    }
-
-    public void ApplyHaste(int stacks)
-    {
-        hasteStacks += stacks;  
-        CombatEventBus.PublishStatusChanged(this, StatusEffectType.Haste, hasteStacks);
-    }
+    public void ApplyBurn(int amount, Guid sourceId) => Status.AddBurn(amount, sourceId);
+    public void ApplySlow(int amount) => Status.AddSlow(amount); // amount is now treated as seconds!
+    public void ApplyHaste(int amount) => Status.AddHaste(amount);
 
     /* =========================
     * Helpers
@@ -596,19 +548,13 @@ public class UnitInstance : MonoBehaviour
 
     private float GetCooldownSpeedMultiplier()
     {
-        bool slowed = slowStacks > 0;
-        bool hasted = hasteStacks > 0;
+        bool slowed = Status.slowTimer > 0;
+        bool hasted = Status.hasteTimer > 0;
 
-        if (slowed && hasted)
-            return 1f;       // cancel out
-
-        if (slowed)
-            return 0.5f;     // 50% slower
-
-        if (hasted)
-            return 1.5f;     // 50% faster
-
-        return 1f;           // normal
+        if (slowed && hasted) return 1f;
+        if (slowed) return 0.5f;
+        if (hasted) return 1.5f;
+        return 1f;
     }
 
     public void Advance(int seconds)

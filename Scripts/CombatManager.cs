@@ -45,8 +45,6 @@ public class CombatManager : MonoBehaviour
 
     private List<CombatAction> combatLog = new();
 
-    private float dotTimer = 1f;
-
     void Awake()
     {
         Instance = this;
@@ -121,81 +119,9 @@ public class CombatManager : MonoBehaviour
         CombatEventBus.PublishActionResolved(action); //publish the action resolved event
     }
 
-    void Update()
+    public void RecordStatAction(CombatAction action)
     {
-        dotTimer -= Time.deltaTime;
-        if (dotTimer <= 0f)
-        {
-            TickDots();
-            dotTimer = 1f;
-        }
-    }
-
-    private void TickDots()
-    {
-        foreach (var unit in GetAllUnitsInCombat())
-        {
-            if (unit.burnSources.Count > 0)
-            {
-                int totalBurnDamage = unit.TotalBurnStacks;
-
-                unit.TakeDamage(totalBurnDamage);
-
-                CombatAction visualTracker = new CombatAction
-                {
-                    type = CombatActionType.BurnTick,
-                    target = unit,
-                    targetId = unit.id,
-                    amount = totalBurnDamage,
-                    reason = "Burn tick", // do not log the consolidated damage!,
-                    isVisualOnly = true // The stat tracker will completely ignore this!
-
-                };
-                CombatEventBus.PublishActionResolved(visualTracker);
-
-                //Stat Tracking: Broadcast split logs silently for the Stats Tracker
-                foreach (var kvp in unit.burnSources)
-                {
-                    CombatAction statTracker = new CombatAction
-                    {
-                        type = CombatActionType.BurnTick,
-                        sourceId = kvp.Key,
-                        target = unit,
-                        targetId = unit.id,
-                        amount = kvp.Value,
-                        reason = "Burn",
-                        isSilent = true // The UI will completely ignore this!
-                    };
-                    combatLog.Add(statTracker);
-                    CombatEventBus.PublishActionResolved(statTracker);
-                }
-
-                //Decay the largest stack
-                unit.DecayBurn();
-
-                //Update the UI using the new helper property
-                CombatEventBus.PublishStatusChanged(
-                    unit,
-                    StatusEffectType.Burn,
-                    unit.TotalBurnStacks
-                );
-            }
-
-            if (unit.slowStacks != 0)
-            {
-                unit.slowStacks--;
-                if (unit.slowStacks <= 0)
-                    unit.slowStacks = 0;
-                CombatEventBus.PublishStatusChanged(unit, StatusEffectType.Slow, unit.slowStacks);
-            }
-
-            if (unit.hasteStacks != 0)
-            {
-                unit.hasteStacks--;
-                if (unit.hasteStacks <= 0) unit.hasteStacks = 0;
-                CombatEventBus.PublishStatusChanged(unit, StatusEffectType.Haste, unit.hasteStacks);
-            }
-        }
+        combatLog.Add(action);
     }
 
     private IEnumerable<UnitInstance> GetAllUnitsInCombat()
