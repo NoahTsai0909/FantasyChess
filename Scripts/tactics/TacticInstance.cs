@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TacticInstance : MonoBehaviour
@@ -14,6 +15,18 @@ public class TacticInstance : MonoBehaviour
     [Header("Combat State")]
     public bool inCombat = false;
     protected float cooldownTimer;
+
+    [Header("Visuals")]
+    public UnityEngine.UI.Image fillIcon;
+    public UnityEngine.UI.Image backgroundIcon;
+
+    [Header("Targeting")]
+    public bool isPlayer;
+    protected GridManager allyGrid;
+    protected GridManager enemyGrid;
+    protected TargetingSystem targetingSystem;
+
+    public bool isSpent { get; private set; }
     public float GetCooldownTimer() => cooldownTimer;
 
     public Guid id;
@@ -54,12 +67,17 @@ public class TacticInstance : MonoBehaviour
     public void EnterCombat()
     {
         inCombat = true;
+        isSpent = false;
         cooldownTimer = definition.cooldown;
 
-        if (isPassive)
+        // Reset visuals for the start of the fight
+        if (fillIcon != null)
         {
-            ApplyPassiveEffect();
+            fillIcon.color = Color.white;
+            fillIcon.fillAmount = 0f; // Starts empty and fills up!
         }
+
+        if (isPassive) ApplyPassiveEffect();
     }
 
     /* =========================
@@ -105,7 +123,19 @@ public class TacticInstance : MonoBehaviour
     /// Called manually by the timeline manager when this tactic reaches the front of the queue.
     /// </summary>
     /// 
-    public bool TickCooldown(float dt) { cooldownTimer -= dt; return cooldownTimer <= 0; }
+    public bool TickCooldown(float dt)
+    {
+        cooldownTimer -= dt;
+
+        // Animate the bottom-up fill
+        if (fillIcon != null && definition.cooldown > 0)
+        {
+            // Fills from 0 to 1 as the timer counts down
+            fillIcon.fillAmount = 1f - (cooldownTimer / definition.cooldown);
+        }
+
+        return cooldownTimer <= 0;
+    }
     public void ResetCooldown() { cooldownTimer = Definition.cooldown; }
     public virtual void ExecuteActiveEffect()
     {
@@ -129,5 +159,63 @@ public class TacticInstance : MonoBehaviour
     {
         int delta = CurrentRarity - Definition.startingRarity;
         return RarityScaling.GetMultiplier(delta);
+    }
+
+    public void MarkAsSpent()
+    {
+        isSpent = true;
+
+        // Gray out the icon to show it is out of commission for this combat
+        if (fillIcon != null)
+        {
+            fillIcon.color = new Color(0.3f, 0.3f, 0.3f, 1f); // Dark gray
+        }
+    }
+
+    public virtual void SetupTargeting(bool isPlayerSide)
+    {
+        isPlayer = isPlayerSide;
+        gameManager gm = FindFirstObjectByType<gameManager>();
+
+        if (gm != null)
+        {
+            allyGrid = isPlayer ? gm.playerGrid : gm.enemyGrid;
+            enemyGrid = isPlayer ? gm.enemyGrid : gm.playerGrid;
+            targetingSystem = new TargetingSystem(allyGrid, enemyGrid, isPlayer);
+        }
+    }
+
+    // --- Targeting Helpers exactly like UnitInstance ---
+
+    protected List<UnitInstance> FindAllAllies()
+    {
+        if (allyGrid != null) return allyGrid.GetAllUnits();
+        return new List<UnitInstance>();
+    }
+
+    protected List<UnitInstance> FindAllEnemies()
+    {
+        if (targetingSystem != null) return targetingSystem.GetEnemies();
+        return new List<UnitInstance>();
+    }
+
+    protected UnitInstance FindNearestEnemy()
+    {
+        if (targetingSystem == null) return null;
+        var criteria = new TargetingSystem.TargetCriteria(
+            TargetingSystem.TargetTeam.Enemy,
+            TargetingSystem.SortMethod.Nearest
+        );
+        return targetingSystem.FindUnit(criteria, transform.position);
+    }
+
+    protected UnitInstance FindLowestHealthAlly()
+    {
+        if (targetingSystem == null) return null;
+        var criteria = new TargetingSystem.TargetCriteria(
+            TargetingSystem.TargetTeam.Ally,
+            TargetingSystem.SortMethod.LowestHealth
+        );
+        return targetingSystem.FindUnit(criteria, transform.position);
     }
 }

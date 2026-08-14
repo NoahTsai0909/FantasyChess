@@ -23,57 +23,47 @@ public class TacticBarManager : MonoBehaviour
     {
         if (!isCombatRunning) return;
 
-        // Find the first active (non-passive) tactic in the line
-        TacticInstance currentActive = GetFirstActiveTactic();
+        // 1. Find the first active tactic in the line that HAS NOT fired yet
+        TacticInstance currentActive = GetFirstReadyActiveTactic();
 
+        // 2. If we found one, tick its timer down
         if (currentActive != null)
         {
-            // Tick it down! (We will add this tiny method to TacticInstance next)
             if (currentActive.TickCooldown(Time.deltaTime))
             {
-                // BOOM! Timer hit 0. Fire the effect.
+                // BOOM! Timer hit 0. Fire the effect!
                 currentActive.ExecuteActiveEffect();
 
-                // Shift it to the back of the line
-                CycleTacticToBack(currentActive);
+                // Mark it as permanently spent for this combat so the runner moves to the next one
+                currentActive.MarkAsSpent();
             }
         }
     }
 
-    private TacticInstance GetFirstActiveTactic()
+    private TacticInstance GetFirstReadyActiveTactic()
     {
-        // Loop from left to right, return the first one that is NOT passive
         foreach (var tactic in activeTactics)
         {
-            if (tactic != null && !tactic.isPassive)
+            // We ignore passives, and we ignore anything that has already triggered
+            if (tactic != null && !tactic.isPassive && !tactic.isSpent)
             {
                 return tactic;
             }
         }
-        return null; // No active tactics exist!
+        return null;
     }
 
-    private void CycleTacticToBack(TacticInstance tactic)
-    {
-        // Remove it from its current spot
-        activeTactics.Remove(tactic);
-
-        // Reset its timer for the next cycle
-        tactic.ResetCooldown();
-
-        // Add it to the very end of the line
-        activeTactics.Add(tactic);
-
-        // Smoothly update the visual layout so everything slides left
-        UpdateVisualLayout();
-    }
-
-    public void StartCombat()
+    public void StartCombat(bool isPlayerBar)
     {
         isCombatRunning = true;
         foreach (var tactic in activeTactics)
         {
-            if (tactic != null) tactic.EnterCombat(); // This triggers passives!
+            if (tactic != null)
+            {
+                // Pass it straight down to the tactic
+                tactic.SetupTargeting(isPlayerBar);
+                tactic.EnterCombat();
+            }
         }
     }
 
@@ -82,11 +72,9 @@ public class TacticBarManager : MonoBehaviour
         isCombatRunning = false;
         foreach (var tactic in activeTactics)
         {
-            // Clean up auras, reset timers, etc.
             if (tactic != null)
             {
                 tactic.inCombat = false;
-                tactic.ResetCooldown();
                 if (tactic.isPassive) tactic.RemovePassiveEffect();
             }
         }

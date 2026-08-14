@@ -913,6 +913,74 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &535091941
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6874559864040006026, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+      propertyPath: m_Name
+      value: enemyTacticBar
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+--- !u!114 &535091942 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6536262297077695040, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+  m_PrefabInstance: {fileID: 535091941}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ec6876943cb70240ac581a8f0bd0bb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TacticBarManager
 --- !u!1 &535575537
 GameObject:
   m_ObjectHideFlags: 0
@@ -945,6 +1013,8 @@ MonoBehaviour:
   playerGrid: {fileID: 1148643570}
   enemyGrid: {fileID: 792499638}
   benchGrid: {fileID: 384143226}
+  playerTacticBarManager: {fileID: 740612965}
+  enemyTacticBarManager: {fileID: 535091942}
   battleUIManager: {fileID: 1545069895}
   inspectStatsButton: {fileID: 1501316033}
   continueButton: {fileID: 1570688335}
@@ -1104,6 +1174,74 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &740612964
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6874559864040006026, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+      propertyPath: m_Name
+      value: playerTacticBar
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+--- !u!114 &740612965 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6536262297077695040, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+  m_PrefabInstance: {fileID: 740612964}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ec6876943cb70240ac581a8f0bd0bb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TacticBarManager
 --- !u!1 &792499636
 GameObject:
   m_ObjectHideFlags: 0
@@ -1530,6 +1668,7 @@ MonoBehaviour:
   benchGrid: {fileID: 384143226}
   sellZone: {fileID: 1177358578}
   provisionManager: {fileID: 635529695}
+  playerTacticBar: {fileID: 0}
 --- !u!4 &1391267512
 Transform:
   m_ObjectHideFlags: 0
@@ -8305,3 +8444,5 @@ SceneRoots:
   - {fileID: 635529696}
   - {fileID: 1391267512}
   - {fileID: 1177358580}
+  - {fileID: 740612964}
+  - {fileID: 535091941}

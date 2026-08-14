@@ -85,6 +85,10 @@ public class gameManager : MonoBehaviour
             battleUIManager.Initialize(playerGrid, enemyGrid);
         }
         CombatEventBus.OnCombatEvent += OnCombatEvent;
+        if (RunHUDManager.Instance != null)
+        {
+            RunHUDManager.Instance.SlideOutAndHide(0.5f);
+        }
     }
 
     private void OnDestroy()
@@ -267,11 +271,6 @@ public class gameManager : MonoBehaviour
 
     private void ResetBattlefieldToStasis()
     {
-        if (RunHUDManager.Instance != null)
-        {
-            RunHUDManager.Instance.ResetAndShow();
-        }
-
         if (battleUIManager != null)
         {
             foreach (var unit in playerGrid.GetAllUnits())
@@ -320,11 +319,6 @@ public class gameManager : MonoBehaviour
             StartCoroutine(SlideBenchOutRoutine(0.5f));
         }
 
-        if (RunHUDManager.Instance != null)
-        {
-            RunHUDManager.Instance.SlideOutAndHide(0.5f);
-        }
-
         if (battleUIManager != null)
         {
             foreach (var unit in playerGrid.GetAllUnits()) battleUIManager.RemoveUnitUI(unit);
@@ -341,8 +335,11 @@ public class gameManager : MonoBehaviour
         {
             InitializeBattlefield(playerTeam, currentEncounter, true);
         }
-        if (playerTacticBarManager != null) playerTacticBarManager.StartCombat();
-        if (enemyTacticBarManager != null) enemyTacticBarManager.StartCombat();
+
+        // Pass "true" for the player, and "false" for the enemy!
+        if (playerTacticBarManager != null) playerTacticBarManager.StartCombat(true);
+        if (enemyTacticBarManager != null) enemyTacticBarManager.StartCombat(false);
+
         CheckCombatEnd();
     }
 

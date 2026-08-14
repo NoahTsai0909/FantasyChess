@@ -44,6 +44,10 @@ public class MapController : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        if (RunHUDManager.Instance != null)
+        {
+            RunHUDManager.Instance.ResetAndShow();
+        }
     }
 
     void Start()
