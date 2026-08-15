@@ -26,12 +26,15 @@ public class TacticInstance : MonoBehaviour
     protected GridManager enemyGrid;
     protected TargetingSystem targetingSystem;
 
+    protected List<UnitInstance> auraTargets = new List<UnitInstance>();
     public bool isSpent { get; private set; }
     public float GetCooldownTimer() => cooldownTimer;
 
     public Guid id;
     public TacticBarManager myBar;
     public RunManager.TacticPlacement myPlacement;
+    [Header("Drag State")]
+    public bool isDragging = false;
 
     // Optional: If you want visual pulsing/outlines similar to units
     // public TacticVisualController Visuals { get; private set; }
@@ -106,8 +109,6 @@ public class TacticInstance : MonoBehaviour
             fillIcon.color = Color.white;
             fillIcon.fillAmount = 0f; // Starts empty and fills up!
         }
-
-        if (isPassive) ApplyPassiveEffect();
     }
 
     /* =========================
@@ -167,9 +168,39 @@ public class TacticInstance : MonoBehaviour
         return cooldownTimer <= 0;
     }
     public void ResetCooldown() { cooldownTimer = Definition.cooldown; }
+    private System.Collections.IEnumerator BounceEffect()
+    {
+        Vector3 originalScale = transform.localScale;
+        Vector3 punchScale = originalScale * 1.3f; // Bounces 30% larger
+
+        float duration = 0.1f; // Quick pop up
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            transform.localScale = Vector3.Lerp(originalScale, punchScale, elapsed / duration);
+            yield return null;
+        }
+
+        elapsed = 0f;
+        duration = 0.15f; // Slightly slower settle down
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            transform.localScale = Vector3.Lerp(punchScale, originalScale, elapsed / duration);
+            yield return null;
+        }
+
+        transform.localScale = originalScale; // Guarantee it resets perfectly
+    }
+
     public virtual void ExecuteActiveEffect()
     {
-        // Example: FindFirstObjectByType<GridManager>().GetAllUnits().ForEach(u => u.TemporaryStatModify(ModifiableStats.Attack, 5));
+        // Trigger the visual pop!
+        StartCoroutine(BounceEffect());
+        
     }
 
     public virtual void ApplyPassiveEffect()
@@ -213,9 +244,18 @@ public class TacticInstance : MonoBehaviour
             enemyGrid = isPlayer ? gm.enemyGrid : gm.playerGrid;
             targetingSystem = new TargetingSystem(allyGrid, enemyGrid, isPlayer);
         }
+        else
+        {
+            PrepSceneManager pm = FindFirstObjectByType<PrepSceneManager>();
+            if (pm != null)
+            {
+                allyGrid = isPlayer ? pm.battleGrid : null;
+                enemyGrid = null;
+                targetingSystem = new TargetingSystem(allyGrid, enemyGrid, isPlayer);
+            }
+        }
     }
 
-    // --- Targeting Helpers exactly like UnitInstance ---
 
     protected List<UnitInstance> FindAllAllies()
     {

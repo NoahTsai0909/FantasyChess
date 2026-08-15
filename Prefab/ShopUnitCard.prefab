@@ -494,8 +494,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIUnitVisualController
   enablePulse: 1
   pulseSpeed: 4
-  minThickness: 10
-  maxThickness: 14
+  minThickness: 2
+  maxThickness: 6
   enableBreathing: 1
   breatheSpeed: 3
   breatheAmount: 0.03

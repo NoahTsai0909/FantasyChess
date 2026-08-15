@@ -74,9 +74,16 @@ public class DragAndDropManager : MonoBehaviour
         if (isMouseDown)
         {
             if (draggedUnit != null)
+            {
                 draggedUnit.transform.position = GetMouseWorldPosition();
+            }
             else if (draggedTactic != null)
-                draggedTactic.transform.position = GetMouseWorldPosition();
+            {
+                Vector3 mousePos = GetMouseWorldPosition();
+                draggedTactic.transform.position = mousePos;
+                int hoverIndex = playerTacticBar.GetInsertIndexFromPosition(mousePos);
+                playerTacticBar.InsertTactic(hoverIndex, draggedTactic);
+            }
         }
 
         wasMouseDown = isMouseDown;
@@ -124,21 +131,18 @@ public class DragAndDropManager : MonoBehaviour
         draggedTactic = tactic;
         draggedTacticPlacement = tactic.myPlacement;
 
-        // Remove it from the bar's visual layout, but keep the GameObject alive
-        playerTacticBar.RemoveTactic(tactic, destroyVisual: false);
+        tactic.isDragging = true;
 
         SetTacticDragVisuals(tactic, true);
     }
 
     void StopDragTactic()
     {
-        Vector3 dropPos = GetMouseWorldPosition();
+        // NEW: Turn the drag flag off so the Layout Engine regains control
+        draggedTactic.isDragging = false;
 
-        // Find where in the timeline it was dropped based on X coordinate
-        int insertIndex = playerTacticBar.GetInsertIndexFromPosition(dropPos);
-
-        // Re-insert it into the bar
-        playerTacticBar.InsertTactic(insertIndex, draggedTactic);
+        // Force one final visual update to snap it perfectly into its slot
+        playerTacticBar.UpdateVisualLayout();
 
         // Sync the new order to the RunManager so it saves perfectly
         SyncTacticPlacements();
@@ -148,6 +152,7 @@ public class DragAndDropManager : MonoBehaviour
         // Clear state
         draggedTactic = null;
         draggedTacticPlacement = null;
+        if (playerTacticBar != null) playerTacticBar.RefreshAllTacticAuras();
     }
 
     void SyncTacticPlacements()
@@ -165,14 +170,15 @@ public class DragAndDropManager : MonoBehaviour
 
     void SetTacticDragVisuals(TacticInstance tactic, bool isDragging)
     {
-        SpriteRenderer sr = tactic.GetComponent<SpriteRenderer>();
-        if (sr != null)
+        Canvas canvas = tactic.GetComponentInChildren<Canvas>();
+        if (canvas != null)
         {
-            Color c = sr.color;
-            c.a = isDragging ? 0.6f : 1f;
-            sr.color = c;
-            sr.sortingOrder = isDragging ? 100 : 0;
+            canvas.overrideSorting = true;
+            canvas.sortingOrder = isDragging ? 10000 : 0;
         }
+        CanvasGroup cg = tactic.GetComponent<CanvasGroup>();
+        if (cg == null) cg = tactic.gameObject.AddComponent<CanvasGroup>();
+        cg.alpha = isDragging ? 0.6f : 1f;
     }
 
     /* =========================================
@@ -306,6 +312,7 @@ public class DragAndDropManager : MonoBehaviour
         if (provisionManager != null) provisionManager.CalculateCurrentProvision();
         if (battleGrid != null) battleGrid.RefreshAllAuras();
         if (benchGrid != null) benchGrid.RefreshAllAuras();
+        if (playerTacticBar != null) playerTacticBar.RefreshAllTacticAuras();
     }
 
     void RevertDrag()
@@ -384,6 +391,7 @@ public class DragAndDropManager : MonoBehaviour
 
         if (battleGrid != null) battleGrid.RefreshAllAuras();
         if (benchGrid != null) benchGrid.RefreshAllAuras();
+        if (playerTacticBar != null) playerTacticBar.RefreshAllTacticAuras();
     }
 
     void RemoveFromRunManager(UnitInstance unit, UnitPlacement placement)

@@ -239,14 +239,17 @@ public class gameManager : MonoBehaviour
             {
                 playerUnit.CombatStartEffect();
                 playerGrid.RefreshAllAuras();
+                if (playerTacticBarManager != null) playerTacticBarManager.RefreshAllTacticAuras();
             }
             foreach (var enemyUnit in enemyGrid.GetAllUnits())
             {
                 enemyUnit.CombatStartEffect();
                 enemyGrid.RefreshAllAuras();
+                if (enemyTacticBarManager != null) enemyTacticBarManager.RefreshAllTacticAuras();
             }
         }
         unitReward = enemyGrid.GetRandomUnit();
+
     }
 
 

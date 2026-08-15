@@ -14,12 +14,6 @@ public class MapController : MonoBehaviour
     [SerializeField] private Transform eventButtonContainer;
     [SerializeField] private GameObject eventButtonPrefab;
 
-    [Header("Level Up Panel")]
-    [SerializeField] private GameObject levelUpOverlay;
-    [SerializeField] private TextMeshProUGUI levelText;
-    [SerializeField] private TextMeshProUGUI rewardText;
-    [SerializeField] private Button continueButton;
-
     [Header("Event Info HUD")]
     [SerializeField] private GameObject eventInfoPanel; // Assign your new HUD image here
     [SerializeField] private TextMeshProUGUI infoTitleText;
@@ -29,6 +23,7 @@ public class MapController : MonoBehaviour
     [SerializeField] private GameObject previewOverlay; // The dark UI panel
     [SerializeField] private Button closePreviewButton;
     [SerializeField] private GridManager previewGrid;
+    [SerializeField] private TacticBarManager enemyTacticBarManager;
 
     [Header("Transition Overlay")]
     [SerializeField] private Image blackScreenOverlay;
@@ -80,6 +75,7 @@ public class MapController : MonoBehaviour
         }
 
         if (previewOverlay != null) previewOverlay.SetActive(false);
+        if (enemyTacticBarManager != null) enemyTacticBarManager.gameObject.SetActive(false);
     }
 
     void Update()
@@ -243,20 +239,16 @@ public class MapController : MonoBehaviour
     {
         if (encounter == null) return;
 
-        // 1. Show the dark overlay to hide the map
         if (previewOverlay != null) previewOverlay.SetActive(true);
 
-        // NEW: Hide the UI portals so they don't block the world-space grid!
         if (eventButtonContainer != null) eventButtonContainer.gameObject.SetActive(false);
         if (closePreviewButton != null) closePreviewButton.gameObject.SetActive(true);
         if (previewGrid != null)
         {
             previewGrid.gameObject.SetActive(true);
         }
-        // 2. Ensure the grid is clean
         previewGrid.ClearAllUnits();
 
-        // 3. Spawn the enemies just like the GameManager does
         foreach (var placement in encounter.enemyUnits)
         {
             if (placement.unitData == null || placement.unitData.definition == null) continue;
@@ -266,17 +258,40 @@ public class MapController : MonoBehaviour
 
             unit.EnterCombat(previewGrid, placement.row, placement.col, false, false);
         }
+        if (enemyTacticBarManager != null)
+        {
+            enemyTacticBarManager.gameObject.SetActive(true);
+            enemyTacticBarManager.ClearAllTactics();
+
+            if (encounter.enemyTactics != null)
+            {
+                foreach (var placement in encounter.enemyTactics)
+                {
+                    if (placement.tacticData == null || placement.tacticData.definition == null) continue;
+
+                    TacticInstance tactic = Instantiate(placement.tacticData.definition.tacticPrefab);
+
+                    tactic.InitializeFromSaveData(placement.tacticData);
+                    tactic.myPlacement = placement;
+
+                    enemyTacticBarManager.AddTactic(tactic);
+                }
+            }
+        }
     }
 
     public void ClosePreview()
     {
-        // Wipe the dummy units and hide the overlay
         previewGrid.ClearAllUnits();
         previewGrid.gameObject.SetActive(false);
         if (closePreviewButton != null) closePreviewButton.gameObject.SetActive(false);
         if (previewOverlay != null) previewOverlay.SetActive(false);
 
-        // NEW: Bring the portals back!
+        if (enemyTacticBarManager != null)
+        {
+            enemyTacticBarManager.ClearAllTactics();
+            enemyTacticBarManager.gameObject.SetActive(false);
+        }
         if (eventButtonContainer != null) eventButtonContainer.gameObject.SetActive(true);
     }
 

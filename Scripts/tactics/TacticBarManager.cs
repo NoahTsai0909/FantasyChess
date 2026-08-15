@@ -3,21 +3,29 @@ using UnityEngine;
 
 public class TacticBarManager : MonoBehaviour
 {
-    [Header("Bar Settings")]
+    public enum BarAlignment { Left, Center, Right }
+    public BarAlignment alignment = BarAlignment.Left; // Player will be Left, Enemy will be Right
+
     [Tooltip("The standard distance between tactics")]
-    public float defaultSpacing = 3f;
+    public float defaultSpacing = 1f;
 
     [Tooltip("The maximum physical width the bar is allowed to take up on screen before it starts squishing tactics closer together")]
-    public float maxBarWidth = 24f;
+    public float maxBarWidth = 20f;
 
     [Header("Visuals")]
     public Vector2 tacticVisualOffset = new Vector2(0f, 0.5f);
+    [Tooltip("If true, tactics will alternate up and down to interlock.")]
+    public bool useVerticalStagger = true;
+
+    [Tooltip("How much to physically drop every alternating tactic.")]
+    public float verticalStaggerAmount = -1f;
 
     // The dynamic, gapless timeline of tactics
     private List<TacticInstance> activeTactics = new List<TacticInstance>();
 
     [Header("Combat State")]
     public bool isCombatRunning = false;
+
 
     void Update()
     {
@@ -83,6 +91,7 @@ public class TacticBarManager : MonoBehaviour
     /// <summary>
     /// Adds a tactic to the end of the timeline.
     /// </summary>
+
     public void AddTactic(TacticInstance tactic)
     {
         if (tactic == null) return;
@@ -90,7 +99,9 @@ public class TacticBarManager : MonoBehaviour
         if (!activeTactics.Contains(tactic))
         {
             activeTactics.Add(tactic);
-            tactic.myBar = this; // Assumes TacticInstance has a reference to the bar
+            tactic.myBar = this;
+            tactic.SetupTargeting(alignment == BarAlignment.Left);
+
             UpdateVisualLayout();
         }
     }
@@ -134,9 +145,18 @@ public class TacticBarManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Dynamically calculates positions to center the bar and squish items if needed.
-    /// </summary>
+    public void RefreshAllTacticAuras()
+    {
+        foreach (var tactic in activeTactics)
+        {
+            if (tactic != null && tactic.isPassive)
+            {
+                tactic.RemovePassiveEffect();
+                tactic.ApplyPassiveEffect();
+            }
+        }
+    }
+
     public void UpdateVisualLayout()
     {
         int count = activeTactics.Count;
@@ -146,49 +166,80 @@ public class TacticBarManager : MonoBehaviour
         float currentSpacing = defaultSpacing;
         float totalWidth = (count - 1) * currentSpacing;
 
-        // If the tactics exceed the visual boundaries, squish them together
         if (totalWidth > maxBarWidth)
         {
             currentSpacing = maxBarWidth / (count > 1 ? count - 1 : 1);
         }
 
-        // 2. Calculate the starting X position to keep the bar perfectly centered
-        float halfW = (count - 1) * currentSpacing * 0.5f;
-        Vector2 center = transform.position;
+        Vector2 anchorPos = transform.position;
 
-        // 3. Apply positions
         for (int i = 0; i < count; i++)
         {
-            float x = center.x + (i * currentSpacing) - halfW;
-            Vector2 targetPos = new Vector2(x, center.y) + tacticVisualOffset;
+            float x = anchorPos.x;
+            float y = anchorPos.y; // Start with the anchor's default Y
+
+            // ALIGNMENT (X-Axis)
+            if (alignment == BarAlignment.Center)
+            {
+                float halfW = totalWidth * 0.5f;
+                x = anchorPos.x + (i * currentSpacing) - halfW;
+            }
+            else if (alignment == BarAlignment.Left)
+            {
+                x = anchorPos.x + (i * currentSpacing);
+            }
+            else if (alignment == BarAlignment.Right)
+            {
+                x = anchorPos.x - (i * currentSpacing);
+            }
+
+            // STAGGER (Y-Axis): If it is an odd number (1, 3, 5), drop it down!
+            if (useVerticalStagger && i % 2 != 0)
+            {
+                y += verticalStaggerAmount;
+            }
+
+            Vector2 targetPos = new Vector2(x, y) + tacticVisualOffset;
 
             if (activeTactics[i] != null)
             {
-                // Note: You can replace this with a Coroutine/Lerp in the future for smooth sliding!
-                activeTactics[i].transform.position = targetPos;
+                if (!activeTactics[i].isDragging)
+                {
+                    activeTactics[i].transform.position = targetPos;
+                }
             }
         }
+
     }
 
-    /// <summary>
-    /// Used by DragAndDropManager. Calculates which index the player is trying to drop the tactic into based on mouse X.
-    /// </summary>
     public int GetInsertIndexFromPosition(Vector3 worldPosition)
     {
         int count = activeTactics.Count;
         if (count == 0) return 0;
 
-        // Calculate what spacing is currently being used
         float currentSpacing = (count - 1) * defaultSpacing > maxBarWidth
-            ? maxBarWidth / (count - 1)
+            ? maxBarWidth / (count > 1 ? count - 1 : 1)
             : defaultSpacing;
 
-        float halfW = (count - 1) * currentSpacing * 0.5f;
-        float startX = transform.position.x - halfW;
+        float startX = transform.position.x;
 
-        // Find exactly how far along the bar the mouse is
-        float localX = worldPosition.x - (startX - currentSpacing * 0.5f);
-        int index = Mathf.FloorToInt(localX / currentSpacing);
+        if (alignment == BarAlignment.Center)
+        {
+            float halfW = (count - 1) * currentSpacing * 0.5f;
+            startX = transform.position.x - halfW;
+        }
+
+        // Calculate distance from the anchor
+        float localX = worldPosition.x - startX;
+
+        // If right aligned, the bar grows to the left, so we invert the distance
+        if (alignment == BarAlignment.Right)
+        {
+            localX = startX - worldPosition.x;
+        }
+
+        // Using RoundToInt instead of FloorToInt ensures dropping between two items feels natural
+        int index = Mathf.RoundToInt(localX / currentSpacing);
 
         return Mathf.Clamp(index, 0, count);
     }

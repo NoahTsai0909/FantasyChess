@@ -6,15 +6,21 @@ using static SceneLoader;
 
 public class PrepSceneManager : MonoBehaviour
 {
-    [SerializeField] private GridManager battleGrid; // 3x3
-    [SerializeField] private GridManager benchGrid;  // 1x8
+    public GridManager battleGrid;
+    [SerializeField] private GridManager benchGrid;
     [SerializeField] private Button ReturnButton;
     [SerializeField] private ProvisionManager provisionManager;
+    [Header("Tactics")]
+    [SerializeField] private TacticBarManager playerTacticBarManager;
 
     private List<UnitInstance> spawnedUnits = new List<UnitInstance>();
 
     void Start()
     {
+        if (RunHUDManager.Instance != null)
+        {
+            RunHUDManager.Instance.SlideOutAndHide(0.5f);
+        }
 
         if (RunManager.Instance != null)
         {
@@ -24,11 +30,13 @@ public class PrepSceneManager : MonoBehaviour
         ReturnButton.onClick.AddListener(() => {
             ReturnToMapScene();
         });
+
         DragAndDropManager dragManager = FindFirstObjectByType<DragAndDropManager>();
 
         LoadBattleGridFromRunManager();
-
         LoadBenchGridFromRunManager();
+        LoadTacticBarFromRunManager();
+        playerTacticBarManager.RefreshAllTacticAuras();
     }
 
     public void ReturnToMapScene()
@@ -114,6 +122,28 @@ public class PrepSceneManager : MonoBehaviour
             col++;
         }
     }
+    private void LoadTacticBarFromRunManager()
+    {
+        if (RunManager.Instance == null || playerTacticBarManager == null) return;
+
+        playerTacticBarManager.ClearAllTactics();
+        playerTacticBarManager.isCombatRunning = false; // Strictly enforce non-combat state
+
+        // Ensure tactics are sorted by their saved orderIndex
+        var sortedTactics = RunManager.Instance.playerTactics;
+        sortedTactics.Sort((a, b) => a.orderIndex.CompareTo(b.orderIndex));
+
+        foreach (var placement in sortedTactics)
+        {
+            if (placement.tacticData == null || placement.tacticData.definition == null) continue;
+
+            TacticInstance tactic = Instantiate(placement.tacticData.definition.tacticPrefab);
+            tactic.InitializeFromSaveData(placement.tacticData);
+            tactic.myPlacement = placement;
+
+            playerTacticBarManager.AddTactic(tactic);
+        }
+    }
 
     private void SaveCurrentTeamToRunManager()
     {
@@ -164,9 +194,23 @@ public class PrepSceneManager : MonoBehaviour
                 RunManager.Instance.playerBenchPlacements[i].col = -1;
             }
         }
+        if (playerTacticBarManager != null)
+        {
+            RunManager.Instance.playerTactics.Clear();
+            var activeTactics = playerTacticBarManager.GetAllTactics();
+
+            for (int i = 0; i < activeTactics.Count; i++)
+            {
+                if (activeTactics[i].myPlacement != null)
+                {
+                    activeTactics[i].myPlacement.orderIndex = i;
+                    RunManager.Instance.playerTactics.Add(activeTactics[i].myPlacement);
+                }
+            }
+            Debug.Log($"Saved {activeTactics.Count} tactics to RunManager");
+        }
 
         Debug.Log("Saved battle grid and bench units to RunManager");
     }
-
 
 }

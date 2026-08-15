@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd9a7bbe2e40ef443b29ea5554d0097b, type: 3}
-  m_Name: FanTheFlameSO
+  m_Name: FireAffinitySO
   m_EditorClassIdentifier: Assembly-CSharp::TacticDefinition
-  tacticName: Fan the Flame
-  isPassive: 0
-  cooldown: 4
-  tacticSprite: {fileID: 21300000, guid: 970fce4fb3e289e4abb2da122146bcaa, type: 3}
+  tacticName: Fire Affinity
+  isPassive: 1
+  cooldown: 0
+  tacticSprite: {fileID: 21300000, guid: 1ab8da82278810f4092c75e4a3ef5670, type: 3}
   region: 0
   rarity: 0
   startingRarity: 0
   isEventExclusive: 0
-  tacticPrefab: {fileID: 3807236168830337308, guid: 3cbf2a89042014c4ea2ef74d2e0517ee, type: 3}
+  tacticPrefab: {fileID: 3607647875773677504, guid: 41292257c68c53142a28c1b654e1faa3, type: 3}
