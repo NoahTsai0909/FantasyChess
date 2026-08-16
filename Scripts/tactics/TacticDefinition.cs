@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "TacticDefinition", menuName = "Tactics/Tactic Definition")]
@@ -15,7 +16,7 @@ public class TacticDefinition : ScriptableObject
     public Sprite tacticSprite;
 
     [Header("Meta")]
-    public Region region;
+    public List<Region> regions = new List<Region>();
     public Rarity rarity;
     public Rarity startingRarity;
     public bool isEventExclusive = false;

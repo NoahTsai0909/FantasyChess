@@ -13,6 +13,8 @@ public class TooltipUIManager : MonoBehaviour
     [SerializeField] private RectTransform tooltipPanel;
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI descriptionText;
+    [SerializeField] private Image cooldownUI;
+    [SerializeField] private TextMeshProUGUI cooldownText;
     [SerializeField] private CanvasGroup canvasGroup;
 
     [Header("Settings")]
@@ -52,9 +54,28 @@ public class TooltipUIManager : MonoBehaviour
         canvasGroup.blocksRaycasts = false;
     }
 
+    public void ShowCustom(string title, string description, Vector2 mousePosition, float cooldown = 0f)
+    {
+        titleText.text = title;
+        descriptionText.SetText(TextIconUtility.ParseDescription(description));
+        if (cooldown > 0f)
+        {
+            cooldownUI.gameObject.SetActive(true);
+            cooldownText.text = $"{cooldown:F1}";
+        }
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(tooltipPanel);
+
+        UpdatePosition(mousePosition);
+
+        canvasGroup.alpha = 1f;
+        canvasGroup.blocksRaycasts = false;
+    }
+
     public void Hide()
     {
         canvasGroup.alpha = 0f;
+        cooldownUI.gameObject.SetActive(false);
     }
 
     public void UpdatePosition(Vector2 mousePosition)

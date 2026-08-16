@@ -406,6 +406,7 @@ GameObject:
   m_Component:
   - component: {fileID: 579803937}
   - component: {fileID: 579803936}
+  - component: {fileID: 579803938}
   m_Layer: 0
   m_Name: UnitHoverSystem
   m_TagString: Untagged
@@ -442,6 +443,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &579803938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579803935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2864567fe3cbd94cacd79f14db87c6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TacticHoverDetector
+  hoverDelay: 0.35
 --- !u!1 &941487139
 GameObject:
   m_ObjectHideFlags: 0
@@ -1111,7 +1125,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -18
+      value: -19
       objectReference: {fileID: 0}
     - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1156,6 +1170,10 @@ PrefabInstance:
     - target: {fileID: 635677912479238198, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
       propertyPath: m_SizeDelta.y
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 635677912479238198, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 6536262297077695040, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
       propertyPath: maxBarWidth

@@ -22,7 +22,7 @@ public class MapController : MonoBehaviour
     [Header("Encounter Preview")]
     [SerializeField] private GameObject previewOverlay; // The dark UI panel
     [SerializeField] private Button closePreviewButton;
-    [SerializeField] private GridManager previewGrid;
+    [SerializeField] public GridManager previewGrid;
     [SerializeField] private TacticBarManager enemyTacticBarManager;
 
     [Header("Transition Overlay")]
@@ -278,6 +278,8 @@ public class MapController : MonoBehaviour
                 }
             }
         }
+        if (previewGrid != null) previewGrid.RefreshAllAuras();
+        if (enemyTacticBarManager != null) enemyTacticBarManager.RefreshAllTacticAuras();
     }
 
     public void ClosePreview()

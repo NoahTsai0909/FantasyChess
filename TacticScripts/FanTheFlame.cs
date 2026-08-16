@@ -6,6 +6,31 @@ public class FanTheFlame : TacticInstance
 {
     public int hasteStacks = 1;
 
+    // Calculate the haste stacks based on the tier (1/2/3/4)
+    private int GetHasteStacks(Rarity rarity)
+    {
+        return rarity switch
+        {
+            Rarity.Common => 1,
+            Rarity.Uncommon => 2,
+            Rarity.Rare => 3,
+            Rarity.Epic => 4,
+            _ => 1
+        };
+    }
+
+    public override void InitializeFromSaveData(RunManager.TacticSaveData data)
+    {
+        base.InitializeFromSaveData(data);
+        hasteStacks = GetHasteStacks(CurrentRarity);
+    }
+
+    protected override void OnTierUpgraded()
+    {
+        base.OnTierUpgraded();
+        hasteStacks = GetHasteStacks(CurrentRarity);
+    }
+
     public override void ExecuteActiveEffect()
     {
         base.ExecuteActiveEffect();
@@ -42,4 +67,12 @@ public class FanTheFlame : TacticInstance
             Debug.Log($"<color=orange>{tacticName}</color> fired, but no Burn units were found on the board!");
         }
     }
+
+
+    public override string GetDescription()
+    {
+        return ($"[c_haste]Haste[/c] a random [c_burn]burn[/c] ally for [HASTE] {hasteStacks}.");
+    }
 }
+
+

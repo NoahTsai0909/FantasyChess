@@ -299,13 +299,10 @@ public class GridManager : MonoBehaviour
     public void RefreshAllAuras()
     {
         List<UnitInstance> allUnits = GetAllUnits();
-        // 1. Wipe the slate clean
         foreach (var unit in allUnits)
         {
             unit.RemoveAuras();
         }
-
-        // 2. Re-apply based on current exact positions
         foreach (var unit in allUnits)
         {
             unit.ApplyAuras();

@@ -7,7 +7,7 @@ using static SceneLoader;
 public class PrepSceneManager : MonoBehaviour
 {
     public GridManager battleGrid;
-    [SerializeField] private GridManager benchGrid;
+    public GridManager benchGrid;
     [SerializeField] private Button ReturnButton;
     [SerializeField] private ProvisionManager provisionManager;
     [Header("Tactics")]

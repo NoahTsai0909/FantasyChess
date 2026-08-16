@@ -103,10 +103,10 @@ TextureImporter:
       name: FireAffinity_0
       rect:
         serializedVersion: 2
-        x: 67
-        y: 44
-        width: 529
-        height: 529
+        x: 8
+        y: 0
+        width: 624
+        height: 632
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

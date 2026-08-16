@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TacticInstance : MonoBehaviour
@@ -24,6 +25,7 @@ public class TacticInstance : MonoBehaviour
     public bool isPlayer;
     protected GridManager allyGrid;
     protected GridManager enemyGrid;
+    protected GridManager benchGrid;
     protected TargetingSystem targetingSystem;
 
     protected List<UnitInstance> auraTargets = new List<UnitInstance>();
@@ -103,11 +105,10 @@ public class TacticInstance : MonoBehaviour
         isSpent = false;
         cooldownTimer = definition.cooldown;
 
-        // Reset visuals for the start of the fight
         if (fillIcon != null)
         {
             fillIcon.color = Color.white;
-            fillIcon.fillAmount = 0f; // Starts empty and fills up!
+            fillIcon.fillAmount = isPassive ? 1f : 0f;
         }
     }
 
@@ -168,6 +169,15 @@ public class TacticInstance : MonoBehaviour
         return cooldownTimer <= 0;
     }
     public void ResetCooldown() { cooldownTimer = Definition.cooldown; }
+
+    public float GetCooldown()
+    {
+        if (isPassive)
+        {
+            return 0f;
+        }
+        return definition.cooldown;
+    }
     private System.Collections.IEnumerator BounceEffect()
     {
         Vector3 originalScale = transform.localScale;
@@ -213,13 +223,10 @@ public class TacticInstance : MonoBehaviour
         // Override to clean up auras
     }
 
-    /// <summary>
-    /// Helps dynamically scale numbers based on the tactic's current rarity.
-    /// </summary>
-    protected float GetRarityMultiplier()
+    public virtual string GetDescription()
     {
-        int delta = CurrentRarity - Definition.startingRarity;
-        return RarityScaling.GetMultiplier(delta);
+
+        return "";
     }
 
     public void MarkAsSpent()
@@ -242,6 +249,7 @@ public class TacticInstance : MonoBehaviour
         {
             allyGrid = isPlayer ? gm.playerGrid : gm.enemyGrid;
             enemyGrid = isPlayer ? gm.enemyGrid : gm.playerGrid;
+            benchGrid = isPlayer ? gm.benchGrid : null;
             targetingSystem = new TargetingSystem(allyGrid, enemyGrid, isPlayer);
         }
         else
@@ -251,7 +259,19 @@ public class TacticInstance : MonoBehaviour
             {
                 allyGrid = isPlayer ? pm.battleGrid : null;
                 enemyGrid = null;
+                benchGrid = isPlayer ? pm.benchGrid : null;
                 targetingSystem = new TargetingSystem(allyGrid, enemyGrid, isPlayer);
+            }
+            else
+            {
+                MapController mc = FindFirstObjectByType<MapController>();
+                if (mc != null)
+                {
+                    allyGrid = mc.previewGrid;
+                    enemyGrid = null;
+                    benchGrid = null;
+                    targetingSystem = new TargetingSystem(allyGrid, enemyGrid, isPlayer);
+                }
             }
         }
     }
@@ -259,8 +279,14 @@ public class TacticInstance : MonoBehaviour
 
     protected List<UnitInstance> FindAllAllies()
     {
-        if (allyGrid != null) return allyGrid.GetAllUnits();
-        return new List<UnitInstance>();
+        List<UnitInstance> allAllies = new List<UnitInstance>();
+
+        if (allyGrid != null) allAllies.AddRange(allyGrid.GetAllUnits());
+
+        // Add all bench units to the valid targets list!
+        if (benchGrid != null) allAllies.AddRange(benchGrid.GetAllUnits());
+
+        return allAllies;
     }
 
     protected List<UnitInstance> FindAllEnemies()

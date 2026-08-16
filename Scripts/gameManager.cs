@@ -43,6 +43,7 @@ public class gameManager : MonoBehaviour
     public bool isCombatActive() => combatActive;
 
     private UnitInstance unitReward;
+    private TacticInstance tacticReward;
 
     void Start()
     {
@@ -75,6 +76,12 @@ public class gameManager : MonoBehaviour
             InitializeBench();
             InitializeTacticsBar();
             InitializeEnemyTacticsBar(currentEncounter);
+            playerGrid.RefreshAllAuras();
+            playerGrid.RefreshAllAuras();
+            if (benchGrid != null) benchGrid.RefreshAllAuras();
+            if (playerTacticBarManager != null) playerTacticBarManager.RefreshAllTacticAuras();
+            if (enemyTacticBarManager != null) enemyTacticBarManager.RefreshAllTacticAuras();
+        
         }
         if (!HasLivingUnits(playerGrid))
         {
@@ -170,9 +177,15 @@ public class gameManager : MonoBehaviour
                 // Apply combat-specific rewards
                 RunManager.Instance.Stats.CurrentGold += combatEvent.goldReward;
                 RunManager.Instance.Stats.Experience += combatEvent.reputationReward;
-                PlayerUnitManager.Instance.TryAcquireUnit(unitReward.Definition, unitReward.CurrentRarity);
+                if (unitReward != null)
+                {
+                    PlayerUnitManager.Instance.TryAcquireUnit(unitReward.Definition, unitReward.CurrentRarity);
+                }
+                else if (tacticReward != null)
+                {
+                    PlayerTacticManager.Instance.TryAcquireTactic(tacticReward.Definition, tacticReward.CurrentRarity);
+                }
             }
-            // Mark the event as completed
             RunManager.Instance.selectedEvent.OnCompleted();
         }
         else if (!playerWon)
@@ -248,7 +261,27 @@ public class gameManager : MonoBehaviour
                 if (enemyTacticBarManager != null) enemyTacticBarManager.RefreshAllTacticAuras();
             }
         }
-        unitReward = enemyGrid.GetRandomUnit();
+
+        unitReward = null;
+        tacticReward = null;
+        List<UnitInstance> enemyUnits = enemyGrid.GetAllUnits();
+        List<TacticInstance> enemyTactics = enemyTacticBarManager != null ? enemyTacticBarManager.GetAllTactics() : new List<TacticInstance>();
+
+        int totalSpoils = enemyUnits.Count + enemyTactics.Count;
+
+        if (totalSpoils > 0)
+        {
+            int roll = UnityEngine.Random.Range(0, totalSpoils);
+
+            if (roll < enemyUnits.Count)
+            {
+                unitReward = enemyUnits[roll];
+            }
+            else
+            {
+                tacticReward = enemyTactics[roll - enemyUnits.Count];
+            }
+        }
 
     }
 
@@ -299,6 +332,9 @@ public class gameManager : MonoBehaviour
             InitializeBattlefield(playerTeam, currentEncounter, false);
             InitializeTacticsBar();
             InitializeEnemyTacticsBar(currentEncounter);
+            playerGrid.RefreshAllAuras();
+            if (benchGrid != null) benchGrid.RefreshAllAuras();
+            if (playerTacticBarManager != null) playerTacticBarManager.RefreshAllTacticAuras();
         }
     }
 
