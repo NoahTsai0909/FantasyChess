@@ -26,6 +26,7 @@ public class CombatVFXManager : MonoBehaviour
     [SerializeField] private GameObject meleeSlashPrefab;
     [SerializeField] private GameObject slowImpactPrefab;
     [SerializeField] private GameObject hasteImpactPrefab;
+    [SerializeField] private GameObject exitDustPrefab;
 
     [Header("Fallback Colors")]
     [SerializeField] private Color defaultDamageColor = Color.red;
@@ -54,23 +55,26 @@ public class CombatVFXManager : MonoBehaviour
 
     public void PlayActionVFX(CombatAction action, Action onImpact)
     {
-        if (action.source == null || action.target == null)
+        if (action.target == null)
         {
+            onImpact?.Invoke();
+            return;
+        }
+        if (action.source == null)
+        {
+            PlayInstantEffect(action);
             onImpact?.Invoke();
             return;
         }
 
         if (RequiresProjectile(action) && action.source != action.target)
         {
-            // Check if the source is melee AND if the action is actually a damage attack
-            // Note: Update "definition" if your UnitInstance uses a capital "Definition"
             if (action.source.Definition != null && action.source.Definition.isMelee && action.type == CombatActionType.Damage)
             {
                 PlayMeleeEffect(action, onImpact);
             }
             else
             {
-                // Ranged units, or melee units using non-damage actions (like heals)
                 PlayProjectile(action, onImpact);
             }
         }
@@ -83,7 +87,6 @@ public class CombatVFXManager : MonoBehaviour
 
     private bool RequiresProjectile(CombatAction action)
     {
-        // You can expand this later
         switch (action.type)
         {
             case CombatActionType.Damage:
@@ -231,24 +234,41 @@ public class CombatVFXManager : MonoBehaviour
 
     private void PlayInstantEffect(CombatAction action)
     {
-        if (action.target == null || action.target.Visuals == null) return;
-
+        if (action.target == null) return;
+        if (action.target.Visuals != null)
+        {
+            switch (action.type)
+            {
+                case CombatActionType.Shield:
+                    action.target.Visuals.Flash(Color.gold);
+                    break;
+                case CombatActionType.Heal:
+                    action.target.Visuals.Flash(Color.green);
+                    break;
+                case CombatActionType.Damage:
+                    action.target.Visuals.Flash(Color.red);
+                    break;
+            }
+        }
         switch (action.type)
         {
-            case CombatActionType.Shield:
-                action.target.Visuals.Flash(Color.gold);
-                if (shieldImpactPrefab != null)
-                {
-                    Instantiate(shieldImpactPrefab, action.target.transform.position, Quaternion.identity);
-                }
-                break;
-
             case CombatActionType.Heal:
-                action.target.Visuals.Flash(Color.green);
-                if (healImpactPrefab != null)
-                {
-                    Instantiate(healImpactPrefab, action.target.transform.position, Quaternion.identity);
-                }
+                if (healImpactPrefab != null) Instantiate(healImpactPrefab, action.target.transform.position, Quaternion.identity);
+                break;
+            case CombatActionType.Damage:
+                if (attackImpactPrefab != null) Instantiate(attackImpactPrefab, action.target.transform.position, Quaternion.identity);
+                break;
+            case CombatActionType.Shield:
+                if (shieldImpactPrefab != null) Instantiate(shieldImpactPrefab, action.target.transform.position, Quaternion.identity);
+                break;
+            case CombatActionType.ApplyBurn:
+                if (burnImpactPrefab != null) Instantiate(burnImpactPrefab, action.target.transform.position, Quaternion.identity);
+                break;
+            case CombatActionType.ApplySlow:
+                if (slowImpactPrefab != null) Instantiate(slowImpactPrefab, action.target.transform.position, Quaternion.identity);
+                break;
+            case CombatActionType.ApplyHaste:
+                if (hasteImpactPrefab != null) Instantiate(hasteImpactPrefab, action.target.transform.position, Quaternion.identity);
                 break;
         }
     }
@@ -263,7 +283,7 @@ public class CombatVFXManager : MonoBehaviour
             CombatActionType.ApplyBurn => defaultBurnProjectilePrefab,
             CombatActionType.ApplyHaste => defaultHasteProjectilePrefab,
             CombatActionType.ApplySlow => defaultSlowProjectilePrefab,
-            _ => defaultDamageProjectilePrefab // Default fallback
+            _ => defaultDamageProjectilePrefab 
         };
     }
 
@@ -315,6 +335,27 @@ public class CombatVFXManager : MonoBehaviour
             CombatActionType.ApplyHaste => defaultHasteColor,
             _ => Color.white
         };
+    }
+
+    private void OnEnable()
+    {
+        CombatEventBus.OnCombatEvent += HandleCombatEvent;
+    }
+
+    private void OnDisable()
+    {
+        CombatEventBus.OnCombatEvent -= HandleCombatEvent;
+    }
+
+    private void HandleCombatEvent(CombatEventBus.CombatEventType type, UnitInstance source, UnitInstance target, int amount)
+    {
+        if (type == CombatEventBus.CombatEventType.UnitDied)
+        {
+            if (target != null && exitDustPrefab != null)
+            {
+                Instantiate(exitDustPrefab, target.transform.position, Quaternion.identity);
+            }
+        }
     }
 
 }

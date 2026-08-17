@@ -16,7 +16,7 @@ MonoBehaviour:
   isPassive: 1
   cooldown: 0
   tacticSprite: {fileID: 21300000, guid: 1ab8da82278810f4092c75e4a3ef5670, type: 3}
-  region: 0
+  regions: 00000000
   rarity: 0
   startingRarity: 0
   isEventExclusive: 0

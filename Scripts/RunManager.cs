@@ -27,7 +27,6 @@ public class RunManager : MonoBehaviour
     [System.Serializable]
     public class TacticSaveData
     {
-        // We will create TacticDefinition later, similar to UnitDefinition
         public TacticDefinition definition;
         public Rarity rarity;
         public Guid id = Guid.NewGuid();

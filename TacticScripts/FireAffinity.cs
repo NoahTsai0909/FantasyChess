@@ -62,6 +62,6 @@ public class FireAffinity : TacticInstance
 
     public override string GetDescription()
     {
-        return $"All allies have + [BURN] [c_burn]{burnBuff}[/c]."; 
+        return $"All allies have [BURN] [c_burn]{burnBuff}[/c]."; 
     }
 }

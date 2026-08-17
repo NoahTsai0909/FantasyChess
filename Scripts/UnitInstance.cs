@@ -662,7 +662,7 @@ public class UnitInstance : MonoBehaviour
         return Mathf.Abs(row - other.row) == 1 && col == other.col;
     }
 
-    protected List<UnitInstance> FindAdjacentAllies()
+    public List<UnitInstance> FindAdjacentAllies()
     {
         if (myGrid != null) return myGrid.GetAdjacentUnits(this);
         return new List<UnitInstance>();

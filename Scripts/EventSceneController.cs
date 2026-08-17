@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,6 +26,7 @@ public class EventSceneController : MonoBehaviour
 
     // We now track a LIST of previews, since there can be multiple on screen
     private List<UnitInstance> spawnedPreviews = new();
+    private List<TacticInstance> spawnedTacticPreviews = new();
     private GameObject spawnedIllustration;
 
     void Start()
@@ -87,7 +89,11 @@ public class EventSceneController : MonoBehaviour
                 if (preview != null) Destroy(preview.gameObject);
             }
             spawnedPreviews.Clear();
-
+            foreach (var tacticPreview in spawnedTacticPreviews)
+            {
+                if (tacticPreview != null) Destroy(tacticPreview.gameObject);
+            }
+            spawnedTacticPreviews.Clear();
             // 3. Spawn new choices
             foreach (EventChoice choice in currentPage.choices)
             {
@@ -144,6 +150,47 @@ public class EventSceneController : MonoBehaviour
                     choiceContext.generatedUnit = generatedData;
                     SpawnUnitOnButton(generatedData, newButton);
                 }
+                else if (choice.generateRandomTacticPreview)
+                {
+                    RunManager.TacticSaveData randomData = TacticGenerationService.GenerateTactic(choice.randomRegion);
+                    choiceContext.generatedTactic = randomData;
+                    SpawnTacticOnButton(randomData, newButton);
+                }
+                else if (choice.previewTactic != null)
+                {
+                    Rarity finalRarity;
+
+                    if (choice.rollRandomRarity)
+                    {
+                        int day = RunManager.Instance.Stats.CurrentDay;
+                        DayRarityEntry dist = RunManager.Instance.rarityDistributionTable.GetForDay(day);
+                        finalRarity = RarityDistributionTable.RollRarity(dist);
+                    }
+                    else
+                    {
+                        finalRarity = choice.previewRarity;
+                    }
+
+                    if (RunManager.Instance != null)
+                    {
+                        var existingTactic = RunManager.Instance.playerTactics.FirstOrDefault(p =>
+                            p.tacticData != null &&
+                            p.tacticData.definition == choice.previewTactic);
+
+                        if (existingTactic != null)
+                        {
+                            finalRarity = existingTactic.tacticData.rarity;
+                        }
+                    }
+                    RunManager.TacticSaveData generatedData = new RunManager.TacticSaveData
+                    {
+                        definition = choice.previewTactic,
+                        rarity = finalRarity
+                    };
+
+                    choiceContext.generatedTactic = generatedData;
+                    SpawnTacticOnButton(generatedData, newButton);
+                }
 
                 newButton.onClick.AddListener(() => ExecutePlayerChoice(choice, choiceContext));
             }
@@ -170,7 +217,7 @@ public class EventSceneController : MonoBehaviour
         CompleteEvent();
     }
 
-    // Notice we pass UnitSaveData now instead of UnitDefinition
+    //Pass UnitSaveData now instead of UnitDefinition
     private void SpawnUnitOnButton(UnitSaveData unitData, Button parentButton)
     {
         Transform anchor = parentButton.transform.Find("UnitAnchor");
@@ -191,6 +238,33 @@ public class EventSceneController : MonoBehaviour
         if (renderer != null) renderer.sortingOrder = 100;
 
         spawnedPreviews.Add(preview);
+    }
+
+    private void SpawnTacticOnButton(RunManager.TacticSaveData tacticData, Button parentButton)
+    {
+        Transform anchor = parentButton.transform.Find("UnitAnchor");
+        if (anchor == null) return;
+
+        TacticInstance preview = Instantiate(tacticData.definition.tacticPrefab, anchor);
+
+        preview.InitializeFromSaveData(tacticData);
+        preview.isPlayer = true;
+        preview.enabled = false; // Stop cooldown ticks!
+
+        preview.transform.localPosition = Vector3.zero;
+
+        // Scale it up so it matches the size of unit previews (you may need to tweak this number)
+        preview.transform.localScale = Vector3.one * 25f;
+
+        // Since tactics use Canvases, we must override the Canvas sorting order!
+        Canvas canvas = preview.GetComponentInChildren<Canvas>();
+        if (canvas != null)
+        {
+            canvas.overrideSorting = true;
+            canvas.sortingOrder = 100;
+        }
+
+        spawnedTacticPreviews.Add(preview);
     }
 
     private void SpawnEventIllustration(Sprite artwork)
@@ -293,6 +367,17 @@ public class EventSceneController : MonoBehaviour
         spawnedPreviews.Clear();
 
         spawnedIllustration = null;
+        foreach (var preview in spawnedPreviews)
+        {
+            if (preview != null) Destroy(preview.gameObject);
+        }
+        spawnedPreviews.Clear();
+
+        foreach (var tacticPreview in spawnedTacticPreviews)
+        {
+            if (tacticPreview != null) Destroy(tacticPreview.gameObject);
+        }
+        spawnedTacticPreviews.Clear();
 
         currentEvent.OnCompleted();
         SceneLoader.Instance.LoadScene(GameScene.MapScene);

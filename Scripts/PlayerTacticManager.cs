@@ -17,24 +17,32 @@ public class PlayerTacticManager : MonoBehaviour
 
     public bool TryAcquireTactic(TacticDefinition incomingDef, Rarity incomingRarity)
     {
-        // 1. Try to Merge
+        Rarity finalRarity = incomingRarity;
+
+        var existingTactic = RunManager.Instance.playerTactics.FirstOrDefault(p =>
+            p.tacticData != null &&
+            p.tacticData.definition == incomingDef);
+
+        if (existingTactic != null)
+        {
+            finalRarity = existingTactic.tacticData.rarity;
+        }
+
         var mergeTarget = RunManager.Instance.playerTactics.FirstOrDefault(p =>
             p.tacticData != null &&
             p.tacticData.definition == incomingDef &&
-            p.tacticData.rarity == incomingRarity &&
-            p.tacticData.rarity < Rarity.Epic); // Stop at Epic
+            p.tacticData.rarity == finalRarity && 
+            p.tacticData.rarity < Rarity.Epic);
 
         if (mergeTarget != null)
         {
-            // Upgrade the save data
             mergeTarget.tacticData.rarity += 1;
             Debug.Log($"Merged Tactic {incomingDef.tacticName} to {mergeTarget.tacticData.rarity}!");
 
-            // If the player's Tactic Bar is currently on screen, visually upgrade the specific instance!
             TacticBarManager[] activeBars = FindObjectsByType<TacticBarManager>(FindObjectsSortMode.None);
             foreach (var bar in activeBars)
             {
-                if (bar.alignment == TacticBarManager.BarAlignment.Left) // Left = Player Bar
+                if (bar.alignment == TacticBarManager.BarAlignment.Left)
                 {
                     var instance = bar.GetAllTactics().FirstOrDefault(t => t.id == mergeTarget.tacticData.id);
                     if (instance != null) instance.UpgradeTier();
@@ -43,13 +51,12 @@ public class PlayerTacticManager : MonoBehaviour
             return true;
         }
 
-        // 2. Add New Tactic (Infinite Capacity)
         var newPlacement = new RunManager.TacticPlacement
         {
             tacticData = new RunManager.TacticSaveData
             {
                 definition = incomingDef,
-                rarity = incomingRarity
+                rarity = finalRarity
             },
             orderIndex = RunManager.Instance.playerTactics.Count
         };
@@ -57,13 +64,11 @@ public class PlayerTacticManager : MonoBehaviour
         RunManager.Instance.playerTactics.Add(newPlacement);
         Debug.Log($"Acquired new Tactic: {incomingDef.tacticName}");
 
-        // If the player's Tactic Bar is currently on screen, physically spawn it into the timeline!
         TacticBarManager[] activeBarsForSpawn = FindObjectsByType<TacticBarManager>(FindObjectsSortMode.None);
         foreach (var bar in activeBarsForSpawn)
         {
             if (bar.alignment == TacticBarManager.BarAlignment.Left)
             {
-                // Instantiate the prefab stored in the definition
                 TacticInstance newTactic = Instantiate(incomingDef.tacticPrefab);
                 newTactic.InitializeFromSaveData(newPlacement.tacticData);
                 newTactic.myPlacement = newPlacement;

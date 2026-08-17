@@ -85,24 +85,31 @@ public class UnitVisualController : MonoBehaviour
      * JUICE ANIMATIONS
      * ========================= */
 
-    // Replaces the old Flash() method
     public void Flash(Color flashColor)
     {
         if (this == null || !gameObject.activeInHierarchy) return;
 
         if (activeAnimationRoutine != null)
+        {
             StopCoroutine(activeAnimationRoutine);
+            // SAFETY RESET: Fix the scale in case we interrupted an Attack Windup!
+            transform.localScale = originalScale;
+        }
 
         activeAnimationRoutine = StartCoroutine(HitReactionRoutine(flashColor));
     }
 
-    // NEW: Trigger this when the unit uses an ability
+    // Trigger this when the unit uses an ability
     public void PlayAttackAnimation()
     {
         if (this == null || !gameObject.activeInHierarchy) return;
 
         if (activeAnimationRoutine != null)
+        {
             StopCoroutine(activeAnimationRoutine);
+            // SAFETY RESET: Fix the color in case we interrupted a Damage/Heal Flash!
+            sr.color = originalSpriteColor;
+        }
 
         activeAnimationRoutine = StartCoroutine(AttackSnapRoutine());
     }

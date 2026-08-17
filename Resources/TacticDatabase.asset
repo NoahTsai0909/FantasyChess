@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64ef702c000c6c843aa82b1f5a84ef5c, type: 3}
   m_Name: TacticDatabase
   m_EditorClassIdentifier: Assembly-CSharp::TacticDatabase
-  allTactics: []
+  allTactics:
+  - {fileID: 11400000, guid: 8c8b1ef2b946bf646b78107c85fada53, type: 2}
+  - {fileID: 11400000, guid: b10ef5b4905e4e14a83953d72c66a88d, type: 2}

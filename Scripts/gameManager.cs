@@ -42,8 +42,11 @@ public class gameManager : MonoBehaviour
     private bool combatActive = true;
     public bool isCombatActive() => combatActive;
 
-    private UnitInstance unitReward;
-    private TacticInstance tacticReward;
+    private UnitDefinition pendingUnitRewardDef;
+    private Rarity pendingUnitRewardRarity;
+
+    private TacticDefinition pendingTacticRewardDef;
+    private Rarity pendingTacticRewardRarity;
 
     void Start()
     {
@@ -177,13 +180,13 @@ public class gameManager : MonoBehaviour
                 // Apply combat-specific rewards
                 RunManager.Instance.Stats.CurrentGold += combatEvent.goldReward;
                 RunManager.Instance.Stats.Experience += combatEvent.reputationReward;
-                if (unitReward != null)
+                if (pendingUnitRewardDef != null)
                 {
-                    PlayerUnitManager.Instance.TryAcquireUnit(unitReward.Definition, unitReward.CurrentRarity);
+                    PlayerUnitManager.Instance.TryAcquireUnit(pendingUnitRewardDef, pendingUnitRewardRarity);
                 }
-                else if (tacticReward != null)
+                else if (pendingTacticRewardDef != null)
                 {
-                    PlayerTacticManager.Instance.TryAcquireTactic(tacticReward.Definition, tacticReward.CurrentRarity);
+                    PlayerTacticManager.Instance.TryAcquireTactic(pendingTacticRewardDef, pendingTacticRewardRarity);
                 }
             }
             RunManager.Instance.selectedEvent.OnCompleted();
@@ -262,8 +265,9 @@ public class gameManager : MonoBehaviour
             }
         }
 
-        unitReward = null;
-        tacticReward = null;
+        pendingUnitRewardDef = null;
+        pendingTacticRewardDef = null;
+
         List<UnitInstance> enemyUnits = enemyGrid.GetAllUnits();
         List<TacticInstance> enemyTactics = enemyTacticBarManager != null ? enemyTacticBarManager.GetAllTactics() : new List<TacticInstance>();
 
@@ -275,11 +279,15 @@ public class gameManager : MonoBehaviour
 
             if (roll < enemyUnits.Count)
             {
-                unitReward = enemyUnits[roll];
+                // Save the DATA, not the physical object!
+                pendingUnitRewardDef = enemyUnits[roll].Definition;
+                pendingUnitRewardRarity = enemyUnits[roll].CurrentRarity;
             }
             else
             {
-                tacticReward = enemyTactics[roll - enemyUnits.Count];
+                int tacticIndex = roll - enemyUnits.Count;
+                pendingTacticRewardDef = enemyTactics[tacticIndex].Definition;
+                pendingTacticRewardRarity = enemyTactics[tacticIndex].CurrentRarity;
             }
         }
 

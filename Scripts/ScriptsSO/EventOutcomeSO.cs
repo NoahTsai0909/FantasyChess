@@ -5,6 +5,7 @@ public class EventContext
 {
     public UnitSaveData generatedUnit;
     public EventSceneController uiController;
+    public RunManager.TacticSaveData generatedTactic;
     public bool keepEventOpen = false;
 }
 

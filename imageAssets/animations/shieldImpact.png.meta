@@ -1,0 +1,5438 @@
+fileFormatVersion: 2
+guid: f313eedc3a23ed04abfe578ca4144d77
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2674595252323811029
+    second: 712_0
+  - first:
+      213: 510549271966282715
+    second: 712_1
+  - first:
+      213: 7353835224791666732
+    second: 712_2
+  - first:
+      213: -8691553197236423791
+    second: 712_3
+  - first:
+      213: 5414284996882488787
+    second: 712_4
+  - first:
+      213: -6908981588511201359
+    second: 712_5
+  - first:
+      213: -6146318757471633258
+    second: 712_6
+  - first:
+      213: -1288739685875078857
+    second: 712_7
+  - first:
+      213: -9088680193989847563
+    second: 712_8
+  - first:
+      213: 5496012884264025547
+    second: 712_9
+  - first:
+      213: 1972489176974452420
+    second: 712_10
+  - first:
+      213: -1892575760172778676
+    second: 712_11
+  - first:
+      213: 5839888852075346496
+    second: 712_12
+  - first:
+      213: 5427520689556673384
+    second: 712_13
+  - first:
+      213: 6617866958005865728
+    second: 712_14
+  - first:
+      213: 6632047739395471967
+    second: 712_15
+  - first:
+      213: -301771014064908613
+    second: 712_16
+  - first:
+      213: -7043544033391581145
+    second: 712_17
+  - first:
+      213: -354703935852071142
+    second: 712_18
+  - first:
+      213: 5597333072693953815
+    second: 712_19
+  - first:
+      213: -51592851549338793
+    second: 712_20
+  - first:
+      213: -6634218501324152580
+    second: 712_21
+  - first:
+      213: 5095612339740827679
+    second: 712_22
+  - first:
+      213: -8206210679226119891
+    second: 712_23
+  - first:
+      213: -950666953355464061
+    second: 712_24
+  - first:
+      213: -5402486293259542306
+    second: 712_25
+  - first:
+      213: -3713394334680912885
+    second: 712_26
+  - first:
+      213: -8082568283162040640
+    second: 712_27
+  - first:
+      213: -5363156430845411789
+    second: 712_28
+  - first:
+      213: -1846421991513111338
+    second: 712_29
+  - first:
+      213: 1159007624113101253
+    second: 712_30
+  - first:
+      213: 3503608831124511621
+    second: 712_31
+  - first:
+      213: -7080655162912997911
+    second: 712_32
+  - first:
+      213: 5785636867359656105
+    second: 712_33
+  - first:
+      213: 8524616750843290016
+    second: 712_34
+  - first:
+      213: 3740197262697944092
+    second: 712_35
+  - first:
+      213: -2079635155279540859
+    second: 712_36
+  - first:
+      213: 2755223040668381521
+    second: 712_37
+  - first:
+      213: -9032599110863795310
+    second: 712_38
+  - first:
+      213: -5620107946185335369
+    second: 712_39
+  - first:
+      213: 1235392305798784154
+    second: 712_40
+  - first:
+      213: -2472459052604356885
+    second: 712_41
+  - first:
+      213: -919075846927423788
+    second: 712_42
+  - first:
+      213: -1250000904350980593
+    second: 712_43
+  - first:
+      213: -6624868178357734768
+    second: 712_44
+  - first:
+      213: -773811840767500367
+    second: 712_45
+  - first:
+      213: -6398974927786084514
+    second: 712_46
+  - first:
+      213: -2748066813749512777
+    second: 712_47
+  - first:
+      213: 788773572696026904
+    second: 712_48
+  - first:
+      213: 7489790345767923260
+    second: 712_49
+  - first:
+      213: -6369656178545608796
+    second: 712_50
+  - first:
+      213: 5063011034019498666
+    second: 712_51
+  - first:
+      213: -3077759066583648687
+    second: 712_52
+  - first:
+      213: -8491894116237144914
+    second: 712_53
+  - first:
+      213: 1034391368425643094
+    second: 712_54
+  - first:
+      213: 6434753798585700201
+    second: 712_55
+  - first:
+      213: -1243291892211183669
+    second: 712_56
+  - first:
+      213: 8504715069156652286
+    second: 712_57
+  - first:
+      213: 5738172652521893351
+    second: 712_58
+  - first:
+      213: 914142374746659846
+    second: 712_59
+  - first:
+      213: -445086663743154904
+    second: 712_60
+  - first:
+      213: 8564053630846016177
+    second: 712_61
+  - first:
+      213: -4888464170221680241
+    second: 712_62
+  - first:
+      213: -3010451312113784535
+    second: 712_63
+  - first:
+      213: 4506129555218633616
+    second: 712_64
+  - first:
+      213: -2549125344386956574
+    second: 712_65
+  - first:
+      213: 8049833793610880676
+    second: 712_66
+  - first:
+      213: -4906299036616140431
+    second: 712_67
+  - first:
+      213: -2476327929468488646
+    second: 712_68
+  - first:
+      213: 2663464707202126409
+    second: 712_69
+  - first:
+      213: 7325450686875241098
+    second: 712_70
+  - first:
+      213: -1001097189031515373
+    second: 712_71
+  - first:
+      213: -1672594400077771878
+    second: 712_72
+  - first:
+      213: -5031873157067029071
+    second: 712_73
+  - first:
+      213: -4325115965763129385
+    second: 712_74
+  - first:
+      213: -6032865456089072744
+    second: 712_75
+  - first:
+      213: 2591595279909875159
+    second: 712_76
+  - first:
+      213: 1884114585749322074
+    second: 712_77
+  - first:
+      213: -903273062300895995
+    second: 712_78
+  - first:
+      213: 3640308665451015795
+    second: 712_79
+  - first:
+      213: 535458583506081692
+    second: 712_80
+  - first:
+      213: -3560317563736802164
+    second: 712_81
+  - first:
+      213: 4892818228150070430
+    second: 712_82
+  - first:
+      213: 4641625557445264614
+    second: 712_83
+  - first:
+      213: 2772975262840056433
+    second: 712_84
+  - first:
+      213: -5132318185887277070
+    second: 712_85
+  - first:
+      213: 164298239161200134
+    second: 712_86
+  - first:
+      213: -3762334223580381734
+    second: 712_87
+  - first:
+      213: 3754347880485142410
+    second: 712_88
+  - first:
+      213: -3231662256244441674
+    second: 712_89
+  - first:
+      213: -7664571179787268131
+    second: 712_90
+  - first:
+      213: 3401923613751681939
+    second: 712_91
+  - first:
+      213: -1036816903898164033
+    second: 712_92
+  - first:
+      213: 4082268949782125870
+    second: 712_93
+  - first:
+      213: 1250470178530615759
+    second: 712_94
+  - first:
+      213: 2584522943081884834
+    second: 712_95
+  - first:
+      213: -6662971871594189212
+    second: 712_96
+  - first:
+      213: 669226325952449758
+    second: 712_97
+  - first:
+      213: -210655294447761381
+    second: 712_98
+  - first:
+      213: 9124711428204319826
+    second: 712_99
+  - first:
+      213: -781285958944324245
+    second: 712_100
+  - first:
+      213: -5982177090821496254
+    second: 712_101
+  - first:
+      213: 5595323365198232706
+    second: 712_102
+  - first:
+      213: -6879615301902896842
+    second: 712_103
+  - first:
+      213: 5789587420788882058
+    second: 712_104
+  - first:
+      213: 3343961160443093430
+    second: 712_105
+  - first:
+      213: -834591685612237208
+    second: 712_106
+  - first:
+      213: 7152991722408087166
+    second: 712_107
+  - first:
+      213: -386993678504347757
+    second: 712_108
+  - first:
+      213: -3971099635810680938
+    second: 712_109
+  - first:
+      213: 2681296521224726283
+    second: 712_110
+  - first:
+      213: -3660215694540255539
+    second: 712_111
+  - first:
+      213: 2745053169587852092
+    second: 712_112
+  - first:
+      213: 4819488853329918294
+    second: 712_113
+  - first:
+      213: -4834730290576048053
+    second: 712_114
+  - first:
+      213: -3446955275249264438
+    second: 712_115
+  - first:
+      213: -3682059937584632292
+    second: 712_116
+  - first:
+      213: 8041296550339371739
+    second: 712_117
+  - first:
+      213: -3324304591182706823
+    second: 712_118
+  - first:
+      213: 6002720369115164286
+    second: 712_119
+  - first:
+      213: -8326810794746138270
+    second: 712_120
+  - first:
+      213: -1883687910393258617
+    second: 712_121
+  - first:
+      213: 3425158841332321221
+    second: 712_122
+  - first:
+      213: 6760838253704258076
+    second: 712_123
+  - first:
+      213: 1346376142417872947
+    second: 712_124
+  - first:
+      213: -8151664592203202573
+    second: 712_125
+  - first:
+      213: 6760026132124042260
+    second: 712_126
+  - first:
+      213: 7811546492170510345
+    second: 712_127
+  - first:
+      213: 2363712342830896075
+    second: 712_128
+  - first:
+      213: 4180287129278058475
+    second: 712_129
+  - first:
+      213: 7357530382221938828
+    second: 712_130
+  - first:
+      213: -5720571211710007828
+    second: 712_131
+  - first:
+      213: -2965306583376311862
+    second: 712_132
+  - first:
+      213: 2096807020219358722
+    second: 712_133
+  - first:
+      213: -5396556967041605211
+    second: 712_134
+  - first:
+      213: -2888354275696775235
+    second: 712_135
+  - first:
+      213: 1313928152070769022
+    second: 712_136
+  - first:
+      213: 8026269473787693189
+    second: 712_137
+  - first:
+      213: -9063954590773065183
+    second: 712_138
+  - first:
+      213: 5564253279572240537
+    second: 712_139
+  - first:
+      213: 2558699474634802013
+    second: 712_140
+  - first:
+      213: 3104279704629382582
+    second: 712_141
+  - first:
+      213: 5882700263467916907
+    second: 712_142
+  - first:
+      213: 2012195460916496347
+    second: 712_143
+  - first:
+      213: 8622069153379697974
+    second: 712_144
+  - first:
+      213: 1679880664550275571
+    second: 712_145
+  - first:
+      213: -3928470315852940445
+    second: 712_146
+  - first:
+      213: -8513102483154456527
+    second: 712_147
+  - first:
+      213: -1638520596106739709
+    second: 712_148
+  - first:
+      213: 8773114682607935317
+    second: 712_149
+  - first:
+      213: -1225583615037549178
+    second: 712_150
+  - first:
+      213: 9220035158298381833
+    second: 712_151
+  - first:
+      213: -5032417932611098506
+    second: 712_152
+  - first:
+      213: 5086213904760125063
+    second: 712_153
+  - first:
+      213: 7035479275121927665
+    second: 712_154
+  - first:
+      213: 940123573571652012
+    second: 712_155
+  - first:
+      213: -6707161352223071327
+    second: 712_156
+  - first:
+      213: 372395728430425104
+    second: 712_157
+  - first:
+      213: 5501131628675604835
+    second: 712_158
+  - first:
+      213: 6745903399656561094
+    second: 712_159
+  - first:
+      213: 4913573106616119126
+    second: 712_160
+  - first:
+      213: 4514816945792358889
+    second: 712_161
+  - first:
+      213: -5847628232237473919
+    second: 712_162
+  - first:
+      213: -3043970232461282809
+    second: 712_163
+  - first:
+      213: -3877127654639180411
+    second: 712_164
+  - first:
+      213: -7938193911725705338
+    second: 712_165
+  - first:
+      213: 7634887090575507843
+    second: 712_166
+  - first:
+      213: 2180549457599018866
+    second: 712_167
+  - first:
+      213: -7295419266173031301
+    second: 712_168
+  - first:
+      213: 5703975793610341879
+    second: 712_169
+  - first:
+      213: 3693371006610333678
+    second: 712_170
+  - first:
+      213: 8429177584652165898
+    second: 712_171
+  - first:
+      213: -1928427648420593006
+    second: 712_172
+  - first:
+      213: 6449326503676156934
+    second: 712_173
+  - first:
+      213: 6864684012334074997
+    second: 712_174
+  - first:
+      213: 5692048369537446609
+    second: 712_175
+  - first:
+      213: -6320619145789799975
+    second: 712_176
+  - first:
+      213: -520643731050787799
+    second: 712_177
+  - first:
+      213: 6417773476955083115
+    second: 712_178
+  - first:
+      213: 3878788322773400843
+    second: 712_179
+  - first:
+      213: 1419675206458160671
+    second: 712_180
+  - first:
+      213: 6483352079744983705
+    second: 712_181
+  - first:
+      213: -7047695506836595960
+    second: 712_182
+  - first:
+      213: 7041184271396196137
+    second: 712_183
+  - first:
+      213: -1630385172795756484
+    second: 712_184
+  - first:
+      213: -7983901303604195958
+    second: 712_185
+  - first:
+      213: 5681362629165415095
+    second: 712_186
+  - first:
+      213: -2565866187224011853
+    second: 712_187
+  - first:
+      213: -6322692998311141448
+    second: 712_188
+  - first:
+      213: 5138069113380694231
+    second: 712_189
+  - first:
+      213: -4744038873441212732
+    second: 712_190
+  - first:
+      213: 3333509796681999399
+    second: 712_191
+  - first:
+      213: 5791601559768923050
+    second: 712_192
+  - first:
+      213: 2294749172877616692
+    second: 712_193
+  - first:
+      213: 1412481892206923641
+    second: 712_194
+  - first:
+      213: -6306176570888252219
+    second: 712_195
+  - first:
+      213: -1498729417713107616
+    second: 712_196
+  - first:
+      213: 2226983972791936278
+    second: 712_197
+  - first:
+      213: 1343128459489516262
+    second: 712_198
+  - first:
+      213: 5724404131337952735
+    second: 712_199
+  - first:
+      213: 8904303280161667791
+    second: 712_200
+  - first:
+      213: -366024256071200961
+    second: 712_201
+  - first:
+      213: 895911533527554900
+    second: 712_202
+  - first:
+      213: 1549045727931111277
+    second: 712_203
+  - first:
+      213: -2044767287228243378
+    second: 712_204
+  - first:
+      213: -502020789821256992
+    second: 712_205
+  - first:
+      213: -5985759508284153860
+    second: 712_206
+  - first:
+      213: 4641564583912962900
+    second: 712_207
+  - first:
+      213: 6032573618406618445
+    second: 712_208
+  - first:
+      213: -5772296502159157771
+    second: 712_209
+  - first:
+      213: -6041757504103373090
+    second: 712_210
+  - first:
+      213: 6917923325961740847
+    second: 712_211
+  - first:
+      213: 3664936807842387506
+    second: 712_212
+  - first:
+      213: 6275387813233431773
+    second: 712_213
+  - first:
+      213: -7937617225241644198
+    second: 712_214
+  - first:
+      213: 6157577333856019381
+    second: 712_215
+  - first:
+      213: 6302756789462946195
+    second: 712_216
+  - first:
+      213: -2223108272051715409
+    second: 712_217
+  - first:
+      213: 2116288212826694866
+    second: 712_218
+  - first:
+      213: 6542942973322421750
+    second: 712_219
+  - first:
+      213: -2879914284018234601
+    second: 712_220
+  - first:
+      213: -7477630062066005221
+    second: 712_221
+  - first:
+      213: 803433009411825831
+    second: 712_222
+  - first:
+      213: 3153484151562994336
+    second: 712_223
+  - first:
+      213: 6924324090525758742
+    second: 712_224
+  - first:
+      213: -6651819039117768347
+    second: 712_225
+  - first:
+      213: -2196368791368654028
+    second: 712_226
+  - first:
+      213: -5855023809060917215
+    second: 712_227
+  - first:
+      213: 7333906451677503481
+    second: 712_228
+  - first:
+      213: -7580199139243455875
+    second: 712_229
+  - first:
+      213: -2143428071677031609
+    second: 712_230
+  - first:
+      213: -1889218170909077265
+    second: 712_231
+  - first:
+      213: 1636960820086040485
+    second: 712_232
+  - first:
+      213: -4047478317510022689
+    second: 712_233
+  - first:
+      213: -696098640212906597
+    second: 712_234
+  - first:
+      213: -1224096329528411814
+    second: 712_235
+  - first:
+      213: -7619287965039550616
+    second: 712_236
+  - first:
+      213: 1027457928487100266
+    second: 712_237
+  - first:
+      213: 9071318160112942946
+    second: 712_238
+  - first:
+      213: -5866633198942126428
+    second: 712_239
+  - first:
+      213: 3728028913330282154
+    second: 712_240
+  - first:
+      213: 7263489868523143876
+    second: 712_241
+  - first:
+      213: 4239766752346358287
+    second: 712_242
+  - first:
+      213: -5972543426267175934
+    second: 712_243
+  - first:
+      213: 3164831479705430524
+    second: 712_244
+  - first:
+      213: 5960834727725711438
+    second: 712_245
+  - first:
+      213: -8355074212650448382
+    second: 712_246
+  - first:
+      213: 265903438561369688
+    second: 712_247
+  - first:
+      213: -5705548617310125648
+    second: 712_248
+  - first:
+      213: 3006232849662766998
+    second: 712_249
+  - first:
+      213: 5923734816874445288
+    second: 712_250
+  - first:
+      213: 4572361964829365822
+    second: 712_251
+  - first:
+      213: 5545412190434804105
+    second: 712_252
+  - first:
+      213: -7107708622261974950
+    second: 712_253
+  - first:
+      213: -7724211875590023741
+    second: 712_254
+  - first:
+      213: -5292966400325090418
+    second: 712_255
+  - first:
+      213: -520209592879613115
+    second: 712_256
+  - first:
+      213: -6174179345953036671
+    second: 712_257
+  - first:
+      213: 7124491583334930588
+    second: 712_258
+  - first:
+      213: -1768848863964097863
+    second: 712_259
+  - first:
+      213: -8356809536632995827
+    second: 712_260
+  - first:
+      213: 4051127348779368607
+    second: 712_261
+  - first:
+      213: -3638001981689883087
+    second: 712_262
+  - first:
+      213: 7873711909218213254
+    second: 712_263
+  - first:
+      213: 1619725559393123723
+    second: 712_264
+  - first:
+      213: 7760835124308267625
+    second: 712_265
+  - first:
+      213: 2559679125176034459
+    second: 712_266
+  - first:
+      213: -5149740150415363547
+    second: 712_267
+  - first:
+      213: 5463717912585924397
+    second: 712_268
+  - first:
+      213: -2740496928143693371
+    second: 712_269
+  - first:
+      213: -3090788278404100988
+    second: 712_270
+  - first:
+      213: -8585771280305350912
+    second: 712_271
+  - first:
+      213: -4604242481270683590
+    second: 712_272
+  - first:
+      213: 4384613881627857871
+    second: 712_273
+  - first:
+      213: -8368903632915029914
+    second: 712_274
+  - first:
+      213: 1915006650832815522
+    second: 712_275
+  - first:
+      213: 4082477508820448018
+    second: 712_276
+  - first:
+      213: 8455508633852214593
+    second: 712_277
+  - first:
+      213: 6947216786206503698
+    second: 712_278
+  - first:
+      213: 5112769051401036286
+    second: 712_279
+  - first:
+      213: -1937451403820110755
+    second: 712_280
+  - first:
+      213: 5763749496230998857
+    second: 712_281
+  - first:
+      213: -610569983624194907
+    second: 712_282
+  - first:
+      213: 1507116714809979599
+    second: 712_283
+  - first:
+      213: -7521504374686027775
+    second: 712_284
+  - first:
+      213: 5910887961777064040
+    second: 712_285
+  - first:
+      213: 1608575933941688353
+    second: 712_286
+  - first:
+      213: -3842924292237438317
+    second: 712_287
+  - first:
+      213: -7216595328268409298
+    second: 712_288
+  - first:
+      213: 7310150124129680936
+    second: 712_289
+  - first:
+      213: -5560182441104814917
+    second: 712_290
+  - first:
+      213: -6858032068342024320
+    second: 712_291
+  - first:
+      213: 1468766681592284482
+    second: 712_292
+  - first:
+      213: -920255328935388306
+    second: 712_293
+  - first:
+      213: -8125988683370059500
+    second: 712_294
+  - first:
+      213: -4441156548431643253
+    second: 712_295
+  - first:
+      213: 6999195107405520391
+    second: 712_296
+  - first:
+      213: 2384884790141623806
+    second: 712_297
+  - first:
+      213: -265371703493928040
+    second: 712_298
+  - first:
+      213: -2013684696270324724
+    second: 712_299
+  - first:
+      213: 3410258949779553906
+    second: 712_300
+  - first:
+      213: -7238668809583166774
+    second: 712_301
+  - first:
+      213: 7083895450642438850
+    second: 712_302
+  - first:
+      213: 6174761340889516408
+    second: 712_303
+  - first:
+      213: -6471893394541162972
+    second: 712_304
+  - first:
+      213: -8887440792615199669
+    second: 712_305
+  - first:
+      213: -160943006113399208
+    second: 712_306
+  - first:
+      213: -2127864638665479814
+    second: 712_307
+  - first:
+      213: 1703106015245027267
+    second: 712_308
+  - first:
+      213: 1943091879032817207
+    second: 712_309
+  - first:
+      213: -5483588541412017523
+    second: 712_310
+  - first:
+      213: -8740511545711942015
+    second: 712_311
+  - first:
+      213: 5531952528086100009
+    second: 712_312
+  - first:
+      213: 5736422928304427230
+    second: 712_313
+  - first:
+      213: 4692748235940489582
+    second: 712_314
+  - first:
+      213: 6154140108881173180
+    second: 712_315
+  - first:
+      213: -2631058372597629854
+    second: 712_316
+  - first:
+      213: -678568031405004196
+    second: 712_317
+  - first:
+      213: -2283987127758014072
+    second: 712_318
+  - first:
+      213: -8264567245882459877
+    second: 712_319
+  - first:
+      213: -7698293266933441983
+    second: 712_320
+  - first:
+      213: 8537258444919071582
+    second: 712_321
+  - first:
+      213: -5588927177180385892
+    second: 712_322
+  - first:
+      213: -679518179930433388
+    second: 712_323
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 12
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: shieldImpact_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07287ff3af14ff04cbe847beec3367d9
+      internalID: 1857718952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11fc1f5ac35b6f74bb7dee7e4bea8669
+      internalID: 671657578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd38b404af34a544ababaa998c667d1e
+      internalID: 746351068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1369f51187cb92f4580ab8708ca972ed
+      internalID: 983857212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf78cf941aab8614180713dbc6bcd6fb
+      internalID: 41804164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b05f8c1d6b5e824591864ea4dffa8ee
+      internalID: -530089041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_6
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6a616013e0f3af4db93922759abbb00
+      internalID: -597938487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_7
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b5b482a14cf9934081ad18c9b511719
+      internalID: 1850203576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_8
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63433da8719057e4792c6b11ca1907c2
+      internalID: -567112138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_9
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e9f0eb0e352de24cbdaa78340f39908
+      internalID: -1419452194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_10
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c92632a90359fb4b93c1f79fd50bf48
+      internalID: 251844869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_11
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8866799441ac0a24bb7dd64e0e230304
+      internalID: 668858731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_12
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89a77c620cd5c014092411a93086af77
+      internalID: -1182448917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_13
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 153da3c91fffb1c40acd0065807573ff
+      internalID: -827383772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_14
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd2752d783b4d414ca1b29d9ae278581
+      internalID: -1364708025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_15
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f3ac8744bec0aa4291d73cacfac7f1d
+      internalID: 592687469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_16
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c48cc554c34efa843b96cec0fa242784
+      internalID: -845914472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_17
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8fd5b716e5a379498de47129494d4d0
+      internalID: -1972757557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_18
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ad040c362c9e474fbf8c07767ff5dac
+      internalID: 1196924067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_19
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 256e6721129ebf248af65606f2d2761f
+      internalID: -433501740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_20
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 318d2d24e92194b499a71b1ef07757c6
+      internalID: 297735507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aba6e54ce6203cf4dbaeeb3b66ba5777
+      internalID: 518240891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_22
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfc8949756e8d8c47b6c5f3c2013c3e2
+      internalID: -649447427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_23
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9468d8a2a1c72e419bfca0a28dbadfd
+      internalID: 126572291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_24
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e76b189cfb75ca1459f299f7fe4bbaef
+      internalID: -1910206145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_25
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61d15c69b0732bd4eb71ab4064df8a3c
+      internalID: -1621202267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_26
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0167b79d60ccd4419832c0eeabce9cf
+      internalID: -1556229489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_27
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1944e855bdfdf8d49af3b5b6a97aba62
+      internalID: 291161761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_28
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d41ac26a06748148a408758ce5470fc
+      internalID: -1770903477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_29
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71c0a4da66e5b864bafe33addd55b3dd
+      internalID: -923749753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_30
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09363aaaa385aff4ebde601f56bd223f
+      internalID: -1358951607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_31
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69545769de520e648a779eaceb981d40
+      internalID: 1561115085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_32
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 269163bbb1acbca458a773fe819a5464
+      internalID: 1986693200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_33
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ed99e7b525b0954788ab7bead4fa12f
+      internalID: 1758409105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_34
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e17b39fd2807da4281548150adc7ffb
+      internalID: -1187592241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_35
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccef0f55938bd614ebd200e7b50acc55
+      internalID: 379434824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_36
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aed4072c9249bd5448ca795e9b3ad1b4
+      internalID: -343786762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_37
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a76b9dba80f3c4419e0203fcab26de8
+      internalID: 1658668852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_38
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51b676f1fc2266d4bb524527c1413201
+      internalID: -854220603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_39
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 555426b629d34a84283a916919e8f18c
+      internalID: 1409003824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_40
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b99a4ebf46945245b5e2d6ef494b077
+      internalID: -1313280149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_41
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcb4d34fba8a6e649999c3393c344b4c
+      internalID: 1890399338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_42
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0631677fdf0e7cf40b79cef2eb329fa9
+      internalID: 431435403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_43
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1273f48563dd7847b0811ba87ee5fce
+      internalID: -927486387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_44
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc8e6f4c4cd7ab447885677b567e57f2
+      internalID: -599990637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_45
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16b01ff96de8fd24ba649ab3bd217395
+      internalID: 283718303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_46
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ced281de6a183849a49ff0621abab83
+      internalID: -66543700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_47
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce88e069f6e64bc4fbe7821bb2c78c52
+      internalID: 419800963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_48
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 490b71f47bfb54f409aabe9f3c817a98
+      internalID: 1111730328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_49
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9239b048417ea2746b9019b85cda885d
+      internalID: -1133531078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_50
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bab90bc88ce32bd40bd25345c4a3bf5a
+      internalID: -1691806013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_51
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7752faa61aa64f4aaf4d35bf71c4d2a
+      internalID: -866360500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_52
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c673433af31ddf243b5b9b9c204abe55
+      internalID: -1735735994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_53
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d125b143fa90ab4cb26000be80e9f8b
+      internalID: 1170125189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_54
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf5f28a32fe67ee45940a27bad8cf79f
+      internalID: 1971598742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_55
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70dead1ea0cc98c4faba1b5753ad6242
+      internalID: 350353983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_56
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0af6127f47b4a44a88636fa87c6cb9b
+      internalID: -1858995924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_57
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec8f3678271f5824090f32c6205fd4c8
+      internalID: 529188694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_58
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b7e325cda02a634aa2f1740929b3ecb
+      internalID: -525781538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_59
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22abb4417aa36444eaba2dfa3ad9dd3f
+      internalID: 1899659336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_60
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 676f6420e80ab154ba339f5aa0459b73
+      internalID: 519182293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_61
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfcc72a770e6c124cac1bb145930a709
+      internalID: -855746542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_62
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e188c92a8e4e8d4a8b8977cdf542f3f
+      internalID: 659969633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_63
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e6676d298ba1fd4a8df0f1eb7d3be84
+      internalID: -1084279252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_64
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 824d8368164a7b04198822770a8c2c41
+      internalID: -1102779948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_65
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b48d019d48e1ccf47b83d15205e6e994
+      internalID: -1923110840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_66
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d449913efaae9524d90bcb6ef3a38bae
+      internalID: -1987003960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_67
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e70367d40ed39304486f2366bdbc0da0
+      internalID: -523894247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_68
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a1ffb9884b91434180bd08e78b8378c
+      internalID: 1895487794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_69
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 807c0f44a04c2fa4fb8a33bb1e0ad751
+      internalID: 877922784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_70
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21d3af75491562a4d81ad528888475c9
+      internalID: -118544921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_71
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d40d26642c4a8d4283f9d60567058da
+      internalID: -1961709986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_72
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b07519b5c301a064b8c90b9088866816
+      internalID: -1734134684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_73
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f6f9c0a52f40b348b1672cef506ae03
+      internalID: 1163755849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_74
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02bc86ba45d026743951a74d9f8ab46a
+      internalID: 947394034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_75
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de40ffbabb5dc074085eab445ffcc8be
+      internalID: -1210307977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_76
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af14b503845027d4cb95b030ba6b2296
+      internalID: 89229341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_77
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b1b2fd0a2add44498fc396371dd53bc
+      internalID: 657001161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_78
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13db2587c27e1c74093896a197701e77
+      internalID: 1052157392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_79
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7addcaf20c5b1a04fa217fd1e65dab85
+      internalID: -137741058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_80
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9a3056e1ee4cd24e9c25d8b0937c359
+      internalID: 426752741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_81
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dae5fd5a3d350f14ea197f560fb628cb
+      internalID: 796477884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_82
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eda13944843c99c429b78d31234283cf
+      internalID: -133418778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_83
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d26bcdcaf76972547af5fcb0bd4ee7cf
+      internalID: -1808353890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_84
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b2e49b83b99ee5479289ebcfe424966
+      internalID: 420738568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_85
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d6d927ba85852d4490b78b524a581f5
+      internalID: -1584721945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_86
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18d116ca1bd872d47bcb3aae44c91ab8
+      internalID: 1694883387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_87
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e7a6fc31233dc240b06b82967ffbf8f
+      internalID: -262066923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_88
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 350b86fe1f3bf5c40a7f2cde27b84b5f
+      internalID: -446001116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_89
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb4e83b7580a6014d8184b71db2c9df0
+      internalID: -1923683073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_90
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cc3a458b29ed744f8b2835a8e40dac0
+      internalID: 1048895327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_91
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b498a2acb50d7d45b831e8817783653
+      internalID: -2106621442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_92
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8f53ad2a6a50c9429e50bd7fc9d707c
+      internalID: 1755847133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_93
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 574dfa76480ea7f4581d4acc2c155b8b
+      internalID: 1171669286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_94
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d9a83303fc07f94dabd4fac66ed0b7d
+      internalID: -179976722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_95
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8312e71a301c1aa499a54c85cc7558b0
+      internalID: -398769278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_96
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13eeaa71a793c5c4cbfb51cf0844ad71
+      internalID: -593911621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_97
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bd4a07b028c46d409cd80e7e4fa1d51
+      internalID: 1717299803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_98
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a03d44b9ab9f07c4d9c84f31655ee875
+      internalID: 1881262423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_99
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f832675b1a29f3647b94b5a9f103b032
+      internalID: 579228534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_100
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffd274aea6ab1a94188c69f125c77c38
+      internalID: 1790423334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_101
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f4d658b32665034994a8783bd2bab96
+      internalID: 2098413261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_102
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd54e3b06be2fc7478ed99907802a6a1
+      internalID: -1657644202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_103
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 480d10aa82c0d4348bbbd2747687e913
+      internalID: 404851747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_104
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a2b8e7330f926c4c98b8a287f2e8833
+      internalID: -1413878845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_105
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 598a631f549262c4b9787b0ebde201fe
+      internalID: 1245751816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_106
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6e6ff7fb95e5244da58c53ba0964bd8
+      internalID: 2004065787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_107
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c7e6a87158ee4a4d97b103b652022ad
+      internalID: 1507902371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_108
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50a5e1a0567af494a80c92a0b274e87b
+      internalID: 9874285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_109
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6f1587a4297219478a4816d7e059d70
+      internalID: 1639188559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_110
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17cbc89f79e92d64e8dfcaa2ebc5d975
+      internalID: -88897150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_111
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1b402e1dfa6e22409397f575d95be04
+      internalID: 1729410039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_112
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5eddf31ae1e3e8845abcb875003c2084
+      internalID: -1365675746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_113
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af6e3426f4bff2e42b33f83d902c621b
+      internalID: 295981926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_114
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0236d8a239094844bb8ade04f4a30372
+      internalID: 1409894387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_115
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acd477beb1b3a574fbddb55863f47a8f
+      internalID: -157989564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_116
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03daa1e91bf294945a2d28016f6e6148
+      internalID: 1444015678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_117
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7884ddca0c85c484e9b35c7d3fb04ef6
+      internalID: -85454146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_118
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63167295e1c48694a97a1f5ecf1909b4
+      internalID: 2027693710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_119
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82ed9ebe36a97404a9bbe8b321fb8aed
+      internalID: 1490795107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_120
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7856195d03361cf44a490973b9d2b5ea
+      internalID: -1666170924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_121
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15dd9fc8192d4e24d84ea93418259b34
+      internalID: -1355536676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_122
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8899ed7627598294f8bc64747da61d6b
+      internalID: -557244946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_123
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aebe147daa7b7fe4698428ff2a5a0938
+      internalID: -83530620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_124
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b629dc68598dee488fd6a8e61aee115
+      internalID: 422328830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_125
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 145e50f54d7729b4e8d2b8c7355aa347
+      internalID: -1500772324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_126
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8117476eda697548a74f9aae69b3b63
+      internalID: 571734692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_127
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0a0c78ddc075e14db231d48127c4e8d
+      internalID: -670766182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_128
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfed24811c8080f4d8c2683932883446
+      internalID: -601019630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_129
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f6a1cdd0360438438b70f812d7771cd
+      internalID: 1457817508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_130
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8e4282aee1981046ad24653099bda06
+      internalID: 2067558486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_131
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0578f41a12a2474b9884d8408e26d44
+      internalID: -1438638692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_132
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 122fb2e40533a6d4a8b045f8f3c68b5a
+      internalID: -1660329848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_133
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c18f9551e8b91b94d8e6ee537212f640
+      internalID: -555026900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_134
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af7cd2ca76fc31d4dbe8cfea4ab5e5e7
+      internalID: -1394763432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_135
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d606ae950b0d8d24ea553d1d63f30463
+      internalID: 823151993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_136
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4739308b6e4ace3429d08ec702070781
+      internalID: 1151305416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_137
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a6e5046c0543fb48847cd57c520b358
+      internalID: -1026818693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_138
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc126bc5aa652e94185c7e70d498e59d
+      internalID: -1657516599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_139
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19559cc72742f7b4c9e6ef1a3666557b
+      internalID: 1194845968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_140
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 947d1146edf24e04f934b06e77e9a923
+      internalID: 1331358279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_141
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08ecda8d938693540bfc2b0ea11a760b
+      internalID: 423521739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_142
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b62e7d8377139ca408c4041fc7c61ae7
+      internalID: 852890532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_143
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4279e00ad6b934418924b66f9b87508
+      internalID: 620257146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_144
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0aaf9afffcb29654d9c1393c966d0597
+      internalID: 1101738319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_145
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e073d256eb294cd4fb1a507c7981816a
+      internalID: -1031520004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_146
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37057991f638bde43aa1f0cee2424475
+      internalID: -1531246703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_147
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c780b6ea6d313b4f81e6be317033707
+      internalID: -470522885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_148
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 342399e161b30114ab30941095c90209
+      internalID: 1437643394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_149
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5267d6034962444993531316b022777
+      internalID: -929508028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_150
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc5c7cf60ac3f544d84f9ea24ae852e2
+      internalID: -532799898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_151
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c89baa91b0639d4a9569b7e883d0373
+      internalID: -1839257904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_152
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02ca40c90cb524c48adc18f73d0b4360
+      internalID: -211864965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_153
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb84f5ccd5d158547ae0e897b18c3f66
+      internalID: -454716311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_154
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bb02e07ee57a914ba148d9014500495
+      internalID: 613827314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_155
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 464d3f20ba0a8b54685e15cab77a4e31
+      internalID: -1666065974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_156
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8418c552bea142e48b23c1fe4fe76f25
+      internalID: -1392775001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_157
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab1598ac553d2724eb7a779ce21ff93c
+      internalID: 1760121775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_158
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b981d7dae614b764682adbd9f1fc684d
+      internalID: -617965664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_159
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbae760b74b272040b47270392625389
+      internalID: -656596255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_160
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8fe697eccdcf514a9a9a4c703fcf21b
+      internalID: 1889842767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_161
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6eb94a132db32fa4f804a21bfa10b688
+      internalID: 138373064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_162
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e1b021c564d62444b6e16db19183f2f
+      internalID: -1845929113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_163
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27f2b2a7f82aef04b84e14ad249f9104
+      internalID: -1621030080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_164
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b82e089f3a94c194ba294ad356056156
+      internalID: -1402187698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_165
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f052048f7747c744b08c22b8918d5d8
+      internalID: -1562557485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_166
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 805ea79c13fa52f43b445e907da4efd7
+      internalID: -367611671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_167
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77119337acaf9f245bfc38af2fc11031
+      internalID: 1855258346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_168
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e1fb124c7490974690de5761ff54f08
+      internalID: 423633147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_169
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0ad8f444770c57448365aad1af298f3
+      internalID: 660489890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_170
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e9add8669f57834a8dda821f0e57d8f
+      internalID: -691409470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_171
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02b1fa3aa515cb642812e936173fcdd5
+      internalID: -1579912191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_172
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d03d795da2cf974f8a91334a4ae9ed1
+      internalID: -646155859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_173
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61a285cffde68734c9cdb2ce1f35ec98
+      internalID: 2029548268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_174
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d13c4895316988041a84db670ea72806
+      internalID: 83203079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_175
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fffec9970e50bf74eb97775e9a5db4d1
+      internalID: 620115356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_176
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21426c318772d4d40b0c9b56dfa61523
+      internalID: 930741999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_177
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 530e43cfcd85d3447af1393f03d50a4c
+      internalID: -831889306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_178
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f0c68d7e8e3705459922341e1b7a9f5
+      internalID: 1352675204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_179
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 032fa445c1b964640b013340ffaa7463
+      internalID: -1968290653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_180
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7a1b7fb3ad849b4fb92e0237125dc5b
+      internalID: -1121718594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_181
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9447cc84d9f81fa46a9b4f6c177d7b4b
+      internalID: 1199865127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_182
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1db7fb52b4de3940b694d3db0599994
+      internalID: -1190285586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_183
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a7d51905375da44586de73fce5500b1
+      internalID: -1084393611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_184
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8827da73cd880b4f84b5bef2dd31875
+      internalID: -1710681499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_185
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d301409d0589a74b9c549798bc213b8
+      internalID: 1894280196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_186
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1d01eecd9f34184aa34994e4a8a9cb5
+      internalID: 1186240469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_187
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9689dfc56dabab4085c2861b58e45f8
+      internalID: -652946774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shieldImpact_188
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bfd929c13019d44d9446774f1d82cf9
+      internalID: 474987720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: fbca8ec4421484549ac5459d1669579c
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":21.0,"y":9.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      shieldImpact_0: 1857718952
+      shieldImpact_1: 671657578
+      shieldImpact_10: 251844869
+      shieldImpact_100: 1790423334
+      shieldImpact_101: 2098413261
+      shieldImpact_102: -1657644202
+      shieldImpact_103: 404851747
+      shieldImpact_104: -1413878845
+      shieldImpact_105: 1245751816
+      shieldImpact_106: 2004065787
+      shieldImpact_107: 1507902371
+      shieldImpact_108: 9874285
+      shieldImpact_109: 1639188559
+      shieldImpact_11: 668858731
+      shieldImpact_110: -88897150
+      shieldImpact_111: 1729410039
+      shieldImpact_112: -1365675746
+      shieldImpact_113: 295981926
+      shieldImpact_114: 1409894387
+      shieldImpact_115: -157989564
+      shieldImpact_116: 1444015678
+      shieldImpact_117: -85454146
+      shieldImpact_118: 2027693710
+      shieldImpact_119: 1490795107
+      shieldImpact_12: -1182448917
+      shieldImpact_120: -1666170924
+      shieldImpact_121: -1355536676
+      shieldImpact_122: -557244946
+      shieldImpact_123: -83530620
+      shieldImpact_124: 422328830
+      shieldImpact_125: -1500772324
+      shieldImpact_126: 571734692
+      shieldImpact_127: -670766182
+      shieldImpact_128: -601019630
+      shieldImpact_129: 1457817508
+      shieldImpact_13: -827383772
+      shieldImpact_130: 2067558486
+      shieldImpact_131: -1438638692
+      shieldImpact_132: -1660329848
+      shieldImpact_133: -555026900
+      shieldImpact_134: -1394763432
+      shieldImpact_135: 823151993
+      shieldImpact_136: 1151305416
+      shieldImpact_137: -1026818693
+      shieldImpact_138: -1657516599
+      shieldImpact_139: 1194845968
+      shieldImpact_14: -1364708025
+      shieldImpact_140: 1331358279
+      shieldImpact_141: 423521739
+      shieldImpact_142: 852890532
+      shieldImpact_143: 620257146
+      shieldImpact_144: 1101738319
+      shieldImpact_145: -1031520004
+      shieldImpact_146: -1531246703
+      shieldImpact_147: -470522885
+      shieldImpact_148: 1437643394
+      shieldImpact_149: -929508028
+      shieldImpact_15: 592687469
+      shieldImpact_150: -532799898
+      shieldImpact_151: -1839257904
+      shieldImpact_152: -211864965
+      shieldImpact_153: -454716311
+      shieldImpact_154: 613827314
+      shieldImpact_155: -1666065974
+      shieldImpact_156: -1392775001
+      shieldImpact_157: 1760121775
+      shieldImpact_158: -617965664
+      shieldImpact_159: -656596255
+      shieldImpact_16: -845914472
+      shieldImpact_160: 1889842767
+      shieldImpact_161: 138373064
+      shieldImpact_162: -1845929113
+      shieldImpact_163: -1621030080
+      shieldImpact_164: -1402187698
+      shieldImpact_165: -1562557485
+      shieldImpact_166: -367611671
+      shieldImpact_167: 1855258346
+      shieldImpact_168: 423633147
+      shieldImpact_169: 660489890
+      shieldImpact_17: -1972757557
+      shieldImpact_170: -691409470
+      shieldImpact_171: -1579912191
+      shieldImpact_172: -646155859
+      shieldImpact_173: 2029548268
+      shieldImpact_174: 83203079
+      shieldImpact_175: 620115356
+      shieldImpact_176: 930741999
+      shieldImpact_177: -831889306
+      shieldImpact_178: 1352675204
+      shieldImpact_179: -1968290653
+      shieldImpact_18: 1196924067
+      shieldImpact_180: -1121718594
+      shieldImpact_181: 1199865127
+      shieldImpact_182: -1190285586
+      shieldImpact_183: -1084393611
+      shieldImpact_184: -1710681499
+      shieldImpact_185: 1894280196
+      shieldImpact_186: 1186240469
+      shieldImpact_187: -652946774
+      shieldImpact_188: 474987720
+      shieldImpact_19: -433501740
+      shieldImpact_2: 746351068
+      shieldImpact_20: 297735507
+      shieldImpact_21: 518240891
+      shieldImpact_22: -649447427
+      shieldImpact_23: 126572291
+      shieldImpact_24: -1910206145
+      shieldImpact_25: -1621202267
+      shieldImpact_26: -1556229489
+      shieldImpact_27: 291161761
+      shieldImpact_28: -1770903477
+      shieldImpact_29: -923749753
+      shieldImpact_3: 983857212
+      shieldImpact_30: -1358951607
+      shieldImpact_31: 1561115085
+      shieldImpact_32: 1986693200
+      shieldImpact_33: 1758409105
+      shieldImpact_34: -1187592241
+      shieldImpact_35: 379434824
+      shieldImpact_36: -343786762
+      shieldImpact_37: 1658668852
+      shieldImpact_38: -854220603
+      shieldImpact_39: 1409003824
+      shieldImpact_4: 41804164
+      shieldImpact_40: -1313280149
+      shieldImpact_41: 1890399338
+      shieldImpact_42: 431435403
+      shieldImpact_43: -927486387
+      shieldImpact_44: -599990637
+      shieldImpact_45: 283718303
+      shieldImpact_46: -66543700
+      shieldImpact_47: 419800963
+      shieldImpact_48: 1111730328
+      shieldImpact_49: -1133531078
+      shieldImpact_5: -530089041
+      shieldImpact_50: -1691806013
+      shieldImpact_51: -866360500
+      shieldImpact_52: -1735735994
+      shieldImpact_53: 1170125189
+      shieldImpact_54: 1971598742
+      shieldImpact_55: 350353983
+      shieldImpact_56: -1858995924
+      shieldImpact_57: 529188694
+      shieldImpact_58: -525781538
+      shieldImpact_59: 1899659336
+      shieldImpact_6: -597938487
+      shieldImpact_60: 519182293
+      shieldImpact_61: -855746542
+      shieldImpact_62: 659969633
+      shieldImpact_63: -1084279252
+      shieldImpact_64: -1102779948
+      shieldImpact_65: -1923110840
+      shieldImpact_66: -1987003960
+      shieldImpact_67: -523894247
+      shieldImpact_68: 1895487794
+      shieldImpact_69: 877922784
+      shieldImpact_7: 1850203576
+      shieldImpact_70: -118544921
+      shieldImpact_71: -1961709986
+      shieldImpact_72: -1734134684
+      shieldImpact_73: 1163755849
+      shieldImpact_74: 947394034
+      shieldImpact_75: -1210307977
+      shieldImpact_76: 89229341
+      shieldImpact_77: 657001161
+      shieldImpact_78: 1052157392
+      shieldImpact_79: -137741058
+      shieldImpact_8: -567112138
+      shieldImpact_80: 426752741
+      shieldImpact_81: 796477884
+      shieldImpact_82: -133418778
+      shieldImpact_83: -1808353890
+      shieldImpact_84: 420738568
+      shieldImpact_85: -1584721945
+      shieldImpact_86: 1694883387
+      shieldImpact_87: -262066923
+      shieldImpact_88: -446001116
+      shieldImpact_89: -1923683073
+      shieldImpact_9: -1419452194
+      shieldImpact_90: 1048895327
+      shieldImpact_91: -2106621442
+      shieldImpact_92: 1755847133
+      shieldImpact_93: 1171669286
+      shieldImpact_94: -179976722
+      shieldImpact_95: -398769278
+      shieldImpact_96: -593911621
+      shieldImpact_97: 1717299803
+      shieldImpact_98: 1881262423
+      shieldImpact_99: 579228534
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

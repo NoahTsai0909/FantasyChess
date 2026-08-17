@@ -53,6 +53,11 @@ public class EventChoice
     public Region randomRegion;
     public UnitTagFlags preferredTags = UnitTagFlags.None;
 
+    [Header("Tactic Preview Settings")]
+    public TacticDefinition previewTactic;
+    [Tooltip("Check this to ignore previewTactic and generate a random tactic instead")]
+    public bool generateRandomTacticPreview;
+
     [Header("Outcomes")]
     public List<EventOutcomeSO> outcomes = new List<EventOutcomeSO>();
     public ChoiceConditionSO condition;
