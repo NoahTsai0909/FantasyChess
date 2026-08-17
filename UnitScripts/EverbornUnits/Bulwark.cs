@@ -21,7 +21,7 @@ public class Bulwark : UnitInstance
 
         if (action.type != CombatActionType.Heal && action.type != CombatActionType.Shield) return;
         if (action.target.isPlayer != this.isPlayer) return;
-        if (action.source.unitName == this.unitName) return;
+        if (action.source == this) return;
 
         if (action.type == CombatActionType.Heal)
         {

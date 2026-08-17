@@ -20,4 +20,4 @@ MonoBehaviour:
   rarity: 0
   startingRarity: 1
   isEventExclusive: 0
-  tacticPrefab: {fileID: 0}
+  tacticPrefab: {fileID: 1053656928102214572, guid: dde2a0cc007f3ec4fafd114460784fb0, type: 3}

@@ -99,7 +99,7 @@ public class TacticInstance : MonoBehaviour
         }
     }
 
-    public void EnterCombat()
+    public virtual void EnterCombat()
     {
         inCombat = true;
         isSpent = false;
