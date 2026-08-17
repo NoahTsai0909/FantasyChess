@@ -15,13 +15,13 @@ MonoBehaviour:
   encounterName: Hunting Party
   enemyUnits:
   - unitData:
-      definition: {fileID: 11400000, guid: 88642c22682ab104a9c47221284759e5, type: 2}
+      definition: {fileID: 11400000, guid: ee091adf83bd1af41ae99a6d43bdfcac, type: 2}
       rarity: 0
       provisionCost: 0
       provisionModifier: 0
       valueModifier: 0
-    row: 0
-    col: 0
+    row: 2
+    col: 2
   - unitData:
       definition: {fileID: 11400000, guid: 8b7f9ab45ce7f0f4c82ec902b419650a, type: 2}
       rarity: 0
@@ -29,12 +29,9 @@ MonoBehaviour:
       provisionModifier: 0
       valueModifier: 0
     row: 1
-    col: 0
-  - unitData:
-      definition: {fileID: 11400000, guid: ee091adf83bd1af41ae99a6d43bdfcac, type: 2}
-      rarity: 0
-      provisionCost: 0
-      provisionModifier: 0
-      valueModifier: 0
-    row: 1
     col: 1
+  enemyTactics:
+  - tacticData:
+      definition: {fileID: 11400000, guid: c6c2699343df98f4682840bcd8d58c42, type: 2}
+      rarity: 0
+    orderIndex: 0

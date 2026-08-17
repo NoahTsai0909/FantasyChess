@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IronmoonDescent
   m_EditorClassIdentifier: Assembly-CSharp::CombatEventSO
   eventName: Ironmoon Descent
-  description: The ironmoon descends
+  description: 
   eventIcon: {fileID: 21300000, guid: f2f8b2f7c8f1d934dbee773fe15c7e5f, type: 3}
   eventBackgroundImage: {fileID: 0}
   portalGlowColor: {r: 0.042917524, g: 0.24892062, b: 0.44025147, a: 1}

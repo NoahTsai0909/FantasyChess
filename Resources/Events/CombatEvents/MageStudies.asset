@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MageStudies
   m_EditorClassIdentifier: Assembly-CSharp::CombatEventSO
   eventName: Mage Studies
-  description: 4 Prodigious Mages + 2 Ancient Tomes
+  description: 
   eventIcon: {fileID: 21300000, guid: 7336b8d2c39383b48b5c2b9c6d1ab012, type: 3}
   eventBackgroundImage: {fileID: 0}
   portalGlowColor: {r: 1, g: 1, b: 1, a: 1}

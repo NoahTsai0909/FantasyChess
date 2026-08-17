@@ -20,16 +20,16 @@ MonoBehaviour:
       provisionCost: 0
       provisionModifier: 0
       valueModifier: 0
-    row: 0
-    col: 0
+    row: 1
+    col: 1
   - unitData:
-      definition: {fileID: 11400000, guid: 5467cd0d052e12d46a69750eb406f9a0, type: 2}
+      definition: {fileID: 11400000, guid: a16a5b2709f578d42bf95cdc195a04e7, type: 2}
       rarity: 0
       provisionCost: 0
       provisionModifier: 0
       valueModifier: 0
     row: 1
-    col: 0
+    col: 2
   enemyTactics:
   - tacticData:
       definition: {fileID: 11400000, guid: b10ef5b4905e4e14a83953d72c66a88d, type: 2}

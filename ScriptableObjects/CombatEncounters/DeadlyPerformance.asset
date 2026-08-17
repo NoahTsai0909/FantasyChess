@@ -24,9 +24,22 @@ MonoBehaviour:
     col: 1
   - unitData:
       definition: {fileID: 11400000, guid: defba5472dfab994683d340274c29d67, type: 2}
-      rarity: 1
+      rarity: 0
       provisionCost: 0
       provisionModifier: 0
       valueModifier: 0
     row: 1
     col: 2
+  - unitData:
+      definition: {fileID: 11400000, guid: 22a7614f1d79235418176ea49184ae77, type: 2}
+      rarity: 0
+      provisionCost: 0
+      provisionModifier: 0
+      valueModifier: 0
+    row: 2
+    col: 2
+  enemyTactics:
+  - tacticData:
+      definition: {fileID: 11400000, guid: 0f946ae1b0401ed4590f713717ea50e0, type: 2}
+      rarity: 0
+    orderIndex: 0

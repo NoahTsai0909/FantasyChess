@@ -24,6 +24,14 @@ public class ShopSceneController : MonoBehaviour
     private List<ShopUnitCard> spawnedCards = new();
     private List<UnitInstance> spawnedDummies = new();
 
+    void Awake()
+    {
+        if (RunHUDManager.Instance != null)
+        {
+            RunHUDManager.Instance.ResetAndShow();
+        }
+    }
+
     void Start()
     {
         shopEvent = RunManager.Instance.selectedEvent as ShopEventSO;
@@ -32,7 +40,6 @@ public class ShopSceneController : MonoBehaviour
             Debug.LogError("ShopScene loaded without ShopEventSO");
             return;
         }
-
         RunManager.Instance.InitializeShop(
             shopEvent.totalUnitsGenerated,
             RunManager.Instance.playerRegion,

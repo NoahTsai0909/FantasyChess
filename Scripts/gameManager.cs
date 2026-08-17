@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,7 +9,6 @@ using UnityEngine.UI;
 using static CombatEventBus;
 using static SceneLoader;
 using static UnityEngine.Rendering.DebugUI.Table;
-using System;
 
 public class gameManager : MonoBehaviour
 {
@@ -269,9 +270,23 @@ public class gameManager : MonoBehaviour
         pendingTacticRewardDef = null;
 
         List<UnitInstance> enemyUnits = enemyGrid.GetAllUnits();
-        List<TacticInstance> enemyTactics = enemyTacticBarManager != null ? enemyTacticBarManager.GetAllTactics() : new List<TacticInstance>();
+        List<TacticInstance> allEnemyTactics = enemyTacticBarManager != null ? enemyTacticBarManager.GetAllTactics() : new List<TacticInstance>();
+        //Filter the Tactic Spoils Pool
+        List<TacticInstance> validEnemyTactics = new List<TacticInstance>();
 
-        int totalSpoils = enemyUnits.Count + enemyTactics.Count;
+        foreach (var tactic in allEnemyTactics)
+        {
+            if (tactic == null || tactic.Definition == null) continue;
+            var ownedCopy = RunManager.Instance.playerTactics.FirstOrDefault(p =>
+                p.tacticData != null &&
+                p.tacticData.definition == tactic.Definition);
+            if (ownedCopy == null || ownedCopy.tacticData.rarity == tactic.CurrentRarity)
+            {
+                validEnemyTactics.Add(tactic);
+            }
+        }
+
+        int totalSpoils = enemyUnits.Count + validEnemyTactics.Count;
 
         if (totalSpoils > 0)
         {
@@ -279,15 +294,14 @@ public class gameManager : MonoBehaviour
 
             if (roll < enemyUnits.Count)
             {
-                // Save the DATA, not the physical object!
                 pendingUnitRewardDef = enemyUnits[roll].Definition;
                 pendingUnitRewardRarity = enemyUnits[roll].CurrentRarity;
             }
             else
             {
                 int tacticIndex = roll - enemyUnits.Count;
-                pendingTacticRewardDef = enemyTactics[tacticIndex].Definition;
-                pendingTacticRewardRarity = enemyTactics[tacticIndex].CurrentRarity;
+                pendingTacticRewardDef = validEnemyTactics[tacticIndex].Definition;
+                pendingTacticRewardRarity = validEnemyTactics[tacticIndex].CurrentRarity;
             }
         }
 
