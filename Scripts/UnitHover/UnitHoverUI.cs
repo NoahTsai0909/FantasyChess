@@ -8,7 +8,6 @@ public class UnitHoverUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI provisionText;
     [SerializeField] private TextMeshProUGUI valueText;
-    [SerializeField] private Vector2 offset = new Vector2(20f, 20f);
 
     [SerializeField] private bool useFixedPosition = true;
 
@@ -38,6 +37,8 @@ public class UnitHoverUI : MonoBehaviour
 
     [Header("Behavior")]
     [SerializeField] private bool isPermanentUI = false;
+    [Tooltip("Extra padding to prevent IgnoreLayout elements from getting cut off at screen edges!")]
+    [SerializeField] private Vector2 edgePadding = new Vector2(50f, 50f);
 
     private int lastEnergy, lastAttack, lastShield, lastHeal, lastPoison, lastBurn, lastCrit, lastMulticast;
 
@@ -216,25 +217,19 @@ public class UnitHoverUI : MonoBehaviour
     private void UpdatePosition()
     {
         if (canvas == null || currentUnit == null || mainCamera == null) return;
-
-        if(useFixedPosition)
+        
+        if (useFixedPosition)
         {
-            // ADAPTIVE FIXED POSITIONING
-            // Find out if the unit is on the left or right side of the screen
             Vector2 screenPos = mainCamera.WorldToScreenPoint(currentUnit.transform.position);
 
-            // THE FIX: Move the threshold line from 50% to 70%
             float flipThreshold = Screen.width * 0.7f;
 
-            // If the unit is anywhere in the left 70% of the screen, spawn UI on the Right.
             bool unitIsOnLeft = screenPos.x < flipThreshold;
 
-            // Give it a little padding from the edge of the screen
             float edgePadding = 50f;
 
             if (unitIsOnLeft)
             {
-                // Snap UI to the RIGHT side of the screen
                 rectTransform.anchorMin = new Vector2(1, 0.5f);
                 rectTransform.anchorMax = new Vector2(1, 0.5f);
                 rectTransform.pivot = new Vector2(1, 0.5f);
@@ -242,7 +237,6 @@ public class UnitHoverUI : MonoBehaviour
             }
             else
             {
-                // Snap UI to the LEFT side of the screen
                 rectTransform.anchorMin = new Vector2(0, 0.5f);
                 rectTransform.anchorMax = new Vector2(0, 0.5f);
                 rectTransform.pivot = new Vector2(0, 0.5f);
@@ -251,23 +245,20 @@ public class UnitHoverUI : MonoBehaviour
 
             return; // Exit early so we don't run the relative positioning code below
         }
-        // Get the unit's world position
         Vector3 unitWorldPos = currentUnit.transform.position;
 
-        // Get the unit's collider to find its top and bottom
         Collider2D collider = currentUnit.GetComponent<Collider2D>();
-        float unitHeight = 2f; // default fallback
+        float unitHeight = 2f; 
 
         if (collider != null)
         {
             unitHeight = collider.bounds.size.y;
         }
 
-        // Calculate UI size
-        float uiWidth = rectTransform.rect.width * canvas.scaleFactor;
-        float uiHeight = rectTransform.rect.height * canvas.scaleFactor;
+        float uiWidth = (rectTransform.rect.width + edgePadding.x) * canvas.scaleFactor;
+        float uiHeight = (rectTransform.rect.height + edgePadding.y) * canvas.scaleFactor;
 
-        // First, try to position ABOVE the unit
+
         Vector3 aboveWorldPos = unitWorldPos;
         if (collider != null)
         {

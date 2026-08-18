@@ -1432,7 +1432,7 @@ MonoBehaviour:
   provisionText: {fileID: 1930566209484933586}
   valueText: {fileID: 7919614916861583639}
   offset: {x: 5, y: 5}
-  useFixedPosition: 1
+  useFixedPosition: 0
   backgroundCommon: {fileID: 21300000, guid: 5ba2c4f12a87e0f478f8ee4147894a77, type: 3}
   backgroundUncommon: {fileID: 21300000, guid: 677013c445266114398ae6fedbe702e0, type: 3}
   backgroundRare: {fileID: 21300000, guid: aa543a46e0e714a45889cd2fb324a597, type: 3}
