@@ -376,7 +376,7 @@ MonoBehaviour:
       rarity: 1
     orderIndex: 2
   defaultUnits: []
-  benchSize: 9
+  benchSize: 5
   regularEventsCompleted: 0
   isBattlePhase: 0
   currentEventPhase: 0
@@ -1075,6 +1075,7 @@ GameObject:
   - component: {fileID: 793768109}
   - component: {fileID: 793768108}
   - component: {fileID: 793768107}
+  - component: {fileID: 793768110}
   m_Layer: 5
   m_Name: PopUpText
   m_TagString: Untagged
@@ -1201,6 +1202,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -150, y: -80}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &793768110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793768106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd570a24f40170c4e909966a255eb7f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TMPLinkHandler
 --- !u!1 &970351355
 GameObject:
   m_ObjectHideFlags: 0

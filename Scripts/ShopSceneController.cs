@@ -18,6 +18,11 @@ public class ShopSceneController : MonoBehaviour
     [SerializeField] private Button prepSceneButton;
     [SerializeField] private Button continueButton;
 
+    [Header("Player Boards")]
+    [SerializeField] private GridManager battleGrid;
+    [SerializeField] private GridManager benchGrid;
+    [SerializeField] private TacticBarManager playerTacticBarManager;
+
     private ShopEventSO shopEvent;
     private ShopState shopState;
 
@@ -57,6 +62,17 @@ public class ShopSceneController : MonoBehaviour
         SetupRefreshButton();
         SetupPrepSceneButton();
         DisplayCurrentPage();
+
+        LoadBattleGridFromRunManager();
+        LoadBenchGridFromRunManager();
+        LoadTacticBarFromRunManager();
+
+        if (playerTacticBarManager != null)
+        {
+            // Apply all passive auras so the player sees accurate stats while deciding what to buy!
+            playerTacticBarManager.RefreshAllTacticAuras();
+        }
+        if (battleGrid != null) battleGrid.RefreshAllAuras();
     }
 
     void SetupRefreshButton()
@@ -71,7 +87,7 @@ public class ShopSceneController : MonoBehaviour
         {
             if (RunManager.Instance.Stats.CurrentGold < shopEvent.refreshCost)
             {
-                Debug.Log($"Not enough gold to refresh! Need {shopEvent.refreshCost}g, have {RunManager.Instance.Stats.CurrentGold}g");
+                UniversalPopupManager.ShowPopup($"Not enough [GOLD]");
                 return;
             }
 
@@ -130,22 +146,27 @@ public class ShopSceneController : MonoBehaviour
         {
             if (RunManager.Instance.Stats.CurrentGold < unitCost)
             {
-                Debug.Log("Not enough gold");
+                UniversalPopupManager.ShowPopup($"Not enough [GOLD]");
                 return;
             }
 
             RunManager.Instance.Stats.CurrentGold -= unitCost;
+
             PlayerUnitManager.Instance.TryAcquireUnit(unitData.definition, unitData.rarity);
 
-            // Mark as purchased in the central state
             shopState.purchasedUnits.Add(unitData.definition);
 
-            // Clean up dummy unit
             spawnedDummies.Remove(dummyUnit);
             Destroy(dummyUnit.gameObject);
 
-            // Turn into ghost footprint
             card.MarkAsPurchased();
+
+            LoadBattleGridFromRunManager();
+            LoadBenchGridFromRunManager();
+            LoadTacticBarFromRunManager();
+            if (benchGrid != null) benchGrid.RefreshAllAuras();
+            if (battleGrid != null) battleGrid.RefreshAllAuras();
+            if (playerTacticBarManager != null) playerTacticBarManager.RefreshAllTacticAuras();
         });
 
         spawnedCards.Add(card);
@@ -193,5 +214,63 @@ public class ShopSceneController : MonoBehaviour
     {
         eventSO.OnCompleted();
         SceneLoader.Instance.LoadScene(SceneLoader.GameScene.MapScene);
+    }
+
+    private void LoadBattleGridFromRunManager()
+    {
+        if (battleGrid == null) return;
+
+        battleGrid.ClearAllUnits();
+        foreach (var placement in RunManager.Instance.playerTeamPlacements)
+        {
+            if (placement.unitData == null || placement.unitData.definition == null) continue;
+
+            UnitInstance unit = Instantiate(placement.unitData.definition.unitPrefab);
+            unit.InitializeFromSaveData(placement.unitData);
+            unit.myPlacement = placement;
+
+            // Spawn them, but tell them NOT to start combat (isPlayer = true, startCombat = false)
+            unit.EnterCombat(battleGrid, placement.row, placement.col, true, false);
+        }
+    }
+
+    private void LoadBenchGridFromRunManager()
+    {
+        if (benchGrid == null) return;
+
+        benchGrid.ClearAllUnits();
+        for (int i = 0; i < RunManager.Instance.playerBenchPlacements.Count; i++)
+        {
+            var placement = RunManager.Instance.playerBenchPlacements[i];
+            if (placement.unitData == null || placement.unitData.definition == null) continue;
+
+            UnitInstance unit = Instantiate(placement.unitData.definition.unitPrefab);
+            unit.InitializeFromSaveData(placement.unitData);
+            unit.myPlacement = placement;
+
+            // Bench is always row 0
+            unit.EnterCombat(benchGrid, 0, i, true, false);
+        }
+    }
+
+    private void LoadTacticBarFromRunManager()
+    {
+        if (playerTacticBarManager == null) return;
+
+        playerTacticBarManager.ClearAllTactics();
+
+        // Ensure tactics are spawned in their correct saved order
+        var sortedTactics = RunManager.Instance.playerTactics.OrderBy(t => t.orderIndex).ToList();
+
+        foreach (var placement in sortedTactics)
+        {
+            if (placement.tacticData == null || placement.tacticData.definition == null) continue;
+
+            TacticInstance tactic = Instantiate(placement.tacticData.definition.tacticPrefab);
+            tactic.InitializeFromSaveData(placement.tacticData);
+            tactic.myPlacement = placement;
+
+            playerTacticBarManager.AddTactic(tactic);
+        }
     }
 }

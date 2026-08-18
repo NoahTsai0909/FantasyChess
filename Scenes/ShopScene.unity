@@ -376,7 +376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridManager
   rows: 1
-  cols: 9
+  cols: 5
   cellSize: 3.5
   tilePrefab: {fileID: 7939534437322562976, guid: 48e77782e79490a40904c9e3f9eb703a, type: 3}
 --- !u!4 &99046873
@@ -437,6 +437,55 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -10, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &107809446
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 107809448}
+  - component: {fileID: 107809447}
+  m_Layer: 0
+  m_Name: DragAndDropManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &107809447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107809446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e74ed5ed926647a4fb4936eb9270e6b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragAndDropManager
+  battleGrid: {fileID: 103435402}
+  benchGrid: {fileID: 99046872}
+  sellZone: {fileID: 0}
+  provisionManager: {fileID: 0}
+  playerTacticBar: {fileID: 1215609382}
+--- !u!4 &107809448
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107809446}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -849,11 +898,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -19
+      value: -22.5
       objectReference: {fileID: 0}
     - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 453886116920673958, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
       propertyPath: m_LocalPosition.z
@@ -920,6 +969,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+--- !u!114 &1215609382 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6536262297077695040, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+  m_PrefabInstance: {fileID: 1215609381}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ec6876943cb70240ac581a8f0bd0bb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TacticBarManager
 --- !u!1 &1222859313
 GameObject:
   m_ObjectHideFlags: 0
@@ -955,6 +1015,9 @@ MonoBehaviour:
   refreshButton: {fileID: 1169049606}
   prepSceneButton: {fileID: 1745264461}
   continueButton: {fileID: 1932924984}
+  battleGrid: {fileID: 103435402}
+  benchGrid: {fileID: 99046872}
+  playerTacticBarManager: {fileID: 1215609382}
 --- !u!4 &1222859315
 Transform:
   m_ObjectHideFlags: 0
@@ -1801,8 +1864,8 @@ Canvas:
   m_GameObject: {fileID: 1958903100}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 2126631969}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1812,8 +1875,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 1849357191
+  m_SortingOrder: -100
   m_TargetDisplay: 0
 --- !u!224 &1958903104
 RectTransform:
@@ -1902,7 +1965,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 12
+  orthographic size: 14
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2006,3 +2069,4 @@ SceneRoots:
   - {fileID: 103435403}
   - {fileID: 99046873}
   - {fileID: 1215609381}
+  - {fileID: 107809448}

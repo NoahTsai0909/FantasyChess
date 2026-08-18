@@ -67,7 +67,7 @@ public class UniversalPopupManager : MonoBehaviour
 
     private IEnumerator PopupRoutine(string message, float duration)
     {
-        popupText.text = message;
+        popupText.SetText(TextIconUtility.ParseDescription(message));
         popupCanvasGroup.gameObject.SetActive(true);
         popupCanvasGroup.transform.localScale = Vector3.one * 0.9f;
 
