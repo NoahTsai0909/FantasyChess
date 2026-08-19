@@ -40,7 +40,7 @@ public class Toughened : TacticInstance
 
     private void HandleActionResolved(CombatAction action)
     {
-
+        if (action.source == null) return;
         if (action.type != CombatActionType.Shield || action.source.isPlayer != this.isPlayer) return;
         if (allyGrid == null) return;
         action.source.TemporaryStatModify(ModifiableStats.CritChance, buffValue);

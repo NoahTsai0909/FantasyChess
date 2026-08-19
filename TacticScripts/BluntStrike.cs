@@ -40,7 +40,7 @@ public class BluntStrike : TacticInstance
 
     private void HandleActionResolved(CombatAction action)
     {
-
+        if (action.source == null) return;
         if (action.type != CombatActionType.Shield || action.target.isPlayer != this.isPlayer) return;
         if (allyGrid == null) return;
 

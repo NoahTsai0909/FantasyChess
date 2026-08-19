@@ -24,11 +24,10 @@ public class TacticDatabase : ScriptableObject
         }
     }
 
-    public TacticDefinition GetRandomTactic(Rarity rolledRarity, Region? region = null, bool byPassExclusivity = false)
+    public TacticDefinition GetRandomTactic(Rarity rolledRarity, Region? region = null, bool byPassExclusivity = false, bool allowCombatExclusive = false, bool onlyCombatExclusive = false)
     {
         IEnumerable<TacticDefinition> pool = allTactics;
 
-        // Rarity eligibility rule
         pool = pool.Where(t => t.startingRarity <= rolledRarity);
 
         if (!byPassExclusivity)
@@ -40,7 +39,15 @@ public class TacticDatabase : ScriptableObject
             pool = pool.Where(t => t.isEventExclusive == true);
         }
 
-        // NEW: Check if the tactic's regions list contains the requested region
+        if (onlyCombatExclusive)
+        {
+            pool = pool.Where(t => t.isCombatExclusive);
+        }
+        else if (!allowCombatExclusive)
+        {
+            pool = pool.Where(t => !t.isCombatExclusive);
+        }
+
         if (region.HasValue)
         {
             pool = pool.Where(t => t.regions.Contains(region.Value));

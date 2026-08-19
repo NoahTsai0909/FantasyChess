@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CombatEventSO
   eventName: Refraction
   description: 
-  eventIcon: {fileID: 21300000, guid: 7336b8d2c39383b48b5c2b9c6d1ab012, type: 3}
+  eventIcon: {fileID: 21300000, guid: a8e6f6dd0413e96469064b0c93988601, type: 3}
   eventBackgroundImage: {fileID: 0}
   portalGlowColor: {r: 1, g: 1, b: 1, a: 1}
   minDayRequired: 5
@@ -23,5 +23,5 @@ MonoBehaviour:
   maxAppearancesPerRun: 0
   targetScene: 2
   encounter: {fileID: 11400000, guid: 9fb89b762941baf4b9476c8b0e666190, type: 2}
-  goldReward: 2
-  reputationReward: 2
+  goldReward: 3
+  reputationReward: 3

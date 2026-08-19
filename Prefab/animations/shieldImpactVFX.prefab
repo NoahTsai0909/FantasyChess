@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8442584803888952170}
   - component: {fileID: 8424292735841198413}
-  - component: {fileID: 2740796754890658216}
+  - component: {fileID: 7857771864727143882}
   m_Layer: 0
   m_Name: shieldImpactVFX
   m_TagString: Untagged
@@ -55,7 +55,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!212 &2740796754890658216
+--- !u!212 &7857771864727143882
 SpriteRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
@@ -104,8 +104,8 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 1857718952, guid: f313eedc3a23ed04abfe578ca4144d77, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: -1859800191, guid: 8d4d68611faaaf1428e8bbb65d887879, type: 3}
+  m_Color: {r: 1, g: 0.7213456, b: 0.29874206, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

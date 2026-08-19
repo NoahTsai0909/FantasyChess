@@ -46,3 +46,8 @@ MonoBehaviour:
       valueModifier: 0
     row: 1
     col: 0
+  enemyTactics:
+  - tacticData:
+      definition: {fileID: 11400000, guid: 5435ab3c270f78542b0f273944eb930a, type: 2}
+      rarity: 1
+    orderIndex: 0

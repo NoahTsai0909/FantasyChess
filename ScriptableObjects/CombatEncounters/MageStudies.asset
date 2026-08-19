@@ -54,11 +54,8 @@ MonoBehaviour:
       valueModifier: 0
     row: 1
     col: 0
-  - unitData:
-      definition: {fileID: 11400000, guid: 01f7425adc5c6f14f97fb0fc20434615, type: 2}
-      rarity: 0
-      provisionCost: 0
-      provisionModifier: 0
-      valueModifier: 0
-    row: 1
-    col: 1
+  enemyTactics:
+  - tacticData:
+      definition: {fileID: 11400000, guid: d8f288be399ec03459d4fc7153cd6334, type: 2}
+      rarity: 1
+    orderIndex: 0

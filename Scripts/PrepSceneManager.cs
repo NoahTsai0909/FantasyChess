@@ -45,7 +45,7 @@ public class PrepSceneManager : MonoBehaviour
         // RunManager.Instance.currentEncounter = someEncounter;
         if (!provisionManager.IsProvisionValid())
         {
-            Debug.LogWarning("Provision cap exceeded! Cannot leave prep scene.");
+            UniversalPopupManager.ShowPopup($"[MAXPROVISION] Exceeded!");
             // Optionally: Show a warning popup
             return;
         }

@@ -21,6 +21,10 @@ public class ShopEventSO : BaseEventSO
     public bool forceRarity = false;
     public Rarity designatedRarity = Rarity.Common;
 
+    [Header("Tactic Exclusivity")]
+    public bool allowCombatExclusiveTactics = false;
+    public bool onlyCombatExclusiveTactics = false;
+
     public override void OnCompleted()
     {
         RunManager.Instance.shopState = null;

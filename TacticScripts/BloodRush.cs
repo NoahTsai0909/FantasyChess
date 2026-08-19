@@ -40,7 +40,7 @@ public class BloodRush : TacticInstance
 
     private void HandleActionResolved(CombatAction action)
     {
-
+        if (action.source == null) return;
         if (action.source.isPlayer != this.isPlayer) return;
         if (allyGrid == null) return;
         if (action.isCrit)

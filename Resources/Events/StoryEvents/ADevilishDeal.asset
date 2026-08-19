@@ -33,6 +33,8 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
+      previewTactic: {fileID: 0}
+      generateRandomTacticPreview: 0
       outcomes:
       - {fileID: 11400000, guid: 52b0d1e5013cb104cad3b540579b8cce, type: 2}
       - {fileID: 11400000, guid: a7b6fc9d23f1cc74194dc9a1841bd86b, type: 2}
@@ -44,6 +46,8 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
+      previewTactic: {fileID: 0}
+      generateRandomTacticPreview: 0
       outcomes:
       - {fileID: 11400000, guid: f55e49cdda5c02c43a443ab2b5264be3, type: 2}
       condition: {fileID: 0}
@@ -56,6 +60,8 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
+      previewTactic: {fileID: 0}
+      generateRandomTacticPreview: 0
       outcomes:
       - {fileID: 11400000, guid: 88780d38adf6d344ca8c9fe07d9697ad, type: 2}
       condition: {fileID: 0}
@@ -66,6 +72,8 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
+      previewTactic: {fileID: 0}
+      generateRandomTacticPreview: 0
       outcomes:
       - {fileID: 11400000, guid: 22f9ed46cda0682489268337c560996a, type: 2}
       condition: {fileID: 0}
@@ -78,6 +86,8 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
+      previewTactic: {fileID: 0}
+      generateRandomTacticPreview: 0
       outcomes:
       - {fileID: 11400000, guid: 1946b3890653f4643b2ac014419e09b2, type: 2}
       condition: {fileID: 0}
@@ -88,6 +98,8 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
+      previewTactic: {fileID: 0}
+      generateRandomTacticPreview: 0
       outcomes:
       - {fileID: 11400000, guid: ec2bd3a307c5a0346a76e2ef83dbeea4, type: 2}
       - {fileID: 11400000, guid: 028a7584aa0d5ce4e9ef5eeeb7db792a, type: 2}
@@ -101,6 +113,8 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
+      previewTactic: {fileID: 0}
+      generateRandomTacticPreview: 0
       outcomes:
       - {fileID: 11400000, guid: ec2bd3a307c5a0346a76e2ef83dbeea4, type: 2}
       - {fileID: 11400000, guid: 028a7584aa0d5ce4e9ef5eeeb7db792a, type: 2}
@@ -117,7 +131,9 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
+      previewTactic: {fileID: 0}
+      generateRandomTacticPreview: 0
       outcomes:
       - {fileID: 11400000, guid: f55e49cdda5c02c43a443ab2b5264be3, type: 2}
       condition: {fileID: 0}
-  eventIllustration: {fileID: 0}
+  eventIllustration: {fileID: 21300000, guid: e76354da5040f8a4ea9bd6abd448f75e, type: 3}

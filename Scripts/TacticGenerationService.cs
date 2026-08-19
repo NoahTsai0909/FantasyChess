@@ -34,50 +34,52 @@ public static class TacticGenerationService
         };
     }
 
-    public static List<RunManager.TacticSaveData> GenerateShopTactics(int count, Region? region = null, bool byPassExclusivity = false)
+    public static List<RunManager.TacticSaveData> GenerateShopTactics(int count, Region? region = null, bool byPassExclusivity = false, bool allowCombatExclusive = false, bool onlyCombatExclusive = false)
     {
-        List<RunManager.TacticSaveData> generated = new List<RunManager.TacticSaveData>();
-        HashSet<TacticDefinition> rolledThisShop = new HashSet<TacticDefinition>();
-
-        int day = RunManager.Instance.Stats.CurrentDay;
-        DayRarityEntry dist = RunManager.Instance.rarityDistributionTable.GetForDay(day);
-
-        for (int i = 0; i < count; i++)
         {
-            Rarity rolledRarity = RarityDistributionTable.RollRarity(dist);
-            TacticDefinition def = null;
+            List<RunManager.TacticSaveData> generated = new List<RunManager.TacticSaveData>();
+            HashSet<TacticDefinition> rolledThisShop = new HashSet<TacticDefinition>();
 
-            // Re-roll loop to prevent duplicates in the shop
-            int safety = 0;
-            while (safety < 20)
+            int day = RunManager.Instance.Stats.CurrentDay;
+            DayRarityEntry dist = RunManager.Instance.rarityDistributionTable.GetForDay(day);
+
+            for (int i = 0; i < count; i++)
             {
-                def = TacticDatabase.Instance.GetRandomTactic(rolledRarity, region, byPassExclusivity);
+                Rarity rolledRarity = RarityDistributionTable.RollRarity(dist);
+                TacticDefinition def = null;
 
-                if (def != null && !rolledThisShop.Contains(def))
+                // Re-roll loop to prevent duplicates in the shop
+                int safety = 0;
+                while (safety < 20)
                 {
-                    break; // We found a unique one!
+                    def = TacticDatabase.Instance.GetRandomTactic(rolledRarity, region, byPassExclusivity, allowCombatExclusive, onlyCombatExclusive);
+
+                    if (def != null && !rolledThisShop.Contains(def))
+                    {
+                        break; // We found a unique one!
+                    }
+                    safety++;
                 }
-                safety++;
+
+                if (def == null) continue;
+
+                rolledThisShop.Add(def); // Remember it so we don't roll it again
+
+                // Check if player already owns it to preserve upgrade rarity
+                Rarity finalRarity = rolledRarity;
+                var existingTactic = RunManager.Instance.playerTactics.FirstOrDefault(p =>
+                    p.tacticData != null && p.tacticData.definition == def);
+
+                if (existingTactic != null) finalRarity = existingTactic.tacticData.rarity;
+
+                generated.Add(new RunManager.TacticSaveData
+                {
+                    definition = def,
+                    rarity = finalRarity
+                });
             }
 
-            if (def == null) continue;
-
-            rolledThisShop.Add(def); // Remember it so we don't roll it again
-
-            // Check if player already owns it to preserve upgrade rarity
-            Rarity finalRarity = rolledRarity;
-            var existingTactic = RunManager.Instance.playerTactics.FirstOrDefault(p =>
-                p.tacticData != null && p.tacticData.definition == def);
-
-            if (existingTactic != null) finalRarity = existingTactic.tacticData.rarity;
-
-            generated.Add(new RunManager.TacticSaveData
-            {
-                definition = def,
-                rarity = finalRarity
-            });
+            return generated;
         }
-
-        return generated;
     }
 }

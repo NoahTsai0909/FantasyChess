@@ -161,7 +161,7 @@ public class ShopSceneController : MonoBehaviour
                 UniversalPopupManager.ShowPopup($"Not enough [GOLD]");
                 return;
             }
-
+            SaveCurrentBoardsToRunManager();
             RunManager.Instance.Stats.CurrentGold -= unitCost;
 
             PlayerUnitManager.Instance.TryAcquireUnit(unitData.definition, unitData.rarity);
@@ -211,7 +211,7 @@ public class ShopSceneController : MonoBehaviour
                 UniversalPopupManager.ShowPopup($"Not enough [GOLD]");
                 return;
             }
-
+            SaveCurrentBoardsToRunManager();
             RunManager.Instance.Stats.CurrentGold -= tacticCost;
 
             PlayerTacticManager.Instance.TryAcquireTactic(tacticData.definition, tacticData.rarity);
@@ -288,6 +288,7 @@ public class ShopSceneController : MonoBehaviour
 
     private void CompleteEventAndReturn(BaseEventSO eventSO)
     {
+        SaveCurrentBoardsToRunManager();
         eventSO.OnCompleted();
         SceneLoader.Instance.LoadScene(SceneLoader.GameScene.MapScene);
     }
@@ -323,8 +324,8 @@ public class ShopSceneController : MonoBehaviour
             UnitInstance unit = Instantiate(placement.unitData.definition.unitPrefab);
             unit.InitializeFromSaveData(placement.unitData);
             unit.myPlacement = placement;
-
-            // Bench is always row 0
+            unit.myPlacement.row = 0;
+            unit.myPlacement.col = i;
             unit.EnterCombat(benchGrid, 0, i, true, false);
         }
     }
@@ -350,5 +351,63 @@ public class ShopSceneController : MonoBehaviour
         }
         playerTacticBarManager.RefreshAllTacticAuras();
 
+    }
+
+    private void SaveCurrentBoardsToRunManager()
+    {
+        // 1. Save Battle Grid
+        if (battleGrid != null)
+        {
+            RunManager.Instance.playerTeamPlacements.Clear();
+            foreach (var unit in battleGrid.GetAllUnits())
+            {
+                if (unit != null && unit.myPlacement != null)
+                {
+                    RunManager.Instance.playerTeamPlacements.Add(unit.myPlacement);
+                }
+            }
+        }
+
+        // 2. Save Bench Grid
+        if (benchGrid != null)
+        {
+            // Dynamically fetch your bench size to safely fill the empty slots
+            int currentBenchSize = RunManager.Instance.playerBenchPlacements.Count;
+            RunManager.Instance.playerBenchPlacements.Clear();
+
+            for (int i = 0; i < currentBenchSize; i++)
+            {
+                RunManager.Instance.playerBenchPlacements.Add(new RunManager.UnitPlacement());
+            }
+
+            // Slot in the active units based on their physical column
+            foreach (var unit in benchGrid.GetAllUnits())
+            {
+                if (unit != null && unit.myPlacement != null)
+                {
+                    int col = unit.myPlacement.col;
+                    if (col >= 0 && col < currentBenchSize)
+                    {
+                        RunManager.Instance.playerBenchPlacements[col] = unit.myPlacement;
+                    }
+                }
+            }
+            RunManager.Instance.SanitizeBench();
+        }
+
+        // 3. Save Tactic Bar
+        if (playerTacticBarManager != null)
+        {
+            RunManager.Instance.playerTactics.Clear();
+            var tactics = playerTacticBarManager.GetAllTactics();
+            for (int i = 0; i < tactics.Count; i++)
+            {
+                if (tactics[i] != null && tactics[i].myPlacement != null)
+                {
+                    tactics[i].myPlacement.orderIndex = i;
+                    RunManager.Instance.playerTactics.Add(tactics[i].myPlacement);
+                }
+            }
+        }
     }
 }

@@ -118,7 +118,7 @@ public class ShopUnitCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 Vector2 fixedTooltipPos = new Vector2(leftCenterScreen.x - 20f, leftCenterScreen.y);
 
                 TacticHoverDetector.Instance.ShowTooltipFromUI(
-                    assignedTactic.tacticName,
+                    assignedTactic.Definition.tacticName,
                     assignedTactic.GetDescription(),
                     assignedTactic.GetCooldown(),
                     fixedTooltipPos

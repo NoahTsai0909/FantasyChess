@@ -40,7 +40,7 @@ public class FocusFire : TacticInstance
 
     private void HandleActionResolved(CombatAction action)
     {
-
+        if (action.source == null) return;
         if (action.type != CombatActionType.ApplyBurn || action.source.isPlayer != this.isPlayer) return;
         if (allyGrid == null) return;
         action.source.TemporaryStatModify(ModifiableStats.CritChance, buffValue);

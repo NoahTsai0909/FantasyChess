@@ -40,7 +40,7 @@ public class SkilledBandaging : TacticInstance
 
     private void HandleActionResolved(CombatAction action)
     {
-
+        if (action.source == null) return;
         if (action.type != CombatActionType.Heal || action.source.isPlayer != this.isPlayer) return;
         if (allyGrid == null) return;
         action.source.TemporaryStatModify(ModifiableStats.CritChance, buffValue);

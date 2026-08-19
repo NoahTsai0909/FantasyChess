@@ -19,5 +19,6 @@ MonoBehaviour:
   regions: 00000000
   rarity: 0
   startingRarity: 2
+  isCombatExclusive: 0
   isEventExclusive: 0
-  tacticPrefab: {fileID: 0}
+  tacticPrefab: {fileID: 2197204965085685290, guid: e09afba14823ba044b6c01447c387be4, type: 3}

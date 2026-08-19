@@ -19,6 +19,10 @@ public class TacticDefinition : ScriptableObject
     public List<Region> regions = new List<Region>();
     public Rarity rarity;
     public Rarity startingRarity;
+
+    [Header("Exclusivity")]
+    [Tooltip("If true, this tactic normally only drops from combat rewards and is excluded from standard shops.")]
+    public bool isCombatExclusive = false;
     public bool isEventExclusive = false;
 
     [Header("Prefab Reference")]

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd9a7bbe2e40ef443b29ea5554d0097b, type: 3}
+  m_Name: EssenceOfLifeSO
+  m_EditorClassIdentifier: Assembly-CSharp::TacticDefinition
+  tacticName: Essence of Life
+  isPassive: 1
+  cooldown: 0
+  tacticSprite: {fileID: 21300000, guid: 2b335fe025e8c7443a9bf43f89932604, type: 3}
+  regions: 00000000010000000200000003000000
+  rarity: 0
+  startingRarity: 1
+  isCombatExclusive: 1
+  isEventExclusive: 0
+  tacticPrefab: {fileID: 4769783182959340268, guid: 40d4217fc02da7f4b93937d2cd1e5c79, type: 3}
