@@ -19,8 +19,8 @@ public class ShopSceneController : MonoBehaviour
     [SerializeField] private Button continueButton;
 
     [Header("Player Boards")]
-    [SerializeField] private GridManager battleGrid;
-    [SerializeField] private GridManager benchGrid;
+    [SerializeField] public GridManager battleGrid;
+    [SerializeField] public GridManager benchGrid;
     [SerializeField] private TacticBarManager playerTacticBarManager;
 
     private ShopEventSO shopEvent;
@@ -28,6 +28,7 @@ public class ShopSceneController : MonoBehaviour
 
     private List<ShopUnitCard> spawnedCards = new();
     private List<UnitInstance> spawnedDummies = new();
+    private List<TacticInstance> spawnedDummyTactics = new();
 
     void Awake()
     {
@@ -47,6 +48,7 @@ public class ShopSceneController : MonoBehaviour
         }
         RunManager.Instance.InitializeShop(
             shopEvent.totalUnitsGenerated,
+            shopEvent.totalTacticsGenerated,
             RunManager.Instance.playerRegion,
             shopEvent.allowedTags,
             shopEvent.minProvisionCost,
@@ -69,7 +71,6 @@ public class ShopSceneController : MonoBehaviour
 
         if (playerTacticBarManager != null)
         {
-            // Apply all passive auras so the player sees accurate stats while deciding what to buy!
             playerTacticBarManager.RefreshAllTacticAuras();
         }
         if (battleGrid != null) battleGrid.RefreshAllAuras();
@@ -107,32 +108,44 @@ public class ShopSceneController : MonoBehaviour
     void DisplayCurrentPage()
     {
         ClearSpawnedUnits();
-
-        var pageUnits = shopState.offeredUnits
-            .Skip(shopState.currentPage * shopEvent.unitsPerPage)
-            .Take(shopEvent.unitsPerPage)
-            .ToList();
-
-        for (int i = 0; i < pageUnits.Count; i++)
+        if (shopState.offeredUnits != null && shopState.offeredUnits.Count > 0)
         {
-            SpawnShopCard(pageUnits[i]);
+            var pageUnits = shopState.offeredUnits
+                .Skip(shopState.currentPage * shopEvent.unitsPerPage)
+                .Take(shopEvent.unitsPerPage)
+                .ToList();
+
+            for (int i = 0; i < pageUnits.Count; i++)
+            {
+                SpawnShopCard(pageUnits[i]);
+            }
+        }
+
+        if (shopState.offeredTactics != null && shopState.offeredTactics.Count > 0)
+        {
+            var pageTactics = shopState.offeredTactics
+                .Skip(shopState.currentPage * shopEvent.unitsPerPage)
+                .Take(shopEvent.unitsPerPage)
+                .ToList();
+
+            for (int i = 0; i < pageTactics.Count; i++)
+            {
+                SpawnShopTacticCard(pageTactics[i]);
+            }
         }
     }
 
     void SpawnShopCard(UnitSaveData unitData)
     {
-        // 1. Spawn the UI Card (We always need a card for the layout footprint)
         ShopUnitCard card = Instantiate(shopUnitCardPrefab, shopUIAnchor);
 
-        // 2. Check if this unit was already bought during a previous visit to this scene
         if (shopState.purchasedUnits.Contains(unitData.definition))
         {
             card.MarkAsPurchased();
             spawnedCards.Add(card);
-            return; // Skip spawning the dummy unit and setting up the buy logic!
+            return;
         }
 
-        // 3. (Normal Setup) Spawn the invisible dummy unit to calculate abilities
         UnitInstance dummyUnit = Instantiate(unitData.definition.unitPrefab, hiddenUnitAnchor);
         dummyUnit.InitializeFromSaveData(unitData);
         dummyUnit.isPlayer = true;
@@ -141,7 +154,6 @@ public class ShopSceneController : MonoBehaviour
 
         int unitCost = GetPurchasePrice(unitData);
 
-        // 4. Initialize the card with the dummy unit and the Purchase logic
         card.Initialize(dummyUnit, unitCost, () =>
         {
             if (RunManager.Instance.Stats.CurrentGold < unitCost)
@@ -172,6 +184,55 @@ public class ShopSceneController : MonoBehaviour
         spawnedCards.Add(card);
     }
 
+    void SpawnShopTacticCard(RunManager.TacticSaveData tacticData)
+    {
+        ShopUnitCard card = Instantiate(shopUnitCardPrefab, shopUIAnchor);
+
+        if (shopState.purchasedTactics.Contains(tacticData.definition))
+        {
+            card.MarkAsPurchased();
+            spawnedCards.Add(card);
+            return;
+        }
+
+        // --- NEW: Spawn the invisible Dummy Tactic! ---
+        TacticInstance dummyTactic = Instantiate(tacticData.definition.tacticPrefab, hiddenUnitAnchor);
+        dummyTactic.InitializeFromSaveData(tacticData);
+        dummyTactic.gameObject.SetActive(false);
+        spawnedDummyTactics.Add(dummyTactic);
+
+        int tacticCost = GetTacticPurchasePrice(tacticData);
+
+        // Pass the dummyTactic instead of the definition
+        card.InitializeTactic(dummyTactic, tacticCost, () =>
+        {
+            if (RunManager.Instance.Stats.CurrentGold < tacticCost)
+            {
+                UniversalPopupManager.ShowPopup($"Not enough [GOLD]");
+                return;
+            }
+
+            RunManager.Instance.Stats.CurrentGold -= tacticCost;
+
+            PlayerTacticManager.Instance.TryAcquireTactic(tacticData.definition, tacticData.rarity);
+            shopState.purchasedTactics.Add(tacticData.definition);
+
+            // Clean up the dummy!
+            spawnedDummyTactics.Remove(dummyTactic);
+            Destroy(dummyTactic.gameObject);
+
+            card.MarkAsPurchased();
+
+            LoadTacticBarFromRunManager();
+            if (playerTacticBarManager != null) playerTacticBarManager.RefreshAllTacticAuras();
+            if (battleGrid != null) battleGrid.RefreshAllAuras();
+            if (benchGrid != null) benchGrid.RefreshAllAuras();
+        });
+
+        spawnedCards.Add(card);
+    }
+
+
 
     int GetPurchasePrice(UnitSaveData unit)
     {
@@ -181,6 +242,16 @@ public class ShopSceneController : MonoBehaviour
             discountValue = RarityToMultiplier(unit.rarity);
         }
         return (unit.EffectiveValue * 2) - discountValue;
+    }
+
+    int GetTacticPurchasePrice(RunManager.TacticSaveData tactic)
+    {
+        int discountValue = 0;
+        if (shopEvent.discount)
+        {
+            discountValue = RarityToMultiplier(tactic.rarity);
+        }
+        return (RarityToMultiplier(tactic.rarity) * 5) - discountValue;
     }
 
     public static int RarityToMultiplier(Rarity rarity)
@@ -208,6 +279,11 @@ public class ShopSceneController : MonoBehaviour
             if (dummy != null) Destroy(dummy.gameObject);
         }
         spawnedDummies.Clear();
+        foreach (var dummyTactic in spawnedDummyTactics)
+        {
+            if (dummyTactic != null) Destroy(dummyTactic.gameObject);
+        }
+        spawnedDummyTactics.Clear();
     }
 
     private void CompleteEventAndReturn(BaseEventSO eventSO)
@@ -269,8 +345,10 @@ public class ShopSceneController : MonoBehaviour
             TacticInstance tactic = Instantiate(placement.tacticData.definition.tacticPrefab);
             tactic.InitializeFromSaveData(placement.tacticData);
             tactic.myPlacement = placement;
-
+            
             playerTacticBarManager.AddTactic(tactic);
         }
+        playerTacticBarManager.RefreshAllTacticAuras();
+
     }
 }

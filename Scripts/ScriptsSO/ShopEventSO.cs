@@ -6,6 +6,7 @@ public class ShopEventSO : BaseEventSO
 {
     [Header("Shop Rules")]
     public int totalUnitsGenerated = 6;
+    public int totalTacticsGenerated = 0;
     public int unitsPerPage = 3;
     public int refreshCost = 2;  // Add this line
     public bool discount = false;

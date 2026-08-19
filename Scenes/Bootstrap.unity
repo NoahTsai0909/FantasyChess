@@ -362,20 +362,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RunManager
   playerTeamPlacements: []
   playerBenchPlacements: []
-  playerTactics:
-  - tacticData:
-      definition: {fileID: 11400000, guid: d83e0a96054442d4297b35a57f030642, type: 2}
-      rarity: 1
-    orderIndex: 0
-  - tacticData:
-      definition: {fileID: 11400000, guid: ba6230142645a5c46ad71d4fc127463d, type: 2}
-      rarity: 1
-    orderIndex: 1
-  - tacticData:
-      definition: {fileID: 11400000, guid: 8dbba1bcf1785df4791b501c6bf2f649, type: 2}
-      rarity: 1
-    orderIndex: 2
-  defaultUnits: []
+  playerTactics: []
+  defaultUnits:
+  - unitData:
+      definition: {fileID: 11400000, guid: 4631eab1f9b966a419e4a965c4544af2, type: 2}
+      rarity: 0
+      provisionCost: 0
+      provisionModifier: 0
+      valueModifier: 0
+    row: 0
+    col: 0
   benchSize: 5
   regularEventsCompleted: 0
   isBattlePhase: 0

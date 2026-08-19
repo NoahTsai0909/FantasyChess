@@ -4,6 +4,9 @@ using System.Collections;
 
 public class TacticHoverDetector : MonoBehaviour
 {
+    // --- NEW: Singleton Instance ---
+    public static TacticHoverDetector Instance { get; private set; }
+
     [SerializeField] private float hoverDelay = 0.35f;
 
     private Camera mainCamera;
@@ -12,6 +15,14 @@ public class TacticHoverDetector : MonoBehaviour
     private TacticInstance currentHoveredTactic;
     private TacticInstance pendingHoverTactic;
     private Coroutine hoverRoutine;
+
+    // --- NEW: UI Safety Flag ---
+    private bool isUIHoverDriven = false;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -22,6 +33,9 @@ public class TacticHoverDetector : MonoBehaviour
     void Update()
     {
         if (mouse == null) return;
+
+        // --- NEW: If the UI is currently showing a tooltip, stop checking physics! ---
+        if (isUIHoverDriven) return;
 
         // If the player clicks (like dragging a tactic), cancel the hover
         if (mouse.leftButton.isPressed)
@@ -45,12 +59,10 @@ public class TacticHoverDetector : MonoBehaviour
         {
             if (TooltipUIManager.Instance != null)
             {
-
                 TooltipUIManager.Instance.UpdatePosition(mouse.position.ReadValue());
             }
-            return; 
+            return;
         }
-
 
         if (hitTactic == pendingHoverTactic) return;
 
@@ -102,5 +114,30 @@ public class TacticHoverDetector : MonoBehaviour
         Vector3 mousePos = mouse.position.ReadValue();
         mousePos.z = -mainCamera.transform.position.z;
         return mainCamera.ScreenToWorldPoint(mousePos);
+    }
+
+    public void ShowTooltipFromUI(string tacticName, string description, float cooldown, Vector2 displayPosition)
+    {
+        CancelHover();
+        isUIHoverDriven = true;
+
+        if (TooltipUIManager.Instance != null)
+        {
+            TooltipUIManager.Instance.ShowCustom(
+                tacticName,
+                description,
+                displayPosition,
+                cooldown
+            );
+            TooltipUIManager.Instance.UpdatePosition(displayPosition);
+        }
+    }
+
+    public void HideTooltipFromUI()
+    {
+        isUIHoverDriven = false;
+        if (TooltipUIManager.Instance != null) TooltipUIManager.Instance.Hide();
+
+        CancelHover();
     }
 }

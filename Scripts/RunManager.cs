@@ -42,6 +42,8 @@ public class RunManager : MonoBehaviour
     {
         public List<UnitSaveData> offeredUnits;
         public HashSet<UnitDefinition> purchasedUnits = new();
+        public List<TacticSaveData> offeredTactics = new List<TacticSaveData>();
+        public HashSet<TacticDefinition> purchasedTactics = new HashSet<TacticDefinition>();
         public int currentPage;
         public bool hasRefreshed;
         public int minProvisionFilter;  
@@ -373,15 +375,33 @@ public class RunManager : MonoBehaviour
         return stats;
     }
 
-    public void InitializeShop(int count, Region region, UnitTagFlags unitTags, int minProvision = 0, int maxProvision = -1, bool forceRarity = false, Rarity designatedRarity = Rarity.Common)
+    public void InitializeShop(int unitCount, int tacticCount, Region region, UnitTagFlags unitTags, int minProvision = 0, int maxProvision = -1, bool forceRarity = false, Rarity designatedRarity = Rarity.Common)
     {
         if (shopState != null) return;
 
+        // 1. Generate Units (If this is a unit shop)
+        List<UnitSaveData> generatedUnits = new List<UnitSaveData>();
+        if (unitCount > 0)
+        {
+            generatedUnits = UnitGenerationService.GenerateShopUnits(unitCount, region, unitTags, minProvision, maxProvision, forceRarity, designatedRarity);
+        }
+
+        // 2. Generate Tactics (If this is a tactic shop)
+        List<TacticSaveData> generatedTactics = new List<TacticSaveData>();
+        if (tacticCount > 0)
+        {
+            generatedTactics = TacticGenerationService.GenerateShopTactics(tacticCount, region);
+        }
+
+        // 3. Create the unified Payload
         shopState = new ShopState
         {
-            // Pass the new rarity parameters into the service
-            offeredUnits = UnitGenerationService.GenerateShopUnits(count, region, unitTags, minProvision, maxProvision, forceRarity, designatedRarity),
-            purchasedUnits = new(),
+            offeredUnits = generatedUnits,
+            purchasedUnits = new HashSet<UnitDefinition>(),
+
+            offeredTactics = generatedTactics,
+            purchasedTactics = new HashSet<TacticDefinition>(),
+
             currentPage = 0,
             hasRefreshed = false,
             minProvisionFilter = minProvision,

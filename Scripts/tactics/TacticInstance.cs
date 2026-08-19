@@ -264,13 +264,26 @@ public class TacticInstance : MonoBehaviour
             }
             else
             {
-                MapController mc = FindFirstObjectByType<MapController>();
-                if (mc != null)
+                // --- NEW: Check for the Shop Scene! ---
+                ShopSceneController sc = FindFirstObjectByType<ShopSceneController>();
+                if (sc != null)
                 {
-                    allyGrid = mc.previewGrid;
+                    allyGrid = isPlayer ? sc.battleGrid : null;
                     enemyGrid = null;
-                    benchGrid = null;
+                    benchGrid = isPlayer ? sc.benchGrid : null;
                     targetingSystem = new TargetingSystem(allyGrid, enemyGrid, isPlayer);
+                }
+                // --------------------------------------
+                else
+                {
+                    MapController mc = FindFirstObjectByType<MapController>();
+                    if (mc != null)
+                    {
+                        allyGrid = mc.previewGrid;
+                        enemyGrid = null;
+                        benchGrid = null;
+                        targetingSystem = new TargetingSystem(allyGrid, enemyGrid, isPlayer);
+                    }
                 }
             }
         }
