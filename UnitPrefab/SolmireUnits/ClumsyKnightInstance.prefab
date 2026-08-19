@@ -52,12 +52,11 @@ MonoBehaviour:
   isPassive: 0
   isEnergy: 0
   inCombat: 0
-  burnStacks: 0
-  slowStacks: 0
-  hasteStacks: 0
+  currentEnergy: 0
   row: 1
   col: 2
   isPlayer: 1
+  myGrid: {fileID: 0}
   myPlacement:
     unitData:
       definition: {fileID: 11400000, guid: 88642c22682ab104a9c47221284759e5, type: 2}
@@ -186,7 +185,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc0c72defaec0db4791315e9b2cb2b2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnitVisualController
+  shadowSprite: {fileID: 21300000, guid: 5c9f4e5952f4b3d4bb0d145cf2924d21, type: 3}
   enablePulse: 1
   pulseSpeed: 4
   minThickness: 2
   maxThickness: 6
+  enableBreathing: 1
+  breatheSpeed: 3
+  breatheAmount: 0.03

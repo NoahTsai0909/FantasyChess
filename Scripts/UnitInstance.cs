@@ -329,8 +329,6 @@ public class UnitInstance : MonoBehaviour
         {
             currentHP = Mathf.Max(0, currentHP - remainingDamage);
 
-            Visuals?.Flash(Color.red);
-
             CombatEventBus.Publish(
                 CombatEventType.DamageTaken,
                 this,
@@ -338,6 +336,7 @@ public class UnitInstance : MonoBehaviour
                 0
             );
 
+            Visuals.Flash(Color.red, true);
             if (currentHP <= 0)
                 Die();
         }
@@ -542,7 +541,11 @@ public class UnitInstance : MonoBehaviour
         {
             temporaryStats.shieldBonus += bonus;
         }
-            RecalculateStats();
+        else if (modifiableStats == ModifiableStats.Cooldown)
+        {
+            temporaryStats.cooldownDelta += bonus;
+        }
+        RecalculateStats();
         return;
     }
 

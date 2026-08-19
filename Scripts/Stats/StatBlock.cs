@@ -86,14 +86,26 @@ public class StatBlock
 
     public int Value => baseStats.Value + PermValue + temporary.valueBonus;
 
-    public int CritChance => baseStats.CritChance + PermCritChance + temporary.critChanceBonus; 
-    public float Cooldown =>
-        Mathf.Max(
-            0.5f,
-            baseStats.Cooldown
-            - PermCooldownReduction
-            - temporary.cooldownDelta
-        );
+    public int CritChance => baseStats.CritChance + PermCritChance + temporary.critChanceBonus;
+    public float Cooldown
+    {
+        get
+        {
+            // 1. Add integers together
+            float totalCooldownStats = PermCooldownReduction + temporary.cooldownDelta;
+
+            // 2. Convert to a decimal percentage
+            float reductionPercentage = totalCooldownStats / 100f;
+
+            reductionPercentage = Mathf.Clamp(reductionPercentage, 0f, 0.90f);
+
+            // 3. Apply the exact percentage to the base cooldown
+            float reducedCooldown = baseStats.Cooldown * (1f - reductionPercentage);
+
+            // 4. Maintain 0.5s hard-cap
+            return Mathf.Max(0.5f, reducedCooldown);
+        }
+    }
 }
 
 

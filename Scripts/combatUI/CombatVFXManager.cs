@@ -240,13 +240,10 @@ public class CombatVFXManager : MonoBehaviour
             switch (action.type)
             {
                 case CombatActionType.Shield:
-                    action.target.Visuals.Flash(Color.gold);
+                    action.target.Visuals.Flash(Color.gold, false);
                     break;
                 case CombatActionType.Heal:
-                    action.target.Visuals.Flash(Color.green);
-                    break;
-                case CombatActionType.Damage:
-                    action.target.Visuals.Flash(Color.red);
+                    action.target.Visuals.Flash(Color.green, false);
                     break;
             }
         }

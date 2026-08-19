@@ -7,6 +7,9 @@ public class UnitVisualController : MonoBehaviour
     private SpriteRenderer sr;
     private Color originalSpriteColor;
     private Vector3 originalScale; // NEW: Track the base scale
+    private bool isPlayer = true;
+    [Header("Shadow Settings")]
+    public Sprite shadowSprite;
 
     private Coroutine activeAnimationRoutine; // Track if we are attacking/getting hit
 
@@ -25,7 +28,28 @@ public class UnitVisualController : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
         originalSpriteColor = sr.color;
-        originalScale = transform.localScale; // Store base scale on awake
+        originalScale = transform.localScale;
+
+        if (shadowSprite != null)
+        {
+            GameObject shadow = new GameObject("DropShadow");
+            shadow.transform.SetParent(this.transform, false);
+
+            // 1. FIX: Set position to 0,0,0. Your image already has the shadow at the bottom!
+            shadow.transform.localPosition = Vector3.zero;
+
+            // 2. FIX: Set scale to 1,1,1. Your image is already a perfect oval!
+            shadow.transform.localScale = Vector3.one;
+
+            SpriteRenderer shadowSR = shadow.AddComponent<SpriteRenderer>();
+            shadowSR.sprite = shadowSprite;
+
+            // 3. FIX: Since your image is already black with soft edges, we just use white to keep its native colors, and drop the alpha slightly.
+            shadowSR.color = new Color(1f, 1f, 1f, 0.6f);
+
+            // 4. Set sorting order
+            shadowSR.sortingOrder = sr.sortingOrder - 1;
+        }
     }
 
     public void InitializeVisuals(UnitDefinition def)
@@ -42,6 +66,7 @@ public class UnitVisualController : MonoBehaviour
         {
             sr.flipX = !isPlayerSide;
         }
+        isPlayer = isPlayerSide;
     }
 
     public void UpdateRarityOutline(Rarity rarity)
@@ -56,10 +81,7 @@ public class UnitVisualController : MonoBehaviour
             case Rarity.Epic: ColorUtility.TryParseHtmlString("#A335EE", out outlineColor); break;
         }
 
-        sr.material.SetColor("_SolidOutline", outlineColor);
-        sr.material.SetFloat("_OutlineEnabled", 1f);
-        sr.material.SetFloat("_OutlineMode", 0f);
-        sr.material.SetFloat("_OutlineShape", 0f);
+        sr.material.SetColor("_OutlineColor", outlineColor);
     }
 
     private void Update()
@@ -72,12 +94,14 @@ public class UnitVisualController : MonoBehaviour
             sr.material.SetFloat("_Thickness", currentThickness);
         }
 
-        // 2. Idle Breathing (Only breathe if we aren't currently attacking or getting hit!)
         if (enableBreathing && activeAnimationRoutine == null)
         {
             // A simple sine wave that slightly stretches the Y axis
             float breathe = Mathf.Sin(Time.time * breatheSpeed) * breatheAmount;
-            transform.localScale = new Vector3(originalScale.x, originalScale.y + breathe, originalScale.z);
+
+            // --- NEW: Add inverse X-scaling for organic Squash & Stretch ---
+            // We subtract half the breathe amount from the X axis so they slim down as they stretch up!
+            transform.localScale = new Vector3(originalScale.x - (breathe * 0.5f), originalScale.y + breathe, originalScale.z);
         }
     }
 
@@ -85,18 +109,17 @@ public class UnitVisualController : MonoBehaviour
      * JUICE ANIMATIONS
      * ========================= */
 
-    public void Flash(Color flashColor)
+    public void Flash(Color flashColor, bool doKnockback = true)
     {
         if (this == null || !gameObject.activeInHierarchy) return;
 
         if (activeAnimationRoutine != null)
         {
             StopCoroutine(activeAnimationRoutine);
-            // SAFETY RESET: Fix the scale in case we interrupted an Attack Windup!
             transform.localScale = originalScale;
         }
 
-        activeAnimationRoutine = StartCoroutine(HitReactionRoutine(flashColor));
+        activeAnimationRoutine = StartCoroutine(HitReactionRoutine(flashColor, doKnockback));
     }
 
     // Trigger this when the unit uses an ability
@@ -114,31 +137,48 @@ public class UnitVisualController : MonoBehaviour
         activeAnimationRoutine = StartCoroutine(AttackSnapRoutine());
     }
 
-    private IEnumerator HitReactionRoutine(Color flashColor)
+    private IEnumerator HitReactionRoutine(Color flashColor, bool doKnockback)
     {
-        // 1. The Impact (Instant squash and color change)
         sr.color = flashColor;
-        transform.localScale = new Vector3(originalScale.x * 1.3f, originalScale.y * 0.7f, originalScale.z); // Flatten out
 
-        float recoverTime = 0.2f;
+        Vector3 originalPos = transform.localPosition;
+        Vector3 knockbackPos = originalPos;
+
+        // --- FIXED: Only calculate and apply knockback if the flag is true ---
+        if (doKnockback)
+        {
+            float knockbackDirection = isPlayer ? -0.5f : 0.5f;
+            knockbackPos = originalPos + new Vector3(knockbackDirection, 0f, 0f);
+        }
+
+        // 1. Instant squash (and optional knockback)
+        transform.localScale = new Vector3(originalScale.x * 1.3f, originalScale.y * 0.7f, originalScale.z);
+        transform.localPosition = knockbackPos;
+
+        float recoverTime = 0.5f;
         float timer = 0f;
 
-        // 2. The Recovery (Smoothly bounce back to normal)
+        // 2. The Recovery
         while (timer < recoverTime)
         {
             timer += Time.deltaTime;
             float t = timer / recoverTime;
 
-            // Lerp scale back to normal
             transform.localScale = Vector3.Lerp(new Vector3(originalScale.x * 1.3f, originalScale.y * 0.7f, originalScale.z), originalScale, t);
 
-            // End the color flash very early in the animation
+            // Only slide the position if we actually got knocked back
+            if (doKnockback)
+            {
+                transform.localPosition = Vector3.Lerp(knockbackPos, originalPos, t);
+            }
+
             if (timer > 0.05f) sr.color = originalSpriteColor;
 
             yield return null;
         }
 
         transform.localScale = originalScale;
+        transform.localPosition = originalPos; // Ensure position resets
         sr.color = originalSpriteColor;
         activeAnimationRoutine = null;
     }

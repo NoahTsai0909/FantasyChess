@@ -50,16 +50,4 @@ MonoBehaviour:
       outcomes:
       - {fileID: 11400000, guid: f55e49cdda5c02c43a443ab2b5264be3, type: 2}
       condition: {fileID: 0}
-    - buttonText: Test for random tactics.
-      previewUnit: {fileID: 0}
-      rollRandomRarity: 0
-      previewRarity: 0
-      generateRandomUnitPreview: 0
-      randomRegion: 0
-      preferredTags: 0
-      previewTactic: {fileID: 0}
-      generateRandomTacticPreview: 1
-      outcomes:
-      - {fileID: 11400000, guid: ae940819882ab5d4396af39d116c9c2a, type: 2}
-      condition: {fileID: 0}
   eventIllustration: {fileID: 0}

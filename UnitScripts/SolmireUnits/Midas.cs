@@ -63,7 +63,7 @@ public class Midas : UnitInstance
     }
     public override string GetActiveDescription()
     {
-        return ($"[c_Attack]Attack[/c] the nearest enemy for [ATK] {stats.Attack}.");
+        return ($"[c_attack]Attack[/c] the nearest enemy for [ATK] {stats.Attack}.");
     }
 
     public override string GetPassiveDescription()

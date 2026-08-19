@@ -35,6 +35,7 @@ MonoBehaviour:
   startingRarity: 2
   provisionCost: 2
   isMelee: 0
+  isEventExclusive: 1
   unitPrefab: {fileID: 8004185137866047766, guid: 123de3d8ef92e3f4e87db0e686dc8345, type: 3}
   spawnDefinition: {fileID: 0}
   tagFlags: 32

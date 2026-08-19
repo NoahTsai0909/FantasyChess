@@ -23,5 +23,5 @@ MonoBehaviour:
   maxAppearancesPerRun: 0
   targetScene: 2
   encounter: {fileID: 11400000, guid: 0ab0dfa65ba37b142b08480b4a44484a, type: 2}
-  goldReward: 3
+  goldReward: 6
   reputationReward: 3

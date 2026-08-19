@@ -15,58 +15,47 @@ MonoBehaviour:
   encounterName: Sinking Marsh
   enemyUnits:
   - unitData:
+      definition: {fileID: 11400000, guid: 04008bd19c1794f438d65cb978421cf9, type: 2}
+      rarity: 1
+      provisionCost: 0
+      provisionModifier: 0
+      valueModifier: 0
+    row: 0
+    col: 1
+  - unitData:
+      definition: {fileID: 11400000, guid: 04008bd19c1794f438d65cb978421cf9, type: 2}
+      rarity: 1
+      provisionCost: 0
+      provisionModifier: 0
+      valueModifier: 0
+    row: 2
+    col: 1
+  - unitData:
+      definition: {fileID: 11400000, guid: 04008bd19c1794f438d65cb978421cf9, type: 2}
+      rarity: 1
+      provisionCost: 0
+      provisionModifier: 0
+      valueModifier: 0
+    row: 0
+    col: 2
+  - unitData:
+      definition: {fileID: 11400000, guid: 04008bd19c1794f438d65cb978421cf9, type: 2}
+      rarity: 1
+      provisionCost: 0
+      provisionModifier: 0
+      valueModifier: 0
+    row: 2
+    col: 2
+  - unitData:
       definition: {fileID: 11400000, guid: d3b948c569f95704da5a9a3e71be6b13, type: 2}
       rarity: 2
       provisionCost: 0
       provisionModifier: 0
       valueModifier: 0
     row: 1
-    col: 1
-  - unitData:
-      definition: {fileID: 11400000, guid: 04008bd19c1794f438d65cb978421cf9, type: 2}
-      rarity: 1
-      provisionCost: 0
-      provisionModifier: 0
-      valueModifier: 0
-    row: 0
-    col: 1
-  - unitData:
-      definition: {fileID: 11400000, guid: 04008bd19c1794f438d65cb978421cf9, type: 2}
-      rarity: 1
-      provisionCost: 0
-      provisionModifier: 0
-      valueModifier: 0
-    row: 2
-    col: 1
-  - unitData:
-      definition: {fileID: 11400000, guid: 04008bd19c1794f438d65cb978421cf9, type: 2}
-      rarity: 1
-      provisionCost: 0
-      provisionModifier: 0
-      valueModifier: 0
-    row: 0
     col: 2
-  - unitData:
-      definition: {fileID: 11400000, guid: 04008bd19c1794f438d65cb978421cf9, type: 2}
-      rarity: 1
-      provisionCost: 0
-      provisionModifier: 0
-      valueModifier: 0
-    row: 1
-    col: 2
-  - unitData:
-      definition: {fileID: 11400000, guid: 04008bd19c1794f438d65cb978421cf9, type: 2}
-      rarity: 1
-      provisionCost: 0
-      provisionModifier: 0
-      valueModifier: 0
-    row: 2
-    col: 2
-  - unitData:
-      definition: {fileID: 11400000, guid: 04008bd19c1794f438d65cb978421cf9, type: 2}
-      rarity: 1
-      provisionCost: 0
-      provisionModifier: 0
-      valueModifier: 0
-    row: 1
-    col: 0
+  enemyTactics:
+  - tacticData:
+      definition: {fileID: 11400000, guid: a45c1c0f0816d874d9a02fc4050a099d, type: 2}
+      rarity: 2
+    orderIndex: 0
