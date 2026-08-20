@@ -41,8 +41,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _OutlineThickness: 0.5
-    - _ScrollSpeed: 0.2
+    - _OutlineThickness: 0.1
+    - _ScrollSpeed: 0.3
+    - _SmokeReach: 0.08
     m_Colors:
     - White: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 1.9807842, g: 0.81025916, b: 5.992158, a: 1}

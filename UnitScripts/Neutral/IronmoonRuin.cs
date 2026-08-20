@@ -51,6 +51,6 @@ public class IronmoonRuin : UnitInstance
 
     public override string GetActiveDescription()
     {
-        return ($"Absorb all ally [c_shield]shields[/c]. Attack all enemies for the absorbed amount.");
+        return ($"Absorb all ally [c_shield]shields[/c]. [c_attack]Attack[/c] all enemies for the absorbed amount.");
     }
 }

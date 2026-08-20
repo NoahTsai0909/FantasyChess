@@ -45,6 +45,7 @@ public class PatientIdeator : UnitInstance
 
     protected override void HandleCombatAction(CombatAction action)
     {
+        if (action.source == null) return;
         if ((action.type == CombatActionType.Heal) && (action.target.isPlayer == this.isPlayer))
         {
             action.target.TemporaryStatModify(ModifiableStats.MaxHP, maxHealthBuff);

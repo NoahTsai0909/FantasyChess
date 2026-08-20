@@ -19,7 +19,7 @@ public class Meowdic : UnitInstance
 
     private void HandleActionResolved(CombatAction action)
     {
-
+        if (action.source == null) return;
         if (action.type != CombatActionType.Heal || action.source.isPlayer != this.isPlayer) return;
        
         CombatManager.Instance.ExecuteAction(

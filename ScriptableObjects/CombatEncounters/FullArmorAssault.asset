@@ -70,3 +70,16 @@ MonoBehaviour:
       valueModifier: 0
     row: 1
     col: 2
+  enemyTactics:
+  - tacticData:
+      definition: {fileID: 11400000, guid: a241affdece3afa47b7bb1bf9dca5af7, type: 2}
+      rarity: 1
+    orderIndex: 0
+  - tacticData:
+      definition: {fileID: 11400000, guid: b3ce7e1774e0a4b4498effe66b33e24f, type: 2}
+      rarity: 1
+    orderIndex: 1
+  - tacticData:
+      definition: {fileID: 11400000, guid: f844c0e89157fbf43bf204fada621403, type: 2}
+      rarity: 2
+    orderIndex: 2

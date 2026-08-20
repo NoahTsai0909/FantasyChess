@@ -22,6 +22,7 @@ public class DragonMatriarch : UnitInstance
 
     private void HandleActionResolved(CombatAction action)
     {
+        if (action.source == null) return;
         if (action.type != CombatActionType.ApplyBurn && action.type != CombatActionType.ApplyHaste)
         {
             return;

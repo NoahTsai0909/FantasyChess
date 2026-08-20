@@ -61,7 +61,7 @@ public class Sharpshooter : UnitInstance
 
     private void HandleActionResolved(CombatAction action)
     {
-
+        if (action.source == null) return;
         if (action.source.isPlayer != this.isPlayer) return;
         if (action.isCrit != true) return;
         this.TemporaryStatModify(ModifiableStats.Attack, attackBuff);

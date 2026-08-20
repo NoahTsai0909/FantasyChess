@@ -46,6 +46,7 @@ public class Shieldmate : UnitInstance
 
     protected override void HandleCombatAction(CombatAction action)
     {
+        if (action.source == null) return;
         if ((action.type == CombatActionType.Shield) && (action.target == this))
         {
             TemporaryStatModify(ModifiableStats.Shield, shieldBuff);

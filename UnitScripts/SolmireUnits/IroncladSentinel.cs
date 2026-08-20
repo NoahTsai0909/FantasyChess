@@ -48,6 +48,7 @@ public class IroncladSentinel : UnitInstance
 
     private void HandleActionResolved(CombatAction action)
     {
+        if (action.source == null) return;
         if ((action.target == this && action.type == CombatActionType.Damage) || (action.target == this && action.type == CombatActionType.Shield))
         {
             if (isShielded && this.GetCurrentShield() <= 0)

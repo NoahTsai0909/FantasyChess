@@ -52,7 +52,7 @@ public class SearingHalo : UnitInstance
 
     private void HandleActionResolved(CombatAction action)
     {
-
+        if (action.source == null) return;
         if (action.type != CombatActionType.Heal || action.target != this) return;
 
         CombatManager.Instance.ExecuteAction(

@@ -364,13 +364,13 @@ MonoBehaviour:
   playerBenchPlacements: []
   playerTactics:
   - tacticData:
-      definition: {fileID: 11400000, guid: a45c1c0f0816d874d9a02fc4050a099d, type: 2}
-      rarity: 1
+      definition: {fileID: 11400000, guid: 074584a99fe39854a9bb8744ae579f12, type: 2}
+      rarity: 3
     orderIndex: 0
   defaultUnits:
   - unitData:
-      definition: {fileID: 11400000, guid: 4631eab1f9b966a419e4a965c4544af2, type: 2}
-      rarity: 0
+      definition: {fileID: 11400000, guid: b50fd84334f7e58418512acd3d6decee, type: 2}
+      rarity: 1
       provisionCost: 0
       provisionModifier: 0
       valueModifier: 0
@@ -944,6 +944,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc0c72defaec0db4791315e9b2cb2b2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnitVisualController
+  shadowSprite: {fileID: 0}
   enablePulse: 1
   pulseSpeed: 4
   minThickness: 2

@@ -17,7 +17,7 @@ public class RefractingPrism : UnitInstance
 
     private void HandleActionResolved(CombatAction action)
     {
-
+        if (action.source == null) return;
         if (action.type != CombatActionType.Heal && action.type != CombatActionType.Damage) return;
         if (action.target != this) return;
         if (action.type == CombatActionType.Damage && action.source.isPlayer != this.isPlayer) {

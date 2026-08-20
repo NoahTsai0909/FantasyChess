@@ -17,6 +17,7 @@ public class IronmoonCocoon : UnitInstance
 
     private void HandleActionResolved(CombatAction action)
     {
+        if (action.source == null) return;
         if (action.type != CombatActionType.Shield || action.target != this || action.source == this) return;
         CombatManager.Instance.ExecuteAction(
                 new CombatAction

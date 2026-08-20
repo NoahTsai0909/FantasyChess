@@ -47,6 +47,7 @@ public class Paladin : UnitInstance
 
     protected override void HandleCombatAction(CombatAction action)
     {
+        if (action.source == null) return;
         if ((action.type == CombatActionType.Heal) && (action.target.isPlayer == this.isPlayer))
         {
             TemporaryStatModify(ModifiableStats.Attack, attackModifier);

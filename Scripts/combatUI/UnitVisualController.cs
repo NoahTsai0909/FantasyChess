@@ -6,7 +6,8 @@ public class UnitVisualController : MonoBehaviour
 {
     private SpriteRenderer sr;
     private Color originalSpriteColor;
-    private Vector3 originalScale; // NEW: Track the base scale
+    private Vector3 originalScale;
+    private Vector3 originalLocalPosition;
     private bool isPlayer = true;
     [Header("Shadow Settings")]
     public Sprite shadowSprite;
@@ -29,6 +30,7 @@ public class UnitVisualController : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         originalSpriteColor = sr.color;
         originalScale = transform.localScale;
+        originalLocalPosition = transform.localPosition;
 
         if (shadowSprite != null)
         {
@@ -81,7 +83,7 @@ public class UnitVisualController : MonoBehaviour
             case Rarity.Epic: ColorUtility.TryParseHtmlString("#A335EE", out outlineColor); break;
         }
 
-        sr.material.SetColor("_OutlineColor", outlineColor);
+        sr.material.SetColor("_SolidOutline", outlineColor);
     }
 
     private void Update()
@@ -117,12 +119,16 @@ public class UnitVisualController : MonoBehaviour
         {
             StopCoroutine(activeAnimationRoutine);
             transform.localScale = originalScale;
+            transform.localPosition = originalLocalPosition;
+        }
+        else
+        {
+            originalLocalPosition = transform.localPosition;
         }
 
         activeAnimationRoutine = StartCoroutine(HitReactionRoutine(flashColor, doKnockback));
     }
 
-    // Trigger this when the unit uses an ability
     public void PlayAttackAnimation()
     {
         if (this == null || !gameObject.activeInHierarchy) return;
@@ -130,8 +136,13 @@ public class UnitVisualController : MonoBehaviour
         if (activeAnimationRoutine != null)
         {
             StopCoroutine(activeAnimationRoutine);
-            // SAFETY RESET: Fix the color in case we interrupted a Damage/Heal Flash!
             sr.color = originalSpriteColor;
+            transform.localScale = originalScale;
+            transform.localPosition = originalLocalPosition;
+        }
+        else
+        {
+            originalLocalPosition = transform.localPosition;
         }
 
         activeAnimationRoutine = StartCoroutine(AttackSnapRoutine());
@@ -141,7 +152,7 @@ public class UnitVisualController : MonoBehaviour
     {
         sr.color = flashColor;
 
-        Vector3 originalPos = transform.localPosition;
+        Vector3 originalPos = originalLocalPosition;
         Vector3 knockbackPos = originalPos;
 
         // --- FIXED: Only calculate and apply knockback if the flag is true ---

@@ -20,7 +20,7 @@ public class Duelist : UnitInstance
 
     private void HandleActionResolved(CombatAction action)
     {
-
+        if (action.source == null) return;
         if (action.type != CombatActionType.Shield) return;
         if (action.target != this) return;
 

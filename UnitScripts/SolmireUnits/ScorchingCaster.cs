@@ -81,7 +81,7 @@ public class ScorchingCaster : UnitInstance
 
     private void HandleActionResolved(CombatAction action)
     {
-
+        if (action.source == null) return;
         if (action.source.isPlayer != this.isPlayer || action.source.isEnergy == false) return;
         this.TemporaryStatModify(ModifiableStats.Burn, burnBuff);
     }

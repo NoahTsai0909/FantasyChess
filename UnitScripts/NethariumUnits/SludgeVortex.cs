@@ -22,7 +22,7 @@ public class SludgeVortex : UnitInstance
 
     private void HandleActionResolved(CombatAction action)
     {
-
+        if (action.source == null) return;
         if (action.target.isPlayer == this.isPlayer) return;
         if (action.type != CombatActionType.ApplySlow) return;
         this.TemporaryStatModify(ModifiableStats.Attack, attackBuff);
