@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 using static RunManager;
 
 public class GridManager : MonoBehaviour
@@ -9,7 +10,7 @@ public class GridManager : MonoBehaviour
     public float cellSize = 4f;
 
     public GameObject tilePrefab;   // <-- you create this (a simple colored square tile)
-
+    private SpriteRenderer[,] tileVisuals;
     private Vector2[,] worldPositions;
     private RunManager.UnitPlacement[,] gridPlacements;
     private UnitInstance[,] unitInstances;
@@ -20,6 +21,7 @@ public class GridManager : MonoBehaviour
         worldPositions = new Vector2[rows, cols];
         gridPlacements = new RunManager.UnitPlacement[rows, cols];
         unitInstances = new UnitInstance[rows, cols];
+        tileVisuals = new SpriteRenderer[rows, cols];
 
         GenerateGrid();
         CreateVisualTiles();
@@ -58,11 +60,70 @@ public class GridManager : MonoBehaviour
                 }
                 GameObject tile = Instantiate(tilePrefab, transform);
                 tile.transform.position = worldPositions[r, c];
-                /*tile.transform.localScale = Vector3.one * (cellSize * 0.95f);*/
+                SpriteRenderer sr = tile.GetComponent<SpriteRenderer>();
+                if (sr != null)
+                {
+                    Color color = sr.color;
+                    color.a = 0f; // Invisible by default
+                    sr.color = color;
+                    tileVisuals[r, c] = sr;
+                }
             }
         }
     }
 
+    public void ShowGridVisuals()
+    {
+        for (int r = 0; r < rows; r++)
+        {
+            for (int c = 0; c < cols; c++)
+            {
+                if (tileVisuals[r, c] == null) continue;
+                tileVisuals[r, c].DOKill(); // Stop existing animations
+                tileVisuals[r, c].DOFade(0.3f, 0.2f).SetLink(tileVisuals[r, c].gameObject);
+                tileVisuals[r, c].transform.DOScale(1f, 0.2f).SetEase(Ease.OutQuad).SetLink(tileVisuals[r, c].gameObject);
+            }
+        }
+    }
+
+    public void HideGridVisuals()
+    {
+        for (int r = 0; r < rows; r++)
+        {
+            for (int c = 0; c < cols; c++)
+            {
+                if (tileVisuals[r, c] == null) continue;
+                tileVisuals[r, c].DOKill();
+                tileVisuals[r, c].DOFade(0f, 0.2f).SetLink(tileVisuals[r, c].gameObject);
+                tileVisuals[r, c].transform.DOScale(1f, 0.2f).SetLink(tileVisuals[r, c].gameObject);
+            }
+        }
+    }
+
+    public void SetHoveredCell(int hoverRow, int hoverCol)
+    {
+        for (int r = 0; r < rows; r++)
+        {
+            for (int c = 0; c < cols; c++)
+            {
+                if (tileVisuals[r, c] == null) continue;
+
+                tileVisuals[r, c].DOKill();
+
+                // If this is the hovered cell, light it up and expand it!
+                if (r == hoverRow && c == hoverCol)
+                {
+                    tileVisuals[r, c].DOFade(1f, 0.15f).SetLink(tileVisuals[r, c].gameObject);
+                    tileVisuals[r, c].transform.DOScale(1.2f, 0.15f).SetEase(Ease.OutBack).SetLink(tileVisuals[r, c].gameObject);
+                }
+                else // Otherwise, return it to the normal resting state
+                {
+                    tileVisuals[r, c].DOFade(0.3f, 0.15f).SetLink(tileVisuals[r, c].gameObject);
+                    tileVisuals[r, c].transform.DOScale(1f, 0.15f).SetEase(Ease.OutQuad).SetLink(tileVisuals[r, c].gameObject);
+                }
+            }
+        }
+    }
 
     // ------------------- UNIT PLACEMENTS -------------------
 

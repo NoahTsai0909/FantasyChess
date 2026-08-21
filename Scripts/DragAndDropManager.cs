@@ -24,6 +24,8 @@ public class DragAndDropManager : MonoBehaviour
     private Camera mainCamera;
     private Mouse mouse;
     private bool wasMouseDown = false;
+    private GridManager currentHoveredGrid;
+    private Vector2Int currentHoveredCell = new Vector2Int(-1, -1);
 
     void Start()
     {
@@ -68,6 +70,14 @@ public class DragAndDropManager : MonoBehaviour
         {
             if (draggedUnit != null) StopDrag();
             else if (draggedTactic != null) StopDragTactic();
+            else
+            {
+                //FAILSAFE: Always hide grids on release just in case
+                if (battleGrid != null) battleGrid.HideGridVisuals();
+                if (benchGrid != null) benchGrid.HideGridVisuals();
+                currentHoveredGrid = null;
+                currentHoveredCell = new Vector2Int(-1, -1);
+            }
         }
 
         // 4. Update Position
@@ -75,7 +85,24 @@ public class DragAndDropManager : MonoBehaviour
         {
             if (draggedUnit != null)
             {
-                draggedUnit.transform.position = GetMouseWorldPosition();
+                Vector3 mousePos = GetMouseWorldPosition();
+                draggedUnit.transform.position = mousePos;
+                GridManager targetGrid = GetClosestGrid(mousePos);
+                Vector2Int targetPos = targetGrid.GetNearestGridPosition(mousePos);
+
+                // Only trigger the animation if we moved to a new cell!
+                if (currentHoveredGrid != targetGrid || currentHoveredCell != targetPos)
+                {
+                    // If we swapped grids entirely, reset the old grid's hover state
+                    if (currentHoveredGrid != null && currentHoveredGrid != targetGrid)
+                    {
+                        currentHoveredGrid.SetHoveredCell(-1, -1);
+                    }
+
+                    currentHoveredGrid = targetGrid;
+                    currentHoveredCell = targetPos;
+                    targetGrid.SetHoveredCell(targetPos.x, targetPos.y);
+                }
             }
             else if (draggedTactic != null)
             {
@@ -102,6 +129,7 @@ public class DragAndDropManager : MonoBehaviour
             UnitInstance unit = hit.GetComponentInParent<UnitInstance>();
             if (unit != null && unit.myPlacement != null)
             {
+                if (unit.inCombat) return;
                 GridManager grid = GetUnitGrid(unit);
                 if (grid != null)
                 {
@@ -201,6 +229,9 @@ public class DragAndDropManager : MonoBehaviour
 
         sourceGrid.RemoveUnit(sourcePos.x, sourcePos.y, destroyVisual: false);
         SetUnitDragVisuals(unit, true);
+
+        if (battleGrid != null) battleGrid.ShowGridVisuals();
+        if (benchGrid != null) benchGrid.ShowGridVisuals();
     }
 
     void StopDrag()
@@ -313,6 +344,11 @@ public class DragAndDropManager : MonoBehaviour
         if (battleGrid != null) battleGrid.RefreshAllAuras();
         if (benchGrid != null) benchGrid.RefreshAllAuras();
         if (playerTacticBar != null) playerTacticBar.RefreshAllTacticAuras();
+        if (battleGrid != null) battleGrid.HideGridVisuals();
+        if (benchGrid != null) benchGrid.HideGridVisuals();
+
+        currentHoveredGrid = null;
+        currentHoveredCell = new Vector2Int(-1, -1);
     }
 
     void RevertDrag()
@@ -327,6 +363,12 @@ public class DragAndDropManager : MonoBehaviour
         draggedUnit = null;
         draggedPlacement = null;
         sourceGrid = null;
+
+        if (battleGrid != null) battleGrid.HideGridVisuals();
+        if (benchGrid != null) benchGrid.HideGridVisuals();
+
+        currentHoveredGrid = null;
+        currentHoveredCell = new Vector2Int(-1, -1);
     }
 
     System.Collections.IEnumerator ShowProvisionWarning()

@@ -19,7 +19,7 @@ MonoBehaviour:
   portalGlowColor: {r: 1, g: 0.7058824, b: 0.12941177, a: 1}
   minDayRequired: 1
   maxDayRequired: 12
-  selectionWeight: 1
+  selectionWeight: 10
   maxAppearancesPerRun: 0
   targetScene: 5
   pages:
@@ -33,6 +33,8 @@ MonoBehaviour:
       generateRandomUnitPreview: 1
       randomRegion: 4
       preferredTags: 2048
+      previewTactic: {fileID: 0}
+      generateRandomTacticPreview: 0
       outcomes:
       - {fileID: 11400000, guid: 9815444895d24be47a73792fc3d852e3, type: 2}
       condition: {fileID: 0}
@@ -43,6 +45,8 @@ MonoBehaviour:
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 0
+      previewTactic: {fileID: 0}
+      generateRandomTacticPreview: 0
       outcomes:
       - {fileID: 11400000, guid: f55e49cdda5c02c43a443ab2b5264be3, type: 2}
       condition: {fileID: 0}

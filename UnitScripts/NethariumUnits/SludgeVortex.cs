@@ -51,6 +51,12 @@ public class SludgeVortex : UnitInstance
         };
     }
 
+    protected override void OnTierUpgraded()
+    {
+        base.OnTierUpgraded();
+        attackBuff = findBuff(CurrentRarity);
+    }
+
     protected override void UseAbility()
     {
         base.UseAbility();

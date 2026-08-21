@@ -33,7 +33,7 @@ MonoBehaviour:
   region: 4
   rarity: 0
   startingRarity: 0
-  provisionCost: 0
+  provisionCost: 1
   isMelee: 0
   isEventExclusive: 0
   unitPrefab: {fileID: 1527266960563838775, guid: 1018e9aeab8f81844a476334df9e3a1d, type: 3}
