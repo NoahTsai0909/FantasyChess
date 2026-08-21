@@ -44,6 +44,6 @@ public class Runehide : UnitInstance, IConsumable
 
     public override string GetActiveDescription()
     {
-        return ($"Consume this to grant [[c_shield]{buffValue}[/c] [SHIELD] permanently.");
+        return ($"Consume this to grant [c_shield]{buffValue}[/c] [SHIELD] permanently.");
     }
 }

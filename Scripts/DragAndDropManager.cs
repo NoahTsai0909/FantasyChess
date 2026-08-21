@@ -9,7 +9,6 @@ public class DragAndDropManager : MonoBehaviour
     [SerializeField] private GridManager benchGrid;
     [SerializeField] private SellZone sellZone;
     [SerializeField] private ProvisionManager provisionManager;
-
     [SerializeField] private TacticBarManager playerTacticBar;
 
     private UnitInstance draggedUnit;
@@ -26,6 +25,10 @@ public class DragAndDropManager : MonoBehaviour
     private bool wasMouseDown = false;
     private GridManager currentHoveredGrid;
     private Vector2Int currentHoveredCell = new Vector2Int(-1, -1);
+
+    [Header("VFX Prefabs")]
+    [SerializeField] private GameObject consumeVFXPrefab; // The poof when the consumable vanishes
+    [SerializeField] private GameObject receiveBuffVFXPrefab;
 
     void Start()
     {
@@ -260,6 +263,16 @@ public class DragAndDropManager : MonoBehaviour
 
                 if (consumeSuccessful)
                 {
+                    if (consumeVFXPrefab != null)
+                    {
+                        Instantiate(consumeVFXPrefab, draggedUnit.transform.position, Quaternion.identity);
+                    }
+
+                    if (receiveBuffVFXPrefab != null)
+                    {
+                        Instantiate(receiveBuffVFXPrefab, targetUnit.transform.position, Quaternion.identity);
+                    }
+
                     sourceGrid.ClearUnitReference(draggedPlacement);
                     RemoveFromRunManager(draggedUnit, draggedPlacement);
                     Destroy(draggedUnit.gameObject);
