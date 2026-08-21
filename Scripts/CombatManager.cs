@@ -124,21 +124,6 @@ public class CombatManager : MonoBehaviour
         combatLog.Add(action);
     }
 
-    private IEnumerable<UnitInstance> GetAllUnitsInCombat()
-    {
-        if (playerGrid != null)
-        {
-            foreach (var unit in playerGrid.GetAllUnits())
-                yield return unit;
-        }
-
-        if (enemyGrid != null)
-        {
-            foreach (var unit in enemyGrid.GetAllUnits())
-                yield return unit;
-        }
-    }
-
 
 
     private UnitInstance ResolveTargetRedirects(CombatAction action)

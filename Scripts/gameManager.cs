@@ -400,6 +400,7 @@ public class gameManager : MonoBehaviour
         // Pass "true" for the player, and "false" for the enemy!
         if (playerTacticBarManager != null) playerTacticBarManager.StartCombat(true);
         if (enemyTacticBarManager != null) enemyTacticBarManager.StartCombat(false);
+        NotificationManager.Instance.ShowNotification("Combat Started!");
 
         CheckCombatEnd();
     }

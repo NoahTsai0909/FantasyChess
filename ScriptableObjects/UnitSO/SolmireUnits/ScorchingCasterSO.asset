@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: ScorchingCasterSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Scorching Caster
-  maxHP: 50
-  attack: 10
+  maxHP: 75
+  attack: 0
   heal: 0
   shield: 0
   burn: 3
@@ -22,17 +22,17 @@ MonoBehaviour:
   slow: 0
   haste: 0
   critChance: 0
-  cooldown: 7
+  cooldown: 12
   isPassive: 0
   isEnergy: 1
   maxEnergy: 2
-  multicast: 2
+  multicast: 3
   unitSprite: {fileID: 21300000, guid: 4f3db3eeeb4535a48b938c9fecd902bd, type: 3}
   defaultProjectile: []
   cost: 0
   region: 0
   rarity: 0
-  startingRarity: 1
+  startingRarity: 0
   provisionCost: 2
   isMelee: 0
   isEventExclusive: 0

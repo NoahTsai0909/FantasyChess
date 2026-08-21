@@ -7,14 +7,14 @@ public class ScatteredPyre : UnitInstance
     {
         base.UseAbility();
         hasUsedAbility = true;
-        CombatAction action = new CombatAction
+        CombatManager.Instance.ExecuteAction(new CombatAction
         {
             type = CombatActionType.Kill,
             source = this,
             target = this,
             amount = 0,
             reason = "Scattered Pyre Self Destruct"
-        };
+        });
     }
 
     public override string GetActiveDescription()

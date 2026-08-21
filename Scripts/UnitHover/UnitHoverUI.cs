@@ -135,12 +135,7 @@ public class UnitHoverUI : MonoBehaviour
         {
             // Just rebuild layout to ensure content fits, but keep position
             LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
-            // Ensure our anchor position is maintained
-            if (canvas != null && rectTransform != null)
-            {
-                // Re-apply the anchored position to be safe
-                // You could also just skip this if the position stays
-            }
+            
         }
 
         string activeDesc = TextIconUtility.ParseDescription(unit.GetActiveDescription());
@@ -170,6 +165,7 @@ public class UnitHoverUI : MonoBehaviour
 
         foreach (Transform child in tagContainer)
         {
+            child.gameObject.SetActive(false);
             Destroy(child.gameObject);
         }
 
@@ -181,7 +177,7 @@ public class UnitHoverUI : MonoBehaviour
         {
             if (flag == UnitTagFlags.None) continue;
 
-            if (flag == UnitTagFlags.Damage || flag == UnitTagFlags.Shield || flag == UnitTagFlags.Heal || flag == UnitTagFlags.Poison || flag == UnitTagFlags.Burn || flag == UnitTagFlags.Crit || flag == UnitTagFlags.Energy || flag == UnitTagFlags.Slow || flag == UnitTagFlags.MaxHP)
+            if (flag == UnitTagFlags.Damage || flag == UnitTagFlags.Shield || flag == UnitTagFlags.Heal || flag == UnitTagFlags.Poison || flag == UnitTagFlags.Burn || flag == UnitTagFlags.Crit || flag == UnitTagFlags.Energy || flag == UnitTagFlags.Slow || flag == UnitTagFlags.MaxHP || flag == UnitTagFlags.Haste)
             {
                 continue;
             }

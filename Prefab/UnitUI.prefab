@@ -1431,7 +1431,6 @@ MonoBehaviour:
   nameText: {fileID: 2125460663006304464}
   provisionText: {fileID: 1930566209484933586}
   valueText: {fileID: 7919614916861583639}
-  offset: {x: 5, y: 5}
   useFixedPosition: 0
   backgroundCommon: {fileID: 21300000, guid: 5ba2c4f12a87e0f478f8ee4147894a77, type: 3}
   backgroundUncommon: {fileID: 21300000, guid: 677013c445266114398ae6fedbe702e0, type: 3}
@@ -1450,6 +1449,7 @@ MonoBehaviour:
   tagContainer: {fileID: 2571776567173390511}
   tagBadgePrefab: {fileID: 6562490826249388442, guid: ccf746cf6e25dc646bf8f24d6614c569, type: 3}
   isPermanentUI: 0
+  edgePadding: {x: 50, y: 50}
 --- !u!114 &6943863061446436555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1969,8 +1969,8 @@ MonoBehaviour:
   m_Spacing: 5
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0

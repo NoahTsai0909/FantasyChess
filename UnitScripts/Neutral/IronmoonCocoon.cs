@@ -33,6 +33,6 @@ public class IronmoonCocoon : UnitInstance
 
     public override string GetPassiveDescription()
     {
-        return ($"When this is [c_shield]shielded[/c], [c_shield]shield[/c] this for [SHIELD] {stats.Shield}.");
+        return ($"When this is [c_shield]shielded[/c] by another unit, [c_shield]shield[/c] this for [SHIELD] {stats.Shield}.");
     }
 }

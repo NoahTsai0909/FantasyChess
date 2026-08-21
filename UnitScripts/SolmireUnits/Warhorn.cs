@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Warhorn : UnitInstance
 {
-    int attackBuff = 10;
+    int attackBuff = 20;
 
     public override void InitializeFromSaveData(UnitSaveData data)
     {
@@ -21,10 +21,10 @@ public class Warhorn : UnitInstance
     {
         return rarity switch
         {
-            Rarity.Uncommon => 10,
-            Rarity.Rare => 20,
+            Rarity.Uncommon => 20,
+            Rarity.Rare => 30,
             Rarity.Epic => 40,
-            _ => 10
+            _ => 20
         };
     }
 
