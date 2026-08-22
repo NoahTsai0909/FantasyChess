@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AirTreaderSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Air Treader
-  maxHP: 50
+  maxHP: 140
   attack: 0
   heal: 0
   shield: 0
@@ -27,6 +27,12 @@ MonoBehaviour:
   isEnergy: 1
   maxEnergy: 2
   multicast: 1
+  overrideCooldownScaling: 0
+  cooldownByRarity:
+  - 0
+  - 0
+  - 0
+  - 0
   unitSprite: {fileID: 21300000, guid: 11061e0f2b160d7449e04a25fcf88ede, type: 3}
   defaultProjectile: []
   cost: 0

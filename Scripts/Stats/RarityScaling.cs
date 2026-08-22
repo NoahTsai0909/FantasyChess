@@ -13,6 +13,18 @@ public static class RarityScaling
         };
     }
 
+    public static float GetMaxHPMultiplier(int rarityDelta)
+    {
+        return rarityDelta switch
+        {
+            0 => 1.0f,   // starting rarity
+            1 => 1.7f,   // +1 tier
+            2 => 2.9f,  // +2 tiers
+            3 => 4.9f, // +3 tiers
+            _ => 1.0f
+        };
+    }
+
     public static Rarity GetNextRarity(Rarity rarity)
     {
         switch (rarity)

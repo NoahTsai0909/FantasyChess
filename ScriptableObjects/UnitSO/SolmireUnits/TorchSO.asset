@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TorchSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Torch
-  maxHP: 40
+  maxHP: 50
   attack: 0
   heal: 0
   shield: 0
@@ -27,6 +27,12 @@ MonoBehaviour:
   isEnergy: 0
   maxEnergy: 0
   multicast: 1
+  overrideCooldownScaling: 0
+  cooldownByRarity:
+  - 0
+  - 0
+  - 0
+  - 0
   unitSprite: {fileID: 21300000, guid: f7dc34d5661890a46a0d9a68546b497d, type: 3}
   defaultProjectile:
   - {fileID: 0}

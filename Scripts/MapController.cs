@@ -47,7 +47,7 @@ public class MapController : MonoBehaviour
 
     void Start()
     {
-        // If we leveled up, CheckLevelUp() triggers a scene load. 
+        if (CheckLastChance()) return;
         // We return instantly so we don't waste power generating the map.
         if (CheckLevelUp()) return;
 
@@ -170,6 +170,23 @@ public class MapController : MonoBehaviour
     {
         SceneLoader.Instance.LoadScene(GameScene.PrepScene);
     }
+
+    private bool CheckLastChance()
+    {
+        if (RunManager.Instance == null) return false;
+        if (RunManager.Instance.Stats.PlayerHealth <= 0 && !RunManager.Instance.hasUsedLastChance)
+        {
+            RunManager.Instance.hasUsedLastChance = true;
+            RunManager.Instance.Stats.PlayerHealth = 1;
+
+            RunManager.Instance.lastChanceEvent.OnSelected();
+
+            return true;
+        }
+
+        return false;
+    }
+
 
     private bool CheckLevelUp()
     {

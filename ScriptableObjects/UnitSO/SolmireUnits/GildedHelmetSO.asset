@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GildedHelmetSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Gilded Helmet
-  maxHP: 120
+  maxHP: 150
   attack: 0
   heal: 0
   shield: 40
@@ -27,6 +27,12 @@ MonoBehaviour:
   isEnergy: 0
   maxEnergy: 0
   multicast: 1
+  overrideCooldownScaling: 0
+  cooldownByRarity:
+  - 0
+  - 0
+  - 0
+  - 0
   unitSprite: {fileID: 21300000, guid: 66c3bef550a7ca04b92c10fff596edaf, type: 3}
   defaultProjectile: []
   cost: 0

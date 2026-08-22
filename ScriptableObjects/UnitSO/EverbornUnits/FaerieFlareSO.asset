@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FaerieFlareSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Faerie Flare
-  maxHP: 125
+  maxHP: 200
   attack: 0
   heal: 0
   shield: 0
@@ -27,6 +27,12 @@ MonoBehaviour:
   isEnergy: 0
   maxEnergy: 0
   multicast: 1
+  overrideCooldownScaling: 0
+  cooldownByRarity:
+  - 0
+  - 0
+  - 0
+  - 0
   unitSprite: {fileID: 21300000, guid: 84bee58bab3c3e749a8e4005f17e80a4, type: 3}
   defaultProjectile: []
   cost: 0
@@ -35,6 +41,7 @@ MonoBehaviour:
   startingRarity: 2
   provisionCost: 2
   isMelee: 0
+  isEventExclusive: 0
   unitPrefab: {fileID: 6690224037057042781, guid: 0f384825e2d26344b8636f3b18f509ba, type: 3}
   spawnDefinition: {fileID: 0}
   tagFlags: 65568

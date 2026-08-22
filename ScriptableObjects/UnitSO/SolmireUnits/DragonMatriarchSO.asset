@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DragonMatriarchSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Dragon Matriach
-  maxHP: 125
+  maxHP: 150
   attack: 20
   heal: 0
   shield: 0
@@ -27,6 +27,12 @@ MonoBehaviour:
   isEnergy: 0
   maxEnergy: 0
   multicast: 1
+  overrideCooldownScaling: 0
+  cooldownByRarity:
+  - 0
+  - 0
+  - 0
+  - 0
   unitSprite: {fileID: 21300000, guid: 46ab78bee9fc6bd4faa7e9d24a1789c6, type: 3}
   defaultProjectile: []
   cost: 0
@@ -35,6 +41,7 @@ MonoBehaviour:
   startingRarity: 2
   provisionCost: 3
   isMelee: 0
+  isEventExclusive: 0
   unitPrefab: {fileID: 1104085622815334690, guid: 0c05ec9acbcd66a47918361f0c64258a, type: 3}
   spawnDefinition: {fileID: 0}
   tagFlags: 1073

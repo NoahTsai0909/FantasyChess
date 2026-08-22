@@ -25,6 +25,10 @@ public class UnitDefinition : ScriptableObject, IStatSource
     public int maxEnergy;
     public int multicast = 1;
 
+    [Header("Overrides")]
+    public bool overrideCooldownScaling = false;
+    public float[] cooldownByRarity = new float[4];
+
     [Header("Visuals")]
     public Sprite unitSprite;
     public List<Sprite> defaultProjectile;

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: UnerringEyeSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Unerring Eye
-  maxHP: 90
+  maxHP: 150
   attack: 0
   heal: 0
   shield: 0
@@ -27,6 +27,12 @@ MonoBehaviour:
   isEnergy: 0
   maxEnergy: 0
   multicast: 1
+  overrideCooldownScaling: 0
+  cooldownByRarity:
+  - 0
+  - 0
+  - 0
+  - 0
   unitSprite: {fileID: 21300000, guid: b852bb893b4fa6c44a87eb3c1417ab7c, type: 3}
   defaultProjectile: []
   cost: 0
@@ -35,6 +41,7 @@ MonoBehaviour:
   startingRarity: 2
   provisionCost: 2
   isMelee: 0
+  isEventExclusive: 0
   unitPrefab: {fileID: 131125780258121389, guid: e610cb01379165d42b6e36bbe35fcdba, type: 3}
   spawnDefinition: {fileID: 0}
   tagFlags: 8210

@@ -41,6 +41,7 @@ public class BattleUIManager : MonoBehaviour
         // Create health bar
         GameObject healthBarGO = Instantiate(healthBarPrefab, battleCanvas.transform);
         healthBarGO.transform.position = uiPosition + GetHealthBarOffset(unit.isPlayer);
+        healthBarGO.transform.localScale = new Vector3(0.9f, 0.4f, 1f);
 
         HealthBarUI healthBar = healthBarGO.GetComponent<HealthBarUI>();
 
@@ -54,6 +55,10 @@ public class BattleUIManager : MonoBehaviour
         //healthBar.SetTextVisible(false);
         cooldownBar.SetTextVisible(false);
         cooldownBar.SetVisuals(unit.CurrentRarity);
+        if (unit.Definition.isPassive)
+        {
+            cooldownBarGO.SetActive(false);
+        }
 
         // Status bar stays the same
         GameObject statusBarGO = Instantiate(statusEffectBarPrefab, battleCanvas.transform);
@@ -142,7 +147,7 @@ public class BattleUIManager : MonoBehaviour
 
     private Vector3 GetCooldownBarOffset(bool isPlayer)
     {
-        return new Vector3(-1.75f, -2.5f, 0); // Changed to be more visible
+        return new Vector3(-1.5f, -2.5f, 0); // Changed to be more visible
     }
 
     private Vector3 GetStatusBarOffset(bool isPlayer)
@@ -195,26 +200,26 @@ public class BattleUIManager : MonoBehaviour
         switch (action.type)
         {
             case CombatActionType.Damage:
-                SpawnFloatingText(worldPos, $"-{action.amount}", Color.red, action.isCrit);
+                SpawnFloatingText(worldPos, $"{action.amount}", Color.red, action.isCrit);
                 break;
 
             case CombatActionType.Heal:
-                SpawnFloatingText(worldPos, $"+{action.amount}", Color.green, action.isCrit);
+                SpawnFloatingText(worldPos, $"[HEAL]{action.amount}", Color.green, action.isCrit);
                 break;
 
             case CombatActionType.Shield:
-                SpawnFloatingText(worldPos, $"+{action.amount}", Color.gold, action.isCrit);
+                SpawnFloatingText(worldPos, $"[SHIELD]{action.amount}", Color.gold, action.isCrit);
                 break;
 
             case CombatActionType.BurnTick:
-                SpawnFloatingText(worldPos, $"-{action.amount}", Color.orange, false);
+                SpawnFloatingText(worldPos, $"[BURN]{action.amount}", Color.orange, false);
                 break;
         }
     }
 
     private void SpawnFloatingText(Vector3 worldPos, string text, Color color, bool isCrit)
     {
-        Vector3 offset = new Vector3(Random.Range(-0.4f, 0.4f),1f + Random.Range(-0.2f, 0.3f),0f);
+        Vector3 offset = new Vector3(Random.Range(-0.1f, 0.1f),1f + Random.Range(-0.2f, 0.2f),0f);
         var instance = Instantiate(
             floatingTextPrefab,
             worldPos + offset,

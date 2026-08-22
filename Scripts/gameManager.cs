@@ -36,6 +36,7 @@ public class gameManager : MonoBehaviour
 
     [Header("Combat Settings")]
     [SerializeField] private float endCombatDelay = 1.0f;
+    private int enemiesKilledThisCombat = 0;
 
     [Header("Disaster System")]
     [SerializeField] private DisasterManager disasterManager;
@@ -111,6 +112,10 @@ public class gameManager : MonoBehaviour
     {
         if (type == CombatEventBus.CombatEventType.UnitDied && combatActive)
         {
+            if (target != null && !target.isPlayer)
+            {
+                enemiesKilledThisCombat++;
+            }
             playerGrid.RefreshAllAuras();
             enemyGrid.RefreshAllAuras();
             CheckCombatEnd();
@@ -171,15 +176,16 @@ public class gameManager : MonoBehaviour
 
         Time.timeScale = 0.5f;
 
-        // Apply rewards only if player won
-        if (playerWon && RunManager.Instance.selectedEvent != null)
+        var combatEvent = RunManager.Instance.selectedEvent as CombatEventSO;
+        int goldFromKills = Mathf.Min(enemiesKilledThisCombat, combatEvent.goldReward);
+        int remainingGold = combatEvent.goldReward - goldFromKills;
+        RunManager.Instance.Stats.CurrentGold += goldFromKills;
+
+        if (playerWon && combatEvent != null)
         {
-            // Get the combat event that started this battle
-            var combatEvent = RunManager.Instance.selectedEvent as CombatEventSO;
             if (combatEvent != null)
             {
-                // Apply combat-specific rewards
-                RunManager.Instance.Stats.CurrentGold += combatEvent.goldReward;
+                RunManager.Instance.Stats.CurrentGold += remainingGold;
                 RunManager.Instance.Stats.Experience += combatEvent.reputationReward;
                 if (pendingUnitRewardDef != null)
                 {
@@ -221,8 +227,10 @@ public class gameManager : MonoBehaviour
             continueButton.onClick.AddListener(() =>
             {
                 Time.timeScale = 1f;
+                bool isFinalDay = RunManager.Instance.Stats.CurrentDay >= RunManager.TOTAL_DAYS;
+                bool canUseLastChance = RunManager.Instance.Stats.PlayerHealth <= 0 && !isFinalDay && !RunManager.Instance.hasUsedLastChance;
 
-                if (playerWon || RunManager.Instance.Stats.PlayerHealth > 0)
+                if (playerWon || RunManager.Instance.Stats.PlayerHealth > 0 || canUseLastChance)
                 {
                     // Go to map scene to continue run
                     SceneLoader.Instance.LoadScene(GameScene.MapScene);
@@ -401,7 +409,7 @@ public class gameManager : MonoBehaviour
         if (playerTacticBarManager != null) playerTacticBarManager.StartCombat(true);
         if (enemyTacticBarManager != null) enemyTacticBarManager.StartCombat(false);
         NotificationManager.Instance.ShowNotification("Combat Started!");
-
+        enemiesKilledThisCombat = 0;
         CheckCombatEnd();
     }
 

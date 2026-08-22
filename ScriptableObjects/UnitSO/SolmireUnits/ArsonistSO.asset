@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ArsonistSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Arsonist
-  maxHP: 75
+  maxHP: 140
   attack: 0
   heal: 0
   shield: 0
@@ -27,6 +27,12 @@ MonoBehaviour:
   isEnergy: 0
   maxEnergy: 0
   multicast: 1
+  overrideCooldownScaling: 0
+  cooldownByRarity:
+  - 0
+  - 0
+  - 0
+  - 0
   unitSprite: {fileID: 21300000, guid: 9c592162dba5d5d49866e22d18bbac4c, type: 3}
   defaultProjectile: []
   cost: 0

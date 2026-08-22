@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CinderResurgentSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Cinder Resurgent
-  maxHP: 220
+  maxHP: 330
   attack: 35
   heal: 0
   shield: 0
@@ -27,6 +27,12 @@ MonoBehaviour:
   isEnergy: 0
   maxEnergy: 0
   multicast: 1
+  overrideCooldownScaling: 0
+  cooldownByRarity:
+  - 0
+  - 0
+  - 0
+  - 0
   unitSprite: {fileID: 21300000, guid: 50401f7e5b409774b9d01ffcccd58c00, type: 3}
   defaultProjectile: []
   cost: 0

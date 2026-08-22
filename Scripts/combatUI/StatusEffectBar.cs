@@ -35,7 +35,6 @@ public class StatusEffectBar : MonoBehaviour
     [SerializeField] private Transform iconContainer;
     [SerializeField] private StatusEffectIcon iconPrefab;
 
-    // Add this list so you can drag and drop your sprites in the Inspector
     [SerializeField] private List<StatusSpriteMapping> statusSprites = new();
 
     private Dictionary<StatusEffectType, StatusEffectIcon> icons = new();

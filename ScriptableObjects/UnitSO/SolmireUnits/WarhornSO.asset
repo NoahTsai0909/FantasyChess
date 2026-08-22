@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WarhornSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Warhorn
-  maxHP: 60
+  maxHP: 119
   attack: 0
   heal: 0
   shield: 0
@@ -27,6 +27,12 @@ MonoBehaviour:
   isEnergy: 0
   maxEnergy: 0
   multicast: 1
+  overrideCooldownScaling: 0
+  cooldownByRarity:
+  - 0
+  - 0
+  - 0
+  - 0
   unitSprite: {fileID: 21300000, guid: 20fdbee07070b04449867b503a78712a, type: 3}
   defaultProjectile: []
   cost: 0

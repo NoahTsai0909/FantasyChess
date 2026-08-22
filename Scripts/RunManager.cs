@@ -69,6 +69,7 @@ public class RunManager : MonoBehaviour
     public EncounterDefinition currentEncounter;
     public bool eventInProgress = false;
     public const int TOTAL_DAYS = 12;
+    public bool hasUsedLastChance = false;
     public ShopState shopState;
 
 
@@ -80,6 +81,7 @@ public class RunManager : MonoBehaviour
     public RegionLevelTreeSO currentRegionTree;
     [Tooltip("Drag all your specific RegionLevelTreeSO assets into this list!")]
     [SerializeField] private List<RegionLevelTreeSO> allRegionTrees = new List<RegionLevelTreeSO>();
+    [SerializeField] public LastChanceEventSO lastChanceEvent;
 
     private void Awake()
     {
@@ -442,6 +444,7 @@ public class RunManager : MonoBehaviour
         selectedEvent = null;
         currentEncounter = null;
         eventInProgress = false;
+        hasUsedLastChance = false;
 
         permanentStatsMap.Clear();
 

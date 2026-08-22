@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SharpshooterSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Sharpshooter
-  maxHP: 70
+  maxHP: 130
   attack: 20
   heal: 0
   shield: 0
@@ -27,6 +27,12 @@ MonoBehaviour:
   isEnergy: 0
   maxEnergy: 0
   multicast: 1
+  overrideCooldownScaling: 0
+  cooldownByRarity:
+  - 0
+  - 0
+  - 0
+  - 0
   unitSprite: {fileID: 21300000, guid: b74ff1aadcd930648aea99ee570427da, type: 3}
   defaultProjectile: []
   cost: 0
@@ -35,6 +41,7 @@ MonoBehaviour:
   startingRarity: 1
   provisionCost: 2
   isMelee: 0
+  isEventExclusive: 0
   unitPrefab: {fileID: 3205166937429277827, guid: ef922bf64094dee458105933be0a6031, type: 3}
   spawnDefinition: {fileID: 0}
   tagFlags: 9216

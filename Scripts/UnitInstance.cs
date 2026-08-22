@@ -460,12 +460,16 @@ public class UnitInstance : MonoBehaviour
     {
         int delta = CurrentRarity - Definition.startingRarity;
         float multiplier = RarityScaling.GetMultiplier(delta);
+        float maxHPmultiplier = RarityScaling.GetMaxHPMultiplier(delta);
+        float finalCooldown = Definition.overrideCooldownScaling
+    ? Definition.cooldownByRarity[(int)CurrentRarity]
+    : Definition.cooldown;
 
         return new UnitDefinitionView(
             Mathf.RoundToInt(Definition.attack * multiplier),
             Mathf.RoundToInt(Definition.heal * multiplier),
-            Mathf.RoundToInt(Definition.maxHP * multiplier),
-            Definition.cooldown,
+            Mathf.RoundToInt(Definition.maxHP * maxHPmultiplier),
+            finalCooldown,
             Mathf.RoundToInt(Definition.shield * multiplier),
             Mathf.RoundToInt(Definition.burn * multiplier),
             Mathf.RoundToInt(Definition.poison * multiplier),
@@ -498,7 +502,6 @@ public class UnitInstance : MonoBehaviour
         else rarityMultiplier = 1;
 
         return definition.provisionCost != 0 ? rarityMultiplier * definition.provisionCost : rarityMultiplier;
-
     }
 
     public void TemporaryStatModify(ModifiableStats modifiableStats, int bonus)

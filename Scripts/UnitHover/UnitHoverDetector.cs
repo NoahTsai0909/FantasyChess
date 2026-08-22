@@ -15,7 +15,7 @@ public class UnitHoverDetector : MonoBehaviour
     private Coroutine hoverRoutine;
 
     private UnitHoverUI hoverUIInstance;
-    private CanvasGroup hoverUICanvasGroup; // ADDED: To control raycasts dynamically
+    private CanvasGroup hoverUICanvasGroup; 
 
     private bool isPinned = false;
     private bool isUIHoverDriven = false;

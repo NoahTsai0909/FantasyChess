@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RefractingPrismSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Refracting Prism
-  maxHP: 120
+  maxHP: 140
   attack: 0
   heal: 0
   shield: 0
@@ -27,6 +27,12 @@ MonoBehaviour:
   isEnergy: 0
   maxEnergy: 0
   multicast: 1
+  overrideCooldownScaling: 0
+  cooldownByRarity:
+  - 0
+  - 0
+  - 0
+  - 0
   unitSprite: {fileID: 21300000, guid: 4baa9a7179dcaac46b44387dc9fc74cc, type: 3}
   defaultProjectile: []
   cost: 0
@@ -35,6 +41,7 @@ MonoBehaviour:
   startingRarity: 2
   provisionCost: 2
   isMelee: 0
+  isEventExclusive: 0
   unitPrefab: {fileID: 5720999026440135174, guid: 761242a39fb753f408a79631fb42811a, type: 3}
   spawnDefinition: {fileID: 0}
   tagFlags: 1034

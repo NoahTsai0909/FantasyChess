@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MendingCasterSO
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Mending Caster
-  maxHP: 80
+  maxHP: 110
   attack: 0
   heal: 15
   shield: 0
@@ -27,6 +27,12 @@ MonoBehaviour:
   isEnergy: 1
   maxEnergy: 2
   multicast: 2
+  overrideCooldownScaling: 0
+  cooldownByRarity:
+  - 0
+  - 0
+  - 0
+  - 0
   unitSprite: {fileID: 21300000, guid: c2598f6c7c8c5df4b8fdaaeb823fc36a, type: 3}
   defaultProjectile: []
   cost: 0

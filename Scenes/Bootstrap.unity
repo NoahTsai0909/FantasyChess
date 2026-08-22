@@ -369,8 +369,8 @@ MonoBehaviour:
     orderIndex: 0
   defaultUnits:
   - unitData:
-      definition: {fileID: 11400000, guid: b50fd84334f7e58418512acd3d6decee, type: 2}
-      rarity: 1
+      definition: {fileID: 11400000, guid: d437a718a55dcf24f9849222b79bc7f7, type: 2}
+      rarity: 2
       provisionCost: 0
       provisionModifier: 0
       valueModifier: 0
@@ -385,11 +385,13 @@ MonoBehaviour:
   selectedEvent: {fileID: 0}
   currentEncounter: {fileID: 0}
   eventInProgress: 0
+  hasUsedLastChance: 0
   rarityDistributionTable: {fileID: 11400000, guid: 4761c31200eefbd48a888347da7c49bf, type: 2}
   playerRegion: 0
   currentRegionTree: {fileID: 11400000, guid: abee08e9888d73f4883aa2306824939c, type: 2}
   allRegionTrees:
   - {fileID: 11400000, guid: abee08e9888d73f4883aa2306824939c, type: 2}
+  lastChanceEvent: {fileID: 11400000, guid: 170fabe8d451fec42838fa21b843a617, type: 2}
 --- !u!4 &221976165
 Transform:
   m_ObjectHideFlags: 0

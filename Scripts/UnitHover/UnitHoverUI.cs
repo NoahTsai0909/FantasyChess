@@ -38,7 +38,7 @@ public class UnitHoverUI : MonoBehaviour
     [Header("Behavior")]
     [SerializeField] private bool isPermanentUI = false;
     [Tooltip("Extra padding to prevent IgnoreLayout elements from getting cut off at screen edges!")]
-    [SerializeField] private Vector2 edgePadding = new Vector2(50f, 50f);
+    [SerializeField] private Vector2 edgePadding = new Vector2(50f, 100f);
 
     private int lastEnergy, lastAttack, lastShield, lastHeal, lastPoison, lastBurn, lastCrit, lastMulticast;
 
