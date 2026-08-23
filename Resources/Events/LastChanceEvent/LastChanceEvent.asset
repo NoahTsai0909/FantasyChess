@@ -58,16 +58,20 @@ MonoBehaviour:
       - {fileID: 11400000, guid: 94bb49b5afedaed4786630f75c7cbd48, type: 2}
       - {fileID: 11400000, guid: 8febf190e757ee84f9de7b917910ffa7, type: 2}
       condition: {fileID: 0}
-    - buttonText: Get a random Mythic unit
+    - buttonText: Get 5 experience
       previewUnit: {fileID: 0}
       rollRandomRarity: 0
-      previewRarity: 2
+      previewRarity: 0
       generateRandomUnitPreview: 0
       randomRegion: 0
       preferredTags: 2097152
       previewTactic: {fileID: 0}
       generateRandomTacticPreview: 0
       outcomes:
-      - {fileID: 11400000, guid: 6a2ccca15d5746344956314ea83f34cb, type: 2}
+      - {fileID: 11400000, guid: ec2bd3a307c5a0346a76e2ef83dbeea4, type: 2}
+      - {fileID: 11400000, guid: ec2bd3a307c5a0346a76e2ef83dbeea4, type: 2}
+      - {fileID: 11400000, guid: ec2bd3a307c5a0346a76e2ef83dbeea4, type: 2}
+      - {fileID: 11400000, guid: ec2bd3a307c5a0346a76e2ef83dbeea4, type: 2}
+      - {fileID: 11400000, guid: ec2bd3a307c5a0346a76e2ef83dbeea4, type: 2}
       condition: {fileID: 0}
-  eventIllustration: {fileID: 0}
+  eventIllustration: {fileID: 21300000, guid: d9dfab79340d2264a9944829d65a05f1, type: 3}

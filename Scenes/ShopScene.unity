@@ -1025,6 +1025,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5095900798253421727, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6536262297077695040, guid: 441ba85271c720b4da09d26568cfceae, type: 3}
       propertyPath: maxBarWidth
       value: 20

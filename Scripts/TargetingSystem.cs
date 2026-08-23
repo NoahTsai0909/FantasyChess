@@ -154,7 +154,7 @@ public class TargetingSystem
         return criteria.sortMethod switch
         {
             SortMethod.Nearest => FindNearestMultiple(candidates, maxCount, referencePosition),
-            // You can add other multi-target sorts later like FindFarthestMultiple, FindRandomMultiple, etc.
+            SortMethod.Farthest => FindFarthestMultiple(candidates, maxCount, referencePosition),
             _ => FindNearestMultiple(candidates, maxCount, referencePosition)
         };
     }
@@ -174,6 +174,22 @@ public class TargetingSystem
         int returnCount = Mathf.Min(count, candidates.Count);
         return candidates.GetRange(0, returnCount);
     }
+
+    private List<UnitInstance> FindFarthestMultiple(
+    List<UnitInstance> candidates,
+    int count,
+    Vector3 referencePosition)
+    {
+        candidates.Sort((a, b) =>
+        {
+            float distA = Vector3.Distance(referencePosition, a.transform.position);
+            float distB = Vector3.Distance(referencePosition, b.transform.position);
+            return distB.CompareTo(distA);
+        });
+        int returnCount = Mathf.Min(count, candidates.Count);
+        return candidates.GetRange(0, returnCount);
+    }
+
 
 
 

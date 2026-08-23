@@ -33,6 +33,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] private ProvisionManager provisionManager; 
     [SerializeField] private Button startCombatButton;
     [SerializeField] private SellZone sellZone;
+    [SerializeField] private LootSummaryUI lootSummaryUI;
 
     [Header("Combat Settings")]
     [SerializeField] private float endCombatDelay = 1.0f;
@@ -49,6 +50,7 @@ public class gameManager : MonoBehaviour
 
     private TacticDefinition pendingTacticRewardDef;
     private Rarity pendingTacticRewardRarity;
+    private int goldFromKills = 0;
 
     void Start()
     {
@@ -160,53 +162,31 @@ public class gameManager : MonoBehaviour
         if (enemyTacticBarManager != null) enemyTacticBarManager.StopCombat();
         combatActive = false;
 
-        foreach (var unit in playerGrid.GetAllUnits())
-        {
-            if (unit != null) unit.inCombat = false;
-        }
-        foreach (var unit in enemyGrid.GetAllUnits())
-        {
-            if (unit != null) unit.inCombat = false;
-        }
+        foreach (var unit in playerGrid.GetAllUnits()) if (unit != null) unit.inCombat = false;
+        foreach (var unit in enemyGrid.GetAllUnits()) if (unit != null) unit.inCombat = false;
 
         TransferCombatStatsToRunManager();
-
-        if (disasterManager != null)
-            disasterManager.StopDisaster();
-
+        if (disasterManager != null) disasterManager.StopDisaster();
         Time.timeScale = 0.5f;
 
+        // 1. Give incremental gold only. NO units, NO OnCompleted() here!
         var combatEvent = RunManager.Instance.selectedEvent as CombatEventSO;
-        int goldFromKills = Mathf.Min(enemiesKilledThisCombat, combatEvent.goldReward);
-        int remainingGold = combatEvent.goldReward - goldFromKills;
-        RunManager.Instance.Stats.CurrentGold += goldFromKills;
-
-        if (playerWon && combatEvent != null)
+        if (combatEvent != null)
         {
-            if (combatEvent != null)
+            goldFromKills = Mathf.Min(enemiesKilledThisCombat, combatEvent.goldReward);
+            RunManager.Instance.Stats.CurrentGold += goldFromKills;
+
+            if (playerWon)
             {
-                RunManager.Instance.Stats.CurrentGold += remainingGold;
+                RunManager.Instance.Stats.CurrentGold += (combatEvent.goldReward - goldFromKills);
                 RunManager.Instance.Stats.Experience += combatEvent.reputationReward;
-                if (pendingUnitRewardDef != null)
-                {
-                    PlayerUnitManager.Instance.TryAcquireUnit(pendingUnitRewardDef, pendingUnitRewardRarity);
-                }
-                else if (pendingTacticRewardDef != null)
-                {
-                    PlayerTacticManager.Instance.TryAcquireTactic(pendingTacticRewardDef, pendingTacticRewardRarity);
-                }
             }
-            RunManager.Instance.selectedEvent.OnCompleted();
-        }
-        else if (!playerWon)
-        {
-            // Player lost - still mark event as completed but no rewards
-            if (RunManager.Instance.selectedEvent != null)
-                RunManager.Instance.selectedEvent.OnCompleted();
-            RunManager.Instance.Stats.PlayerHealth -= RunManager.Instance.Stats.CurrentDay;
+            else
+            {
+                RunManager.Instance.Stats.PlayerHealth -= RunManager.Instance.Stats.CurrentDay;
+            }
         }
 
-        // Start coroutine to transition scene
         StartCoroutine(TransitionAfterDelay(playerWon));
     }
 
@@ -214,31 +194,41 @@ public class gameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(endCombatDelay);
         ResetBattlefieldToStasis();
-        if (combatResultUI != null)
+
+        if (combatResultUI != null) combatResultUI.ShowResult(playerWon);
+        yield return new WaitForSeconds(1.4f);
+
+        // 2. Safely populate the UI
+        if (lootSummaryUI != null)
         {
-            combatResultUI.ShowResult(playerWon);
+            lootSummaryUI.gameObject.SetActive(true);
+            var combatEvent = RunManager.Instance.selectedEvent as CombatEventSO;
+
+            int goldEarned = (playerWon && combatEvent != null) ? combatEvent.goldReward : goldFromKills;
+            int xpEarned = (playerWon && combatEvent != null) ? combatEvent.reputationReward : 0;
+
+            lootSummaryUI.ShowSummary(goldEarned, xpEarned, pendingUnitRewardDef, pendingUnitRewardRarity, pendingTacticRewardDef, pendingTacticRewardRarity);
         }
+
         if (continueButton != null)
         {
             continueButton.gameObject.SetActive(true);
-
-            // Clear any old clicks and add the scene transition logic
             continueButton.onClick.RemoveAllListeners();
             continueButton.onClick.AddListener(() =>
             {
                 Time.timeScale = 1f;
+
+                // 3. NOW we complete the event right before leaving!
+                if (RunManager.Instance.selectedEvent != null)
+                    RunManager.Instance.selectedEvent.OnCompleted();
+
                 bool isFinalDay = RunManager.Instance.Stats.CurrentDay >= RunManager.TOTAL_DAYS;
                 bool canUseLastChance = RunManager.Instance.Stats.PlayerHealth <= 0 && !isFinalDay && !RunManager.Instance.hasUsedLastChance;
 
                 if (playerWon || RunManager.Instance.Stats.PlayerHealth > 0 || canUseLastChance)
-                {
-                    // Go to map scene to continue run
                     SceneLoader.Instance.LoadScene(GameScene.MapScene);
-                }
                 else
-                {
                     SceneLoader.Instance.LoadScene(GameScene.RunSummaryScene);
-                }
             });
         }
     }

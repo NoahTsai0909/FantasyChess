@@ -16,7 +16,7 @@ public class CombatResultUI : MonoBehaviour
 
     [Header("Animation Settings")]
     [SerializeField] private float popDuration = 0.2f;
-    [SerializeField] private float lingerDuration = 2.0f;
+    [SerializeField] private float lingerDuration = 1.0f;
     [SerializeField] private float floatSpeed = 3f;
     [SerializeField] private float floatAmplitude = 10f;
 
