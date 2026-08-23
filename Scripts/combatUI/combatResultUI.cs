@@ -12,7 +12,7 @@ public class CombatResultUI : MonoBehaviour
     [SerializeField] private ParticleSystem sparksParticles;
 
     [Header("Atmosphere References")]
-    [SerializeField] private Volume globalVolume; // Drop your Global Volume here
+    [SerializeField] private Volume globalVolume; //Global Volume here
 
     [Header("Animation Settings")]
     [SerializeField] private float popDuration = 0.2f;

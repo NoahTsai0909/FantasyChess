@@ -23,15 +23,12 @@ public class UIUnitVisualController : MonoBehaviour
         image = GetComponent<Image>();
         originalScale = transform.localScale;
 
-        // CRITICAL: We must clone the material so the shop cards don't all 
-        // share the exact same material instance and pulse at the exact same time/color!
         if (image.material != null)
         {
             image.material = new Material(image.material);
         }
     }
 
-    // Call this from your ShopUnitCard script!
     public void InitializeVisuals(UnitDefinition def, Rarity rarity)
     {
         if (def != null && image != null)

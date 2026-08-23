@@ -10,8 +10,8 @@ public class RunSummaryController : MonoBehaviour
 {
     [Header("UI References")]
     [SerializeField] private TextMeshProUGUI generalStatsText;
-    [SerializeField] private Transform unitStatsContentParent; // The Scroll View Content
-    [SerializeField] private GameObject unitStatBlockPrefab; // A UI prefab you design for individual unit stats
+    [SerializeField] private Transform unitStatsContentParent;
+    [SerializeField] private GameObject unitStatBlockPrefab;
     [SerializeField] private Button mainMenuButton;
 
     [Header("Grid Reference")]
@@ -53,16 +53,13 @@ public class RunSummaryController : MonoBehaviour
 
     private void SpawnSurvivingTeam()
     {
-        // 1. Loop through the final team saved in the RunManager
         foreach (var placement in RunManager.Instance.playerTeamPlacements)
         {
             if (placement.unitData == null || placement.unitData.definition == null) continue;
 
-            // 2. Spawn the visual unit
             UnitInstance unit = Instantiate(placement.unitData.definition.unitPrefab);
             unit.InitializeFromSaveData(placement.unitData);
 
-            // 3. Place them on the summary grid passively (no combat logic)
             summaryGrid.PlaceUnit(placement, placement.row, placement.col, unit, true);
         }
     }

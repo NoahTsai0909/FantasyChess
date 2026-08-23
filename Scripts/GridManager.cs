@@ -9,7 +9,7 @@ public class GridManager : MonoBehaviour
     public int cols = 3;
     public float cellSize = 4f;
 
-    public GameObject tilePrefab;   // <-- you create this (a simple colored square tile)
+    public GameObject tilePrefab;
     private SpriteRenderer[,] tileVisuals;
     private Vector2[,] worldPositions;
     private RunManager.UnitPlacement[,] gridPlacements;
@@ -110,7 +110,7 @@ public class GridManager : MonoBehaviour
 
                 tileVisuals[r, c].DOKill();
 
-                // If this is the hovered cell, light it up and expand it!
+                // If this is the hovered cell, light it up and expand it
                 if (r == hoverRow && c == hoverCol)
                 {
                     tileVisuals[r, c].DOFade(1f, 0.15f).SetLink(tileVisuals[r, c].gameObject);
@@ -125,7 +125,6 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    // ------------------- UNIT PLACEMENTS -------------------
 
     public bool PlaceUnit(UnitPlacement placement, int r, int c, UnitInstance instance = null)
     {
@@ -137,7 +136,7 @@ public class GridManager : MonoBehaviour
     {
         if (!InBounds(r, c)) return false;
 
-        // Only destroy old unit if instance == null (i.e., we are spawning new)
+        // Only destroy old unit if instance == null
         if (instance == null && unitInstances[r, c] != null)
             Destroy(unitInstances[r, c].gameObject);
 
@@ -405,7 +404,6 @@ public class GridManager : MonoBehaviour
 
         if (pos.x == -1) return units;
 
-        // Based on your original IsSide logic: Mathf.Abs(row - other.row) == 1 && col == other.col
         Vector2Int[] directions = {
             new Vector2Int(-1, 0), // Row - 1
             new Vector2Int(1, 0)   // Row + 1

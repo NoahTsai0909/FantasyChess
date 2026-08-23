@@ -64,8 +64,8 @@ public class ProvisionManager : MonoBehaviour
 
     public bool CanSwapUnits(UnitInstance unitLeavingBattle, UnitInstance unitEnteringBattle)
     {
-        // This method assumes: unitLeavingBattle is currently in battle grid
-        //                     unitEnteringBattle is trying to enter battle grid
+        // unitLeavingBattle is currently in battle grid
+        // unitEnteringBattle is trying to enter battle grid
 
         int leavingCost = GetUnitProvisionCost(unitLeavingBattle);
         int enteringCost = GetUnitProvisionCost(unitEnteringBattle);

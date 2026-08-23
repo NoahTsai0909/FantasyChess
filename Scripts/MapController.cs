@@ -15,12 +15,12 @@ public class MapController : MonoBehaviour
     [SerializeField] private GameObject eventButtonPrefab;
 
     [Header("Event Info HUD")]
-    [SerializeField] private GameObject eventInfoPanel; // Assign your new HUD image here
+    [SerializeField] private GameObject eventInfoPanel; 
     [SerializeField] private TextMeshProUGUI infoTitleText;
     [SerializeField] private TextMeshProUGUI infoDescText;
 
     [Header("Encounter Preview")]
-    [SerializeField] private GameObject previewOverlay; // The dark UI panel
+    [SerializeField] private GameObject previewOverlay; 
     [SerializeField] private Button closePreviewButton;
     [SerializeField] public GridManager previewGrid;
     [SerializeField] private TacticBarManager enemyTacticBarManager;
@@ -48,7 +48,6 @@ public class MapController : MonoBehaviour
     void Start()
     {
         if (CheckLastChance()) return;
-        // We return instantly so we don't waste power generating the map.
         if (CheckLevelUp()) return;
 
         UpdateUI();
@@ -102,12 +101,11 @@ public class MapController : MonoBehaviour
             return;
         }
 
-        // 2. Just regular pinning for the main panel!
+        // 2. regular pinning for the main panel
         if (eventInfoPanel.activeSelf && Keyboard.current.tKey.wasPressedThisFrame)
         {
             isPinned = true;
 
-            // NEW: The moment it is pinned, make it solid so the player can hover the text links!
             CanvasGroup cg = eventInfoPanel.GetComponent<CanvasGroup>();
             if (cg != null) cg.blocksRaycasts = true;
         }
@@ -122,7 +120,6 @@ public class MapController : MonoBehaviour
         foreach (Transform child in eventButtonContainer)
             Destroy(child.gameObject);
 
-        // Use a traditional for-loop so we know the index number (0, 1, or 2)
         for (int i = 0; i < events.Count; i++)
         {
             GameObject buttonObj = Instantiate(eventButtonPrefab, eventButtonContainer);
@@ -132,10 +129,8 @@ public class MapController : MonoBehaviour
             {
                 portalUI.Initialize(events[i]);
 
-                // If there are exactly 3 events, and this is the middle one (index 1)
                 if (events.Count == 3 && i == 1)
                 {
-                    // Push it up by 60 pixels (Adjust this number to your liking!)
                     portalUI.SetElevation(60f);
                 }
             }
@@ -153,7 +148,7 @@ public class MapController : MonoBehaviour
             RunManager.Instance.eventInProgress = false;
             RunManager.Instance.selectedEvent = null;
 
-            // Generate new events if we have none
+            // Generate new events if none
             if (RunManager.Instance.currentDailyEvents.Count == 0)
             {
                 RunManager.Instance.GenerateDailyEvents();
@@ -224,7 +219,7 @@ public class MapController : MonoBehaviour
         // Apply the scaled offset
         eventInfoPanel.transform.position = targetPosition + (hoverOffset * scale);
 
-        // NEW: Ensure it behaves like a ghost while just normally hovering
+        //Ensure it behaves like a ghost while just normally hovering
         CanvasGroup cg = eventInfoPanel.GetComponent<CanvasGroup>();
         if (cg != null) cg.blocksRaycasts = false;
 
@@ -233,7 +228,7 @@ public class MapController : MonoBehaviour
 
     public void HideEventInfo()
     {
-        if (isPinned) return; // Refuse to close if the player pinned it
+        if (isPinned) return; //Refuse to close if the player pinned it
 
         eventInfoPanel.SetActive(false);
     }

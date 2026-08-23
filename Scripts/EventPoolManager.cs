@@ -6,7 +6,6 @@ public class EventPoolManager : MonoBehaviour
 {
     public static EventPoolManager Instance { get; private set; }
 
-    // Removed the [SerializeField] so the Inspector stays clean!
     private List<BaseEventSO> allEvents = new List<BaseEventSO>();
 
     // Separate pools for faster filtering
@@ -40,7 +39,7 @@ public class EventPoolManager : MonoBehaviour
         // This automatically finds EVERY BaseEventSO inside Assets/Resources/Events/
         BaseEventSO[] loadedEvents = Resources.LoadAll<BaseEventSO>("Events");
 
-        // Convert the array to our list
+        // Convert the array to list
         allEvents = new List<BaseEventSO>(loadedEvents);
     }
 
@@ -111,7 +110,6 @@ public class EventPoolManager : MonoBehaviour
             BaseEventSO selected = SelectWeightedRandom(tempPool);
             selectedEvents.Add(selected);
 
-            // NEW: Record the appearance the moment it is drafted for the map!
             RecordEventAppearance(selected.name);
 
             if (!allowDuplicates)
@@ -148,8 +146,6 @@ public class EventPoolManager : MonoBehaviour
 
     public void DebugEventPool()
     {
-        Debug.Log("=== EVENT POOL DEBUG ===");
-        Debug.Log($"Total events in pool: {allEvents.Count}");
 
         int combatCount = 0;
         int regularCount = 0;
@@ -172,10 +168,6 @@ public class EventPoolManager : MonoBehaviour
             else
                 regularCount++;
         }
-
-        Debug.Log($"Summary: {combatCount} combat, {regularCount} regular events");
-        Debug.Log($"Categorized: {combatEvents.Count} combat, {regularEvents.Count} regular (after filtering)");
-        Debug.Log("======================");
     }
 
     // Call this when reputation changes

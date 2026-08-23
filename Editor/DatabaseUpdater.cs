@@ -5,14 +5,14 @@ using System.Collections.Generic;
 
 public class DatabaseUpdater : EditorWindow
 {
-    // This creates a new button in the Unity menu bar!
+    // Creates a new button in the Unity menu bar
     [MenuItem("Tools/Update All Databases")]
     public static void UpdateDatabases()
     {
         UpdateTacticDatabase();
         UpdateUnitDatabase();
 
-        // Force Unity to save the changes to the disk
+        //Force Unity to save the changes to the disk
         AssetDatabase.SaveAssets();
 
         Debug.Log("<color=green><b>Successfully updated all databases!</b></color>");
@@ -20,7 +20,7 @@ public class DatabaseUpdater : EditorWindow
 
     private static void UpdateTacticDatabase()
     {
-        // 1. Find the Tactic Database asset in your project
+        //Find the Tactic Database asset
         string[] dbGuids = AssetDatabase.FindAssets("t:TacticDatabase");
         if (dbGuids.Length == 0)
         {
@@ -31,7 +31,7 @@ public class DatabaseUpdater : EditorWindow
         string dbPath = AssetDatabase.GUIDToAssetPath(dbGuids[0]);
         TacticDatabase tacticDB = AssetDatabase.LoadAssetAtPath<TacticDatabase>(dbPath);
 
-        // 2. Find ALL TacticDefinitions in the entire project
+        //Find ALL TacticDefinitions in the entire project
         string[] defGuids = AssetDatabase.FindAssets("t:TacticDefinition");
         List<TacticDefinition> foundTactics = new List<TacticDefinition>();
 
@@ -40,13 +40,9 @@ public class DatabaseUpdater : EditorWindow
             string path = AssetDatabase.GUIDToAssetPath(guid);
             TacticDefinition def = AssetDatabase.LoadAssetAtPath<TacticDefinition>(path);
 
-            // Optional: If you add an 'isDraft' boolean to your definitions, you can exclude them here!
-            // if (def.isDraft) continue;
-
             foundTactics.Add(def);
         }
 
-        // 3. Assign the list and mark the database as "Dirty" (meaning it needs to be saved)
         tacticDB.allTactics = foundTactics;
         EditorUtility.SetDirty(tacticDB);
 
@@ -55,7 +51,7 @@ public class DatabaseUpdater : EditorWindow
 
     private static void UpdateUnitDatabase()
     {
-        // 1. Find the Unit Database asset
+        //Find the Unit Database asset
         string[] dbGuids = AssetDatabase.FindAssets("t:UnitDatabase");
         if (dbGuids.Length == 0)
         {
@@ -66,7 +62,7 @@ public class DatabaseUpdater : EditorWindow
         string dbPath = AssetDatabase.GUIDToAssetPath(dbGuids[0]);
         UnitDatabase unitDB = AssetDatabase.LoadAssetAtPath<UnitDatabase>(dbPath);
 
-        // 2. Find ALL UnitDefinitions
+        //Find ALL UnitDefinitions
         string[] defGuids = AssetDatabase.FindAssets("t:UnitDefinition");
         List<UnitDefinition> foundUnits = new List<UnitDefinition>();
 
@@ -77,7 +73,7 @@ public class DatabaseUpdater : EditorWindow
             foundUnits.Add(def);
         }
 
-        // 3. Assign and mark dirty
+        //Assign and mark dirty
         unitDB.allUnits = foundUnits;
         EditorUtility.SetDirty(unitDB);
 

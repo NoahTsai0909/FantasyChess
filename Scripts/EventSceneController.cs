@@ -117,7 +117,7 @@ public class EventSceneController : MonoBehaviour
                 newButton.interactable = isInteractable;
 
                 EventContext choiceContext = new EventContext();
-                choiceContext.uiController = this; // NEW: Pass a reference to this UI controller into the context!
+                choiceContext.uiController = this;
 
                 if (choice.generateRandomUnitPreview)
                 {
@@ -249,14 +249,14 @@ public class EventSceneController : MonoBehaviour
 
         preview.InitializeFromSaveData(tacticData);
         preview.isPlayer = true;
-        preview.enabled = false; // Stop cooldown ticks!
+        preview.enabled = false;
 
         preview.transform.localPosition = Vector3.zero;
 
-        // Scale it up so it matches the size of unit previews (you may need to tweak this number)
+        // Scale it up so it matches the size of unit previews
         preview.transform.localScale = Vector3.one * 25f;
 
-        // Since tactics use Canvases, we must override the Canvas sorting order!
+        // Since tactics use Canvases, override the Canvas sorting order
         Canvas canvas = preview.GetComponentInChildren<Canvas>();
         if (canvas != null)
         {
@@ -269,51 +269,43 @@ public class EventSceneController : MonoBehaviour
 
     private void SpawnEventIllustration(Sprite artwork)
     {
-        // 1. Create a new empty GameObject and name it
+
         spawnedIllustration = new GameObject("StoryIllustration");
 
-        // 2. Parent it to your new anchor
         spawnedIllustration.transform.SetParent(eventSpriteAnchor, false);
 
-        // 3. Add a SpriteRenderer and assign the artwork
         SpriteRenderer renderer = spawnedIllustration.AddComponent<SpriteRenderer>();
         renderer.sprite = artwork;
 
-        // 4. Ensure it renders properly on your Screen Space - Camera canvas
-        // (Set this to a number lower than 100 so unit previews still render on top of it)
         renderer.sortingOrder = 50;
 
         spawnedIllustration.transform.localPosition = Vector3.zero;
-        //universally scale these images up or down
+
         spawnedIllustration.transform.localScale = Vector3.one * 10f;
     }
 
-    // Notice the new parameters!
     public void ShowUnitSelectorPanel(UnitTargetEffectSO effectToApply, EventOutcomeSO onSuccessOutcome, EventContext context)
     {
         unitSelectorPanel.SetActive(true);
 
-        // Hide the main event choices so their sprites don't bleed through!
         contentParent.gameObject.SetActive(false);
 
-        // 1. Clear old buttons from the selector panel
         foreach (Transform child in unitSelectorContentParent)
         {
             Destroy(child.gameObject);
         }
 
-        // 2. Setup a cancel button in case they change their mind
         closeSelectorButton.onClick.RemoveAllListeners();
         closeSelectorButton.onClick.AddListener(() =>
         {
             unitSelectorPanel.SetActive(false);
-            contentParent.gameObject.SetActive(true); // Bring the choices back if they cancel!
+            contentParent.gameObject.SetActive(true); 
         });
 
-        // 3. Helper action to populate the list
+
         System.Action<RunManager.UnitPlacement> CreateUnitButton = (placement) =>
         {
-            // Strictly ensure the unit definition actually exists before building the button
+
             if (placement == null || placement.unitData == null || placement.unitData.definition == null) return;
 
             Button newButton = Instantiate(choiceButtonPrefab, unitSelectorContentParent);
@@ -322,39 +314,31 @@ public class EventSceneController : MonoBehaviour
             if (btnText != null)
                 btnText.text = $"Select {placement.unitData.definition.unitName} (Tier {placement.unitData.rarity})";
 
-            // Spawn the visual preview using your existing method
             SpawnUnitOnButton(placement.unitData, newButton);
 
-            // Grab the sprite we just spawned and force it to render ABOVE the panel!
             SpriteRenderer sr = newButton.GetComponentInChildren<SpriteRenderer>();
             if (sr != null) sr.sortingOrder = 205;
 
-            // When clicked, apply the effect, grant the reward, and finish!
             newButton.onClick.AddListener(() =>
-            {
-                // 1. Apply the Sacrifice
+            { 
                 effectToApply.ApplyEffect(placement);
 
-                // 2. Grant the Cultist Reward (if one exists)
                 if (onSuccessOutcome != null)
                 {
-                    context.keepEventOpen = false; // Allow the reward to close the event if needed
+                    context.keepEventOpen = false; 
                     onSuccessOutcome.ExecuteOutcome(context);
                 }
 
-                // 3. Clean up
                 unitSelectorPanel.SetActive(false);
                 CompleteEvent();
             });
         };
 
-        // 4. Populate Battle Grid Units
         foreach (var placement in RunManager.Instance.playerTeamPlacements)
         {
             CreateUnitButton(placement);
         }
 
-        // 5. Populate Bench Units
         foreach (var placement in RunManager.Instance.playerBenchPlacements)
         {
             CreateUnitButton(placement);

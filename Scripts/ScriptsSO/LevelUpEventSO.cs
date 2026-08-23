@@ -10,14 +10,12 @@ public class LevelUpEventSO : StoryEventSO
 
     public override void OnCompleted()
     {
-        // CRITICAL: We override this so it DOES NOT advance the map calendar!
         if (RunManager.Instance != null)
         {
             RunManager.Instance.eventInProgress = false;
             RunManager.Instance.selectedEvent = null;
         }
 
-        // Quietly return to the Map Scene
         SceneLoader.Instance.LoadScene(GameScene.MapScene);
     }
 }

@@ -17,7 +17,7 @@ public class RunHUDManager : MonoBehaviour
     [SerializeField] private TMP_Text goldText;
 
     [Header("XP Settings")]
-    [SerializeField] private int maxReputation = 10; // Max reputation for level up
+    [SerializeField] private int maxReputation = 10; 
 
     [Header("Animation Settings")]
     private RectTransform hudRect;
@@ -25,7 +25,7 @@ public class RunHUDManager : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private GameObject runHUD;
-    [SerializeField] private CanvasGroup runHUDCanvasGroup; // optional fallback
+    [SerializeField] private CanvasGroup runHUDCanvasGroup;
 
     [Header("Behavior")]
     [SerializeField] private bool dontDestroyOnLoad = false;
@@ -126,12 +126,8 @@ public class RunHUDManager : MonoBehaviour
     {
         if (playerXPFill != null)
         {
-            // Calculate fill amount: reputation / maxReputation
             float fillAmount = (float)reputation / maxReputation;
             playerXPFill.fillAmount = Mathf.Clamp01(fillAmount);
-
-            // Optional: Add color gradient based on fill amount
-            // playerXPFill.color = Color.Lerp(Color.red, Color.green, fillAmount);
         }
     }
 
@@ -141,10 +137,7 @@ public class RunHUDManager : MonoBehaviour
             provisionCapText.SetText(TextIconUtility.ParseDescription("[c_maxprovision]" + cap.ToString() + "[/c]"));
     }
 
-    /// <summary>
-    /// Hides the run HUD. Prefer disabling the GameObject; fall back to CanvasGroup if provided.
-    /// Safe to call from other scripts using the null-conditional pattern: RunHUDManager.Instance?.Hide();
-    /// </summary>
+
     public void Hide()
     {
         if (runHUD != null)
@@ -161,12 +154,10 @@ public class RunHUDManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Shows the run HUD (reverse of Hide).
-    /// </summary>
+
     public void Show()
     {
-        // 1. Turn the UI back on
+ 
         if (runHUD != null)
         {
             runHUD.SetActive(true);
@@ -178,7 +169,6 @@ public class RunHUDManager : MonoBehaviour
             runHUDCanvasGroup.blocksRaycasts = true;
         }
 
-        // 2. Force a visual refresh to catch any stats gained while the HUD was hidden!
         if (RunManager.Instance != null)
         {
             UpdateGold(RunManager.Instance.Stats.CurrentGold);
@@ -205,7 +195,7 @@ public class RunHUDManager : MonoBehaviour
     private IEnumerator SlideOutRoutine(float duration)
     {
         Vector2 startPos = hudRect.anchoredPosition;
-        Vector2 endPos = startPos + new Vector2(0, 300f); // Slide up by 300 pixels
+        Vector2 endPos = startPos + new Vector2(0, 300f); 
 
         float elapsed = 0f;
         while (elapsed < duration)

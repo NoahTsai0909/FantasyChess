@@ -169,7 +169,7 @@ public class gameManager : MonoBehaviour
         if (disasterManager != null) disasterManager.StopDisaster();
         Time.timeScale = 0.5f;
 
-        // 1. Give incremental gold only. NO units, NO OnCompleted() here!
+        //Give incremental gold only
         var combatEvent = RunManager.Instance.selectedEvent as CombatEventSO;
         if (combatEvent != null)
         {
@@ -198,7 +198,6 @@ public class gameManager : MonoBehaviour
         if (combatResultUI != null) combatResultUI.ShowResult(playerWon);
         yield return new WaitForSeconds(1.4f);
 
-        // 2. Safely populate the UI
         if (lootSummaryUI != null)
         {
             lootSummaryUI.gameObject.SetActive(true);
@@ -218,7 +217,6 @@ public class gameManager : MonoBehaviour
             {
                 Time.timeScale = 1f;
 
-                // 3. NOW we complete the event right before leaving!
                 if (RunManager.Instance.selectedEvent != null)
                     RunManager.Instance.selectedEvent.OnCompleted();
 
@@ -338,7 +336,7 @@ public class gameManager : MonoBehaviour
                 battleUIManager.RemoveUnitUI(unit);
             }
         }
-        // Wipe both grids clean (this destroys the existing GameObjects)
+        // Wipe both grids clean
         playerGrid.ClearAllUnits();
         enemyGrid.ClearAllUnits();
 
@@ -545,7 +543,6 @@ public class gameManager : MonoBehaviour
 
         enemyTacticBarManager.ClearAllTactics();
 
-        // Assuming you add 'enemyTactics' to your EncounterDefinition
         if (encounter.enemyTactics != null)
         {
             foreach (var placement in encounter.enemyTactics)
@@ -554,8 +551,6 @@ public class gameManager : MonoBehaviour
 
                 TacticInstance tactic = Instantiate(placement.tacticData.definition.tacticPrefab);
 
-                // You may want to add an InitializeEnemy method to TacticInstance later, 
-                // but this works exactly like units for now!
                 tactic.InitializeFromSaveData(placement.tacticData);
                 tactic.myPlacement = placement;
 

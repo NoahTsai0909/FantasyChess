@@ -23,15 +23,12 @@ public abstract class BaseEventSO : ScriptableObject
     [Header("Scene Management")]
     public GameScene targetScene;
 
-    // Polymorphism: Let the children decide what happens!
     public virtual void OnSelected()
     {
         Debug.Log($"Event selected: {eventName}");
         RunManager.Instance.selectedEvent = this;
         RunManager.Instance.eventInProgress = true;
 
-        // Children will handle specific setup, then call base.OnSelected() 
-        // to finally load the scene.
         SceneLoader.Instance.LoadScene(targetScene);
     }
 

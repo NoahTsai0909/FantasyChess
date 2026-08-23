@@ -7,7 +7,7 @@ public class PortalArtifactUI : MonoBehaviour, IPointerEnterHandler, IPointerExi
     [Header("UI References")]
     [SerializeField] private Image eventIcon;
     [SerializeField] private Button invisibleSelectButton;
-    [SerializeField] private Button previewButton; // NEW: The Eyeball button!
+    [SerializeField] private Button previewButton; 
 
     [Header("Portal Visuals")]
     [SerializeField] private RectTransform artifactRoot;
@@ -43,12 +43,10 @@ public class PortalArtifactUI : MonoBehaviour, IPointerEnterHandler, IPointerExi
         invisibleSelectButton.onClick.RemoveAllListeners();
         invisibleSelectButton.onClick.AddListener(OnEventSelected);
 
-        // NEW: Handle the Preview Eyeball button logic
         if (previewButton != null)
         {
             previewButton.onClick.RemoveAllListeners();
 
-            // If this is a combat event, show the eyeball and wire it up
             if (eventSO is CombatEventSO combatEvent && combatEvent.encounter != null)
             {
                 previewButton.gameObject.SetActive(true);
@@ -61,7 +59,6 @@ public class PortalArtifactUI : MonoBehaviour, IPointerEnterHandler, IPointerExi
             }
             else
             {
-                // Not a combat event (or no encounter defined), hide the eyeball
                 previewButton.gameObject.SetActive(false);
             }
         }
@@ -79,14 +76,12 @@ public class PortalArtifactUI : MonoBehaviour, IPointerEnterHandler, IPointerExi
     private void Update()
     {
         if (isTransitioning) return;
-        // 1. Hover Bobbing
         float sineWave = Mathf.Sin(Time.time * bobSpeed);
         artifactRoot.anchoredPosition = originalArtifactPos + new Vector3(0f, sineWave * bobHeight, 0f);
 
         float shadowScale = 1f - (sineWave * 0.2f);
         shadowTransform.localScale = originalShadowScale * shadowScale;
 
-        // 2. Continuous Breathing Glow
         float breathingMath = (Mathf.Sin(Time.time * pulseSpeed) + 1f) / 2f;
         float targetGlow = isHovered ? 1f : Mathf.Lerp(idleGlowMin, idleGlowMax, breathingMath);
 

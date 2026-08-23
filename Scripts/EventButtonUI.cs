@@ -30,11 +30,7 @@ public class EventButtonUI : MonoBehaviour
         {
             Debug.Log($"Selected: {currentEvent.eventName}");
 
-            // For ALL events, call OnSelected() first
             currentEvent.OnSelected();
-
-            // The OnSelected() method should handle scene loading
-            // Remove the SceneLoader call from here
         }
     }
 }

@@ -36,7 +36,7 @@ public class RunManager : MonoBehaviour
     public class TacticPlacement
     {
         public TacticSaveData tacticData;
-        public int orderIndex; // Their place in the timeline (0 to N)
+        public int orderIndex; 
     }
     public class ShopState
     {
@@ -61,7 +61,6 @@ public class RunManager : MonoBehaviour
     public int currentEventPhase = 0;
     
 
-    // New: Day event tracking
     public List<BaseEventSO> currentDailyEvents = new();  // Current 3 events to display
     public List<BaseEventSO> allDayEvents = new();
 
@@ -240,29 +239,23 @@ public class RunManager : MonoBehaviour
         regularEventsCompleted++;
         Stats.Experience++;
 
-        // Move to next regular event phase
         currentEventPhase++;
 
-        // Check if we've completed all 3 regular events for this day
         if (regularEventsCompleted >= REGULAR_EVENTS_PER_DAY)
         {
-            // Time for the battle phase!
             isBattlePhase = true;
             Debug.Log("All 3 regular events completed! Moving to battle phase!");
         }
         else
         {
-            // Still in regular events, show the next set of 3 choices
             isBattlePhase = false;
         }
 
-        // Generate next set of events (will be either next 3 regular events, or combat events)
         GenerateDailyEvents();
     }
 
     public void CompleteBattleEvent()
     {
-        // Battle completed! This ends the current day
         isBattlePhase = false;
         regularEventsCompleted = 0;
         currentEventPhase = 0;
@@ -279,8 +272,6 @@ public class RunManager : MonoBehaviour
 
     public void GenerateDailyEvents()
     {
-        Debug.Log($"=== GenerateDailyEvents START ===");
-        Debug.Log($"Day {Stats.CurrentDay}, Phase: {(isBattlePhase ? "BATTLE" : $"REGULAR {currentEventPhase + 1}/3")}, Regular events completed: {regularEventsCompleted}");
 
         EventPoolManager eventPool = EventPoolManager.Instance;
 
@@ -292,10 +283,9 @@ public class RunManager : MonoBehaviour
 
         if (isBattlePhase)
         {
-            // Battle phase: generate 3 combat events for the player to choose from
             Debug.Log("GENERATING COMBAT EVENTS (Battle Phase)");
             currentDailyEvents = eventPool.GetCombatEvents(3);
-            allDayEvents.Clear();  // Battle phase doesn't use the regular event pool
+            allDayEvents.Clear();
             Debug.Log($"Got {currentDailyEvents.Count} combat events for battle");
 
             foreach (var ev in currentDailyEvents)
@@ -305,28 +295,23 @@ public class RunManager : MonoBehaviour
         }
         else
         {
-            // Regular event phase: need to show 3 choices
-            // Generate ALL 9 regular events for the day if we haven't already
             if (allDayEvents.Count == 0)
             {
                 Debug.Log($"GENERATING ALL 9 REGULAR EVENTS FOR DAY {Stats.CurrentDay}");
                 allDayEvents = eventPool.GetRegularEvents(9);
                 Debug.Log($"Generated {allDayEvents.Count} total events for the day");
 
-                // Log all generated events for debugging
                 for (int i = 0; i < allDayEvents.Count; i++)
                 {
                     Debug.Log($"  Event {i + 1}: {allDayEvents[i].eventName}");
                 }
 
-                // Verify we got enough events
                 if (allDayEvents.Count < 9)
                 {
                     Debug.LogWarning($"Only got {allDayEvents.Count} regular events! Need 9 for a full day.");
                 }
             }
 
-            // Show the next 3 events based on current phase
             int startIndex = currentEventPhase * 3;
             currentDailyEvents.Clear();
 

@@ -37,19 +37,15 @@ public class UnitVisualController : MonoBehaviour
             GameObject shadow = new GameObject("DropShadow");
             shadow.transform.SetParent(this.transform, false);
 
-            // 1. FIX: Set position to 0,0,0. Your image already has the shadow at the bottom!
             shadow.transform.localPosition = Vector3.zero;
 
-            // 2. FIX: Set scale to 1,1,1. Your image is already a perfect oval!
             shadow.transform.localScale = Vector3.one;
 
             SpriteRenderer shadowSR = shadow.AddComponent<SpriteRenderer>();
             shadowSR.sprite = shadowSprite;
 
-            // 3. FIX: Since your image is already black with soft edges, we just use white to keep its native colors, and drop the alpha slightly.
             shadowSR.color = new Color(1f, 1f, 1f, 0.6f);
 
-            // 4. Set sorting order
             shadowSR.sortingOrder = sr.sortingOrder - 1;
         }
     }
@@ -88,7 +84,7 @@ public class UnitVisualController : MonoBehaviour
 
     private void Update()
     {
-        // 1. Outline Pulse
+
         if (enablePulse && sr != null && sr.material != null)
         {
             float timePulse = (Mathf.Sin(Time.time * pulseSpeed) + 1f) / 2f;
@@ -98,18 +94,13 @@ public class UnitVisualController : MonoBehaviour
 
         if (enableBreathing && activeAnimationRoutine == null)
         {
-            // A simple sine wave that slightly stretches the Y axis
+
             float breathe = Mathf.Sin(Time.time * breatheSpeed) * breatheAmount;
 
-            // --- NEW: Add inverse X-scaling for organic Squash & Stretch ---
-            // We subtract half the breathe amount from the X axis so they slim down as they stretch up!
             transform.localScale = new Vector3(originalScale.x - (breathe * 0.5f), originalScale.y + breathe, originalScale.z);
         }
     }
 
-    /* =========================
-     * JUICE ANIMATIONS
-     * ========================= */
 
     public void Flash(Color flashColor, bool doKnockback = true)
     {
@@ -155,14 +146,12 @@ public class UnitVisualController : MonoBehaviour
         Vector3 originalPos = originalLocalPosition;
         Vector3 knockbackPos = originalPos;
 
-        // --- FIXED: Only calculate and apply knockback if the flag is true ---
         if (doKnockback)
         {
             float knockbackDirection = isPlayer ? -0.5f : 0.5f;
             knockbackPos = originalPos + new Vector3(knockbackDirection, 0f, 0f);
         }
 
-        // 1. Instant squash (and optional knockback)
         transform.localScale = new Vector3(originalScale.x * 1.3f, originalScale.y * 0.7f, originalScale.z);
         transform.localPosition = knockbackPos;
 
@@ -177,7 +166,6 @@ public class UnitVisualController : MonoBehaviour
 
             transform.localScale = Vector3.Lerp(new Vector3(originalScale.x * 1.3f, originalScale.y * 0.7f, originalScale.z), originalScale, t);
 
-            // Only slide the position if we actually got knocked back
             if (doKnockback)
             {
                 transform.localPosition = Vector3.Lerp(knockbackPos, originalPos, t);
@@ -196,7 +184,6 @@ public class UnitVisualController : MonoBehaviour
 
     private IEnumerator AttackSnapRoutine()
     {
-        // 1. Windup (Squash down and prepare)
         float windupTime = 0.1f;
         float timer = 0f;
         Vector3 windupScale = new Vector3(originalScale.x * 1.15f, originalScale.y * 0.85f, originalScale.z);
@@ -208,7 +195,6 @@ public class UnitVisualController : MonoBehaviour
             yield return null;
         }
 
-        // 2. The Strike (Snap extremely tall and skinny, completely in place)
         float strikeTime = 0.05f;
         timer = 0f;
         Vector3 strikeScale = new Vector3(originalScale.x * 0.8f, originalScale.y * 1.25f, originalScale.z);
@@ -234,9 +220,6 @@ public class UnitVisualController : MonoBehaviour
         activeAnimationRoutine = null;
     }
 
-    /* =========================
-     * DEATH
-     * ========================= */
 
     public void PlayDeathAnimationAndDestroy()
     {

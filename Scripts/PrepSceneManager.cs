@@ -41,12 +41,9 @@ public class PrepSceneManager : MonoBehaviour
 
     public void ReturnToMapScene()
     {
-        // Set the encounter (you'll need to assign this somehow)
-        // RunManager.Instance.currentEncounter = someEncounter;
         if (!provisionManager.IsProvisionValid())
         {
             UniversalPopupManager.ShowPopup($"[MAXPROVISION] Exceeded!");
-            // Optionally: Show a warning popup
             return;
         }
         SaveCurrentTeamToRunManager();
@@ -149,7 +146,6 @@ public class PrepSceneManager : MonoBehaviour
     {
         if (RunManager.Instance == null) return;
 
-        // ------------------ Save Battle Grid Units ------------------
         List<RunManager.UnitPlacement> battleTeam = new List<RunManager.UnitPlacement>();
 
         foreach (UnitInstance unit in battleGrid.GetAllUnits())
@@ -180,7 +176,7 @@ public class PrepSceneManager : MonoBehaviour
 
                 if (unitInSlot != null && unitInSlot.myPlacement != null)
                 {
-                    // Unit exists here! Save its data.
+                    // Unit exists here Save its data
                     RunManager.Instance.playerBenchPlacements[i].unitData = unitInSlot.myPlacement.unitData;
                 }
                 else

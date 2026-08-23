@@ -23,7 +23,6 @@ public class PlayerUnitManager : MonoBehaviour
 
     public bool TryAcquireUnit(UnitDefinition incomingDef, Rarity incomingRarity)
     {
-        // 1. Try to Merge
         RunManager.UnitPlacement mergeTarget = FindMergeTarget(incomingDef, incomingRarity);
         if (mergeTarget != null)
         {
@@ -31,26 +30,22 @@ public class PlayerUnitManager : MonoBehaviour
             return true;
         }
 
-        // 2. Try the Bench
         if (TryAddToBench(incomingDef, incomingRarity))
         {
             return true;
         }
 
-        // 3. Bench is full! Overflow to the Battle Grid
         return TryAddToBattleGrid(incomingDef, incomingRarity);
     }
 
     RunManager.UnitPlacement FindMergeTarget(UnitDefinition def, Rarity rarity)
     {
-        // Bench first (doesn't really matter, but feels intuitive)
         foreach (var placement in RunManager.Instance.playerBenchPlacements)
         {
             if (CanMerge(placement, def, rarity))
                 return placement;
         }
 
-        // Then grid
         foreach (var placement in RunManager.Instance.playerTeamPlacements)
         {
             if (CanMerge(placement, def, rarity))

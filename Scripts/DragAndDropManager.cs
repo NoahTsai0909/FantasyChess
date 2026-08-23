@@ -16,7 +16,6 @@ public class DragAndDropManager : MonoBehaviour
     private GridManager sourceGrid;
     private Vector2Int sourcePos;
 
-    // NEW: Tactic Drag State
     private TacticInstance draggedTactic;
     private RunManager.TacticPlacement draggedTacticPlacement;
 
@@ -27,7 +26,7 @@ public class DragAndDropManager : MonoBehaviour
     private Vector2Int currentHoveredCell = new Vector2Int(-1, -1);
 
     [Header("VFX Prefabs")]
-    [SerializeField] private GameObject consumeVFXPrefab; // The poof when the consumable vanishes
+    [SerializeField] private GameObject consumeVFXPrefab; 
     [SerializeField] private GameObject receiveBuffVFXPrefab;
 
     void Start()
@@ -48,7 +47,6 @@ public class DragAndDropManager : MonoBehaviour
 
         bool isMouseDown = mouse.leftButton.isPressed;
 
-        // 1. Update sell zone highlight (ONLY if dragging a unit)
         if (draggedUnit != null)
         {
             Vector3 worldPos = GetMouseWorldPosition();
@@ -64,11 +62,9 @@ public class DragAndDropManager : MonoBehaviour
             }
         }
 
-        // 2. Start Drag
         if (isMouseDown && !wasMouseDown)
             TryStartDrag();
 
-        // 3. Stop Drag
         if (!isMouseDown && wasMouseDown)
         {
             if (draggedUnit != null) StopDrag();
@@ -83,7 +79,6 @@ public class DragAndDropManager : MonoBehaviour
             }
         }
 
-        // 4. Update Position
         if (isMouseDown)
         {
             if (draggedUnit != null)
@@ -93,7 +88,7 @@ public class DragAndDropManager : MonoBehaviour
                 GridManager targetGrid = GetClosestGrid(mousePos);
                 Vector2Int targetPos = targetGrid.GetNearestGridPosition(mousePos);
 
-                // Only trigger the animation if we moved to a new cell!
+                // Only trigger the animation if we moved to a new cell
                 if (currentHoveredGrid != targetGrid || currentHoveredCell != targetPos)
                 {
                     // If we swapped grids entirely, reset the old grid's hover state
@@ -122,7 +117,6 @@ public class DragAndDropManager : MonoBehaviour
 
     void TryStartDrag()
     {
-        // REMOVED: IsPointerOverGameObject check that was causing "DRAG FAILED"
 
         Vector3 worldPos = GetMouseWorldPosition();
         Collider2D[] hits = Physics2D.OverlapPointAll(worldPos);
@@ -153,9 +147,6 @@ public class DragAndDropManager : MonoBehaviour
         }
     }
 
-    /* =========================================
-     * TACTIC DRAG LOGIC
-     * ========================================= */
 
     void StartDragTactic(TacticInstance tactic)
     {
@@ -169,18 +160,14 @@ public class DragAndDropManager : MonoBehaviour
 
     void StopDragTactic()
     {
-        // NEW: Turn the drag flag off so the Layout Engine regains control
         draggedTactic.isDragging = false;
 
-        // Force one final visual update to snap it perfectly into its slot
         playerTacticBar.UpdateVisualLayout();
 
-        // Sync the new order to the RunManager so it saves perfectly
         SyncTacticPlacements();
 
         SetTacticDragVisuals(draggedTactic, false);
 
-        // Clear state
         draggedTactic = null;
         draggedTacticPlacement = null;
         if (playerTacticBar != null) playerTacticBar.RefreshAllTacticAuras();
@@ -212,9 +199,6 @@ public class DragAndDropManager : MonoBehaviour
         cg.alpha = isDragging ? 0.6f : 1f;
     }
 
-    /* =========================================
-     * EXISTING UNIT DRAG LOGIC
-     * ========================================= */
 
     GridManager GetUnitGrid(UnitInstance unit)
     {
