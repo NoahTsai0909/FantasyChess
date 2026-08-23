@@ -2,8 +2,9 @@
 
 > A tactical roguelike autobattler where you construct the ultimate battalion to weather deadly encounters and survive 12 days of escalating challenges.
 
-![Gameplay Demo](Screenshots/hero_gameplay.gif) 
-*(Note: Replace the link above with a path to your actual GIF once you upload it!)*
+![Gameplay Demo](Media/ShopScene.gif) 
+(Media/PrepScene.gif)
+(Media/CombatScene.gif)
 
 ---
 
@@ -32,8 +33,8 @@ As a portfolio piece, this project showcases clean, decoupled architecture and h
 ## 🚀 Getting Started
 To view or play the project locally:
 1. Clone this repository.
-2. Open the project in Unity **[Insert Your Unity Version Here]**.
-3. Open the `MapScene` (or your initial menu scene) and hit Play!
+2. Open the project in Unity 6.3.
+3. Open the 'Bootstrap' and hit Play!
 
 OR:
 1. Visit [itch.io](https://tsainoah.itch.io/fantasy-chess) and download the up to date demo with password: "chef"
