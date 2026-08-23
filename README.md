@@ -2,9 +2,9 @@
 
 > A tactical roguelike autobattler where you construct the ultimate battalion to weather deadly encounters and survive 12 days of escalating challenges.
 
-![Gameplay Demo](Media/ShopScene.gif) 
-(Media/PrepScene.gif)
-(Media/CombatScene.gif)
+![Shop Phase](Media/ShopScene.gif) 
+![Prep Phase](Media/PrepScene.gif)
+![Combat Phase](Media/CombatScene.gif)
 
 ---
 
