@@ -27,6 +27,12 @@ MonoBehaviour:
   isEnergy: 1
   maxEnergy: 2
   multicast: 3
+  overrideCooldownScaling: 1
+  cooldownByRarity:
+  - 12
+  - 11
+  - 10
+  - 9
   unitSprite: {fileID: 21300000, guid: 4f3db3eeeb4535a48b938c9fecd902bd, type: 3}
   defaultProjectile: []
   cost: 0

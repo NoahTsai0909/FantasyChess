@@ -67,7 +67,7 @@ public class RunManager : MonoBehaviour
     public BaseEventSO selectedEvent;
     public EncounterDefinition currentEncounter;
     public bool eventInProgress = false;
-    public const int TOTAL_DAYS = 12;
+    public int TOTAL_DAYS{ get; private set; } = 12;
     public bool hasUsedLastChance = false;
     public ShopState shopState;
 
@@ -105,6 +105,41 @@ public class RunManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void SetupNewAdventure(AdventureDefinitionSO adventure, Region selectedRegion)
+    {
+        // 1. Lock in the rules
+        TOTAL_DAYS = adventure.totalDays;
+
+        // 2. Lock in the faction and automatically grab its reward tree
+        playerRegion = selectedRegion;
+        AssignRegionTree();
+
+        // 3. Reset all tracking variables
+        masterUnitStats.Clear();
+        regularEventsCompleted = 0;
+        isBattlePhase = false;
+        currentEventPhase = 0;
+        currentDailyEvents.Clear();
+        allDayEvents.Clear();
+        selectedEvent = null;
+        currentEncounter = null;
+        eventInProgress = false;
+        hasUsedLastChance = false;
+        permanentStatsMap.Clear();
+        playerTactics.Clear();
+
+        // 4. Reset team/bench to defaults
+        playerTeamPlacements.Clear();
+        InitializeDefaultTeam();
+        playerBenchPlacements.Clear();
+        InitializeBench();
+
+        // 5. Initialize stats using the adventure's specific starting values!
+        Stats.Initialize(adventure.startingGold, adventure.startingHealth, adventure.startingProvisionCap);
+
+        Debug.Log($"Adventure Setup Complete: {adventure.adventureName} playing as {playerRegion}.");
     }
 
     private void AssignRegionTree()
@@ -335,7 +370,6 @@ public class RunManager : MonoBehaviour
             }
         }
 
-        Debug.Log($"=== GenerateDailyEvents END ===");
     }
 
     public PermanentStats GetPermanentStatsForUnit(Guid guid)
@@ -415,7 +449,6 @@ public class RunManager : MonoBehaviour
 
     public void ResetRun()
     {
-        Debug.Log("=== RESETTING RUN ===");
 
         Stats.Initialize();
         masterUnitStats.Clear();

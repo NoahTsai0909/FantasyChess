@@ -71,14 +71,14 @@ public class RunStats
     }
 
     // Initialize with default values
-    public void Initialize()
+    public void Initialize(int startGold = 10, int startHealth = 12, int startProvCap = 4)
     {
-        CurrentGold = 10;
-        PlayerHealth = 12;
+        CurrentGold = startGold;
+        PlayerHealth = startHealth;
         CurrentDay = 1;
         PlayerLevel = 1;
         Experience = 0;
-        ProvisionCap = 4;
+        ProvisionCap = startProvCap;
     }
 }
 

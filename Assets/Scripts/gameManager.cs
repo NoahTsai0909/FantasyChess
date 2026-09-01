@@ -220,7 +220,7 @@ public class gameManager : MonoBehaviour
                 if (RunManager.Instance.selectedEvent != null)
                     RunManager.Instance.selectedEvent.OnCompleted();
 
-                bool isFinalDay = RunManager.Instance.Stats.CurrentDay >= RunManager.TOTAL_DAYS;
+                bool isFinalDay = RunManager.Instance.Stats.CurrentDay >= RunManager.Instance.TOTAL_DAYS;
                 bool canUseLastChance = RunManager.Instance.Stats.PlayerHealth <= 0 && !isFinalDay && !RunManager.Instance.hasUsedLastChance;
 
                 if (playerWon || RunManager.Instance.Stats.PlayerHealth > 0 || canUseLastChance)

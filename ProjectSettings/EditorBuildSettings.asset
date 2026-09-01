@@ -29,6 +29,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RunSummaryScene.unity
     guid: 259aeb74302e4a349b26a66eeaf85d95
+  - enabled: 1
+    path: Assets/Scenes/AdventureSelectionScene.unity
+    guid: 3b323806df1c4af47b1dfff5f807a0b7
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
