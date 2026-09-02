@@ -40,6 +40,12 @@ public class UnitHoverUI : MonoBehaviour
     [Tooltip("Extra padding to prevent IgnoreLayout elements from getting cut off at screen edges!")]
     [SerializeField] private Vector2 edgePadding = new Vector2(50f, 100f);
 
+    [Header("Preview State")]
+    public bool isPreviewMode = false;
+    private UnitHoverUI activePreviewUI;
+    [Tooltip("Drag the Inspect Notice and your new Preview Button here so they vanish on the cloned UI")]
+    [SerializeField] private GameObject[] hideInPreviewMode;
+
     private int lastEnergy, lastAttack, lastShield, lastHeal, lastPoison, lastBurn, lastCrit, lastMulticast;
 
     private Canvas canvas;
@@ -70,7 +76,9 @@ public class UnitHoverUI : MonoBehaviour
 
     void Update()
     {
-        if(currentUnit == null)
+        if (isPreviewMode) return;
+
+        if (currentUnit == null)
         {
             Hide();
             return;
@@ -79,6 +87,8 @@ public class UnitHoverUI : MonoBehaviour
         UpdateDynamicValues();
         UpdateDynamicStats();
         UpdatePosition();
+
+        if (activePreviewUI != null) activePreviewUI.UpdatePreviewPosition(this);
     }
 
     public void Show(UnitInstance unit)
@@ -124,6 +134,7 @@ public class UnitHoverUI : MonoBehaviour
         lastEnergy = -1;
 
         UpdateDynamicStats();
+        UpdateDynamicValues();
         // Show and position
         gameObject.SetActive(true);
         if (!useFixedPosition)
@@ -205,6 +216,8 @@ public class UnitHoverUI : MonoBehaviour
 
     public void Hide()
     {
+        if (activePreviewUI != null) Destroy(activePreviewUI.gameObject);
+
         if (isPermanentUI) return;
         currentUnit = null;
         gameObject.SetActive(false);
@@ -378,5 +391,54 @@ public class UnitHoverUI : MonoBehaviour
         if (stats.Multicast > 1) multicastText.SetText(TextIconUtility.FormatMulticast(stats.Multicast)); else multicastContainer.SetActive(false);
 
         statText.SetText(allStats);
+    }
+
+    public void ToggleUpgradePreview()
+    {
+        if (activePreviewUI != null)
+        {
+            Destroy(activePreviewUI.gameObject);
+            return;
+        }
+
+        if (!currentUnit.CanUpgradeTier()) return;
+
+        // 1. Spawn a perfect clone of this UI
+        activePreviewUI = Instantiate(this, transform.parent);
+        activePreviewUI.isPreviewMode = true;
+
+        foreach (GameObject obj in activePreviewUI.hideInPreviewMode)
+        {
+            if (obj != null) obj.SetActive(false);
+        }
+
+        Rarity originalRarity = currentUnit.CurrentRarity;
+        currentUnit.PreviewRaritySwap(RarityScaling.GetNextRarity(originalRarity));
+
+        activePreviewUI.Show(currentUnit);
+
+        currentUnit.PreviewRaritySwap(originalRarity);
+
+        activePreviewUI.UpdatePreviewPosition(this);
+    }
+
+    public void UpdatePreviewPosition(UnitHoverUI parentUI)
+    {
+        float offset = parentUI.rectTransform.rect.width + 20f;
+
+        if (parentUI.useFixedPosition)
+        {
+            if (parentUI.rectTransform.anchorMin.x == 1)
+                rectTransform.anchoredPosition = parentUI.rectTransform.anchoredPosition + new Vector2(-offset, 0);
+            else
+                rectTransform.anchoredPosition = parentUI.rectTransform.anchoredPosition + new Vector2(offset, 0);
+        }
+        else
+        {
+            if (parentUI.rectTransform.position.x > Screen.width / 2f)
+                rectTransform.anchoredPosition = parentUI.rectTransform.anchoredPosition + new Vector2(-offset, 0);
+            else
+                rectTransform.anchoredPosition = parentUI.rectTransform.anchoredPosition + new Vector2(offset, 0);
+        }
     }
 }

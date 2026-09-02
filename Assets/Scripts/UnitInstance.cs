@@ -286,6 +286,12 @@ public class UnitInstance : MonoBehaviour
     {
         // Derived classes can override this to update cached variables (like Torch's burnBuff)
     }
+    public void PreviewRaritySwap(Rarity tempRarity)
+    {
+        CurrentRarity = tempRarity;
+        RecalculateStats();
+    }
+
 
     /* =========================
      * COMBAT ACTIONS

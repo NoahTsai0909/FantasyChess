@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public class UnitHoverDetector : MonoBehaviour
 {
@@ -15,7 +17,7 @@ public class UnitHoverDetector : MonoBehaviour
     private Coroutine hoverRoutine;
 
     private UnitHoverUI hoverUIInstance;
-    private CanvasGroup hoverUICanvasGroup; 
+    private CanvasGroup hoverUICanvasGroup;
 
     private bool isPinned = false;
     private bool isUIHoverDriven = false;
@@ -47,12 +49,32 @@ public class UnitHoverDetector : MonoBehaviour
         hoverUIInstance.gameObject.SetActive(false);
         hoverUIInstance.name = "UnitUI (Dynamic)";
 
-        // ADDED: Cache the CanvasGroup so we can toggle its raycasts
         hoverUICanvasGroup = hoverUIInstance.GetComponent<CanvasGroup>();
         if (hoverUICanvasGroup == null)
         {
             hoverUICanvasGroup = hoverUIInstance.gameObject.AddComponent<CanvasGroup>();
         }
+    }
+
+    // NEW HELPER: Shoots a laser exactly at the mouse to see if it hits our specific UI
+    private bool IsPointerOverUnitHoverUI()
+    {
+        if (EventSystem.current == null || hoverUIInstance == null) return false;
+
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = mouse.position.ReadValue();
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+
+        foreach (var result in results)
+        {
+            // If the UI element we hit is a child of our Hover UI (like the Preview Button!)
+            if (result.gameObject.transform.IsChildOf(hoverUIInstance.transform))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     void Update()
@@ -62,10 +84,12 @@ public class UnitHoverDetector : MonoBehaviour
         // 1. Unpinning Logic
         if (isPinned)
         {
+            bool clickAttempt = mouse.leftButton.wasPressedThisFrame || mouse.rightButton.wasPressedThisFrame;
+
+            // ONLY unpin if T, Escape, or a click that did NOT hit the UnitHoverUI
             if (Keyboard.current.tKey.wasPressedThisFrame ||
                 Keyboard.current.escapeKey.wasPressedThisFrame ||
-                mouse.leftButton.wasPressedThisFrame ||
-                mouse.rightButton.wasPressedThisFrame)
+                (clickAttempt && !IsPointerOverUnitHoverUI()))
             {
                 isPinned = false;
                 if (hoverUICanvasGroup != null) hoverUICanvasGroup.blocksRaycasts = false;
@@ -74,7 +98,7 @@ public class UnitHoverDetector : MonoBehaviour
             return;
         }
 
-        // 2. Pinning Logic
+        // 2. Pinning Logic[cite: 9]
         if (currentHoveredUnit != null && Keyboard.current.tKey.wasPressedThisFrame)
         {
             isPinned = true;
@@ -82,15 +106,17 @@ public class UnitHoverDetector : MonoBehaviour
             return;
         }
 
-        // ADD THIS: If the Shop Card is currently driving the tooltip, skip the physics raycast entirely!
         if (isUIHoverDriven) return;
 
+        // 3. EXACT ORIGINAL DRAG PROTECTION[cite: 9]
+        // This instantly hides the UI the moment you hold click to drag a unit!
         if (mouse.leftButton.isPressed)
         {
             CancelHover();
             return;
         }
 
+        // 4. Normal Hover Logic[cite: 9]
         Vector3 mouseWorldPos = GetMouseWorldPosition();
         Collider2D hit = Physics2D.OverlapPoint(mouseWorldPos);
         UnitInstance hitUnit = hit ? hit.GetComponent<UnitInstance>() : null;
@@ -109,10 +135,7 @@ public class UnitHoverDetector : MonoBehaviour
     void StartHover(UnitInstance unit)
     {
         CancelHover();
-
-        // Ensure raycasts are OFF during normal board hover
         if (hoverUICanvasGroup != null) hoverUICanvasGroup.blocksRaycasts = false;
-
         pendingHoverUnit = unit;
         hoverRoutine = StartCoroutine(HoverDelayRoutine(unit));
     }
@@ -131,8 +154,7 @@ public class UnitHoverDetector : MonoBehaviour
     void CancelHover()
     {
         if (isPinned) return;
-
-        isUIHoverDriven = false; // Add this safeguard just in case!
+        isUIHoverDriven = false;
 
         if (hoverRoutine != null) StopCoroutine(hoverRoutine);
         hoverRoutine = null;
@@ -157,24 +179,19 @@ public class UnitHoverDetector : MonoBehaviour
         if (hoverUIInstance != null) Destroy(hoverUIInstance.gameObject);
     }
 
-    // Called by the ShopUnitCard
     public void ShowTooltipFromUI(UnitInstance unit)
     {
         if (isPinned) return;
-
         CancelHover();
         currentHoveredUnit = unit;
-
-        isUIHoverDriven = true; // Tell the Update loop to back off!
-
+        isUIHoverDriven = true;
         if (hoverUICanvasGroup != null) hoverUICanvasGroup.blocksRaycasts = false;
-
         hoverUIInstance.Show(unit);
     }
 
     public void HideTooltipFromUI()
     {
-        isUIHoverDriven = false; // Release control back to the physics loop
+        isUIHoverDriven = false;
         if (!isPinned) CancelHover();
     }
 }
