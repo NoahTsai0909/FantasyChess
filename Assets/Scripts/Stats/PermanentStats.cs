@@ -14,6 +14,7 @@ public class PermanentStats
     public int bonusMulticast;
     public int bonusValue;
     public int bonusCritChance;
+    public UnitTagFlags bonusTags;
 
     public void Reset()
     {
@@ -30,5 +31,6 @@ public class PermanentStats
         bonusMulticast = 0;
         bonusValue = 0;
         bonusCritChance = 0;
+        bonusTags = UnitTagFlags.None;
     }
 }

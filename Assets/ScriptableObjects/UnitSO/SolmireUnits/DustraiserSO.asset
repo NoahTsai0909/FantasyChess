@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Dustraiser
   maxHP: 85
+  mainStat: 5
   attack: 0
   heal: 0
   shield: 8

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dbd75adf74eef14e85b11837be85cba, type: 3}
+  m_Name: SwiftPrefix
+  m_EditorClassIdentifier: Assembly-CSharp::MutationPrefixSO
+  prefixName: Swift
+  statToGrant: 9
+  conversionWeight: 1
+  flatBonusAmount: 1
+  allowedSuffixes:
+  - {fileID: 11400000, guid: 4146576c84d26a844be5457d25a63ed8, type: 2}
+  - {fileID: 11400000, guid: 41f24627084313a4ca51e4601d7ca8ff, type: 2}
+  - {fileID: 11400000, guid: 2e537b72e27533e47af22fc6e23c0deb, type: 2}

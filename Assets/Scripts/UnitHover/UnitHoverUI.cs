@@ -38,7 +38,7 @@ public class UnitHoverUI : MonoBehaviour
     [Header("Behavior")]
     [SerializeField] private bool isPermanentUI = false;
     [Tooltip("Extra padding to prevent IgnoreLayout elements from getting cut off at screen edges!")]
-    [SerializeField] private Vector2 edgePadding = new Vector2(50f, 100f);
+    [SerializeField] private Vector2 edgePadding = new Vector2(50f, 150f);
 
     [Header("Preview State")]
     public bool isPreviewMode = false;
@@ -99,8 +99,11 @@ public class UnitHoverUI : MonoBehaviour
         currentUnit = unit;
         unit.RecalculateStats();
 
-        // Set UI content
-        nameText.text = unit.Definition.unitName;
+        string finalName = unit.Definition.unitName;
+        if (unit.currentPrefix != null) finalName = $"{unit.currentPrefix.prefixName} {finalName}";
+        if (unit.currentSuffix != null) finalName = $"{finalName} of {unit.currentSuffix.suffixName}";
+        nameText.text = finalName;
+
         SetRarityBackground(unit.CurrentRarity);
         cooldownBar.SetVisuals(unit.CurrentRarity);
 
@@ -108,12 +111,13 @@ public class UnitHoverUI : MonoBehaviour
 
         string allStats = "";
         int displayEnergy = unit.inCombat ? unit.currentEnergy : stats.maxEnergy;
+
         if (unit.Definition.isEnergy) allStats += TextIconUtility.FormatEnergy(displayEnergy) + "/" + stats.maxEnergy + "  ";
-        if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Damage) && stats.Attack > 0) allStats += TextIconUtility.FormatAttack(stats.Attack) + "  ";
-        if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Shield) && stats.Shield > 0) allStats += TextIconUtility.FormatShield(stats.Shield) + "  ";
-        if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Heal) && stats.Heal > 0) allStats += TextIconUtility.FormatHeal(stats.Heal) + "  ";
-        if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Poison) && stats.Poison > 0) allStats += TextIconUtility.FormatPoison(stats.Poison) + "  ";
-        if (unit.Definition.tagFlags.HasFlag(UnitTagFlags.Burn) && stats.Burn > 0) allStats += TextIconUtility.FormatBurn(stats.Burn) + "  ";
+        if (unit.Stats.Tags.HasFlag(UnitTagFlags.Damage) && stats.Attack > 0) allStats += TextIconUtility.FormatAttack(stats.Attack) + "  ";
+        if (unit.Stats.Tags.HasFlag(UnitTagFlags.Shield) && stats.Shield > 0) allStats += TextIconUtility.FormatShield(stats.Shield) + "  ";
+        if (unit.Stats.Tags.HasFlag(UnitTagFlags.Heal) && stats.Heal > 0) allStats += TextIconUtility.FormatHeal(stats.Heal) + "  ";
+        if (unit.Stats.Tags.HasFlag(UnitTagFlags.Poison) && stats.Poison > 0) allStats += TextIconUtility.FormatPoison(stats.Poison) + "  ";
+        if (unit.Stats.Tags.HasFlag(UnitTagFlags.Burn) && stats.Burn > 0) allStats += TextIconUtility.FormatBurn(stats.Burn) + "  ";
         if (unit.GetActiveDescription() != "" && stats.CritChance > 0) allStats += TextIconUtility.FormatCrit(stats.CritChance) + "  ";
         statText.SetText(allStats);
 
@@ -152,6 +156,23 @@ public class UnitHoverUI : MonoBehaviour
         string activeDesc = TextIconUtility.ParseDescription(unit.GetActiveDescription());
         string passiveDesc = TextIconUtility.ParseDescription(unit.GetPassiveDescription());
 
+        if (unit.currentSuffix != null)
+        {
+            string triggerText = unit.GetMutationTriggerText();
+            string textWithoutBreaks = triggerText.Replace("<br>", "").Trim();
+            bool needsCapitalization = string.IsNullOrEmpty(textWithoutBreaks);
+
+            string actionPhrase = unit.currentSuffix.GetActionPhrase(unit, needsCapitalization);
+
+            string mutationSentence = triggerText + actionPhrase + ".";
+            mutationSentence = TextIconUtility.ParseDescription(mutationSentence);
+
+            if (unit.Definition.isPassive)
+                passiveDesc += mutationSentence;
+            else
+                activeDesc += mutationSentence;
+        }
+
         // Handle Active Ability Box
         if (!string.IsNullOrEmpty(activeDesc))
         {
@@ -181,7 +202,7 @@ public class UnitHoverUI : MonoBehaviour
         }
 
         // 2. Safely get the unit's tags
-        UnitTagFlags unitTags = unit.Definition.tagFlags;
+        UnitTagFlags unitTags = unit.Stats.Tags;
 
         // 3. Loop through every possible tag defined in your UnitTagFlags enum
         foreach (UnitTagFlags flag in System.Enum.GetValues(typeof(UnitTagFlags)))
@@ -382,11 +403,11 @@ public class UnitHoverUI : MonoBehaviour
         string allStats = "";
 
         if (currentUnit.Definition.isEnergy) allStats += TextIconUtility.FormatEnergy(currentEnergy) + "/" + stats.maxEnergy + "  ";
-        if (currentUnit.Definition.tagFlags.HasFlag(UnitTagFlags.Damage) && stats.Attack > 0) allStats += TextIconUtility.FormatAttack(stats.Attack) + "  ";
-        if (currentUnit.Definition.tagFlags.HasFlag(UnitTagFlags.Shield) && stats.Shield > 0) allStats += TextIconUtility.FormatShield(stats.Shield) + "  ";
-        if (currentUnit.Definition.tagFlags.HasFlag(UnitTagFlags.Heal) && stats.Heal > 0) allStats += TextIconUtility.FormatHeal(stats.Heal) + "  ";
-        if (currentUnit.Definition.tagFlags.HasFlag(UnitTagFlags.Poison) && stats.Poison > 0) allStats += TextIconUtility.FormatPoison(stats.Poison) + "  ";
-        if (currentUnit.Definition.tagFlags.HasFlag(UnitTagFlags.Burn) && stats.Burn > 0) allStats += TextIconUtility.FormatBurn(stats.Burn) + "  ";
+        if (currentUnit.Stats.Tags.HasFlag(UnitTagFlags.Damage) && stats.Attack > 0) allStats += TextIconUtility.FormatAttack(stats.Attack) + "  ";
+        if (currentUnit.Stats.Tags.HasFlag(UnitTagFlags.Shield) && stats.Shield > 0) allStats += TextIconUtility.FormatShield(stats.Shield) + "  ";
+        if (currentUnit.Stats.Tags.HasFlag(UnitTagFlags.Heal) && stats.Heal > 0) allStats += TextIconUtility.FormatHeal(stats.Heal) + "  ";
+        if (currentUnit.Stats.Tags.HasFlag(UnitTagFlags.Poison) && stats.Poison > 0) allStats += TextIconUtility.FormatPoison(stats.Poison) + "  ";
+        if (currentUnit.Stats.Tags.HasFlag(UnitTagFlags.Burn) && stats.Burn > 0) allStats += TextIconUtility.FormatBurn(stats.Burn) + "  ";
         if (currentUnit.GetActiveDescription() != "" && stats.CritChance > 0) allStats += TextIconUtility.FormatCrit(stats.CritChance) + "  ";
         if (stats.Multicast > 1) multicastText.SetText(TextIconUtility.FormatMulticast(stats.Multicast)); else multicastContainer.SetActive(false);
 

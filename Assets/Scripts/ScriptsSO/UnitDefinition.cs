@@ -7,6 +7,8 @@ public class UnitDefinition : ScriptableObject, IStatSource
     [Header("Basic Stats")]
     public string unitName;
     public int maxHP;
+    [Header("Mutation Data")]
+    public ModifiableStats mainStat = ModifiableStats.Attack;
 
     [Header("Combat Values")]
     public int attack;
@@ -70,6 +72,8 @@ public class UnitDefinition : ScriptableObject, IStatSource
     public int Value => 0;
 
     public int CritChance => critChance;
+
+    public UnitTagFlags TagFlags => tagFlags;
 }
 
 public enum Rarity { Common, Uncommon, Rare, Epic }

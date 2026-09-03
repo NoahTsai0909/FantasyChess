@@ -15,6 +15,7 @@ public class CombatVFXManager : MonoBehaviour
     [SerializeField] private GameObject defaultHealProjectilePrefab;
     [SerializeField] private GameObject defaultShieldProjectilePrefab;
     [SerializeField] private GameObject defaultBurnProjectilePrefab;
+    [SerializeField] private GameObject defaultPoisonProjectilePrefab;
     [SerializeField] private GameObject defaultSlowProjectilePrefab;
     [SerializeField] private GameObject defaultHasteProjectilePrefab;
 
@@ -23,6 +24,7 @@ public class CombatVFXManager : MonoBehaviour
     [SerializeField] private GameObject attackImpactPrefab;
     [SerializeField] private GameObject shieldImpactPrefab;
     [SerializeField] private GameObject burnImpactPrefab;
+    [SerializeField] private GameObject poisonImpactPrefab;
     [SerializeField] private GameObject meleeSlashPrefab;
     [SerializeField] private GameObject slowImpactPrefab;
     [SerializeField] private GameObject hasteImpactPrefab;
@@ -33,6 +35,7 @@ public class CombatVFXManager : MonoBehaviour
     [SerializeField] private Color defaultHealColor = Color.green;
     [SerializeField] private Color defaultShieldColor = Color.yellow;
     [SerializeField] private Color defaultBurnColor = new Color(1f, 0.5f, 0f); // Orange
+    [SerializeField] private Color defaultPoisonColor = Color.purple;
     [SerializeField] private Color defaultSlowColor = Color.brown;
     [SerializeField] private Color defaultHasteColor = Color.cyan;
 
@@ -92,6 +95,7 @@ public class CombatVFXManager : MonoBehaviour
             case CombatActionType.Damage:
             case CombatActionType.Heal:
             case CombatActionType.ApplyBurn:
+            case CombatActionType.ApplyPoison:
             case CombatActionType.Shield:
             case CombatActionType.ApplySlow:
             case CombatActionType.ApplyHaste:
@@ -144,6 +148,10 @@ public class CombatVFXManager : MonoBehaviour
             else if (action.type == CombatActionType.ApplyBurn && action.target != null && burnImpactPrefab != null)
             {
                 Instantiate(burnImpactPrefab, action.target.transform.position, Quaternion.identity);
+            }
+            else if (action.type == CombatActionType.ApplyPoison && action.target != null && poisonImpactPrefab != null)
+            {
+                Instantiate(poisonImpactPrefab, action.target.transform.position, Quaternion.identity);
             }
             else if (action.type == CombatActionType.ApplySlow && action.target != null && slowImpactPrefab != null)
             {
@@ -261,6 +269,9 @@ public class CombatVFXManager : MonoBehaviour
             case CombatActionType.ApplyBurn:
                 if (burnImpactPrefab != null) Instantiate(burnImpactPrefab, action.target.transform.position, Quaternion.identity);
                 break;
+            case CombatActionType.ApplyPoison:
+                if (poisonImpactPrefab != null) Instantiate(poisonImpactPrefab, action.target.transform.position, Quaternion.identity);
+                break;
             case CombatActionType.ApplySlow:
                 if (slowImpactPrefab != null) Instantiate(slowImpactPrefab, action.target.transform.position, Quaternion.identity);
                 break;
@@ -280,6 +291,7 @@ public class CombatVFXManager : MonoBehaviour
             CombatActionType.ApplyBurn => defaultBurnProjectilePrefab,
             CombatActionType.ApplyHaste => defaultHasteProjectilePrefab,
             CombatActionType.ApplySlow => defaultSlowProjectilePrefab,
+            CombatActionType.ApplyPoison => defaultPoisonProjectilePrefab, 
             _ => defaultDamageProjectilePrefab 
         };
     }
@@ -328,6 +340,7 @@ public class CombatVFXManager : MonoBehaviour
             CombatActionType.Heal => defaultHealColor,
             CombatActionType.Shield => defaultShieldColor,
             CombatActionType.ApplyBurn => defaultBurnColor,
+            CombatActionType.ApplyPoison => defaultPoisonColor,
             CombatActionType.ApplySlow => defaultSlowColor,
             CombatActionType.ApplyHaste => defaultHasteColor,
             _ => Color.white

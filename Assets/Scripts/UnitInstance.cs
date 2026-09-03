@@ -18,6 +18,9 @@ public class UnitInstance : MonoBehaviour
     protected TemporaryStats temporaryStats;
     protected StatBlock stats;
 
+    public MutationPrefixSO currentPrefix;
+    public MutationSuffixSO currentSuffix;
+
     public StatBlock Stats => stats;
 
     public string unitName;
@@ -178,6 +181,9 @@ public class UnitInstance : MonoBehaviour
         CurrentRarity = data.rarity;
         isPassive = definition.isPassive;
         id = data.id;
+
+        currentPrefix = data.prefix;
+        currentSuffix = data.suffix;
         // Permanent progression (keyed by GUID, not definition long-term)
         permanentStats = RunManager.Instance.GetPermanentStatsForUnit(id)?? RunManager.Instance.CreatePermanentStatsForUnit(id);
 
@@ -197,7 +203,9 @@ public class UnitInstance : MonoBehaviour
         stats = new StatBlock(
             GetRarityAdjustedDefinition(),
             permanentStats,
-            temporaryStats  // This should be the same instance
+            temporaryStats,
+            currentPrefix,
+            definition.mainStat
         );
     }
 
@@ -292,6 +300,20 @@ public class UnitInstance : MonoBehaviour
         RecalculateStats();
     }
 
+    public void ApplyMutation(MutationPrefixSO newPrefix, MutationSuffixSO newSuffix)
+    {
+        currentPrefix = newPrefix;
+        currentSuffix = newSuffix;
+
+        RecalculateStats();
+
+        if (myPlacement != null && myPlacement.unitData != null)
+        {
+            myPlacement.unitData.prefix = newPrefix;
+            myPlacement.unitData.suffix = newSuffix;
+        }
+    }
+
 
     /* =========================
      * COMBAT ACTIONS
@@ -302,6 +324,10 @@ public class UnitInstance : MonoBehaviour
         abilityCrit = RollCrit();
         Visuals?.PlayAttackAnimation();
         CombatEventBus.Publish(CombatEventBus.CombatEventType.AbilityUsed, this, null, 0);
+        if (this != null && inCombat && currentSuffix != null)
+        {
+            currentSuffix.ExecuteEffect(this);
+        }
     }
 
     public virtual void CombatStartEffect()
@@ -433,6 +459,7 @@ public class UnitInstance : MonoBehaviour
     }
 
     public void ApplyBurn(int amount, Guid sourceId) => Status.AddBurn(amount, sourceId);
+    public void ApplyPoison(int amount, Guid sourceId) => Status.AddPoison(amount, sourceId);
     public void ApplySlow(int amount) => Status.AddSlow(amount); // amount is now treated as seconds!
     public void ApplyHaste(int amount) => Status.AddHaste(amount);
 
@@ -462,6 +489,12 @@ public class UnitInstance : MonoBehaviour
         return "";
     }
 
+    public virtual string GetMutationTriggerText()
+    {
+        if (!isPassive) return "<br>";
+        return "<br>"; 
+    }
+
     IStatSource GetRarityAdjustedDefinition()
     {
         int delta = CurrentRarity - Definition.startingRarity;
@@ -484,7 +517,8 @@ public class UnitInstance : MonoBehaviour
             Definition.haste + GetRarityAdjustedHaste(),
             Definition.multicast,
             GetRarityAdjustedValue(),
-            Definition.critChance
+            Definition.critChance,
+            Definition.tagFlags
         );
     }
 
@@ -558,6 +592,18 @@ public class UnitInstance : MonoBehaviour
         return;
     }
 
+    public void AddTemporaryTag(UnitTagFlags tag)
+    {
+        temporaryStats.tagBonus |= tag;
+        RecalculateStats();
+    }
+
+    public void RemoveTemporaryTag(UnitTagFlags tag)
+    {
+        temporaryStats.tagBonus &= ~tag; 
+        RecalculateStats();
+    }
+
     private float GetCooldownSpeedMultiplier()
     {
         bool slowed = Status.slowTimer > 0;
@@ -586,7 +632,7 @@ public class UnitInstance : MonoBehaviour
      * Targeting helpers
      * ========================= */
 
-    protected UnitInstance FindNearestEnemy()
+    public UnitInstance FindNearestEnemy()
     {
         if (targetingSystem == null) return null;
         var criteria = new TargetingSystem.TargetCriteria(
@@ -608,7 +654,7 @@ public class UnitInstance : MonoBehaviour
         return targetingSystem.FindMultipleUnits(criteria, count, transform.position);
     }
 
-    protected UnitInstance FindFarthestEnemy()
+    public UnitInstance FindFarthestEnemy()
     {
         if (targetingSystem == null) return null;
         var criteria = new TargetingSystem.TargetCriteria(
@@ -628,7 +674,7 @@ public class UnitInstance : MonoBehaviour
         return targetingSystem.FindMultipleUnits(criteria, count, transform.position);
     }
 
-    protected UnitInstance FindLowestHealthAlly()
+    public UnitInstance FindLowestHealthAlly()
     {
         if (targetingSystem == null) return null;
         var criteria = new TargetingSystem.TargetCriteria(
@@ -646,6 +692,16 @@ public class UnitInstance : MonoBehaviour
             TargetingSystem.SortMethod.LowestHealth
         );
         return targetingSystem.FindMultipleUnits(criteria, count, transform.position);
+    }
+
+    public UnitInstance FindRandomAlly()
+    {
+        if (targetingSystem == null) return null;
+        var criteria = new TargetingSystem.TargetCriteria(
+            TargetingSystem.TargetTeam.Ally,
+            TargetingSystem.SortMethod.Random
+        );
+        return targetingSystem.FindUnit(criteria, transform.position);
     }
     protected UnitInstance FindRandomEnemy()
     {
@@ -686,13 +742,13 @@ public class UnitInstance : MonoBehaviour
         return new List<UnitInstance>();
     }
 
-    protected List<UnitInstance> FindAllAllies()
+    public List<UnitInstance> FindAllAllies()
     {
         if (myGrid != null) return myGrid.GetAllUnits();
         return new List<UnitInstance>();
     }
 
-    protected List<UnitInstance> FindAllEnemies()
+    public List<UnitInstance> FindAllEnemies()
     {
         if (targetingSystem == null) return new List<UnitInstance>();
         return targetingSystem.GetEnemies();

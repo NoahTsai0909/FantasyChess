@@ -40,7 +40,7 @@ public class FanTheFlame : TacticInstance
         List<UnitInstance> burnAllies = allies.Where(unit =>
             unit != null &&
             unit.Definition != null &&
-            unit.Definition.tagFlags.HasFlag(UnitTagFlags.Burn)).ToList();
+            unit.Stats.Tags.HasFlag(UnitTagFlags.Burn)).ToList();
 
         if (burnAllies.Count > 0)
         {

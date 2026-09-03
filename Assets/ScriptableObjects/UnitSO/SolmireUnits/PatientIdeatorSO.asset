@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Patient Ideator
   maxHP: 110
+  mainStat: 0
   attack: 0
   heal: 0
   shield: 0
@@ -27,6 +28,12 @@ MonoBehaviour:
   isEnergy: 0
   maxEnergy: 0
   multicast: 1
+  overrideCooldownScaling: 0
+  cooldownByRarity:
+  - 0
+  - 0
+  - 0
+  - 0
   unitSprite: {fileID: 21300000, guid: 3d7e3ae7997712e49b204bf148510e82, type: 3}
   defaultProjectile: []
   cost: 0

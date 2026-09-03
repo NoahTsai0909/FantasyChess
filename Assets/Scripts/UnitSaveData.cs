@@ -21,6 +21,9 @@ public class UnitSaveData
     public int BaseValue => RarityToMultiplier(rarity) * EffectiveProvision;
     public int EffectiveValue => Mathf.Max(0, BaseValue + valueModifier);
 
+    public MutationPrefixSO prefix;
+    public MutationSuffixSO suffix;
+
     public UnitSaveData()
     {
         id = Guid.NewGuid();

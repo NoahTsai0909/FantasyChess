@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Solemn Priest
   maxHP: 40
+  mainStat: 2
   attack: 0
   heal: 10
   shield: 0

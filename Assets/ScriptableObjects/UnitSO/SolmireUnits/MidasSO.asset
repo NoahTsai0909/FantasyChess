@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Midas
   maxHP: 390
+  mainStat: 3
   attack: 10
   heal: 0
   shield: 0

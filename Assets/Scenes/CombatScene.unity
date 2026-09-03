@@ -834,12 +834,14 @@ MonoBehaviour:
   defaultHealProjectilePrefab: {fileID: 4564892777239986246, guid: 5ad4dc53cc3d8db4b9bad652be1c3231, type: 3}
   defaultShieldProjectilePrefab: {fileID: 4564892777239986246, guid: 5ad4dc53cc3d8db4b9bad652be1c3231, type: 3}
   defaultBurnProjectilePrefab: {fileID: 8108392530388780990, guid: 7402be29e0e5e9c4d89fd216ffd28a0f, type: 3}
+  defaultPoisonProjectilePrefab: {fileID: 4564892777239986246, guid: 5ad4dc53cc3d8db4b9bad652be1c3231, type: 3}
   defaultSlowProjectilePrefab: {fileID: 4564892777239986246, guid: 5ad4dc53cc3d8db4b9bad652be1c3231, type: 3}
   defaultHasteProjectilePrefab: {fileID: 4564892777239986246, guid: 5ad4dc53cc3d8db4b9bad652be1c3231, type: 3}
   healImpactPrefab: {fileID: 6854945807307277782, guid: 9d4e141eec2f4ce46bb2291ddd17e34a, type: 3}
   attackImpactPrefab: {fileID: 5915805118745668908, guid: 0456b27261cbb284a98dfebaa302543f, type: 3}
   shieldImpactPrefab: {fileID: 5704024670665266947, guid: d8ab3a0599d9850469f8ed9c0dfdc1de, type: 3}
   burnImpactPrefab: {fileID: 8778281742901235260, guid: d26da328717e433479d5fad936291c17, type: 3}
+  poisonImpactPrefab: {fileID: 8778281742901235260, guid: d26da328717e433479d5fad936291c17, type: 3}
   meleeSlashPrefab: {fileID: 6767337181534009556, guid: f7f90c68a75180b4f8e1fe08de22f7aa, type: 3}
   slowImpactPrefab: {fileID: 8371208024007339633, guid: d4c637286001fc547a0476d8eb510072, type: 3}
   hasteImpactPrefab: {fileID: 6328882538875790131, guid: 4af30b7836a21464d924f16684e30858, type: 3}
@@ -848,6 +850,7 @@ MonoBehaviour:
   defaultHealColor: {r: 0, g: 1, b: 0, a: 1}
   defaultShieldColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   defaultBurnColor: {r: 1, g: 0.5, b: 0, a: 1}
+  defaultPoisonColor: {r: 0.627451, g: 0.1254902, b: 0.9411765, a: 1}
   defaultSlowColor: {r: 0.6470588, g: 0.1647059, b: 0.1647059, a: 1}
   defaultHasteColor: {r: 0, g: 1, b: 1, a: 1}
   maxArcHeight: 2

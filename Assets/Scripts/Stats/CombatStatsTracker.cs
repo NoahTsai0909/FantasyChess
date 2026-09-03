@@ -64,7 +64,7 @@ public class CombatStatsTracker : MonoBehaviour
                 if (targetStats != null) targetStats.DamageTaken += action.amount;
                 break;
 
-            case CombatActionType.Poison: // Assuming poison ticks use this or a similar action
+            case CombatActionType.PoisonTick: // Assuming poison ticks use this or a similar action
                 if (sourceStats != null) sourceStats.PoisonDamageDealt += action.amount;
                 if (targetStats != null) targetStats.DamageTaken += action.amount;
                 break;

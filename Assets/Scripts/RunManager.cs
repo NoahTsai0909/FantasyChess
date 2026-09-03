@@ -178,7 +178,8 @@ public class RunManager : MonoBehaviour
                 {
                     definition = placement.unitData.definition,
                     rarity = placement.unitData.rarity,
-                    // GUID is generated automatically in constructor / factory
+                    prefix = placement.unitData.prefix,
+                    suffix = placement.unitData.suffix
                 },
                 row = placement.row,
                 col = placement.col

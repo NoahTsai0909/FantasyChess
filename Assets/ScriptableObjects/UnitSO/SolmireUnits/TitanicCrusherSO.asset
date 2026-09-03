@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Titanic Crusher
   maxHP: 290
+  mainStat: 3
   attack: 0
   heal: 0
   shield: 0

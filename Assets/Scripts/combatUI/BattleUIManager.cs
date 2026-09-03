@@ -214,6 +214,10 @@ public class BattleUIManager : MonoBehaviour
             case CombatActionType.BurnTick:
                 SpawnFloatingText(worldPos, $"[BURN]{action.amount}", Color.orange, false);
                 break;
+
+            case CombatActionType.PoisonTick:
+                SpawnFloatingText(worldPos, $"[POISON]{action.amount}", Color.purple, false);
+                break;
         }
     }
 

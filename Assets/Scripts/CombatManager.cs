@@ -9,7 +9,8 @@ public enum CombatActionType
     Shield,
     ApplyBurn,
     BurnTick,
-    Poison,
+    ApplyPoison,
+    PoisonTick,
     ApplyHaste,
     ApplySlow,
     Charge,
@@ -72,6 +73,7 @@ public class CombatManager : MonoBehaviour
             {
                 case CombatActionType.Damage:
                 case CombatActionType.BurnTick:
+                case CombatActionType.PoisonTick:
                 case CombatActionType.Heal:
                 case CombatActionType.Shield:
                 case CombatActionType.ApplyBurn:
@@ -83,6 +85,7 @@ public class CombatManager : MonoBehaviour
         {
             case CombatActionType.Damage:
             case CombatActionType.BurnTick:
+            case CombatActionType.PoisonTick:
                 action.target.TakeDamage(action.amount);
                 break;
 
@@ -96,6 +99,9 @@ public class CombatManager : MonoBehaviour
 
             case CombatActionType.ApplyBurn:
                 action.target.ApplyBurn(action.amount, action.sourceId);
+                break;
+            case CombatActionType.ApplyPoison:
+                action.target.ApplyPoison(action.amount, action.sourceId);
                 break;
 
             case CombatActionType.ApplySlow:

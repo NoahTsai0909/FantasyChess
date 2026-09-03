@@ -14,6 +14,7 @@ public class TemporaryStats
     public int multicastBonus;
     public int valueBonus;
     public int critChanceBonus;
+    public UnitTagFlags tagBonus;
 
     public void Clear()
     {
@@ -30,5 +31,6 @@ public class TemporaryStats
         multicastBonus = 0;
         valueBonus = 0;
         critChanceBonus = 0;
+        tagBonus = UnitTagFlags.None;
     }
 }

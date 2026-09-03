@@ -21,6 +21,8 @@ public interface IStatSource
 
     int Value { get; }
 
-    int CritChance { get; } 
+    int CritChance { get; }
+
+    UnitTagFlags TagFlags { get; }
 }
 

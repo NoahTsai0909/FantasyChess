@@ -18,6 +18,12 @@ public class StatusEffectController : MonoBehaviour
     public int TotalBurnStacks => burnSources.Values.Sum();
     private Coroutine burnRoutine;
 
+    [Header("Poison Tracking")]
+    public Dictionary<Guid, int> poisonSources { get; private set; } = new Dictionary<Guid, int>();
+    public int TotalPoisonStacks => poisonSources.Values.Sum();
+    private Coroutine poisonRoutine;
+
+
     void Awake()
     {
         unit = GetComponent<UnitInstance>();
@@ -150,12 +156,77 @@ public class StatusEffectController : MonoBehaviour
         }
     }
 
+    public void AddPoison(int amount, Guid sourceId)
+    {
+        if (poisonSources.ContainsKey(sourceId))
+            poisonSources[sourceId] += amount;
+        else
+            poisonSources[sourceId] = amount;
+
+        CombatEventBus.PublishStatusChanged(unit, StatusEffectType.Poison, TotalPoisonStacks);
+        if (poisonRoutine == null)
+            poisonRoutine = StartCoroutine(PoisonTickRoutine());
+    }
+
+    private IEnumerator PoisonTickRoutine()
+    {
+        while (TotalPoisonStacks > 0)
+        {
+            yield return new WaitForSeconds(2f);
+
+            if (unit != null && unit.inCombat)
+            {
+                int totalPoisonDamage = TotalPoisonStacks;
+                unit.TakeDamage(totalPoisonDamage);
+
+                CombatAction visualTracker = new CombatAction
+                {
+                    type = CombatActionType.PoisonTick,
+                    target = unit,
+                    targetId = unit.id,
+                    amount = totalPoisonDamage,
+                    reason = "Poison tick",
+                    isVisualOnly = true
+                };
+                CombatEventBus.PublishActionResolved(visualTracker);
+
+                // 2. Silent Logs for Stat Tracker
+                foreach (var kvp in poisonSources)
+                {
+                    CombatAction statTracker = new CombatAction
+                    {
+                        type = CombatActionType.PoisonTick,
+                        sourceId = kvp.Key,
+                        target = unit,
+                        targetId = unit.id,
+                        amount = kvp.Value,
+                        reason = "Poison",
+                        isSilent = true
+                    };
+
+                    if (CombatManager.Instance != null)
+                        CombatManager.Instance.RecordStatAction(statTracker);
+
+                    CombatEventBus.PublishActionResolved(statTracker);
+                }
+
+                CombatEventBus.PublishStatusChanged(unit, StatusEffectType.Poison, TotalPoisonStacks);
+            }
+        }
+        poisonRoutine = null;
+    }
+
+
+
     public void ClearAllStatusEffects()
     {
         hasteTimer = 0;
         slowTimer = 0;
         burnSources.Clear();
+        poisonSources.Clear();
         if (burnRoutine != null) StopCoroutine(burnRoutine);
+        if (poisonRoutine != null) StopCoroutine(poisonRoutine);
         burnRoutine = null;
+        poisonRoutine = null;
     }
 }
