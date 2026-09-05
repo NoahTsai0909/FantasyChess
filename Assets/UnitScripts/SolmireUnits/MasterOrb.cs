@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
+using static CombatEventBus;
 using static UnityEngine.EventSystems.EventTrigger;
 
 public class MasterOrb : UnitInstance
@@ -66,40 +67,51 @@ public class MasterOrb : UnitInstance
     }
 
 
+
     public override void EnterCombat(GridManager grid, int row, int col, bool isPlayer, bool startCombat = true)
     {
         base.EnterCombat(grid, row, col, isPlayer, startCombat);
 
-        CombatEventBus.OnActionResolved += HandleActionResolved;
-
+        CombatEventBus.OnCombatEvent += HandleCombatEvent;
     }
 
     private void OnDestroy()
     {
-        CombatEventBus.OnActionResolved -= HandleActionResolved;
+        CombatEventBus.OnCombatEvent -= HandleCombatEvent;
     }
 
-    private void HandleActionResolved(CombatAction action)
+    protected override void HandleCombatEvent(CombatEventType type, UnitInstance source, UnitInstance target, int amount)
     {
-        if (action.source == null) return;
-        if (action.source.isPlayer != this.isPlayer || action.source.isEnergy == false) return;
+        if (type != CombatEventType.AbilityUsed) return;
+        if (source.isPlayer != this.isPlayer) return;
+        if (source.isEnergy == false) return;
 
-        UnitInstance target = FindFarthestEnemy();
+        UnitInstance targetEnemy = FindFarthestEnemy();
         CombatManager.Instance.ExecuteAction(
             new CombatAction
             {
                 type = CombatActionType.Damage,
                 source = this,
-                target = target,
+                target = targetEnemy,
                 amount = stats.Attack,
                 reason = "Master Orb Passive",
                 isPassive = true
             }
         );
+
+        if (this != null && inCombat && currentSuffix != null)
+        {
+            currentSuffix.ExecuteEffect(this);
+        }
     }
 
     public override string GetPassiveDescription()
     {
-        return ($"Allies have [c_energy]+{energyBuff}[/c] [ENERGY]. When an ally uses [ENERGY], [c_attack]attack[/c] the farthest enemy by [ATK] {stats.Attack}.");
+        return ($"Allies have [c_energy]+{energyBuff}[/c] [ENERGY]. When an [ENERGY] ally uses an ability, [c_attack]attack[/c] the farthest enemy by [ATK] {stats.Attack}.");
+    }
+
+    public override string GetMutationTriggerText()
+    {
+        return ($"<br>Also ");
     }
 }

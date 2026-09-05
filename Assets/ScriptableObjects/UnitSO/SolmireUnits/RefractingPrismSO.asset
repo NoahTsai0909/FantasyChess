@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Refracting Prism
   maxHP: 140
-  mainStat: 3
+  mainStat: 0
   attack: 0
   heal: 0
   shield: 0

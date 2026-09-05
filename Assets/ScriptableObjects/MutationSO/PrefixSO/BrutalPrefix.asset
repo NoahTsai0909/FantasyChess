@@ -20,3 +20,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: da0d2f426274dcb4082a8f9f09b5f2e1, type: 2}
   - {fileID: 11400000, guid: 02702daadbee70744bf3fa8674d32ba4, type: 2}
   - {fileID: 11400000, guid: 198edc0aa634eb0438107f166dfb8c10, type: 2}
+  runeSprite: {fileID: 21300000, guid: 5f479ce52e9a9994dafed4b167c32633, type: 3}
+  runeColor: {r: 0.9748427, g: 0.21152234, b: 0.21152234, a: 1}
+  particlePrefab: {fileID: 1977816515400865268, guid: 7935f10c9e224d84799f62baf8662f90, type: 3}

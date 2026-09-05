@@ -25,7 +25,7 @@ public static class UnitGenerationService
         };
     }
 
-    public static List<UnitSaveData> GenerateShopUnits(int count, Region region, UnitTagFlags unitTags, int minProvision = 0, int maxProvision = -1, bool forceRarity = false, Rarity designatedRarity = Rarity.Common)
+    public static List<UnitSaveData> GenerateShopUnits(int count, Region region, UnitTagFlags unitTags, int minProvision = 0, int maxProvision = -1, bool forceRarity = false, Rarity designatedRarity = Rarity.Common, bool forceMutation = false)
     {
         var result = new List<UnitSaveData>();
         var usedDefinitions = new HashSet<UnitDefinition>();
@@ -80,22 +80,48 @@ public static class UnitGenerationService
             {
                 usedDefinitions.Add(def);
 
-                // 2. Set the final rarity
+                //Set the final rarity
                 Rarity finalRarity = rolledRarity;
                 Rarity? lowestOwnedRarity = GetOwnedUnitLowestRarity(def);
 
-                // Rule C: If they own the unit, universally override the shop's rolled rarity 
-                // to match their lowest owned copy so they can merge it.
                 if (lowestOwnedRarity.HasValue)
                 {
                     finalRarity = lowestOwnedRarity.Value;
                     Debug.Log($"[Shop] Rarity Override! {def.unitName} locked to {finalRarity} to match player inventory.");
                 }
 
+                //ROLL FOR MUTATION
+                MutationPrefixSO rolledPrefix = null;
+                MutationSuffixSO rolledSuffix = null;
+
+                //Get the epic probability for the current day
+                int currentDay = RunManager.Instance.Stats.CurrentDay;
+                DayRarityEntry currentDist = RunManager.Instance.rarityDistributionTable.GetForDay(currentDay);
+
+                //Roll a 0-99. If it's less than the epic chance, get a mutation
+                if (forceMutation || Random.Range(0, 100) < currentDist.epic)
+                {
+                    var allPrefixes = RunManager.Instance.allAvailablePrefixes;
+                    if (allPrefixes != null && allPrefixes.Count > 0)
+                    {
+                        //Pick a random prefix
+                        rolledPrefix = allPrefixes[Random.Range(0, allPrefixes.Count)];
+
+                        // Pick a random suffix from that prefix's specific bucket!
+                        if (rolledPrefix.allowedSuffixes != null && rolledPrefix.allowedSuffixes.Count > 0)
+                        {
+                            rolledSuffix = rolledPrefix.allowedSuffixes[Random.Range(0, rolledPrefix.allowedSuffixes.Count)];
+                        }
+                    }
+                }
+
+                //Save the unit with its new mutations
                 result.Add(new UnitSaveData
                 {
                     definition = def,
-                    rarity = finalRarity
+                    rarity = finalRarity,
+                    prefix = rolledPrefix,
+                    suffix = rolledSuffix 
                 });
             }
         }

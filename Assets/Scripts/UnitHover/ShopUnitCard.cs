@@ -41,6 +41,10 @@ public class ShopUnitCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             if (visualController != null)
             {
                 visualController.InitializeVisuals(assignedUnit.Definition, assignedUnit.CurrentRarity);
+                if (assignedUnit.currentPrefix != null)
+                {
+                    visualController.ApplyMutationVisuals(assignedUnit.currentPrefix);
+                }
             }
         }
 

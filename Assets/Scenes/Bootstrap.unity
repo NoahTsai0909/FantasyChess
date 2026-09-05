@@ -365,14 +365,24 @@ MonoBehaviour:
   playerTactics: []
   defaultUnits:
   - unitData:
-      definition: {fileID: 11400000, guid: 5503805cbdbe01845ba5135167c3fed1, type: 2}
+      definition: {fileID: 11400000, guid: 5f1b78a5fffe29a418f8723f751630c9, type: 2}
       rarity: 2
       provisionCost: 0
       provisionModifier: 0
       valueModifier: 0
-      prefix: {fileID: 11400000, guid: dc6dfe508fd58b74db4e62281603ec9c, type: 2}
-      suffix: {fileID: 11400000, guid: 4e3abcd856ad5ef40a3bf878592f90fa, type: 2}
+      prefix: {fileID: 11400000, guid: d6465bb6e64abc44cadd13f0f45ae05e, type: 2}
+      suffix: {fileID: 11400000, guid: da0d2f426274dcb4082a8f9f09b5f2e1, type: 2}
     row: 0
+    col: 0
+  - unitData:
+      definition: {fileID: 11400000, guid: f3419625afc257c48814a5060708dd76, type: 2}
+      rarity: 2
+      provisionCost: 0
+      provisionModifier: 0
+      valueModifier: 0
+      prefix: {fileID: 0}
+      suffix: {fileID: 0}
+    row: 1
     col: 0
   benchSize: 5
   regularEventsCompleted: 0
@@ -390,6 +400,14 @@ MonoBehaviour:
   allRegionTrees:
   - {fileID: 11400000, guid: abee08e9888d73f4883aa2306824939c, type: 2}
   lastChanceEvent: {fileID: 11400000, guid: 170fabe8d451fec42838fa21b843a617, type: 2}
+  allAvailablePrefixes:
+  - {fileID: 11400000, guid: d6465bb6e64abc44cadd13f0f45ae05e, type: 2}
+  - {fileID: 11400000, guid: dc6dfe508fd58b74db4e62281603ec9c, type: 2}
+  - {fileID: 11400000, guid: de4e44d1c88ebed46ac498d36fb5b1b8, type: 2}
+  - {fileID: 11400000, guid: 9c7b2360c99a54144b6bf6b4f2fc8e37, type: 2}
+  - {fileID: 11400000, guid: 37cb3ab5b9fe1a34cb7c9c7bdcb38b97, type: 2}
+  - {fileID: 11400000, guid: 4a8308120030d3747b3ab27f8be92e5b, type: 2}
+  - {fileID: 11400000, guid: 6367f8f218789804db7acb4ccb71c6cb, type: 2}
 --- !u!4 &221976165
 Transform:
   m_ObjectHideFlags: 0
@@ -944,7 +962,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc0c72defaec0db4791315e9b2cb2b2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnitVisualController
-  shadowSprite: {fileID: 0}
+  shadowSprite: {fileID: 21300000, guid: 5c9f4e5952f4b3d4bb0d145cf2924d21, type: 3}
   enablePulse: 1
   pulseSpeed: 4
   minThickness: 2

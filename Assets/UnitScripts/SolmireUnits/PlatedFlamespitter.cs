@@ -54,11 +54,21 @@ public class PlatedFlamespitter : UnitInstance
                 isPassive = true
             }
         );
+
+        if (inCombat && currentSuffix != null)
+        {
+            currentSuffix.ExecuteEffect(this);
+        }
+
     }
 
 
     public override string GetPassiveDescription()
     {
         return ($"When the ally behind this unit uses an ability, [c_burn]burn[/c] the nearest enemy for [BURN] {stats.Burn} and [c_shield]shield[/c] this for [SHIELD] {stats.Shield}.");
+    }
+    public override string GetMutationTriggerText()
+    {
+        return ($"<br>Also ");
     }
 }

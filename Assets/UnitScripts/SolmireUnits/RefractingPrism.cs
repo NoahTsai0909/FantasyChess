@@ -32,7 +32,6 @@ public class RefractingPrism : UnitInstance
                     isPassive = true
                 }
             );
-            Debug.Log($"Refracting Prism: Reflected {action.amount} damage back to {action.source.unitName}");
         }
         if (action.type == CombatActionType.Heal && action.source.isPlayer == this.isPlayer)
         {
@@ -47,9 +46,11 @@ public class RefractingPrism : UnitInstance
                     isPassive = true
                 }
             );
-            Debug.Log($"Refracting Prism: Reflected {action.amount} healing back to {action.source.unitName}");
         }
-
+        if (currentSuffix != null)
+        {
+            currentSuffix.ExecuteEffect(this);
+        }
 
     }
 
@@ -57,5 +58,10 @@ public class RefractingPrism : UnitInstance
     public override string GetPassiveDescription()
     {
         return ($"When this is [c_attack]attacked[/c] by an enemy, return the same [c_attack]damage[/c]. When this is [c_heal]healed[/c] by an ally, return the same [c_heal]healing[/c].");
+    }
+
+    public override string GetMutationTriggerText()
+    {
+        return ("<br>Also ");
     }
 }

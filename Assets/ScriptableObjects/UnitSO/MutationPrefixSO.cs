@@ -10,4 +10,8 @@ public class MutationPrefixSO : ScriptableObject
     public int flatBonusAmount = 5;
 
     public List<MutationSuffixSO> allowedSuffixes = new List<MutationSuffixSO>();
+
+    public Sprite runeSprite; 
+    public Color runeColor = Color.white;
+    public GameObject particlePrefab;
 }

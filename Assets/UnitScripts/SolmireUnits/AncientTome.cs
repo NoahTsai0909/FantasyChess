@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
+using static CombatEventBus;
 
 public class AncientTome : UnitInstance
 {
@@ -33,6 +34,10 @@ public class AncientTome : UnitInstance
         return ($"[c_side]Side[/c] allies have [c_energy]+{energyBuff}[/c] max [ENERGY].");
     }
 
+    public override string GetMutationTriggerText()
+    {
+        return ($"<br>When an [ENERGY] ally uses an ability, ");
+    }
     public override void RemoveAuras()
     {
         foreach (UnitInstance target in auraTargets)
@@ -69,5 +74,28 @@ public class AncientTome : UnitInstance
         energyBuff = findBuff(CurrentRarity);
     }
 
+    public override void EnterCombat(GridManager grid, int row, int col, bool isPlayer, bool startCombat = true)
+    {
+        base.EnterCombat(grid, row, col, isPlayer, startCombat);
+
+        CombatEventBus.OnCombatEvent += HandleCombatEvent;
+    }
+
+    private void OnDestroy()
+    {
+        CombatEventBus.OnCombatEvent -= HandleCombatEvent;
+    }
+
+    protected override void HandleCombatEvent(CombatEventType type, UnitInstance source, UnitInstance target, int amount)
+    {
+        if (type != CombatEventType.AbilityUsed) return;
+        if (source.isPlayer != this.isPlayer) return;
+        if (source.isEnergy == false) return;
+
+        if (this != null && inCombat && currentSuffix != null)
+        {
+            currentSuffix.ExecuteEffect(this);
+        }
+    }
 
 }

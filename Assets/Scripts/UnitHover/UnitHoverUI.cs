@@ -462,4 +462,6 @@ public class UnitHoverUI : MonoBehaviour
                 rectTransform.anchoredPosition = parentUI.rectTransform.anchoredPosition + new Vector2(offset, 0);
         }
     }
+
+
 }

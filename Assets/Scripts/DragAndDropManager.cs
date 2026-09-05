@@ -268,6 +268,15 @@ public class DragAndDropManager : MonoBehaviour
                     sourceGrid = null;
 
                     if (provisionManager != null) provisionManager.CalculateCurrentProvision();
+
+                    if (battleGrid != null) battleGrid.HideGridVisuals();
+                    if (benchGrid != null) benchGrid.HideGridVisuals();
+                    currentHoveredGrid = null;
+                    currentHoveredCell = new Vector2Int(-1, -1);
+                    if (UnitHoverDetector.Instance != null)
+                    {
+                        UnitHoverDetector.Instance.ForceInstantRecheck();
+                    }
                 }
                 else
                 {

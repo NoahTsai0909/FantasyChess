@@ -206,7 +206,13 @@ public class gameManager : MonoBehaviour
             int goldEarned = (playerWon && combatEvent != null) ? combatEvent.goldReward : goldFromKills;
             int xpEarned = (playerWon && combatEvent != null) ? combatEvent.reputationReward : 0;
 
-            lootSummaryUI.ShowSummary(goldEarned, xpEarned, pendingUnitRewardDef, pendingUnitRewardRarity, pendingTacticRewardDef, pendingTacticRewardRarity);
+            if (playerWon){
+                lootSummaryUI.ShowSummary(goldEarned, xpEarned, pendingUnitRewardDef, pendingUnitRewardRarity, pendingTacticRewardDef, pendingTacticRewardRarity);
+            }
+            else
+            {
+                lootSummaryUI.ShowSummary(goldEarned, xpEarned, null, Rarity.Common, null, Rarity.Common);
+            }
         }
 
         if (continueButton != null)

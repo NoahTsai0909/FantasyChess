@@ -4,7 +4,8 @@ public class ScaledBellow : UnitInstance
 {
     private int attackModifier = 10;
     private int burnModifier = 2;
-
+    private int mutationTriggerThreshold = 5;
+    private int mutationTriggerCount = 0;
     public override void InitializeFromSaveData(UnitSaveData data)
     {
         base.InitializeFromSaveData(data);
@@ -64,15 +65,30 @@ public class ScaledBellow : UnitInstance
         if (action.type == CombatActionType.ApplyBurn)
         {
             action.source.TemporaryStatModify(ModifiableStats.Burn, burnModifier);
+            mutationTriggerCount++;
         }
         if (action.type == CombatActionType.Damage){
             action.source.TemporaryStatModify(ModifiableStats.Attack, attackModifier);
+            mutationTriggerCount++;
+        }
+        if (currentSuffix != null)
+        {
+            if (mutationTriggerCount >= mutationTriggerThreshold)
+            {
+                mutationTriggerCount = 0;
+                currentSuffix.ExecuteEffect(this);
+            }
         }
     }
 
     public override string GetPassiveDescription()
     {
         return ($"When an ally [c_attack]attacks[/c], give it [ATK] {attackModifier}. \n When an ally [c_burn]burns[/c], give it [BURN] {burnModifier}.");
+    }
+
+    public override string GetMutationTriggerText()
+    {
+        return ($"<br>Every {mutationTriggerThreshold} times an ally [c_attack]attacks[/c] or [c_burn]burns[/c], ");
     }
 }
 

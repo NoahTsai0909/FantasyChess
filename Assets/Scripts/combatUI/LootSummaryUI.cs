@@ -29,10 +29,12 @@ public class LootSummaryUI : MonoBehaviour
         goldText.SetText(TextIconUtility.ParseDescription($"+ [GOLD] {gold}"));
         xpText.text = $"+{xp} XP";
 
+
         pendingUnit = unitDef;
         pendingUnitRarity = uRarity;
         pendingTactic = tacticDef;
         pendingTacticRarity = tRarity;
+
 
         // Clean up any old previews
         ClearPreviews();

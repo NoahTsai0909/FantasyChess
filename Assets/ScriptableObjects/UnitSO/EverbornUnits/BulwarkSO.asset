@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Bulwark
   maxHP: 120
-  mainStat: 2
+  mainStat: 5
   attack: 0
   heal: 10
   shield: 10

@@ -19,16 +19,20 @@ MonoBehaviour:
   portalGlowColor: {r: 1, g: 1, b: 1, a: 1}
   minDayRequired: 1
   maxDayRequired: 12
-  selectionWeight: 2
+  selectionWeight: 5
   maxAppearancesPerRun: 0
   targetScene: 6
   totalUnitsGenerated: 6
+  totalTacticsGenerated: 0
   unitsPerPage: 3
   refreshCost: 2
   discount: 0
+  forceMutation: 1
   allowedTags: 0
   region: 0
   maxProvisionCost: -1
   minProvisionCost: 0
   forceRarity: 0
   designatedRarity: 0
+  allowCombatExclusiveTactics: 0
+  onlyCombatExclusiveTactics: 0

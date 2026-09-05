@@ -25,6 +25,10 @@ public class UnitVisualController : MonoBehaviour
     public float breatheSpeed = 3f;
     public float breatheAmount = 0.03f;
 
+    private SpriteRenderer mutationRuneSR;
+    private GameObject activeParticles;
+
+
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -98,6 +102,14 @@ public class UnitVisualController : MonoBehaviour
             float breathe = Mathf.Sin(Time.time * breatheSpeed) * breatheAmount;
 
             transform.localScale = new Vector3(originalScale.x - (breathe * 0.5f), originalScale.y + breathe, originalScale.z);
+        }
+
+        if (mutationRuneSR != null)
+        {
+            float timePulse = (Mathf.Sin(Time.time * pulseSpeed) + 1f) / 2f;
+            Color c = mutationRuneSR.color;
+            c.a = Mathf.Lerp(0.3f, 0.8f, timePulse);
+            mutationRuneSR.color = c;
         }
     }
 
@@ -255,5 +267,59 @@ public class UnitVisualController : MonoBehaviour
     {
         originalScale = newScale;
         transform.localScale = newScale;
+    }
+
+    public void ApplyMutationVisuals(MutationPrefixSO prefix)
+    {
+        if (prefix == null) return;
+
+        if (prefix.runeSprite != null)
+        {
+            if (mutationRuneSR == null)
+            {
+                GameObject runeObj = new GameObject("MutationRune");
+                runeObj.transform.SetParent(this.transform, false);
+
+                runeObj.transform.localPosition = new Vector3(0f, -0.4f, 0f);
+
+                mutationRuneSR = runeObj.AddComponent<SpriteRenderer>();
+                mutationRuneSR.sortingOrder = sr.sortingOrder - 1;
+            }
+            mutationRuneSR.sprite = prefix.runeSprite;
+            mutationRuneSR.color = prefix.runeColor;
+        }
+
+        if (prefix.particlePrefab != null)
+        {
+            if (activeParticles != null) Destroy(activeParticles);
+
+            Transform particleParent = mutationRuneSR != null ? mutationRuneSR.transform : transform;
+            activeParticles = Instantiate(prefix.particlePrefab, particleParent);
+
+            activeParticles.transform.localPosition = new Vector3(0f, -0.4f, 0f); 
+
+            ParticleSystem ps = activeParticles.GetComponent<ParticleSystem>();
+            if (ps != null)
+            {
+                var main = ps.main;
+
+                Color particleTint = prefix.runeColor;
+
+                float glowMultiplier = 1.5f; 
+                particleTint.r = Mathf.Clamp01(particleTint.r * glowMultiplier);
+                particleTint.g = Mathf.Clamp01(particleTint.g * glowMultiplier);
+                particleTint.b = Mathf.Clamp01(particleTint.b * glowMultiplier);
+                particleTint.a = 1f;
+
+                main.startColor = particleTint;
+
+                ParticleSystemRenderer psRenderer = activeParticles.GetComponent<ParticleSystemRenderer>();
+                if (psRenderer != null && sr != null)
+                {
+                    psRenderer.sortingLayerID = sr.sortingLayerID;
+                    psRenderer.sortingOrder = sr.sortingOrder + 1;
+                }
+            }
+        }
     }
 }

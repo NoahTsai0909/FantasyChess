@@ -166,6 +166,7 @@ public class UnitInstance : MonoBehaviour
         currentEnergy = stats.maxEnergy;
 
         Visuals?.UpdateRarityOutline(CurrentRarity);
+        Visuals?.ApplyMutationVisuals(currentPrefix);
     }
 
     public virtual void InitializeFromSaveData(UnitSaveData data)
@@ -195,6 +196,7 @@ public class UnitInstance : MonoBehaviour
         currentEnergy = stats.maxEnergy;
 
         Visuals?.UpdateRarityOutline(CurrentRarity);
+        Visuals?.ApplyMutationVisuals(currentPrefix);
     }
 
 

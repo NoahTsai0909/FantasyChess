@@ -54,7 +54,8 @@ public class ShopSceneController : MonoBehaviour
             shopEvent.minProvisionCost,
             shopEvent.maxProvisionCost,
             shopEvent.forceRarity,
-            shopEvent.designatedRarity
+            shopEvent.designatedRarity,
+            shopEvent.forceMutation
         );
 
         shopState = RunManager.Instance.shopState;
@@ -164,7 +165,7 @@ public class ShopSceneController : MonoBehaviour
             SaveCurrentBoardsToRunManager();
             RunManager.Instance.Stats.CurrentGold -= unitCost;
 
-            PlayerUnitManager.Instance.TryAcquireUnit(unitData.definition, unitData.rarity);
+            PlayerUnitManager.Instance.TryAcquireUnit(unitData.definition, unitData.rarity, unitData.prefix, unitData.suffix);
 
             shopState.purchasedUnits.Add(unitData.definition);
 

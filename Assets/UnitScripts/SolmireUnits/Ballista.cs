@@ -44,10 +44,20 @@ public class Ballista : UnitInstance
                 }
             );
         }
+
+        if (this != null && inCombat && currentSuffix != null)
+        {
+            currentSuffix.ExecuteEffect(this);
+        }
     }
 
     public override string GetPassiveDescription()
     {
         return ($"When the ally in front of this unit uses an ability, [c_attack]attack[/c] the nearest enemy for [ATK] {stats.Attack}.");
+    }
+
+    public override string GetMutationTriggerText()
+    {
+        return ($"<br>Also ");
     }
 }

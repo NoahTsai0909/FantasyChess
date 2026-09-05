@@ -82,6 +82,9 @@ public class RunManager : MonoBehaviour
     [SerializeField] private List<RegionLevelTreeSO> allRegionTrees = new List<RegionLevelTreeSO>();
     [SerializeField] public LastChanceEventSO lastChanceEvent;
 
+    [Header("Mutation Pool")]
+    public List<MutationPrefixSO> allAvailablePrefixes = new List<MutationPrefixSO>();
+
     private void Awake()
     {
         if (Instance == null)
@@ -397,7 +400,7 @@ public class RunManager : MonoBehaviour
         return stats;
     }
 
-    public void InitializeShop(int unitCount, int tacticCount, Region region, UnitTagFlags unitTags, int minProvision = 0, int maxProvision = -1, bool forceRarity = false, Rarity designatedRarity = Rarity.Common)
+    public void InitializeShop(int unitCount, int tacticCount, Region region, UnitTagFlags unitTags, int minProvision = 0, int maxProvision = -1, bool forceRarity = false, Rarity designatedRarity = Rarity.Common, bool forceMutation = false)
     {
         if (shopState != null) return;
 
@@ -405,7 +408,7 @@ public class RunManager : MonoBehaviour
         List<UnitSaveData> generatedUnits = new List<UnitSaveData>();
         if (unitCount > 0)
         {
-            generatedUnits = UnitGenerationService.GenerateShopUnits(unitCount, region, unitTags, minProvision, maxProvision, forceRarity, designatedRarity);
+            generatedUnits = UnitGenerationService.GenerateShopUnits(unitCount, region, unitTags, minProvision, maxProvision, forceRarity, designatedRarity, forceMutation);
         }
 
         // 2. Generate Tactics (If this is a tactic shop)

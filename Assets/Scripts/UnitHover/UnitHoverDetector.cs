@@ -194,4 +194,19 @@ public class UnitHoverDetector : MonoBehaviour
         isUIHoverDriven = false;
         if (!isPinned) CancelHover();
     }
+
+    public void ForceInstantRecheck()
+    {
+        CancelHover();
+
+        Vector3 mouseWorldPos = GetMouseWorldPosition();
+        Collider2D hit = Physics2D.OverlapPoint(mouseWorldPos);
+        UnitInstance hitUnit = hit ? hit.GetComponent<UnitInstance>() : null;
+
+        if (hitUnit != null)
+        {
+            currentHoveredUnit = hitUnit;
+            hoverUIInstance.Show(hitUnit);
+        }
+    }
 }

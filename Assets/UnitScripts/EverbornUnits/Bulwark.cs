@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Bulwark : UnitInstance
 {
+    private int mutationTriggerCount = 0;
+    private int mutationTriggerThreshold = 8;
     public override void EnterCombat(GridManager grid, int row, int col, bool isPlayer, bool startCombat = true)
     {
         base.EnterCombat(grid, row, col, isPlayer, startCombat);
@@ -35,7 +37,18 @@ public class Bulwark : UnitInstance
                 reason = "Bulwark Shield Passive",
                 isPassive = true
             }
-        );
+            
+            );
+            if (currentSuffix != null)
+            {
+                mutationTriggerCount++;
+                if (mutationTriggerCount >= mutationTriggerThreshold)
+                {
+                    mutationTriggerCount = 0;
+                    currentSuffix.ExecuteEffect(this);
+                }
+                currentSuffix.ExecuteEffect(this);
+            }
         }
         else if (action.type == CombatActionType.Shield)
         {
@@ -49,13 +62,19 @@ public class Bulwark : UnitInstance
                 reason = "Bulwark Heal Passive",
                 isPassive = true
             }
-        );
-    }
+            );
+        }
+            
     }
 
 
     public override string GetPassiveDescription()
     {
         return ($"When an ally is [c_heal]healed[/c], [c_shield]shield[/c] it for [SHIELD] {stats.Shield}. When an ally is [c_shield]shielded[/c], [c_heal]heal[/c] it for [HEAL] {stats.Heal}. ");
+    }
+
+    public override string GetMutationTriggerText()
+    {
+        return ($"<br>Every {mutationTriggerThreshold} times this [c_shield]shields[/c], ");
     }
 }

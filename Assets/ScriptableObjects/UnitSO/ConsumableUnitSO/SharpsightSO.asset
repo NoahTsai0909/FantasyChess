@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UnitDefinition
   unitName: Sharpsight
   maxHP: 10
+  mainStat: 0
   attack: 0
   heal: 0
   shield: 0
