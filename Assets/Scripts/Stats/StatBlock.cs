@@ -139,7 +139,7 @@ public class StatBlock
         return Mathf.FloorToInt(mainValue * (mainWeight / grantedWeight));
     }
 
-    private float GetStatWeight(ModifiableStats stat)
+    public float GetStatWeight(ModifiableStats stat)
     {
         return stat switch
         {
@@ -148,6 +148,7 @@ public class StatBlock
             ModifiableStats.Attack => 1f,
             ModifiableStats.Heal => 1f,
             ModifiableStats.Shield => 1f,
+            ModifiableStats.MaxHP => 0.1f,
             _ => 1f
         };
     }

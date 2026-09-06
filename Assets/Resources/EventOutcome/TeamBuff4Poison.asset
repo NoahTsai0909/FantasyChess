@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: TeamBuff4Poison
   m_EditorClassIdentifier: Assembly-CSharp::GainTeamBuffOutcomeSO
   buffAmount: 4
-  buffType: 6
+  buffType: 7

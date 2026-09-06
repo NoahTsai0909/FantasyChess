@@ -493,8 +493,33 @@ public class UnitInstance : MonoBehaviour
 
     public virtual string GetMutationTriggerText()
     {
-        if (!isPassive) return "<br>";
-        return "<br>"; 
+        return ""; 
+    }
+
+    private string GetStatStringForUI(ModifiableStats stat)
+    {
+        return stat switch
+        {
+            ModifiableStats.Attack => "ATK",
+            ModifiableStats.MaxHP => "MAXHEALTH",
+            _ => stat.ToString().ToUpper()
+        };
+    }
+
+    public string GetMutationScalingText()
+    {
+        if (currentPrefix == null || definition == null) return "";
+
+        ModifiableStats mainStat = definition.mainStat;
+        ModifiableStats grantedStat = currentPrefix.statToGrant;
+        if (mainStat == ModifiableStats.None || mainStat == grantedStat) return "";
+        float mainWeight = Stats.GetStatWeight(mainStat);
+        float grantedWeight = Stats.GetStatWeight(grantedStat);
+        int percentage = Mathf.RoundToInt((mainWeight / grantedWeight) * 100f);
+        string mainStatName = GetStatStringForUI(mainStat);
+        string grantedStatName = GetStatStringForUI(grantedStat);
+        string prefixHex = ColorUtility.ToHtmlStringRGB(currentPrefix.runeColor);
+        return $"<color=#{prefixHex}>{currentPrefix.prefixName}</color>: This gains [{grantedStatName}] equal to {percentage}% of its [{mainStatName}].";
     }
 
     IStatSource GetRarityAdjustedDefinition()

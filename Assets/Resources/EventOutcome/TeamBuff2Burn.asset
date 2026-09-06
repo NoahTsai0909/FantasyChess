@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: TeamBuff2Burn
   m_EditorClassIdentifier: Assembly-CSharp::GainTeamBuffOutcomeSO
   buffAmount: 2
-  buffType: 5
+  buffType: 6

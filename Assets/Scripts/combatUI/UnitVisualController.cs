@@ -113,6 +113,18 @@ public class UnitVisualController : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        if (mutationRuneSR != null)
+        {
+            mutationRuneSR.transform.localScale = new Vector3(
+                1f / transform.localScale.x,
+                1f / transform.localScale.y,
+                1f / transform.localScale.z
+            );
+        }
+    }
+
 
     public void Flash(Color flashColor, bool doKnockback = true)
     {

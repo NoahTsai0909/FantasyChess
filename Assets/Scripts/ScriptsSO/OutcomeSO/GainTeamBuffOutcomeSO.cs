@@ -73,4 +73,5 @@ public class GainTeamBuffOutcomeSO : EventOutcomeSO
                 break;
         }
     }
+
 }

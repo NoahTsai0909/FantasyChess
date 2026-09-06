@@ -31,6 +31,11 @@ public class UnitHoverUI : MonoBehaviour
     [SerializeField] private GameObject passiveAbilityBox;
     [SerializeField] private TextMeshProUGUI passiveAbilityText;
 
+    [Header("Mutation UI")]
+    [SerializeField] private GameObject mutationDivider;
+    [SerializeField] private GameObject mutationAbilityBox;
+    [SerializeField] private TextMeshProUGUI mutationAbilityText;
+
     [Header("Tags")]
     [SerializeField] private Transform tagContainer;
     [SerializeField] private GameObject tagBadgePrefab;
@@ -100,8 +105,25 @@ public class UnitHoverUI : MonoBehaviour
         unit.RecalculateStats();
 
         string finalName = unit.Definition.unitName;
-        if (unit.currentPrefix != null) finalName = $"{unit.currentPrefix.prefixName} {finalName}";
-        if (unit.currentSuffix != null) finalName = $"{finalName} of {unit.currentSuffix.suffixName}";
+        string mutationColorHex = null;
+        if (unit.currentPrefix != null)
+        {
+            mutationColorHex = ColorUtility.ToHtmlStringRGB(unit.currentPrefix.runeColor);
+            finalName = $"<color=#{mutationColorHex}>{unit.currentPrefix.prefixName}</color> {finalName}";
+        }
+
+        if (unit.currentSuffix != null)
+        {
+            if (mutationColorHex != null)
+            {
+                finalName = $"{finalName} of <color=#{mutationColorHex}>{unit.currentSuffix.suffixName}</color>";
+            }
+            else
+            {
+                finalName = $"{finalName} of {unit.currentSuffix.suffixName}";
+            }
+        }
+
         nameText.text = finalName;
 
         SetRarityBackground(unit.CurrentRarity);
@@ -148,53 +170,9 @@ public class UnitHoverUI : MonoBehaviour
         }
         else
         {
-            // Just rebuild layout to ensure content fits, but keep position
             LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
-            
         }
-
-        string activeDesc = TextIconUtility.ParseDescription(unit.GetActiveDescription());
-        string passiveDesc = TextIconUtility.ParseDescription(unit.GetPassiveDescription());
-
-        if (unit.currentSuffix != null)
-        {
-            string triggerText = unit.GetMutationTriggerText();
-            string textWithoutBreaks = triggerText.Replace("<br>", "").Trim();
-            bool needsCapitalization = string.IsNullOrEmpty(textWithoutBreaks);
-
-            string actionPhrase = unit.currentSuffix.GetActionPhrase(unit, needsCapitalization);
-
-            string mutationSentence = triggerText + actionPhrase + ".";
-            mutationSentence = TextIconUtility.ParseDescription(mutationSentence);
-
-            if (unit.Definition.isPassive)
-                passiveDesc += mutationSentence;
-            else
-                activeDesc += mutationSentence;
-        }
-
-        // Handle Active Ability Box
-        if (!string.IsNullOrEmpty(activeDesc))
-        {
-            activeAbilityBox.SetActive(true);
-            activeAbilityText.SetText(activeDesc);
-        }
-        else
-        {
-            activeAbilityBox.SetActive(false);
-        }
-
-        // Handle Passive Ability Box
-        if (!string.IsNullOrEmpty(passiveDesc))
-        {
-            passiveAbilityBox.SetActive(true);
-            passiveAbilityText.SetText(passiveDesc);
-        }
-        else
-        {
-            passiveAbilityBox.SetActive(false);
-        }
-
+        UpdateAbilityDescriptions();
         foreach (Transform child in tagContainer)
         {
             child.gameObject.SetActive(false);
@@ -412,6 +390,7 @@ public class UnitHoverUI : MonoBehaviour
         if (stats.Multicast > 1) multicastText.SetText(TextIconUtility.FormatMulticast(stats.Multicast)); else multicastContainer.SetActive(false);
 
         statText.SetText(allStats);
+        UpdateAbilityDescriptions();
     }
 
     public void ToggleUpgradePreview()
@@ -460,6 +439,68 @@ public class UnitHoverUI : MonoBehaviour
                 rectTransform.anchoredPosition = parentUI.rectTransform.anchoredPosition + new Vector2(-offset, 0);
             else
                 rectTransform.anchoredPosition = parentUI.rectTransform.anchoredPosition + new Vector2(offset, 0);
+        }
+    }
+
+    private void UpdateAbilityDescriptions()
+    {
+        string activeDesc = TextIconUtility.ParseDescription(currentUnit.GetActiveDescription());
+        string passiveDesc = TextIconUtility.ParseDescription(currentUnit.GetPassiveDescription());
+
+        if (currentUnit.currentSuffix != null)
+        {
+            string triggerText = currentUnit.GetMutationTriggerText();
+            string actionPhrase = currentUnit.currentSuffix.GetActionPhrase(currentUnit, true);
+
+            string suffixLabel = currentUnit.currentSuffix.suffixName;
+            if (currentUnit.currentPrefix != null)
+            {
+                string hex = ColorUtility.ToHtmlStringRGB(currentUnit.currentPrefix.runeColor);
+                suffixLabel = $"<color=#{hex}>{suffixLabel}</color>";
+            }
+
+            string mutationSentence = $"<br>{triggerText}{suffixLabel}: {actionPhrase}.";
+            mutationSentence = TextIconUtility.ParseDescription(mutationSentence);
+
+            if (currentUnit.Definition.isPassive)
+                passiveDesc += mutationSentence;
+            else
+                activeDesc += mutationSentence;
+        }
+
+        if (!string.IsNullOrEmpty(activeDesc))
+        {
+            activeAbilityBox.SetActive(true);
+            activeAbilityText.SetText(activeDesc);
+        }
+        else
+        {
+            activeAbilityBox.SetActive(false);
+        }
+
+        if (!string.IsNullOrEmpty(passiveDesc))
+        {
+            passiveAbilityBox.SetActive(true);
+            passiveAbilityText.SetText(passiveDesc);
+        }
+        else
+        {
+            passiveAbilityBox.SetActive(false);
+        }
+
+        string mutationScalingDesc = currentUnit.GetMutationScalingText();
+        if (!string.IsNullOrEmpty(mutationScalingDesc))
+        {
+            if (mutationDivider != null) mutationDivider.SetActive(true);
+            if (mutationAbilityBox != null) mutationAbilityBox.SetActive(true);
+
+            if (mutationAbilityText != null)
+                mutationAbilityText.SetText(TextIconUtility.ParseDescription(mutationScalingDesc));
+        }
+        else
+        {
+            if (mutationDivider != null) mutationDivider.SetActive(false);
+            if (mutationAbilityBox != null) mutationAbilityBox.SetActive(false);
         }
     }
 

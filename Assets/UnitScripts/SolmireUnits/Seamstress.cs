@@ -31,6 +31,12 @@ public class Seamstress : UnitInstance
         };
     }
 
+    protected override void OnTierUpgraded()
+    {
+        base.OnTierUpgraded();
+        maxHealthBuffPercent = findBuff(CurrentRarity);
+    }
+
     public override void CombatStartEffect()
     {
         List<UnitInstance> adjacentAllies = FindAdjacentAllies();

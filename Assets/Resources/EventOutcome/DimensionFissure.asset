@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90341cda5ef33e4458f4d8f7ca3d4992, type: 3}
-  m_Name: TeamBuff5Attack
-  m_EditorClassIdentifier: Assembly-CSharp::GainTeamBuffOutcomeSO
-  buffAmount: 5
-  buffType: 1
+  m_Script: {fileID: 11500000, guid: 324de2fc1e889b34ca779f5732426ff6, type: 3}
+  m_Name: DimensionFissure
+  m_EditorClassIdentifier: Assembly-CSharp::GainSpecificUnitOutcomeSO
+  fallbackUnit: {fileID: 11400000, guid: f3419625afc257c48814a5060708dd76, type: 2}

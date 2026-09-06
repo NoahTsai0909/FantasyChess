@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: TeamBuff10Heal
   m_EditorClassIdentifier: Assembly-CSharp::GainTeamBuffOutcomeSO
   buffAmount: 10
-  buffType: 1
+  buffType: 2

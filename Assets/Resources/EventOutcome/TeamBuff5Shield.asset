@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: TeamBuff5Shield
   m_EditorClassIdentifier: Assembly-CSharp::GainTeamBuffOutcomeSO
   buffAmount: 5
-  buffType: 4
+  buffType: 5
